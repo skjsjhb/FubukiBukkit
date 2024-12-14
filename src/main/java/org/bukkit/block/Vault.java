@@ -13,37 +13,37 @@ import org.jetbrains.annotations.Nullable;
 public interface Vault extends TileState {
 
     /**
-     * Gets the distance(squared) at which a player must enter for this vault to
+     * Gets the distance at which a player must enter for this vault to
      * activate.
      *
-     * @return the distance(squared) at which a player must enter for this vault
+     * @return the distance at which a player must enter for this vault
      * to activate.
      */
     double getActivationRange();
 
     /**
-     * Sets the distance(squared) at which a player must enter for this vault to
+     * Sets the distance at which a player must enter for this vault to
      * activate.
      *
-     * @param range the distance(squared) at which a player must enter for this
+     * @param range the distance at which a player must enter for this
      * vault to activate.
      */
     void setActivationRange(double range);
 
     /**
-     * Gets the distance(squared) at which a player must exit for the vault to
+     * Gets the distance at which a player must exit for the vault to
      * deactivate.
      *
-     * @return the distance(squared) at which a player must exit for the vault
+     * @return the distance at which a player must exit for the vault
      * to deactivate.
      */
     double getDeactivationRange();
 
     /**
-     * Sets the distance(squared) at which a player must exit for this vault to
+     * Sets the distance at which a player must exit for this vault to
      * deactivate.
      *
-     * @param range the distance(squared) at which a player must exit for this
+     * @param range the distance at which a player must exit for this
      * vault to deactivate.
      */
     void setDeactivationRange(double range);
