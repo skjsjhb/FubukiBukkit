@@ -18,6 +18,10 @@ public interface MerchantInventoryViewBuilder<V extends InventoryView> extends I
     @Override
     MerchantInventoryViewBuilder<V> copy();
 
+    @NotNull
+    @Override
+    MerchantInventoryViewBuilder<V> title(@NotNull final String title);
+
     /**
      * Adds a merchant to this builder
      *

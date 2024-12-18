@@ -17,6 +17,10 @@ public interface LocationInventoryViewBuilder<V extends InventoryView> extends I
     @Override
     LocationInventoryViewBuilder<V> copy();
 
+    @NotNull
+    @Override
+    LocationInventoryViewBuilder<V> title(@NotNull final String title);
+
     /**
      * Determines whether or not the server should check if the player can reach
      * the location.
