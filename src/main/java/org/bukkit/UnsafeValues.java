@@ -10,6 +10,7 @@ import org.bukkit.damage.DamageEffect;
 import org.bukkit.damage.DamageSource;
 import org.bukkit.damage.DamageType;
 import org.bukkit.entity.EntityType;
+import org.bukkit.entity.Villager;
 import org.bukkit.inventory.CreativeCategory;
 import org.bukkit.inventory.EquipmentSlot;
 import org.bukkit.inventory.ItemStack;
@@ -137,4 +138,10 @@ public interface UnsafeValues {
 
     @ApiStatus.Internal
     Biome getCustomBiome();
+
+    @ApiStatus.Internal
+    Villager.ReputationType createReputationType(String key);
+
+    @ApiStatus.Internal
+    Villager.ReputationEvent createReputationEvent(String key);
 }
