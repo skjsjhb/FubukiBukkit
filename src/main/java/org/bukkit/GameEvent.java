@@ -3,13 +3,14 @@ package org.bukkit;
 import com.google.common.collect.Lists;
 import java.util.Collection;
 import java.util.Collections;
+import org.bukkit.registry.RegistryAware;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
 /**
  * Represents a generic Mojang game event.
  */
-public abstract class GameEvent implements Keyed {
+public abstract class GameEvent implements Keyed, RegistryAware {
 
     public static final GameEvent BLOCK_ACTIVATE = getEvent("block_activate");
     public static final GameEvent BLOCK_ATTACH = getEvent("block_attach");
@@ -111,6 +112,18 @@ public abstract class GameEvent implements Keyed {
     public static final GameEvent RESONATE_13 = getEvent("resonate_13");
     public static final GameEvent RESONATE_14 = getEvent("resonate_14");
     public static final GameEvent RESONATE_15 = getEvent("resonate_15");
+
+    /**
+     * {@inheritDoc}
+     *
+     * @see #getKeyOrThrow()
+     * @see #isRegistered()
+     * @deprecated A key might not always be present, use {@link #getKeyOrThrow()} instead.
+     */
+    @NotNull
+    @Override
+    @Deprecated(since = "1.21.4")
+    public abstract NamespacedKey getKey();
 
     /**
      * Returns a {@link GameEvent} by a {@link NamespacedKey}.

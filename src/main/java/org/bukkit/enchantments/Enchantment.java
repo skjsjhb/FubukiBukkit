@@ -7,6 +7,7 @@ import org.bukkit.NamespacedKey;
 import org.bukkit.Registry;
 import org.bukkit.Translatable;
 import org.bukkit.inventory.ItemStack;
+import org.bukkit.registry.RegistryAware;
 import org.jetbrains.annotations.Contract;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
@@ -14,7 +15,7 @@ import org.jetbrains.annotations.Nullable;
 /**
  * The various type of enchantments that may be added to armour or weapons
  */
-public abstract class Enchantment implements Keyed, Translatable {
+public abstract class Enchantment implements Keyed, Translatable, RegistryAware {
     /**
      * Provides protection against environmental damage
      */
@@ -310,6 +311,18 @@ public abstract class Enchantment implements Keyed, Translatable {
      * @return True if the enchantment may be applied, otherwise False
      */
     public abstract boolean canEnchantItem(@NotNull ItemStack item);
+
+    /**
+     * {@inheritDoc}
+     *
+     * @see #getKeyOrThrow()
+     * @see #isRegistered()
+     * @deprecated A key might not always be present, use {@link #getKeyOrThrow()} instead.
+     */
+    @NotNull
+    @Override
+    @Deprecated(since = "1.21.4")
+    public abstract NamespacedKey getKey();
 
     /**
      * Gets the Enchantment at the specified key

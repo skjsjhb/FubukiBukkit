@@ -128,6 +128,7 @@ import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.ItemType;
 import org.bukkit.inventory.meta.ItemMeta;
 import org.bukkit.material.MaterialData;
+import org.bukkit.registry.RegistryAware;
 import org.jetbrains.annotations.ApiStatus;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
@@ -135,7 +136,7 @@ import org.jetbrains.annotations.Nullable;
 /**
  * An enum of all material IDs accepted by the official server and client
  */
-public enum Material implements Keyed, Translatable {
+public enum Material implements Keyed, Translatable, RegistryAware {
     //<editor-fold desc="Materials" defaultstate="collapsed">
     AIR(9648, 0),
     STONE(22948),
@@ -4839,11 +4840,36 @@ public enum Material implements Keyed, Translatable {
         return legacy;
     }
 
+    /**
+     * {@inheritDoc}
+     *
+     * @see #getKeyOrThrow()
+     * @see #isRegistered()
+     * @deprecated A key might not always be present, use {@link #getKeyOrThrow()} instead.
+     */
     @NotNull
     @Override
+    @Deprecated(since = "1.21.4")
     public NamespacedKey getKey() {
-        Preconditions.checkArgument(!legacy, "Cannot get key of Legacy Material");
-        return key;
+        return getKeyOrThrow();
+    }
+
+    @NotNull
+    @Override
+    public NamespacedKey getKeyOrThrow() {
+        Preconditions.checkState(isRegistered(), "Cannot get key of this registry item, because it is not registered. Use #isRegistered() before calling this method.");
+        return this.key;
+    }
+
+    @Nullable
+    @Override
+    public NamespacedKey getKeyOrNull() {
+        return this.key;
+    }
+
+    @Override
+    public boolean isRegistered() {
+        return !legacy;
     }
 
     /**

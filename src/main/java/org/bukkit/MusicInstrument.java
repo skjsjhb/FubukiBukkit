@@ -3,10 +3,11 @@ package org.bukkit;
 import com.google.common.collect.Lists;
 import java.util.Collection;
 import java.util.Collections;
+import org.bukkit.registry.RegistryAware;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
-public abstract class MusicInstrument implements Keyed {
+public abstract class MusicInstrument implements Keyed, RegistryAware {
 
     public static final MusicInstrument PONDER_GOAT_HORN = getInstrument("ponder_goat_horn");
     public static final MusicInstrument SING_GOAT_HORN = getInstrument("sing_goat_horn");
@@ -16,6 +17,18 @@ public abstract class MusicInstrument implements Keyed {
     public static final MusicInstrument CALL_GOAT_HORN = getInstrument("call_goat_horn");
     public static final MusicInstrument YEARN_GOAT_HORN = getInstrument("yearn_goat_horn");
     public static final MusicInstrument DREAM_GOAT_HORN = getInstrument("dream_goat_horn");
+
+    /**
+     * {@inheritDoc}
+     *
+     * @see #getKeyOrThrow()
+     * @see #isRegistered()
+     * @deprecated A key might not always be present, use {@link #getKeyOrThrow()} instead.
+     */
+    @NotNull
+    @Override
+    @Deprecated(since = "1.21.4")
+    public abstract NamespacedKey getKey();
 
     /**
      * Returns a {@link MusicInstrument} by a {@link NamespacedKey}.

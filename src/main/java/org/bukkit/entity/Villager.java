@@ -9,6 +9,7 @@ import org.bukkit.Keyed;
 import org.bukkit.Location;
 import org.bukkit.NamespacedKey;
 import org.bukkit.Registry;
+import org.bukkit.registry.RegistryAware;
 import org.bukkit.util.OldEnum;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
@@ -287,7 +288,7 @@ public interface Villager extends AbstractVillager {
      * Represents Villager type, usually corresponding to what biome they spawn
      * in.
      */
-    interface Type extends OldEnum<Type>, Keyed {
+    interface Type extends OldEnum<Type>, Keyed, RegistryAware {
 
         Type DESERT = getType("desert");
         Type JUNGLE = getType("jungle");
@@ -301,6 +302,18 @@ public interface Villager extends AbstractVillager {
         private static Type getType(@NotNull String key) {
             return Registry.VILLAGER_TYPE.getOrThrow(NamespacedKey.minecraft(key));
         }
+
+        /**
+         * {@inheritDoc}
+         *
+         * @see #getKeyOrThrow()
+         * @see #isRegistered()
+         * @deprecated A key might not always be present, use {@link #getKeyOrThrow()} instead.
+         */
+        @NotNull
+        @Override
+        @Deprecated(since = "1.21.4")
+        NamespacedKey getKey();
 
         /**
          * @param name of the villager type.
@@ -330,7 +343,7 @@ public interface Villager extends AbstractVillager {
      * Represents the various different Villager professions there may be.
      * Villagers have different trading options depending on their profession,
      */
-    interface Profession extends OldEnum<Profession>, Keyed {
+    interface Profession extends OldEnum<Profession>, Keyed, RegistryAware {
 
         Profession NONE = getProfession("none");
         /**
@@ -408,6 +421,18 @@ public interface Villager extends AbstractVillager {
         private static Profession getProfession(@NotNull String key) {
             return Registry.VILLAGER_PROFESSION.getOrThrow(NamespacedKey.minecraft(key));
         }
+
+        /**
+         * {@inheritDoc}
+         *
+         * @see #getKeyOrThrow()
+         * @see #isRegistered()
+         * @deprecated A key might not always be present, use {@link #getKeyOrThrow()} instead.
+         */
+        @NotNull
+        @Override
+        @Deprecated(since = "1.21.4")
+        NamespacedKey getKey();
 
         /**
          * @param name of the villager profession.

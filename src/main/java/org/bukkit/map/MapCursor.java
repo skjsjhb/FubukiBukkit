@@ -6,6 +6,7 @@ import java.util.Locale;
 import org.bukkit.Keyed;
 import org.bukkit.NamespacedKey;
 import org.bukkit.Registry;
+import org.bukkit.registry.RegistryAware;
 import org.bukkit.util.OldEnum;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
@@ -229,7 +230,7 @@ public final class MapCursor {
      * index in the file './assets/minecraft/textures/map/map_icons.png' from minecraft.jar or from a
      * resource pack.
      */
-    public interface Type extends OldEnum<Type>, Keyed {
+    public interface Type extends OldEnum<Type>, Keyed, RegistryAware {
 
         Type PLAYER = getType("player");
         Type FRAME = getType("frame");
@@ -271,6 +272,18 @@ public final class MapCursor {
         private static Type getType(@NotNull String key) {
             return Registry.MAP_DECORATION_TYPE.getOrThrow(NamespacedKey.minecraft(key));
         }
+
+        /**
+         * {@inheritDoc}
+         *
+         * @see #getKeyOrThrow()
+         * @see #isRegistered()
+         * @deprecated A key might not always be present, use {@link #getKeyOrThrow()} instead.
+         */
+        @NotNull
+        @Override
+        @Deprecated(since = "1.21.4")
+        NamespacedKey getKey();
 
         /**
          * Gets the internal value of the cursor.

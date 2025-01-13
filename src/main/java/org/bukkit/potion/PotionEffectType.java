@@ -10,6 +10,7 @@ import org.bukkit.Keyed;
 import org.bukkit.NamespacedKey;
 import org.bukkit.Registry;
 import org.bukkit.Translatable;
+import org.bukkit.registry.RegistryAware;
 import org.jetbrains.annotations.Contract;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
@@ -17,7 +18,7 @@ import org.jetbrains.annotations.Nullable;
 /**
  * Represents a type of potion and its effect on an entity.
  */
-public abstract class PotionEffectType implements Keyed, Translatable {
+public abstract class PotionEffectType implements Keyed, Translatable, RegistryAware {
     private static final BiMap<Integer, PotionEffectType> ID_MAP = HashBiMap.create();
 
     /**
@@ -264,6 +265,18 @@ public abstract class PotionEffectType implements Keyed, Translatable {
      */
     @NotNull
     public abstract Color getColor();
+
+    /**
+     * {@inheritDoc}
+     *
+     * @see #getKeyOrThrow()
+     * @see #isRegistered()
+     * @deprecated A key might not always be present, use {@link #getKeyOrThrow()} instead.
+     */
+    @NotNull
+    @Override
+    @Deprecated(since = "1.21.4")
+    public abstract NamespacedKey getKey();
 
     /**
      * Returns the duration modifier applied to effects of this type.

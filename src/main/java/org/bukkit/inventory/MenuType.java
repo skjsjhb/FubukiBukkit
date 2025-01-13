@@ -17,6 +17,7 @@ import org.bukkit.inventory.view.StonecutterView;
 import org.bukkit.inventory.view.builder.InventoryViewBuilder;
 import org.bukkit.inventory.view.builder.LocationInventoryViewBuilder;
 import org.bukkit.inventory.view.builder.MerchantInventoryViewBuilder;
+import org.bukkit.registry.RegistryAware;
 import org.jetbrains.annotations.ApiStatus;
 import org.jetbrains.annotations.NotNull;
 
@@ -25,7 +26,7 @@ import org.jetbrains.annotations.NotNull;
  * created and viewed by the player.
  */
 @ApiStatus.Experimental
-public interface MenuType extends Keyed {
+public interface MenuType extends Keyed, RegistryAware {
 
     /**
      * A MenuType which represents a chest with 1 row.
@@ -196,6 +197,18 @@ public interface MenuType extends Keyed {
      */
     @NotNull
     Class<? extends InventoryView> getInventoryViewClass();
+
+    /**
+     * {@inheritDoc}
+     *
+     * @see #getKeyOrThrow()
+     * @see #isRegistered()
+     * @deprecated A key might not always be present, use {@link #getKeyOrThrow()} instead.
+     */
+    @NotNull
+    @Override
+    @Deprecated(since = "1.21.4")
+    NamespacedKey getKey();
 
     @NotNull
     private static <T extends MenuType> T get(@NotNull final String key) {
