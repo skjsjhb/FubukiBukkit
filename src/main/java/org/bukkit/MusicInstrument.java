@@ -19,6 +19,36 @@ public abstract class MusicInstrument implements Keyed, RegistryAware {
     public static final MusicInstrument DREAM_GOAT_HORN = getInstrument("dream_goat_horn");
 
     /**
+     * Gets how long the use duration is for the instrument.
+     *
+     * @return the duration.
+     */
+    public abstract float getDuration();
+
+    /**
+     * Gets the range of the sound.
+     *
+     * @return the range of the sound.
+     */
+    public abstract float getRange();
+
+    /**
+     * Gets the description of this instrument.
+     *
+     * @return the description.
+     */
+    @NotNull
+    public abstract String getDescription();
+
+    /**
+     * Gets the sound/sound-event for this instrument.
+     *
+     * @return a sound.
+     */
+    @NotNull
+    public abstract Sound getSoundEvent();
+
+    /**
      * {@inheritDoc}
      *
      * @see #getKeyOrThrow()
