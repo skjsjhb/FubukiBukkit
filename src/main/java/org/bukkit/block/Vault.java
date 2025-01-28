@@ -1,5 +1,7 @@
 package org.bukkit.block;
 
+import java.util.Set;
+import java.util.UUID;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.loot.LootTable;
 import org.jetbrains.annotations.ApiStatus;
@@ -96,4 +98,13 @@ public interface Vault extends TileState {
      * @param keyItem the key item
      */
     void setKeyItem(@NotNull ItemStack keyItem);
+
+    /**
+     * Gets the players who have already received rewards from this vault.
+     *
+     * @return unmodifiable set of player UUIDs
+     * @throws IllegalStateException if this block state is not placed
+     */
+    @NotNull
+    Set<UUID> getRewardedPlayers();
 }
