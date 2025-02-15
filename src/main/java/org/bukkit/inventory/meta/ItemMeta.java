@@ -23,6 +23,7 @@ import org.bukkit.inventory.meta.components.FoodComponent;
 import org.bukkit.inventory.meta.components.JukeboxPlayableComponent;
 import org.bukkit.inventory.meta.components.ToolComponent;
 import org.bukkit.inventory.meta.components.UseCooldownComponent;
+import org.bukkit.inventory.meta.components.consumable.ConsumableComponent;
 import org.bukkit.inventory.meta.tags.CustomItemTagContainer;
 import org.bukkit.persistence.PersistentDataHolder;
 import org.bukkit.tag.DamageTypeTags;
@@ -624,6 +625,33 @@ public interface ItemMeta extends Cloneable, ConfigurationSerializable, Persiste
      * @param food new food
      */
     void setFood(@Nullable FoodComponent food);
+
+    /**
+     * Checks if the consumable is set.
+     *
+     * @return if a consumable is set
+     */
+    boolean hasConsumable();
+
+    /**
+     * Gets the consumable set on this item, or creates an empty consumable instance.
+     * <p>
+     * The returned component is a snapshot of its current state and does not
+     * reflect a live view of what is on an item. After changing any value on
+     * this component, it must be set with {@link #setConsumable(ConsumableComponent)} to
+     * apply the changes.
+     *
+     * @return food
+     */
+    @NotNull
+    ConsumableComponent getConsumable();
+
+    /**
+     * Sets the item consumable.
+     *
+     * @param consumable new consumable
+     */
+    void setConsumable(@Nullable ConsumableComponent consumable);
 
     /**
      * Checks if the tool is set.
