@@ -20,7 +20,7 @@ public class CrafterCraftEvent extends BlockEvent implements Cancellable {
     private List<ItemStack> remainingItems;
     private boolean cancelled;
 
-    @Deprecated
+    @Deprecated(since = "1.21.4")
     public CrafterCraftEvent(@NotNull Block theBlock, @NotNull CraftingRecipe recipe, @NotNull ItemStack result) {
         this(theBlock, recipe, result, new ArrayList<>());
     }
