@@ -1,12 +1,13 @@
 package org.bukkit.block.spawner;
 
 import com.google.common.base.Preconditions;
-import java.util.Map;
 import org.bukkit.entity.EntitySnapshot;
 import org.bukkit.inventory.EquipmentSlot;
 import org.bukkit.loot.LootTable;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
+
+import java.util.Map;
 
 /**
  * Represents a weighted spawn potential that can be added to a monster spawner.
@@ -116,12 +117,26 @@ public class SpawnerEntry {
      */
     public static class Equipment {
 
-        private LootTable equipmentLootTable;
         private final Map<EquipmentSlot, Float> dropChances;
+        private LootTable equipmentLootTable;
 
         public Equipment(@NotNull LootTable equipmentLootTable, @NotNull Map<EquipmentSlot, Float> dropChances) {
             this.equipmentLootTable = equipmentLootTable;
             this.dropChances = dropChances;
+        }
+
+        /**
+         * Gets the loot table for the entity.
+         * <br>
+         * <p>
+         * If an entity does not have a loot table, this will return null, NOT
+         * an empty loot table.
+         *
+         * @return the loot table for this entity.
+         */
+        @NotNull
+        public LootTable getEquipmentLootTable() {
+            return this.equipmentLootTable;
         }
 
         /**
@@ -133,20 +148,6 @@ public class SpawnerEntry {
          */
         public void setEquipmentLootTable(@NotNull LootTable table) {
             this.equipmentLootTable = table;
-        }
-
-        /**
-         * Gets the loot table for the entity.
-         * <br>
-         *
-         * If an entity does not have a loot table, this will return null, NOT
-         * an empty loot table.
-         *
-         * @return the loot table for this entity.
-         */
-        @NotNull
-        public LootTable getEquipmentLootTable() {
-            return this.equipmentLootTable;
         }
 
         /**

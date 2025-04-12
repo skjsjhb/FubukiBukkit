@@ -1,6 +1,5 @@
 package org.bukkit.event.player;
 
-import java.util.List;
 import org.bukkit.block.Block;
 import org.bukkit.entity.Player;
 import org.bukkit.event.Cancellable;
@@ -8,6 +7,8 @@ import org.bukkit.event.HandlerList;
 import org.bukkit.inventory.EquipmentSlot;
 import org.bukkit.inventory.ItemStack;
 import org.jetbrains.annotations.NotNull;
+
+import java.util.List;
 
 /**
  * This event is called whenever a player harvests a block.
@@ -22,10 +23,10 @@ import org.jetbrains.annotations.NotNull;
 public class PlayerHarvestBlockEvent extends PlayerEvent implements Cancellable {
 
     private static final HandlerList handlers = new HandlerList();
-    private boolean cancel = false;
     private final Block harvestedBlock;
     private final EquipmentSlot hand;
     private final List<ItemStack> itemsHarvested;
+    private boolean cancel = false;
 
     public PlayerHarvestBlockEvent(@NotNull Player player, @NotNull Block harvestedBlock, @NotNull EquipmentSlot hand, @NotNull List<ItemStack> itemsHarvested) {
         super(player);
@@ -37,6 +38,11 @@ public class PlayerHarvestBlockEvent extends PlayerEvent implements Cancellable 
     @Deprecated(since = "1.19.2")
     public PlayerHarvestBlockEvent(@NotNull Player player, @NotNull Block harvestedBlock, @NotNull List<ItemStack> itemsHarvested) {
         this(player, harvestedBlock, EquipmentSlot.HAND, itemsHarvested);
+    }
+
+    @NotNull
+    public static HandlerList getHandlerList() {
+        return handlers;
     }
 
     /**
@@ -82,11 +88,6 @@ public class PlayerHarvestBlockEvent extends PlayerEvent implements Cancellable 
     @NotNull
     @Override
     public HandlerList getHandlers() {
-        return handlers;
-    }
-
-    @NotNull
-    public static HandlerList getHandlerList() {
         return handlers;
     }
 }

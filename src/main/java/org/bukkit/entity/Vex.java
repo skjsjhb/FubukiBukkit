@@ -10,7 +10,7 @@ public interface Vex extends Monster {
 
     /**
      * Gets the charging state of this entity.
-     *
+     * <p>
      * When this entity is charging it will having a glowing red texture.
      *
      * @return charging state
@@ -19,7 +19,7 @@ public interface Vex extends Monster {
 
     /**
      * Sets the charging state of this entity.
-     *
+     * <p>
      * When this entity is charging it will having a glowing red texture.
      *
      * @param charging new state
@@ -28,10 +28,10 @@ public interface Vex extends Monster {
 
     /**
      * Gets the bound of this entity.
-     *
+     * <p>
      * An idle vex will navigate a 15x11x15 area centered around its bound
      * location.
-     *
+     * <p>
      * When summoned by an Evoker, this location will be set to that of the
      * summoner.
      *
@@ -42,10 +42,10 @@ public interface Vex extends Monster {
 
     /**
      * Sets the bound of this entity.
-     *
+     * <p>
      * An idle vex will navigate a 15x11x15 area centered around its bound
      * location.
-     *
+     * <p>
      * When summoned by an Evoker, this location will be set to that of the
      * summoner.
      *

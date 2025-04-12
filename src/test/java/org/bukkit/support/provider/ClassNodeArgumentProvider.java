@@ -1,7 +1,5 @@
 package org.bukkit.support.provider;
 
-import java.lang.annotation.Annotation;
-import java.util.stream.Stream;
 import org.bukkit.support.test.ClassNodeTest;
 import org.bukkit.support.test.ClassReaderTest;
 import org.junit.jupiter.api.extension.ExtensionContext;
@@ -11,6 +9,9 @@ import org.junit.jupiter.params.support.AnnotationConsumer;
 import org.objectweb.asm.ClassReader;
 import org.objectweb.asm.Opcodes;
 import org.objectweb.asm.tree.ClassNode;
+
+import java.lang.annotation.Annotation;
+import java.util.stream.Stream;
 
 public class ClassNodeArgumentProvider implements ArgumentsProvider, AnnotationConsumer<ClassNodeTest> {
 
@@ -43,7 +44,8 @@ public class ClassNodeArgumentProvider implements ArgumentsProvider, AnnotationC
         return classNode;
     }
 
-    private record ClassReaderArguments(Class<?>[] excludedClasses, String[] excludedPackages) implements ClassReaderTest {
+    private record ClassReaderArguments(Class<?>[] excludedClasses,
+                                        String[] excludedPackages) implements ClassReaderTest {
 
         @Override
         public Class<? extends Annotation> annotationType() {

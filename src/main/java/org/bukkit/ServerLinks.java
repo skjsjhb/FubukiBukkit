@@ -1,10 +1,11 @@
 package org.bukkit;
 
-import java.net.URI;
-import java.util.List;
 import org.jetbrains.annotations.ApiStatus;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
+
+import java.net.URI;
+import java.util.List;
 
 /**
  * Represents a collections of links which may be sent to a client.
@@ -34,7 +35,7 @@ public interface ServerLinks {
      * already set.
      *
      * @param type link type
-     * @param url link url
+     * @param url  link url
      * @return the added link
      */
     @NotNull
@@ -44,7 +45,7 @@ public interface ServerLinks {
      * Adds the given link to the list of links.
      *
      * @param type link type
-     * @param url link url
+     * @param url  link url
      * @return the added link
      */
     @NotNull
@@ -54,7 +55,7 @@ public interface ServerLinks {
      * Adds the given link to the list of links.
      *
      * @param displayName link name / display text
-     * @param url link url
+     * @param url         link url
      * @return the added link
      */
     @NotNull
@@ -75,6 +76,27 @@ public interface ServerLinks {
      */
     @NotNull
     ServerLinks copy();
+
+    /**
+     * Represents a known type of link which will be translated by the client
+     * and may have special functionality.
+     */
+    public enum Type {
+
+        /**
+         * Bug report links which may appear on disconnect/crash screens.
+         */
+        REPORT_BUG,
+        COMMUNITY_GUIDELINES,
+        SUPPORT,
+        STATUS,
+        FEEDBACK,
+        COMMUNITY,
+        WEBSITE,
+        FORUMS,
+        NEWS,
+        ANNOUNCEMENTS;
+    }
 
     /**
      * Represents a server link.
@@ -104,26 +126,5 @@ public interface ServerLinks {
          */
         @NotNull
         URI getUrl();
-    }
-
-    /**
-     * Represents a known type of link which will be translated by the client
-     * and may have special functionality.
-     */
-    public enum Type {
-
-        /**
-         * Bug report links which may appear on disconnect/crash screens.
-         */
-        REPORT_BUG,
-        COMMUNITY_GUIDELINES,
-        SUPPORT,
-        STATUS,
-        FEEDBACK,
-        COMMUNITY,
-        WEBSITE,
-        FORUMS,
-        NEWS,
-        ANNOUNCEMENTS;
     }
 }

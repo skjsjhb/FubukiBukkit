@@ -15,10 +15,9 @@ import org.jetbrains.annotations.Nullable;
 public class EntityResurrectEvent extends EntityEvent implements Cancellable {
 
     private static final HandlerList handlers = new HandlerList();
+    private final EquipmentSlot hand;
     //
     private boolean cancelled;
-
-    private final EquipmentSlot hand;
 
     public EntityResurrectEvent(@NotNull LivingEntity what, @Nullable EquipmentSlot hand) {
         super(what);
@@ -28,6 +27,11 @@ public class EntityResurrectEvent extends EntityEvent implements Cancellable {
     @Deprecated(since = "1.19.2")
     public EntityResurrectEvent(@NotNull LivingEntity what) {
         this(what, null);
+    }
+
+    @NotNull
+    public static HandlerList getHandlerList() {
+        return handlers;
     }
 
     @NotNull
@@ -60,11 +64,6 @@ public class EntityResurrectEvent extends EntityEvent implements Cancellable {
     @NotNull
     @Override
     public HandlerList getHandlers() {
-        return handlers;
-    }
-
-    @NotNull
-    public static HandlerList getHandlerList() {
         return handlers;
     }
 }

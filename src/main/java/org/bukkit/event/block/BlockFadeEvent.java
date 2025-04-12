@@ -23,8 +23,8 @@ import org.jetbrains.annotations.NotNull;
  */
 public class BlockFadeEvent extends BlockEvent implements Cancellable {
     private static final HandlerList handlers = new HandlerList();
-    private boolean cancelled;
     private final BlockState newState;
+    private boolean cancelled;
 
     public BlockFadeEvent(@NotNull final Block block, @NotNull final BlockState newState) {
         super(block);
@@ -32,12 +32,17 @@ public class BlockFadeEvent extends BlockEvent implements Cancellable {
         this.cancelled = false;
     }
 
+    @NotNull
+    public static HandlerList getHandlerList() {
+        return handlers;
+    }
+
     /**
      * Gets the state of the block that will be fading, melting or
      * disappearing.
      *
      * @return The block state of the block that will be fading, melting or
-     *     disappearing
+     * disappearing
      */
     @NotNull
     public BlockState getNewState() {
@@ -57,11 +62,6 @@ public class BlockFadeEvent extends BlockEvent implements Cancellable {
     @NotNull
     @Override
     public HandlerList getHandlers() {
-        return handlers;
-    }
-
-    @NotNull
-    public static HandlerList getHandlerList() {
         return handlers;
     }
 }

@@ -2,8 +2,9 @@ package org.bukkit.persistence;
 
 import com.google.common.collect.Collections2;
 import com.google.common.collect.Lists;
-import java.util.List;
 import org.jetbrains.annotations.NotNull;
+
+import java.util.List;
 
 /**
  * A provider for list persistent data types that represent the known primitive
@@ -166,10 +167,10 @@ public final class ListPersistentDataTypeProvider {
      * for its elements.
      *
      * @param elementType the persistent data type that is capable of
-     * writing/reading the elements of the list.
-     * @param <P> the generic type of the primitives stored in the list.
-     * @param <C> the generic type of the complex values yielded back by the
-     * persistent data types.
+     *                    writing/reading the elements of the list.
+     * @param <P>         the generic type of the primitives stored in the list.
+     * @param <C>         the generic type of the complex values yielded back by the
+     *                    persistent data types.
      * @return the created list persistent data type.
      */
     @NotNull
@@ -183,7 +184,7 @@ public final class ListPersistentDataTypeProvider {
      *
      * @param <P> the generic type of the primitives stored in the list.
      * @param <C> the generic type of the complex values yielded back by the
-     * persistent data types.
+     *            persistent data types.
      */
     private static final class ListPersistentDataTypeImpl<P, C> implements ListPersistentDataType<P, C> {
 

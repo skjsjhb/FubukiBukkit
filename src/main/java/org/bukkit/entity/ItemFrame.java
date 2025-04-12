@@ -28,7 +28,7 @@ public interface ItemFrame extends Hanging {
     /**
      * Set the item in this frame
      *
-     * @param item the new item
+     * @param item      the new item
      * @param playSound whether or not to play the item placement sound
      */
     public void setItem(@Nullable ItemStack item, boolean playSound);
@@ -90,7 +90,7 @@ public interface ItemFrame extends Hanging {
 
     /**
      * Returns whether the item frame is "fixed" or not.
-     *
+     * <p>
      * When true it's not possible to destroy/move the frame (e.g. by damage,
      * interaction, pistons, or missing supporting blocks), rotate the item or
      * place/remove items.
@@ -101,7 +101,7 @@ public interface ItemFrame extends Hanging {
 
     /**
      * Sets whether the item frame should be fixed or not.
-     *
+     * <p>
      * When set to true it's not possible to destroy/move the frame (e.g. by
      * damage, interaction, pistons, or missing supporting blocks), rotate the
      * item or place/remove items.

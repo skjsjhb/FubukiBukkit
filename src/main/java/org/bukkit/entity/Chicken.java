@@ -35,6 +35,11 @@ public interface Chicken extends Animals {
         Variant WARM = getType("warm");
         Variant COLD = getType("cold");
 
+        @NotNull
+        private static Variant getType(@NotNull String key) {
+            return Registry.CHICKEN_VARIANT.getOrThrow(NamespacedKey.minecraft(key));
+        }
+
         /**
          * {@inheritDoc}
          *
@@ -46,10 +51,5 @@ public interface Chicken extends Animals {
         @Override
         @Deprecated(since = "1.21.5")
         NamespacedKey getKey();
-
-        @NotNull
-        private static Variant getType(@NotNull String key) {
-            return Registry.CHICKEN_VARIANT.getOrThrow(NamespacedKey.minecraft(key));
-        }
     }
 }

@@ -1,9 +1,10 @@
 package org.bukkit.conversations;
 
-import java.util.Map;
 import org.bukkit.plugin.Plugin;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
+
+import java.util.Map;
 
 /**
  * A ConversationContext provides continuity between nodes in the prompt graph
@@ -17,10 +18,10 @@ public class ConversationContext {
     private final Plugin plugin;
 
     /**
-     * @param plugin The owning plugin.
-     * @param forWhom The subject of the conversation.
+     * @param plugin             The owning plugin.
+     * @param forWhom            The subject of the conversation.
      * @param initialSessionData Any initial values to put in the sessionData
-     *     map.
+     *                           map.
      */
     public ConversationContext(@Nullable Plugin plugin, @NotNull Conversable forWhom, @NotNull Map<Object, Object> initialSessionData) {
         this.plugin = plugin;
@@ -50,7 +51,7 @@ public class ConversationContext {
 
     /**
      * Gets the underlying sessionData map.
-     *
+     * <p>
      * May be directly modified to manipulate session data.
      *
      * @return The full sessionData map.
@@ -78,7 +79,7 @@ public class ConversationContext {
      * this as a way to pass data through each prompt as the conversation
      * develops.
      *
-     * @param key The session data key.
+     * @param key   The session data key.
      * @param value The session data value.
      */
     public void setSessionData(@NotNull Object key, @Nullable Object value) {

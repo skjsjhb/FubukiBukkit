@@ -1,11 +1,12 @@
 package org.bukkit.event.entity;
 
-import java.util.List;
 import org.bukkit.damage.DamageSource;
 import org.bukkit.entity.LivingEntity;
 import org.bukkit.event.HandlerList;
 import org.bukkit.inventory.ItemStack;
 import org.jetbrains.annotations.NotNull;
+
+import java.util.List;
 
 /**
  * Thrown whenever a LivingEntity dies
@@ -25,6 +26,11 @@ public class EntityDeathEvent extends EntityEvent {
         this.damageSource = damageSource;
         this.drops = drops;
         this.dropExp = droppedExp;
+    }
+
+    @NotNull
+    public static HandlerList getHandlerList() {
+        return handlers;
     }
 
     @NotNull
@@ -80,11 +86,6 @@ public class EntityDeathEvent extends EntityEvent {
     @NotNull
     @Override
     public HandlerList getHandlers() {
-        return handlers;
-    }
-
-    @NotNull
-    public static HandlerList getHandlerList() {
         return handlers;
     }
 }

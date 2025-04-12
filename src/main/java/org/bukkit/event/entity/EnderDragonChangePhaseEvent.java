@@ -13,14 +13,19 @@ import org.jetbrains.annotations.Nullable;
 public class EnderDragonChangePhaseEvent extends EntityEvent implements Cancellable {
 
     private static final HandlerList handlers = new HandlerList();
-    private boolean cancel;
     private final EnderDragon.Phase currentPhase;
+    private boolean cancel;
     private EnderDragon.Phase newPhase;
 
     public EnderDragonChangePhaseEvent(@NotNull EnderDragon enderDragon, @Nullable EnderDragon.Phase currentPhase, @NotNull EnderDragon.Phase newPhase) {
         super(enderDragon);
         this.currentPhase = currentPhase;
         this.setNewPhase(newPhase);
+    }
+
+    @NotNull
+    public static HandlerList getHandlerList() {
+        return handlers;
     }
 
     @NotNull
@@ -73,11 +78,6 @@ public class EnderDragonChangePhaseEvent extends EntityEvent implements Cancella
     @NotNull
     @Override
     public HandlerList getHandlers() {
-        return handlers;
-    }
-
-    @NotNull
-    public static HandlerList getHandlerList() {
         return handlers;
     }
 }

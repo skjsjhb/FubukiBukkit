@@ -41,12 +41,26 @@ public interface BlockState extends Metadatable {
     MaterialData getData();
 
     /**
+     * Sets the metadata for this block state.
+     *
+     * @param data New block specific metadata
+     */
+    void setData(@NotNull MaterialData data);
+
+    /**
      * Gets the data for this block state.
      *
      * @return block specific data
      */
     @NotNull
     BlockData getBlockData();
+
+    /**
+     * Sets the data for this block state.
+     *
+     * @param data New block specific data
+     */
+    void setBlockData(@NotNull BlockData data);
 
     /**
      * Returns a copy of this BlockState as an unplaced BlockState.
@@ -74,6 +88,13 @@ public interface BlockState extends Metadatable {
      */
     @NotNull
     Material getType();
+
+    /**
+     * Sets the type of this block state.
+     *
+     * @param type Material to change this block state to
+     */
+    void setType(@NotNull Material type);
 
     /**
      * Gets the current light level of the block represented by this block state.
@@ -148,27 +169,6 @@ public interface BlockState extends Metadatable {
     Chunk getChunk();
 
     /**
-     * Sets the metadata for this block state.
-     *
-     * @param data New block specific metadata
-     */
-    void setData(@NotNull MaterialData data);
-
-    /**
-     * Sets the data for this block state.
-     *
-     * @param data New block specific data
-     */
-    void setBlockData(@NotNull BlockData data);
-
-    /**
-     * Sets the type of this block state.
-     *
-     * @param type Material to change this block state to
-     */
-    void setType(@NotNull Material type);
-
-    /**
      * Attempts to update the block represented by this state, setting it to
      * the new values as defined by this state.
      * <p>
@@ -210,9 +210,9 @@ public interface BlockState extends Metadatable {
      * If applyPhysics is true, it will trigger a physics update on
      * surrounding blocks which could cause them to update or disappear.
      *
-     * @param force true to forcefully set the state
+     * @param force        true to forcefully set the state
      * @param applyPhysics false to cancel updating physics on surrounding
-     *     blocks
+     *                     blocks
      * @return true if the update was successful, otherwise false
      */
     boolean update(boolean force, boolean applyPhysics);
@@ -238,7 +238,7 @@ public interface BlockState extends Metadatable {
      * placed in the world.
      *
      * @return whether the state is placed in the world
-     *         or 'virtual' (e.g. on an itemstack)
+     * or 'virtual' (e.g. on an itemstack)
      */
     boolean isPlaced();
 }

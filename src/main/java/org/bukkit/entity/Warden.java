@@ -11,7 +11,7 @@ public interface Warden extends Monster {
 
     /**
      * Gets the anger level of this warden.
-     *
+     * <p>
      * Anger is an integer from 0 to 150. Once a Warden reaches 80 anger at a
      * target it will actively pursue it.
      *
@@ -21,7 +21,7 @@ public interface Warden extends Monster {
 
     /**
      * Gets the anger level of this warden.
-     *
+     * <p>
      * Anger is an integer from 0 to 150. Once a Warden reaches 80 anger at a
      * target it will actively pursue it.
      *
@@ -32,11 +32,11 @@ public interface Warden extends Monster {
 
     /**
      * Increases the anger level of this warden.
-     *
+     * <p>
      * Anger is an integer from 0 to 150. Once a Warden reaches 80 anger at a
      * target it will actively pursue it.
      *
-     * @param entity target entity
+     * @param entity   target entity
      * @param increase number to increase by
      * @see #getAnger(org.bukkit.entity.Entity)
      */
@@ -44,12 +44,12 @@ public interface Warden extends Monster {
 
     /**
      * Sets the anger level of this warden.
-     *
+     * <p>
      * Anger is an integer from 0 to 150. Once a Warden reaches 80 anger at a
      * target it will actively pursue it.
      *
      * @param entity target entity
-     * @param anger new anger level
+     * @param anger  new anger level
      * @see #getAnger(org.bukkit.entity.Entity)
      */
     void setAnger(@NotNull Entity entity, int anger);

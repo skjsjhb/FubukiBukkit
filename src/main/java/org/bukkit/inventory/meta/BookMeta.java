@@ -11,28 +11,6 @@ import org.jetbrains.annotations.Nullable;
 public interface BookMeta extends WritableBookMeta {
 
     /**
-     * Represents the generation (or level of copying) of a written book
-     */
-    enum Generation {
-        /**
-         * Book written into a book-and-quill. Can be copied. (Default value)
-         */
-        ORIGINAL,
-        /**
-         * Book that was copied from an original. Can be copied.
-         */
-        COPY_OF_ORIGINAL,
-        /**
-         * Book that was copied from a copy of an original. Can't be copied.
-         */
-        COPY_OF_COPY,
-        /**
-         * Unused; unobtainable by players. Can't be copied.
-         */
-        TATTERED;
-    }
-
-    /**
      * Checks for the existence of a title in the book.
      *
      * @return true if the book has a title
@@ -113,4 +91,26 @@ public interface BookMeta extends WritableBookMeta {
     @Override
     @NotNull
     BookMeta clone();
+
+    /**
+     * Represents the generation (or level of copying) of a written book
+     */
+    enum Generation {
+        /**
+         * Book written into a book-and-quill. Can be copied. (Default value)
+         */
+        ORIGINAL,
+        /**
+         * Book that was copied from an original. Can be copied.
+         */
+        COPY_OF_ORIGINAL,
+        /**
+         * Book that was copied from a copy of an original. Can't be copied.
+         */
+        COPY_OF_COPY,
+        /**
+         * Unused; unobtainable by players. Can't be copied.
+         */
+        TATTERED;
+    }
 }

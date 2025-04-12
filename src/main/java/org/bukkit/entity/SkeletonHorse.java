@@ -26,7 +26,7 @@ public interface SkeletonHorse extends AbstractHorse {
 
     /**
      * Returns the horse's current trap time in ticks.
-     *
+     * <p>
      * Trap time is incremented every tick when {@link #isTrapped()} is true.
      * The horse automatically despawns when it reaches 18000 ticks.
      *
@@ -36,7 +36,7 @@ public interface SkeletonHorse extends AbstractHorse {
 
     /**
      * Sets the trap time for the horse.
-     *
+     * <p>
      * Values greater than 18000 will cause the horse to despawn on the next
      * tick.
      *

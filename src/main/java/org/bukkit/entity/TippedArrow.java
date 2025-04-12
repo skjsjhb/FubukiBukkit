@@ -5,4 +5,5 @@ package org.bukkit.entity;
  * UNCRAFTABLE and effects being empty.
  */
 @Deprecated(since = "1.14")
-public interface TippedArrow extends Arrow { }
+public interface TippedArrow extends Arrow {
+}

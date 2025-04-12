@@ -15,9 +15,9 @@ public class PlayerLeashEntityEvent extends Event implements Cancellable {
     private static final HandlerList handlers = new HandlerList();
     private final Entity leashHolder;
     private final Entity entity;
-    private boolean cancelled = false;
     private final Player player;
     private final EquipmentSlot hand;
+    private boolean cancelled = false;
 
     public PlayerLeashEntityEvent(@NotNull Entity what, @NotNull Entity leashHolder, @NotNull Player leasher, @NotNull EquipmentSlot hand) {
         this.leashHolder = leashHolder;
@@ -29,6 +29,11 @@ public class PlayerLeashEntityEvent extends Event implements Cancellable {
     @Deprecated(since = "1.19.2")
     public PlayerLeashEntityEvent(@NotNull Entity what, @NotNull Entity leashHolder, @NotNull Player leasher) {
         this(what, leashHolder, leasher, EquipmentSlot.HAND);
+    }
+
+    @NotNull
+    public static HandlerList getHandlerList() {
+        return handlers;
     }
 
     /**
@@ -74,11 +79,6 @@ public class PlayerLeashEntityEvent extends Event implements Cancellable {
     @NotNull
     @Override
     public HandlerList getHandlers() {
-        return handlers;
-    }
-
-    @NotNull
-    public static HandlerList getHandlerList() {
         return handlers;
     }
 

@@ -1,18 +1,6 @@
 package org.bukkit.configuration.file;
 
 import com.google.common.base.Preconditions;
-import java.io.ByteArrayInputStream;
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.IOException;
-import java.io.Reader;
-import java.io.StringWriter;
-import java.nio.charset.StandardCharsets;
-import java.util.ArrayList;
-import java.util.LinkedList;
-import java.util.List;
-import java.util.Map;
-import java.util.logging.Level;
 import org.bukkit.Bukkit;
 import org.bukkit.configuration.Configuration;
 import org.bukkit.configuration.ConfigurationSection;
@@ -25,14 +13,16 @@ import org.yaml.snakeyaml.Yaml;
 import org.yaml.snakeyaml.comments.CommentLine;
 import org.yaml.snakeyaml.comments.CommentType;
 import org.yaml.snakeyaml.error.YAMLException;
-import org.yaml.snakeyaml.nodes.AnchorNode;
-import org.yaml.snakeyaml.nodes.MappingNode;
-import org.yaml.snakeyaml.nodes.Node;
-import org.yaml.snakeyaml.nodes.NodeTuple;
-import org.yaml.snakeyaml.nodes.ScalarNode;
-import org.yaml.snakeyaml.nodes.SequenceNode;
-import org.yaml.snakeyaml.nodes.Tag;
+import org.yaml.snakeyaml.nodes.*;
 import org.yaml.snakeyaml.reader.UnicodeReader;
+
+import java.io.*;
+import java.nio.charset.StandardCharsets;
+import java.util.ArrayList;
+import java.util.LinkedList;
+import java.util.List;
+import java.util.Map;
+import java.util.logging.Level;
 
 /**
  * An implementation of {@link Configuration} which saves all files in Yaml.
@@ -68,6 +58,65 @@ public class YamlConfiguration extends FileConfiguration {
         representer.setDefaultFlowStyle(DumperOptions.FlowStyle.BLOCK);
 
         yaml = new Yaml(constructor, representer, yamlDumperOptions, yamlLoaderOptions);
+    }
+
+    /**
+     * Creates a new {@link YamlConfiguration}, loading from the given file.
+     * <p>
+     * Any errors loading the Configuration will be logged and then ignored.
+     * If the specified input is not a valid config, a blank config will be
+     * returned.
+     * <p>
+     * The encoding used may follow the system dependent default.
+     *
+     * @param file Input file
+     * @return Resulting configuration
+     * @throws IllegalArgumentException Thrown if file is null
+     */
+    @NotNull
+    public static YamlConfiguration loadConfiguration(@NotNull File file) {
+        Preconditions.checkArgument(file != null, "File cannot be null");
+
+        YamlConfiguration config = new YamlConfiguration();
+
+        try {
+            config.load(file);
+        } catch (FileNotFoundException ex) {
+        } catch (IOException ex) {
+            Bukkit.getLogger().log(Level.SEVERE, "Cannot load " + file, ex);
+        } catch (InvalidConfigurationException ex) {
+            Bukkit.getLogger().log(Level.SEVERE, "Cannot load " + file, ex);
+        }
+
+        return config;
+    }
+
+    /**
+     * Creates a new {@link YamlConfiguration}, loading from the given reader.
+     * <p>
+     * Any errors loading the Configuration will be logged and then ignored.
+     * If the specified input is not a valid config, a blank config will be
+     * returned.
+     *
+     * @param reader input
+     * @return resulting configuration
+     * @throws IllegalArgumentException Thrown if stream is null
+     */
+    @NotNull
+    public static YamlConfiguration loadConfiguration(@NotNull Reader reader) {
+        Preconditions.checkArgument(reader != null, "Stream cannot be null");
+
+        YamlConfiguration config = new YamlConfiguration();
+
+        try {
+            config.load(reader);
+        } catch (IOException ex) {
+            Bukkit.getLogger().log(Level.SEVERE, "Cannot load configuration from stream", ex);
+        } catch (InvalidConfigurationException ex) {
+            Bukkit.getLogger().log(Level.SEVERE, "Cannot load configuration from stream", ex);
+        }
+
+        return config;
     }
 
     @NotNull
@@ -284,64 +333,5 @@ public class YamlConfiguration extends FileConfiguration {
         }
 
         return (YamlConfigurationOptions) options;
-    }
-
-    /**
-     * Creates a new {@link YamlConfiguration}, loading from the given file.
-     * <p>
-     * Any errors loading the Configuration will be logged and then ignored.
-     * If the specified input is not a valid config, a blank config will be
-     * returned.
-     * <p>
-     * The encoding used may follow the system dependent default.
-     *
-     * @param file Input file
-     * @return Resulting configuration
-     * @throws IllegalArgumentException Thrown if file is null
-     */
-    @NotNull
-    public static YamlConfiguration loadConfiguration(@NotNull File file) {
-        Preconditions.checkArgument(file != null, "File cannot be null");
-
-        YamlConfiguration config = new YamlConfiguration();
-
-        try {
-            config.load(file);
-        } catch (FileNotFoundException ex) {
-        } catch (IOException ex) {
-            Bukkit.getLogger().log(Level.SEVERE, "Cannot load " + file, ex);
-        } catch (InvalidConfigurationException ex) {
-            Bukkit.getLogger().log(Level.SEVERE, "Cannot load " + file, ex);
-        }
-
-        return config;
-    }
-
-    /**
-     * Creates a new {@link YamlConfiguration}, loading from the given reader.
-     * <p>
-     * Any errors loading the Configuration will be logged and then ignored.
-     * If the specified input is not a valid config, a blank config will be
-     * returned.
-     *
-     * @param reader input
-     * @return resulting configuration
-     * @throws IllegalArgumentException Thrown if stream is null
-     */
-    @NotNull
-    public static YamlConfiguration loadConfiguration(@NotNull Reader reader) {
-        Preconditions.checkArgument(reader != null, "Stream cannot be null");
-
-        YamlConfiguration config = new YamlConfiguration();
-
-        try {
-            config.load(reader);
-        } catch (IOException ex) {
-            Bukkit.getLogger().log(Level.SEVERE, "Cannot load configuration from stream", ex);
-        } catch (InvalidConfigurationException ex) {
-            Bukkit.getLogger().log(Level.SEVERE, "Cannot load configuration from stream", ex);
-        }
-
-        return config;
     }
 }

@@ -13,5 +13,6 @@ public final class Criterias {
     public static final String TOTAL_KILLS = "totalKillCount";
     public static final String DEATHS = "deathCount";
 
-    private Criterias() {}
+    private Criterias() {
+    }
 }

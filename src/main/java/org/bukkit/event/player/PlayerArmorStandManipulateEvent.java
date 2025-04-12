@@ -31,6 +31,11 @@ public class PlayerArmorStandManipulateEvent extends PlayerInteractEntityEvent {
         this(who, clickedEntity, playerItem, armorStandItem, slot, EquipmentSlot.HAND);
     }
 
+    @NotNull
+    public static HandlerList getHandlerList() {
+        return handlers;
+    }
+
     /**
      * Returns the item held by the player.
      * <p>
@@ -40,6 +45,7 @@ public class PlayerArmorStandManipulateEvent extends PlayerInteractEntityEvent {
      * stand. If both items are not empty, the items will be swapped.
      * <p>
      * In the case that this event is cancelled, the original items will remain the same.
+     *
      * @return the item held by the player.
      */
     @NotNull
@@ -58,6 +64,7 @@ public class PlayerArmorStandManipulateEvent extends PlayerInteractEntityEvent {
      * the items will be swapped.
      * <p>
      * In the case that the event is cancelled the original items will remain the same.
+     *
      * @return the item held by the armor stand.
      */
     @NotNull
@@ -96,11 +103,6 @@ public class PlayerArmorStandManipulateEvent extends PlayerInteractEntityEvent {
     @NotNull
     @Override
     public HandlerList getHandlers() {
-        return handlers;
-    }
-
-    @NotNull
-    public static HandlerList getHandlerList() {
         return handlers;
     }
 }

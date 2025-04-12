@@ -1,35 +1,7 @@
 package org.bukkit;
 
 import com.google.common.base.Preconditions;
-import org.bukkit.entity.Ageable;
-import org.bukkit.entity.ArmorStand;
-import org.bukkit.entity.Cat;
-import org.bukkit.entity.Dolphin;
-import org.bukkit.entity.Egg;
-import org.bukkit.entity.Entity;
-import org.bukkit.entity.EvokerFangs;
-import org.bukkit.entity.Firework;
-import org.bukkit.entity.Fox;
-import org.bukkit.entity.Goat;
-import org.bukkit.entity.Guardian;
-import org.bukkit.entity.Hoglin;
-import org.bukkit.entity.IronGolem;
-import org.bukkit.entity.LivingEntity;
-import org.bukkit.entity.Player;
-import org.bukkit.entity.Rabbit;
-import org.bukkit.entity.Ravager;
-import org.bukkit.entity.Sheep;
-import org.bukkit.entity.Sniffer;
-import org.bukkit.entity.Snowball;
-import org.bukkit.entity.Squid;
-import org.bukkit.entity.Tameable;
-import org.bukkit.entity.TippedArrow;
-import org.bukkit.entity.Villager;
-import org.bukkit.entity.Warden;
-import org.bukkit.entity.Witch;
-import org.bukkit.entity.Wolf;
-import org.bukkit.entity.Zoglin;
-import org.bukkit.entity.ZombieVillager;
+import org.bukkit.entity.*;
 import org.bukkit.entity.minecart.ExplosiveMinecart;
 import org.bukkit.entity.minecart.SpawnerMinecart;
 import org.jetbrains.annotations.NotNull;
@@ -64,10 +36,10 @@ public enum EntityEffect {
      * <p>
      * <b>This will cause client-glitches!</b>
      *
-     * @deprecated split into individual effects
      * @see #EGG_BREAK
      * @see #SNOWBALL_BREAK
      * @see #ENTITY_DEATH
+     * @deprecated split into individual effects
      */
     @Deprecated(since = "1.12.2")
     DEATH(3, Entity.class),
@@ -128,9 +100,9 @@ public enum EntityEffect {
     /**
      * When an entity eats a LONG_GRASS block.
      *
-     * @deprecated split into individual effects
      * @see #SHEEP_EAT_GRASS
      * @see #TNT_MINECART_IGNITE
+     * @deprecated split into individual effects
      */
     @Deprecated(since = "1.12.2")
     SHEEP_EAT(10, Entity.class),

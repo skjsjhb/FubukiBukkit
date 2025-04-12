@@ -11,9 +11,9 @@ import org.jetbrains.annotations.NotNull;
  */
 public class LightningStrikeEvent extends WeatherEvent implements Cancellable {
     private static final HandlerList handlers = new HandlerList();
-    private boolean canceled;
     private final LightningStrike bolt;
     private final Cause cause;
+    private boolean canceled;
 
     @Deprecated(since = "1.13.1")
     public LightningStrikeEvent(@NotNull final World world, @NotNull final LightningStrike bolt) {
@@ -24,6 +24,11 @@ public class LightningStrikeEvent extends WeatherEvent implements Cancellable {
         super(world);
         this.bolt = bolt;
         this.cause = cause;
+    }
+
+    @NotNull
+    public static HandlerList getHandlerList() {
+        return handlers;
     }
 
     @Override
@@ -59,11 +64,6 @@ public class LightningStrikeEvent extends WeatherEvent implements Cancellable {
     @NotNull
     @Override
     public HandlerList getHandlers() {
-        return handlers;
-    }
-
-    @NotNull
-    public static HandlerList getHandlerList() {
         return handlers;
     }
 

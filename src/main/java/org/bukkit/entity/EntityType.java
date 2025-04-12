@@ -1,48 +1,19 @@
 package org.bukkit.entity;
 
 import com.google.common.base.Preconditions;
-import java.util.HashMap;
-import java.util.Locale;
-import java.util.Map;
-import org.bukkit.Bukkit;
-import org.bukkit.Keyed;
-import org.bukkit.Location;
-import org.bukkit.NamespacedKey;
-import org.bukkit.Translatable;
-import org.bukkit.World;
-import org.bukkit.entity.boat.AcaciaBoat;
-import org.bukkit.entity.boat.AcaciaChestBoat;
-import org.bukkit.entity.boat.BambooChestRaft;
-import org.bukkit.entity.boat.BambooRaft;
-import org.bukkit.entity.boat.BirchBoat;
-import org.bukkit.entity.boat.BirchChestBoat;
-import org.bukkit.entity.boat.CherryBoat;
-import org.bukkit.entity.boat.CherryChestBoat;
-import org.bukkit.entity.boat.DarkOakBoat;
-import org.bukkit.entity.boat.DarkOakChestBoat;
-import org.bukkit.entity.boat.JungleBoat;
-import org.bukkit.entity.boat.JungleChestBoat;
-import org.bukkit.entity.boat.MangroveBoat;
-import org.bukkit.entity.boat.MangroveChestBoat;
-import org.bukkit.entity.boat.OakBoat;
-import org.bukkit.entity.boat.OakChestBoat;
-import org.bukkit.entity.boat.PaleOakBoat;
-import org.bukkit.entity.boat.PaleOakChestBoat;
-import org.bukkit.entity.boat.SpruceBoat;
-import org.bukkit.entity.boat.SpruceChestBoat;
-import org.bukkit.entity.minecart.CommandMinecart;
-import org.bukkit.entity.minecart.ExplosiveMinecart;
-import org.bukkit.entity.minecart.HopperMinecart;
-import org.bukkit.entity.minecart.PoweredMinecart;
-import org.bukkit.entity.minecart.RideableMinecart;
-import org.bukkit.entity.minecart.SpawnerMinecart;
-import org.bukkit.entity.minecart.StorageMinecart;
+import org.bukkit.*;
+import org.bukkit.entity.boat.*;
+import org.bukkit.entity.minecart.*;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.potion.PotionEffectType;
 import org.bukkit.registry.RegistryAware;
 import org.jetbrains.annotations.Contract;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
+
+import java.util.HashMap;
+import java.util.Locale;
+import java.util.Map;
 
 public enum EntityType implements Keyed, Translatable, RegistryAware {
 
@@ -348,12 +319,6 @@ public enum EntityType implements Keyed, Translatable, RegistryAware {
      */
     UNKNOWN(null, null, -1, false);
 
-    private final String name;
-    private final Class<? extends Entity> clazz;
-    private final short typeId;
-    private final boolean independent, living;
-    private final NamespacedKey key;
-
     private static final Map<String, EntityType> NAME_MAP = new HashMap<String, EntityType>();
     private static final Map<Short, EntityType> ID_MAP = new HashMap<Short, EntityType>();
 
@@ -368,6 +333,12 @@ public enum EntityType implements Keyed, Translatable, RegistryAware {
         }
     }
 
+    private final String name;
+    private final Class<? extends Entity> clazz;
+    private final short typeId;
+    private final boolean independent, living;
+    private final NamespacedKey key;
+
     private EntityType(/*@Nullable*/ String name, /*@Nullable*/ Class<? extends Entity> clazz, int typeId) {
         this(name, clazz, typeId, true);
     }
@@ -379,6 +350,39 @@ public enum EntityType implements Keyed, Translatable, RegistryAware {
         this.independent = independent;
         this.living = clazz != null && LivingEntity.class.isAssignableFrom(clazz);
         this.key = (name == null) ? null : NamespacedKey.minecraft(name);
+    }
+
+    /**
+     * Gets an entity type from its name.
+     *
+     * @param name the entity type's name
+     * @return the matching entity type or null
+     * @deprecated Magic value
+     */
+    @Deprecated(since = "1.6.2")
+    @Contract("null -> null")
+    @Nullable
+    public static EntityType fromName(@Nullable String name) {
+        if (name == null) {
+            return null;
+        }
+        return NAME_MAP.get(name.toLowerCase(Locale.ROOT));
+    }
+
+    /**
+     * Gets an entity from its id.
+     *
+     * @param id the raw type id
+     * @return the matching entity type or null
+     * @deprecated Magic value
+     */
+    @Deprecated(since = "1.6.2")
+    @Nullable
+    public static EntityType fromId(int id) {
+        if (id > Short.MAX_VALUE) {
+            return null;
+        }
+        return ID_MAP.get((short) id);
     }
 
     /**
@@ -421,39 +425,6 @@ public enum EntityType implements Keyed, Translatable, RegistryAware {
     @Deprecated(since = "1.6.2")
     public short getTypeId() {
         return typeId;
-    }
-
-    /**
-     * Gets an entity type from its name.
-     *
-     * @param name the entity type's name
-     * @return the matching entity type or null
-     * @deprecated Magic value
-     */
-    @Deprecated(since = "1.6.2")
-    @Contract("null -> null")
-    @Nullable
-    public static EntityType fromName(@Nullable String name) {
-        if (name == null) {
-            return null;
-        }
-        return NAME_MAP.get(name.toLowerCase(Locale.ROOT));
-    }
-
-    /**
-     * Gets an entity from its id.
-     *
-     * @param id the raw type id
-     * @return the matching entity type or null
-     * @deprecated Magic value
-     */
-    @Deprecated(since = "1.6.2")
-    @Nullable
-    public static EntityType fromId(int id) {
-        if (id > Short.MAX_VALUE) {
-            return null;
-        }
-        return ID_MAP.get((short) id);
     }
 
     /**

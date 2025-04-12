@@ -14,8 +14,8 @@ import org.jetbrains.annotations.Nullable;
  */
 public class CreeperPowerEvent extends EntityEvent implements Cancellable {
     private static final HandlerList handlers = new HandlerList();
-    private boolean canceled;
     private final PowerCause cause;
+    private boolean canceled;
     private LightningStrike bolt;
 
     public CreeperPowerEvent(@NotNull final Creeper creeper, @NotNull final LightningStrike bolt, @NotNull final PowerCause cause) {
@@ -26,6 +26,11 @@ public class CreeperPowerEvent extends EntityEvent implements Cancellable {
     public CreeperPowerEvent(@NotNull final Creeper creeper, @NotNull final PowerCause cause) {
         super(creeper);
         this.cause = cause;
+    }
+
+    @NotNull
+    public static HandlerList getHandlerList() {
+        return handlers;
     }
 
     @Override
@@ -67,11 +72,6 @@ public class CreeperPowerEvent extends EntityEvent implements Cancellable {
     @NotNull
     @Override
     public HandlerList getHandlers() {
-        return handlers;
-    }
-
-    @NotNull
-    public static HandlerList getHandlerList() {
         return handlers;
     }
 

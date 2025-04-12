@@ -10,12 +10,17 @@ import org.jetbrains.annotations.NotNull;
  */
 public class HangingBreakEvent extends HangingEvent implements Cancellable {
     private static final HandlerList handlers = new HandlerList();
-    private boolean cancelled;
     private final HangingBreakEvent.RemoveCause cause;
+    private boolean cancelled;
 
     public HangingBreakEvent(@NotNull final Hanging hanging, @NotNull final HangingBreakEvent.RemoveCause cause) {
         super(hanging);
         this.cause = cause;
+    }
+
+    @NotNull
+    public static HandlerList getHandlerList() {
+        return handlers;
     }
 
     /**
@@ -36,6 +41,12 @@ public class HangingBreakEvent extends HangingEvent implements Cancellable {
     @Override
     public void setCancelled(boolean cancel) {
         this.cancelled = cancel;
+    }
+
+    @NotNull
+    @Override
+    public HandlerList getHandlers() {
+        return handlers;
     }
 
     /**
@@ -62,16 +73,5 @@ public class HangingBreakEvent extends HangingEvent implements Cancellable {
          * Removed by an uncategorised cause
          */
         DEFAULT,
-    }
-
-    @NotNull
-    @Override
-    public HandlerList getHandlers() {
-        return handlers;
-    }
-
-    @NotNull
-    public static HandlerList getHandlerList() {
-        return handlers;
     }
 }

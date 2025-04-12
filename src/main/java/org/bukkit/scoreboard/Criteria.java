@@ -193,30 +193,6 @@ public interface Criteria {
     public static final Criteria KILLED_BY_TEAM_WHITE = Bukkit.getScoreboardCriteria("killedByTeam.white");
 
     /**
-     * Get the name of this criteria (its unique id).
-     *
-     * @return the name
-     */
-    @NotNull
-    public String getName();
-
-    /**
-     * Get whether or not this criteria is read only. If read only, scoreboards with this criteria
-     * cannot have their scores changed.
-     *
-     * @return true if read only, false otherwise
-     */
-    public boolean isReadOnly();
-
-    /**
-     * Get the {@link RenderType} used by default for this criteria.
-     *
-     * @return the default render type
-     */
-    @NotNull
-    public RenderType getDefaultRenderType();
-
-    /**
      * Get a {@link Criteria} for the specified statistic pertaining to blocks or items.
      * <p>
      * This method expects a {@link Statistic} of {@link Type#BLOCK} or {@link Type#ITEM} and the
@@ -233,14 +209,14 @@ public interface Criteria {
      * This method provides no guarantee that any given criteria exists on the vanilla server.
      *
      * @param statistic the statistic for which to get a criteria
-     * @param material the relevant material
+     * @param material  the relevant material
      * @return the criteria
      * @throws IllegalArgumentException if {@link Statistic#getType()} is anything other than
-     * {@link Type#BLOCK} or {@link Type#ITEM}
+     *                                  {@link Type#BLOCK} or {@link Type#ITEM}
      * @throws IllegalArgumentException if {@link Statistic#getType()} is {@link Type#BLOCK}, but
-     * {@link Material#isBlock()} is false
+     *                                  {@link Material#isBlock()} is false
      * @throws IllegalArgumentException if {@link Statistic#getType()} is {@link Type#ITEM}, but
-     * {@link Material#isItem()} is false
+     *                                  {@link Material#isItem()} is false
      */
     @NotNull
     public static Criteria statistic(@NotNull Statistic statistic, @NotNull Material material) {
@@ -294,7 +270,7 @@ public interface Criteria {
      * <p>
      * This method provides no guarantee that any given criteria exists on the vanilla server.
      *
-     * @param statistic the statistic for which to get a criteria
+     * @param statistic  the statistic for which to get a criteria
      * @param entityType the relevant entity type
      * @return the criteria
      * @throws IllegalArgumentException if {@link Statistic#getType()} is not {@link Type#ENTITY}
@@ -348,5 +324,29 @@ public interface Criteria {
     public static Criteria create(@NotNull String name) {
         return Bukkit.getScoreboardCriteria(name);
     }
+
+    /**
+     * Get the name of this criteria (its unique id).
+     *
+     * @return the name
+     */
+    @NotNull
+    public String getName();
+
+    /**
+     * Get whether or not this criteria is read only. If read only, scoreboards with this criteria
+     * cannot have their scores changed.
+     *
+     * @return true if read only, false otherwise
+     */
+    public boolean isReadOnly();
+
+    /**
+     * Get the {@link RenderType} used by default for this criteria.
+     *
+     * @return the default render type
+     */
+    @NotNull
+    public RenderType getDefaultRenderType();
 
 }

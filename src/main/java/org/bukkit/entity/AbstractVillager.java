@@ -15,7 +15,7 @@ public interface AbstractVillager extends Breedable, NPC, InventoryHolder, Merch
      * <br>
      * Note that this inventory is not the Merchant inventory, rather, it is the
      * items that a villager might have collected (from harvesting crops, etc.)
-     *
+     * <p>
      * {@inheritDoc}
      */
     @NotNull

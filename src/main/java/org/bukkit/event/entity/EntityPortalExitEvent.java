@@ -23,6 +23,11 @@ public class EntityPortalExitEvent extends EntityTeleportEvent {
         this.after = after;
     }
 
+    @NotNull
+    public static HandlerList getHandlerList() {
+        return handlers;
+    }
+
     /**
      * Gets a copy of the velocity that the entity has before entering the
      * portal.
@@ -57,11 +62,6 @@ public class EntityPortalExitEvent extends EntityTeleportEvent {
     @NotNull
     @Override
     public HandlerList getHandlers() {
-        return handlers;
-    }
-
-    @NotNull
-    public static HandlerList getHandlerList() {
         return handlers;
     }
 }

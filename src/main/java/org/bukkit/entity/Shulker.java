@@ -18,7 +18,7 @@ public interface Shulker extends Golem, Colorable, Enemy {
      *
      * @param value peek state of the shulker, should be in between 0.0 and 1.0
      * @throws IllegalArgumentException thrown if the value exceeds the valid
-     * range in between of 0.0 and 1.0
+     *                                  range in between of 0.0 and 1.0
      */
     public void setPeek(float value);
 

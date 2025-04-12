@@ -11,12 +11,17 @@ import org.jetbrains.annotations.NotNull;
  */
 public class PlayerGameModeChangeEvent extends PlayerEvent implements Cancellable {
     private static final HandlerList handlers = new HandlerList();
-    private boolean cancelled;
     private final GameMode newGameMode;
+    private boolean cancelled;
 
     public PlayerGameModeChangeEvent(@NotNull final Player player, @NotNull final GameMode newGameMode) {
         super(player);
         this.newGameMode = newGameMode;
+    }
+
+    @NotNull
+    public static HandlerList getHandlerList() {
+        return handlers;
     }
 
     @Override
@@ -32,7 +37,7 @@ public class PlayerGameModeChangeEvent extends PlayerEvent implements Cancellabl
     /**
      * Gets the GameMode the player is switched to.
      *
-     * @return  player's new GameMode
+     * @return player's new GameMode
      */
     @NotNull
     public GameMode getNewGameMode() {
@@ -42,11 +47,6 @@ public class PlayerGameModeChangeEvent extends PlayerEvent implements Cancellabl
     @NotNull
     @Override
     public HandlerList getHandlers() {
-        return handlers;
-    }
-
-    @NotNull
-    public static HandlerList getHandlerList() {
         return handlers;
     }
 }

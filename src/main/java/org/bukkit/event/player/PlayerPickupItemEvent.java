@@ -10,6 +10,7 @@ import org.jetbrains.annotations.NotNull;
 
 /**
  * Thrown when a player picks an item up from the ground
+ *
  * @deprecated {@link EntityPickupItemEvent}
  */
 @Deprecated(since = "1.12")
@@ -17,13 +18,18 @@ import org.jetbrains.annotations.NotNull;
 public class PlayerPickupItemEvent extends PlayerEvent implements Cancellable {
     private static final HandlerList handlers = new HandlerList();
     private final Item item;
-    private boolean cancel = false;
     private final int remaining;
+    private boolean cancel = false;
 
     public PlayerPickupItemEvent(@NotNull final Player player, @NotNull final Item item, final int remaining) {
         super(player);
         this.item = item;
         this.remaining = remaining;
+    }
+
+    @NotNull
+    public static HandlerList getHandlerList() {
+        return handlers;
     }
 
     /**
@@ -58,11 +64,6 @@ public class PlayerPickupItemEvent extends PlayerEvent implements Cancellable {
     @NotNull
     @Override
     public HandlerList getHandlers() {
-        return handlers;
-    }
-
-    @NotNull
-    public static HandlerList getHandlerList() {
         return handlers;
     }
 }

@@ -8,7 +8,7 @@ import org.jetbrains.annotations.NotNull;
 
 /**
  * Represent a Structure from the world.
- *
+ * <p>
  * Listed structures are present in the default server. Depending on the server
  * there might be additional structures present (for example structures added by
  * data packs), which can be received via {@link Registry#STRUCTURE}.

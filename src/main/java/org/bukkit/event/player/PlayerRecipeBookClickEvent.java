@@ -24,6 +24,11 @@ public class PlayerRecipeBookClickEvent extends PlayerEvent {
         this.shiftClick = shiftClick;
     }
 
+    @NotNull
+    public static HandlerList getHandlerList() {
+        return handlers;
+    }
+
     /**
      * Gets the original recipe the player was trying to craft. <br>
      * This <em>will not</em> reflect any changes made with {@link setRecipe}.
@@ -91,11 +96,6 @@ public class PlayerRecipeBookClickEvent extends PlayerEvent {
     @NotNull
     @Override
     public HandlerList getHandlers() {
-        return handlers;
-    }
-
-    @NotNull
-    public static HandlerList getHandlerList() {
         return handlers;
     }
 }

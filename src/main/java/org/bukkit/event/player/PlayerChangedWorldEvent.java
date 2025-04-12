@@ -17,10 +17,15 @@ public class PlayerChangedWorldEvent extends PlayerEvent {
         this.from = from;
     }
 
+    @NotNull
+    public static HandlerList getHandlerList() {
+        return handlers;
+    }
+
     /**
      * Gets the world the player is switching from.
      *
-     * @return  player's previous world
+     * @return player's previous world
      */
     @NotNull
     public World getFrom() {
@@ -30,11 +35,6 @@ public class PlayerChangedWorldEvent extends PlayerEvent {
     @NotNull
     @Override
     public HandlerList getHandlers() {
-        return handlers;
-    }
-
-    @NotNull
-    public static HandlerList getHandlerList() {
         return handlers;
     }
 }

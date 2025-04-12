@@ -14,10 +14,10 @@ public class SmithingTransformRecipe extends SmithingRecipe {
     /**
      * Create a smithing recipe to produce the specified result ItemStack.
      *
-     * @param key The unique recipe key
-     * @param result The item you want the recipe to create.
+     * @param key      The unique recipe key
+     * @param result   The item you want the recipe to create.
      * @param template The template item.
-     * @param base The base ingredient
+     * @param base     The base ingredient
      * @param addition The addition ingredient
      */
     public SmithingTransformRecipe(@NotNull NamespacedKey key, @NotNull ItemStack result, @Nullable RecipeChoice template, @Nullable RecipeChoice base, @Nullable RecipeChoice addition) {

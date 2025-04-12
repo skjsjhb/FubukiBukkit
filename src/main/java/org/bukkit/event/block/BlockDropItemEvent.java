@@ -1,6 +1,5 @@
 package org.bukkit.event.block;
 
-import java.util.List;
 import org.bukkit.block.Block;
 import org.bukkit.block.BlockState;
 import org.bukkit.entity.Item;
@@ -9,17 +8,19 @@ import org.bukkit.event.Cancellable;
 import org.bukkit.event.HandlerList;
 import org.jetbrains.annotations.NotNull;
 
+import java.util.List;
+
 /**
  * Called if a block broken by a player drops an item.
- *
+ * <p>
  * If the block break is cancelled, this event won't be called.
- *
+ * <p>
  * If isDropItems in BlockBreakEvent is set to false, this event won't be
  * called.
- *
+ * <p>
  * This event will also be called if the player breaks a multi block structure,
  * for example a torch on top of a stone. Both items will have an event call.
- *
+ * <p>
  * The Block is already broken as this event is called, so #getBlock() will be
  * AIR in most cases. Use #getBlockState() for more Information about the broken
  * block.
@@ -28,15 +29,20 @@ public class BlockDropItemEvent extends BlockEvent implements Cancellable {
 
     private static final HandlerList handlers = new HandlerList();
     private final Player player;
-    private boolean cancel;
     private final BlockState blockState;
     private final List<Item> items;
+    private boolean cancel;
 
     public BlockDropItemEvent(@NotNull Block block, @NotNull BlockState blockState, @NotNull Player player, @NotNull List<Item> items) {
         super(block);
         this.blockState = blockState;
         this.player = player;
         this.items = items;
+    }
+
+    @NotNull
+    public static HandlerList getHandlerList() {
+        return handlers;
     }
 
     /**
@@ -62,7 +68,7 @@ public class BlockDropItemEvent extends BlockEvent implements Cancellable {
 
     /**
      * Gets list of the Item drops caused by the block break.
-     *
+     * <p>
      * This list is mutable - removing an item from it will cause it to not
      * drop. It is not legal however to add new items to the list.
      *
@@ -86,11 +92,6 @@ public class BlockDropItemEvent extends BlockEvent implements Cancellable {
     @NotNull
     @Override
     public HandlerList getHandlers() {
-        return handlers;
-    }
-
-    @NotNull
-    public static HandlerList getHandlerList() {
         return handlers;
     }
 }

@@ -43,7 +43,7 @@ public abstract class HelpTopic {
      * HelpTopic#canSee(org.bukkit.command.CommandSender)} function.
      *
      * @param amendedPermission The permission node the server administrator
-     *     wishes to apply to this topic.
+     *                          wishes to apply to this topic.
      */
     public void amendCanSee(@Nullable String amendedPermission) {
         this.amendedPermission = amendedPermission;
@@ -76,9 +76,8 @@ public abstract class HelpTopic {
      * The result will be paginated to properly fit the user's client.
      *
      * @param forWho The player or console requesting the full text. Useful
-     *     for further security trimming the command's full text based on
-     *     sub-permissions in custom implementations.
-     *
+     *               for further security trimming the command's full text based on
+     *               sub-permissions in custom implementations.
      * @return A full topic description.
      */
     @NotNull
@@ -96,9 +95,9 @@ public abstract class HelpTopic {
      * prepend additional content into an automatically generated help topic.
      *
      * @param amendedShortText The new topic short text to use, or null to
-     *     leave alone.
-     * @param amendedFullText The new topic full text to use, or null to leave
-     *     alone.
+     *                         leave alone.
+     * @param amendedFullText  The new topic full text to use, or null to leave
+     *                         alone.
      */
     public void amendTopic(@Nullable String amendedShortText, @Nullable String amendedFullText) {
         shortText = applyAmendment(shortText, amendedShortText);
@@ -111,10 +110,10 @@ public abstract class HelpTopic {
      * expected behavior of the {@link HelpTopic#amendTopic(String, String)}
      * method.
      *
-     * @param baseText The existing text of the help topic.
+     * @param baseText  The existing text of the help topic.
      * @param amendment The amending text from the amendTopic() method.
      * @return The application of the amending text to the existing text,
-     *     according to the expected rules of amendTopic().
+     * according to the expected rules of amendTopic().
      */
     @NotNull
     protected String applyAmendment(@NotNull String baseText, @Nullable String amendment) {

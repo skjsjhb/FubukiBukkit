@@ -42,9 +42,14 @@ public class BlockPhysicsEvent extends BlockEvent implements Cancellable {
         this.sourceBlock = sourceBlock;
     }
 
+    @NotNull
+    public static HandlerList getHandlerList() {
+        return handlers;
+    }
+
     /**
      * Gets the source block that triggered this event.
-     *
+     * <p>
      * Note: This will default to block if not set.
      *
      * @return The source block
@@ -77,11 +82,6 @@ public class BlockPhysicsEvent extends BlockEvent implements Cancellable {
     @NotNull
     @Override
     public HandlerList getHandlers() {
-        return handlers;
-    }
-
-    @NotNull
-    public static HandlerList getHandlerList() {
         return handlers;
     }
 }

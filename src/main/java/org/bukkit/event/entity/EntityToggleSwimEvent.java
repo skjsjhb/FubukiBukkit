@@ -10,13 +10,17 @@ import org.jetbrains.annotations.NotNull;
  */
 public class EntityToggleSwimEvent extends EntityEvent implements Cancellable {
     private static final HandlerList handlers = new HandlerList();
-
-    private boolean cancel = false;
     private final boolean isSwimming;
+    private boolean cancel = false;
 
     public EntityToggleSwimEvent(@NotNull LivingEntity who, final boolean isSwimming) {
         super(who);
         this.isSwimming = isSwimming;
+    }
+
+    @NotNull
+    public static HandlerList getHandlerList() {
+        return handlers;
     }
 
     @Override
@@ -42,11 +46,6 @@ public class EntityToggleSwimEvent extends EntityEvent implements Cancellable {
     @NotNull
     @Override
     public HandlerList getHandlers() {
-        return handlers;
-    }
-
-    @NotNull
-    public static HandlerList getHandlerList() {
         return handlers;
     }
 }

@@ -18,6 +18,11 @@ public class InventoryOpenEvent extends InventoryEvent implements Cancellable {
         this.cancelled = false;
     }
 
+    @NotNull
+    public static HandlerList getHandlerList() {
+        return handlers;
+    }
+
     /**
      * Returns the player involved in this event
      *
@@ -59,11 +64,6 @@ public class InventoryOpenEvent extends InventoryEvent implements Cancellable {
     @NotNull
     @Override
     public HandlerList getHandlers() {
-        return handlers;
-    }
-
-    @NotNull
-    public static HandlerList getHandlerList() {
         return handlers;
     }
 }

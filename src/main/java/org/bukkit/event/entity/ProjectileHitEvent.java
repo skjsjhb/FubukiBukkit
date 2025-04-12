@@ -43,6 +43,11 @@ public class ProjectileHitEvent extends EntityEvent implements Cancellable {
     }
 
     @NotNull
+    public static HandlerList getHandlerList() {
+        return handlers;
+    }
+
+    @NotNull
     @Override
     public Projectile getEntity() {
         return (Projectile) entity;
@@ -86,7 +91,7 @@ public class ProjectileHitEvent extends EntityEvent implements Cancellable {
 
     /**
      * Whether to cancel the action that occurs when the projectile hits.
-     *
+     * <p>
      * In the case of an entity, it will not collide (unless it's a firework,
      * then use {@link FireworkExplodeEvent}).
      * <br>
@@ -106,11 +111,6 @@ public class ProjectileHitEvent extends EntityEvent implements Cancellable {
     @NotNull
     @Override
     public HandlerList getHandlers() {
-        return handlers;
-    }
-
-    @NotNull
-    public static HandlerList getHandlerList() {
         return handlers;
     }
 }

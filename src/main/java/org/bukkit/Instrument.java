@@ -1,8 +1,9 @@
 package org.bukkit;
 
 import com.google.common.collect.Maps;
-import java.util.Map;
 import org.jetbrains.annotations.Nullable;
+
+import java.util.Map;
 
 public enum Instrument {
 
@@ -104,9 +105,16 @@ public enum Instrument {
      */
     CUSTOM_HEAD(null);
 
+    private static final Map<Byte, Instrument> BY_DATA = Maps.newHashMap();
+
+    static {
+        for (Instrument instrument : Instrument.values()) {
+            BY_DATA.put(instrument.getType(), instrument);
+        }
+    }
+
     private final byte type;
     private final Sound sound;
-    private static final Map<Byte, Instrument> BY_DATA = Maps.newHashMap();
 
     private Instrument(final Sound sound) {
         this(-1, sound);
@@ -115,6 +123,19 @@ public enum Instrument {
     private Instrument(final int type, final Sound sound) {
         this.type = (byte) type;
         this.sound = sound;
+    }
+
+    /**
+     * Get an instrument by its type ID.
+     *
+     * @param type The type ID
+     * @return The instrument
+     * @deprecated Magic value
+     */
+    @Deprecated(since = "1.6.2")
+    @Nullable
+    public static Instrument getByType(final byte type) {
+        return BY_DATA.get(type);
     }
 
     /**
@@ -135,24 +156,5 @@ public enum Instrument {
     @Deprecated(since = "1.6.2")
     public byte getType() {
         return this.type;
-    }
-
-    /**
-     * Get an instrument by its type ID.
-     *
-     * @param type The type ID
-     * @return The instrument
-     * @deprecated Magic value
-     */
-    @Deprecated(since = "1.6.2")
-    @Nullable
-    public static Instrument getByType(final byte type) {
-        return BY_DATA.get(type);
-    }
-
-    static {
-        for (Instrument instrument : Instrument.values()) {
-            BY_DATA.put(instrument.getType(), instrument);
-        }
     }
 }

@@ -14,19 +14,9 @@ import org.jetbrains.annotations.Nullable;
 public interface Lootable {
 
     /**
-     * Set the loot table for a container or entity.
-     * <br>
-     * To remove a loot table use null.
-     *
-     * @param table the Loot Table this {@link org.bukkit.block.Container} or
-     * {@link org.bukkit.entity.Mob} will have.
-     */
-    void setLootTable(@Nullable LootTable table);
-
-    /**
      * Gets the Loot Table attached to this block or entity.
      * <br>
-     *
+     * <p>
      * If an block/entity does not have a loot table, this will return null, NOT
      * an empty loot table.
      *
@@ -36,11 +26,14 @@ public interface Lootable {
     LootTable getLootTable();
 
     /**
-     * Set the seed used when this Loot Table generates loot.
+     * Set the loot table for a container or entity.
+     * <br>
+     * To remove a loot table use null.
      *
-     * @param seed the seed to used to generate loot. Default is 0.
+     * @param table the Loot Table this {@link org.bukkit.block.Container} or
+     *              {@link org.bukkit.entity.Mob} will have.
      */
-    void setSeed(long seed);
+    void setLootTable(@Nullable LootTable table);
 
     /**
      * Get the Loot Table's seed.
@@ -50,4 +43,11 @@ public interface Lootable {
      * @return the seed
      */
     long getSeed();
+
+    /**
+     * Set the seed used when this Loot Table generates loot.
+     *
+     * @param seed the seed to used to generate loot. Default is 0.
+     */
+    void setSeed(long seed);
 }

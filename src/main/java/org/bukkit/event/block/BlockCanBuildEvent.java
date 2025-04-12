@@ -21,10 +21,9 @@ import org.jetbrains.annotations.Nullable;
  */
 public class BlockCanBuildEvent extends BlockEvent {
     private static final HandlerList handlers = new HandlerList();
-    protected boolean buildable;
-
-    protected BlockData blockData;
     private final Player player;
+    protected boolean buildable;
+    protected BlockData blockData;
 
     @Deprecated(since = "1.13.2")
     public BlockCanBuildEvent(@NotNull final Block block, @NotNull final BlockData type, final boolean canBuild) {
@@ -32,9 +31,9 @@ public class BlockCanBuildEvent extends BlockEvent {
     }
 
     /**
-     * @param block the block involved in this event
-     * @param player the player placing the block
-     * @param type the id of the block to place
+     * @param block    the block involved in this event
+     * @param player   the player placing the block
+     * @param type     the id of the block to place
      * @param canBuild whether we can build
      */
     public BlockCanBuildEvent(@NotNull final Block block, @Nullable final Player player, @NotNull final BlockData type, final boolean canBuild) {
@@ -42,6 +41,11 @@ public class BlockCanBuildEvent extends BlockEvent {
         this.player = player;
         this.buildable = canBuild;
         this.blockData = type;
+    }
+
+    @NotNull
+    public static HandlerList getHandlerList() {
+        return handlers;
     }
 
     /**
@@ -60,7 +64,7 @@ public class BlockCanBuildEvent extends BlockEvent {
      * Sets whether the block can be built here or not.
      *
      * @param cancel true if you want to allow the block to be built here
-     *     despite Minecraft's default behaviour
+     *               despite Minecraft's default behaviour
      */
     public void setBuildable(boolean cancel) {
         this.buildable = cancel;
@@ -101,11 +105,6 @@ public class BlockCanBuildEvent extends BlockEvent {
     @NotNull
     @Override
     public HandlerList getHandlers() {
-        return handlers;
-    }
-
-    @NotNull
-    public static HandlerList getHandlerList() {
         return handlers;
     }
 }

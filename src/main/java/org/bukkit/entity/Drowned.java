@@ -3,4 +3,5 @@ package org.bukkit.entity;
 /**
  * Drowned zombie.
  */
-public interface Drowned extends Zombie { }
+public interface Drowned extends Zombie {
+}

@@ -8,7 +8,6 @@ import org.bukkit.block.BlockFace;
  * specific direction.
  *
  * @see Material#HOPPER
- *
  * @deprecated all usage of MaterialData is deprecated and subject to removal.
  * Use {@link org.bukkit.block.data.BlockData}.
  */
@@ -30,7 +29,6 @@ public class Hopper extends MaterialData implements Directional, Redstone {
      * Constructs a hopper facing the specified direction and initially active.
      *
      * @param facingDirection the direction the hopper is facing
-     *
      * @see BlockFace
      */
     public Hopper(BlockFace facingDirection) {
@@ -42,9 +40,8 @@ public class Hopper extends MaterialData implements Directional, Redstone {
      * not.
      *
      * @param facingDirection the direction the hopper is facing
-     * @param isActive True if the hopper is initially active, false if
-     * deactivated
-     *
+     * @param isActive        True if the hopper is initially active, false if
+     *                        deactivated
      * @see BlockFace
      */
     public Hopper(BlockFace facingDirection, boolean isActive) {
@@ -68,16 +65,6 @@ public class Hopper extends MaterialData implements Directional, Redstone {
     }
 
     /**
-     * Sets whether the hopper is active or not.
-     *
-     * @param isActive True if the hopper is active, false if deactivated as if
-     * powered by redstone
-     */
-    public void setActive(boolean isActive) {
-        setData((byte) (getData() & 0x7 | (isActive ? 0x0 : 0x8)));
-    }
-
-    /**
      * Checks whether the hopper is active or not.
      *
      * @return True if the hopper is active, false if deactivated
@@ -87,10 +74,19 @@ public class Hopper extends MaterialData implements Directional, Redstone {
     }
 
     /**
+     * Sets whether the hopper is active or not.
+     *
+     * @param isActive True if the hopper is active, false if deactivated as if
+     *                 powered by redstone
+     */
+    public void setActive(boolean isActive) {
+        setData((byte) (getData() & 0x7 | (isActive ? 0x0 : 0x8)));
+    }
+
+    /**
      * Sets the direction this hopper is facing
      *
      * @param face The direction to set this hopper to
-     *
      * @see BlockFace
      */
     @Override
@@ -122,7 +118,6 @@ public class Hopper extends MaterialData implements Directional, Redstone {
      * Gets the direction this hopper is facing
      *
      * @return The direction this hopper is facing
-     *
      * @see BlockFace
      */
     @Override

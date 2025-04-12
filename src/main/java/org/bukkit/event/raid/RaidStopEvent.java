@@ -19,6 +19,11 @@ public class RaidStopEvent extends RaidEvent {
         this.reason = reason;
     }
 
+    @NotNull
+    public static HandlerList getHandlerList() {
+        return handlers;
+    }
+
     /**
      * Returns the stop reason.
      *
@@ -32,11 +37,6 @@ public class RaidStopEvent extends RaidEvent {
     @NotNull
     @Override
     public HandlerList getHandlers() {
-        return handlers;
-    }
-
-    @NotNull
-    public static HandlerList getHandlerList() {
         return handlers;
     }
 

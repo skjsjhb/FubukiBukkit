@@ -20,8 +20,8 @@ public class PrepareItemEnchantEvent extends InventoryEvent implements Cancellab
     private final ItemStack item;
     private final EnchantmentOffer[] offers;
     private final int bonus;
-    private boolean cancelled;
     private final Player enchanter;
+    private boolean cancelled;
 
     public PrepareItemEnchantEvent(@NotNull final Player enchanter, @NotNull EnchantmentView view, @NotNull final Block table, @NotNull final ItemStack item, @NotNull final EnchantmentOffer[] offers, final int bonus) {
         super(view);
@@ -30,6 +30,11 @@ public class PrepareItemEnchantEvent extends InventoryEvent implements Cancellab
         this.item = item;
         this.offers = offers;
         this.bonus = bonus;
+    }
+
+    @NotNull
+    public static HandlerList getHandlerList() {
+        return handlers;
     }
 
     /**
@@ -119,11 +124,6 @@ public class PrepareItemEnchantEvent extends InventoryEvent implements Cancellab
     @NotNull
     @Override
     public HandlerList getHandlers() {
-        return handlers;
-    }
-
-    @NotNull
-    public static HandlerList getHandlerList() {
         return handlers;
     }
 }

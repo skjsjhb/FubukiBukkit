@@ -1,18 +1,19 @@
 package org.bukkit.generator;
 
-import java.util.List;
 import org.bukkit.Location;
 import org.bukkit.RegionAccessor;
 import org.bukkit.block.BlockState;
 import org.jetbrains.annotations.NotNull;
 
+import java.util.List;
+
 /**
  * A limited region is used in world generation for features which are
  * going over a chunk. For example, trees or ores.
- *
+ * <p>
  * Use {@link #getBuffer()} to know how much you can go beyond the central
  * chunk. The buffer zone may or may not be already populated.
- *
+ * <p>
  * The coordinates are <b>absolute</b> from the world origin.
  */
 public interface LimitedRegion extends RegionAccessor {

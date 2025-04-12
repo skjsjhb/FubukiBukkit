@@ -1,8 +1,9 @@
 package org.bukkit;
 
-import static org.bukkit.support.MatcherAssert.*;
-import static org.hamcrest.CoreMatchers.*;
 import org.junit.jupiter.api.Test;
+
+import static org.bukkit.support.MatcherAssert.assertThat;
+import static org.hamcrest.CoreMatchers.is;
 
 public class DifficultyTest {
     @Test

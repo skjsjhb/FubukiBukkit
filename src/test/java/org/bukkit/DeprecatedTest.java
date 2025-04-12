@@ -1,16 +1,14 @@
 package org.bukkit;
 
-import static org.junit.jupiter.api.Assertions.*;
 import com.google.common.base.Joiner;
-import java.util.ArrayList;
-import java.util.List;
 import org.bukkit.support.test.ClassNodeTest;
 import org.objectweb.asm.Type;
-import org.objectweb.asm.tree.AnnotationNode;
-import org.objectweb.asm.tree.ClassNode;
-import org.objectweb.asm.tree.FieldNode;
-import org.objectweb.asm.tree.MethodNode;
-import org.objectweb.asm.tree.RecordComponentNode;
+import org.objectweb.asm.tree.*;
+
+import java.util.ArrayList;
+import java.util.List;
+
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 public class DeprecatedTest {
 
@@ -71,7 +69,7 @@ public class DeprecatedTest {
         assertTrue(missingReason.isEmpty(), """
                 Missing or wrongly formatted (only format 'number.number[.number]' is supported) 'since' value in 'Deprecated' annotation found.
                 In Class '%s'.
-
+                
                 Following places where found:
                 %s""".formatted(classNode.name, Joiner.on('\n').join(missingReason)));
     }
@@ -105,11 +103,7 @@ public class DeprecatedTest {
                     return false;
                 }
 
-                if (!isValidVersion(other)) {
-                    return false;
-                }
-
-                return true;
+                return isValidVersion(other);
             }
         }
 
@@ -129,11 +123,7 @@ public class DeprecatedTest {
         if (!isNumber(versionParts[1])) {
             return false;
         }
-        if (versionParts.length == 3 && !isNumber(versionParts[2])) {
-            return false;
-        }
-
-        return true;
+        return versionParts.length != 3 || isNumber(versionParts[2]);
     }
 
     private boolean isNumber(String number) {

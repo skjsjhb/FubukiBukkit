@@ -1,21 +1,22 @@
 package org.bukkit.permissions;
 
-import java.util.LinkedHashMap;
-import java.util.Locale;
-import java.util.Map;
 import org.bukkit.plugin.Plugin;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
+
+import java.util.LinkedHashMap;
+import java.util.Locale;
+import java.util.Map;
 
 /**
  * Holds information about a permission attachment on a {@link Permissible}
  * object
  */
 public class PermissionAttachment {
-    private PermissionRemovedExecutor removed;
     private final Map<String, Boolean> permissions = new LinkedHashMap<String, Boolean>();
     private final Permissible permissible;
     private final Plugin plugin;
+    private PermissionRemovedExecutor removed;
 
     public PermissionAttachment(@NotNull Plugin plugin, @NotNull Permissible permissible) {
         if (plugin == null) {
@@ -39,16 +40,6 @@ public class PermissionAttachment {
     }
 
     /**
-     * Sets an object to be called for when this attachment is removed from a
-     * {@link Permissible}. May be null.
-     *
-     * @param ex Object to be called when this is removed
-     */
-    public void setRemovalCallback(@Nullable PermissionRemovedExecutor ex) {
-        removed = ex;
-    }
-
-    /**
      * Gets the class that was previously set to be called when this
      * attachment was removed from a {@link Permissible}. May be null.
      *
@@ -57,6 +48,16 @@ public class PermissionAttachment {
     @Nullable
     public PermissionRemovedExecutor getRemovalCallback() {
         return removed;
+    }
+
+    /**
+     * Sets an object to be called for when this attachment is removed from a
+     * {@link Permissible}. May be null.
+     *
+     * @param ex Object to be called when this is removed
+     */
+    public void setRemovalCallback(@Nullable PermissionRemovedExecutor ex) {
+        removed = ex;
     }
 
     /**
@@ -86,7 +87,7 @@ public class PermissionAttachment {
     /**
      * Sets a permission to the given value, by its fully qualified name
      *
-     * @param name Name of the permission
+     * @param name  Name of the permission
      * @param value New value of the permission
      */
     public void setPermission(@NotNull String name, boolean value) {
@@ -97,7 +98,7 @@ public class PermissionAttachment {
     /**
      * Sets a permission to the given value
      *
-     * @param perm Permission to set
+     * @param perm  Permission to set
      * @param value New value of the permission
      */
     public void setPermission(@NotNull Permission perm, boolean value) {
@@ -133,7 +134,7 @@ public class PermissionAttachment {
      * Removes this attachment from its registered {@link Permissible}
      *
      * @return true if the permissible was removed successfully, false if it
-     *     did not exist
+     * did not exist
      */
     public boolean remove() {
         try {

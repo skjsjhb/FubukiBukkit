@@ -11,13 +11,18 @@ import org.jetbrains.annotations.NotNull;
 public class EntitySpellCastEvent extends EntityEvent implements Cancellable {
 
     private static final HandlerList handlers = new HandlerList();
+    private final Spellcaster.Spell spell;
     //
     private boolean cancelled = false;
-    private final Spellcaster.Spell spell;
 
     public EntitySpellCastEvent(@NotNull Spellcaster what, @NotNull Spellcaster.Spell spell) {
         super(what);
         this.spell = spell;
+    }
+
+    @NotNull
+    public static HandlerList getHandlerList() {
+        return handlers;
     }
 
     @Override
@@ -28,7 +33,7 @@ public class EntitySpellCastEvent extends EntityEvent implements Cancellable {
 
     /**
      * Get the spell to be cast in this event.
-     *
+     * <p>
      * This is a convenience method equivalent to
      * {@link Spellcaster#getSpell()}.
      *
@@ -40,23 +45,18 @@ public class EntitySpellCastEvent extends EntityEvent implements Cancellable {
     }
 
     @Override
-    public void setCancelled(boolean cancelled) {
-        this.cancelled = cancelled;
-    }
-
-    @Override
     public boolean isCancelled() {
         return cancelled;
     }
 
     @Override
-    @NotNull
-    public HandlerList getHandlers() {
-        return handlers;
+    public void setCancelled(boolean cancelled) {
+        this.cancelled = cancelled;
     }
 
+    @Override
     @NotNull
-    public static HandlerList getHandlerList() {
+    public HandlerList getHandlers() {
         return handlers;
     }
 }

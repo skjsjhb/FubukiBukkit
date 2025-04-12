@@ -9,19 +9,19 @@ import org.jetbrains.annotations.Nullable;
 public interface Raider extends Monster {
 
     /**
-     * Set the {@link Raid} that this raider is participating in.
-     *
-     * @param raid the raid to set
-     */
-    void setRaid(@Nullable Raid raid);
-
-    /**
      * Get the {@link Raid} that this raider is participating in, if any.
      *
      * @return the raid, or null if not participating in a raid
      */
     @Nullable
     Raid getRaid();
+
+    /**
+     * Set the {@link Raid} that this raider is participating in.
+     *
+     * @param raid the raid to set
+     */
+    void setRaid(@Nullable Raid raid);
 
     /**
      * Get the raid wave that this raider spawned as part of.

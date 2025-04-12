@@ -1,8 +1,9 @@
 package org.bukkit.generator;
 
-import java.util.List;
 import org.bukkit.block.Biome;
 import org.jetbrains.annotations.NotNull;
+
+import java.util.List;
 
 /**
  * Class for providing biomes.
@@ -23,9 +24,9 @@ public abstract class BiomeProvider {
      * This method should <b>never</b> return {@link Biome#CUSTOM}.
      *
      * @param worldInfo The world info of the world the biome will be used for
-     * @param x The X-coordinate from world origin
-     * @param y The Y-coordinate from world origin
-     * @param z The Z-coordinate from world origin
+     * @param x         The X-coordinate from world origin
+     * @param y         The Y-coordinate from world origin
+     * @param z         The Z-coordinate from world origin
      * @return Biome for the given location
      */
     @NotNull
@@ -46,13 +47,13 @@ public abstract class BiomeProvider {
      * Only this method is called if both this and
      * {@link #getBiome(WorldInfo, int, int, int)} are overridden.
      *
-     * @param worldInfo The world info of the world the biome will be used for
-     * @param x The X-coordinate from world origin
-     * @param y The Y-coordinate from world origin
-     * @param z The Z-coordinate from world origin
+     * @param worldInfo           The world info of the world the biome will be used for
+     * @param x                   The X-coordinate from world origin
+     * @param y                   The Y-coordinate from world origin
+     * @param z                   The Z-coordinate from world origin
      * @param biomeParameterPoint The parameter point that is provided by default
-     *                       for this location (contains temperature, humidity,
-     *                       continentalness, erosion, depth and weirdness)
+     *                            for this location (contains temperature, humidity,
+     *                            continentalness, erosion, depth and weirdness)
      * @return Biome for the given location
      * @see #getBiome(WorldInfo, int, int, int)
      */

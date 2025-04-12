@@ -38,7 +38,7 @@ public interface Damageable extends ItemMeta {
 
     /**
      * Gets the maximum amount of damage.
-     *
+     * <p>
      * Plugins should check {@link #hasMaxDamage()} before calling this method.
      *
      * @return the maximum amount of damage

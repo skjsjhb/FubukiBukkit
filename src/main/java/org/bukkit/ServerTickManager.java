@@ -44,6 +44,13 @@ public interface ServerTickManager {
     boolean isFrozen();
 
     /**
+     * Sets the server to a frozen state that does not tick most things.
+     *
+     * @param frozen true to freeze the server, otherwise false
+     */
+    void setFrozen(boolean frozen);
+
+    /**
      * Gets the current tick rate of the server.
      *
      * @return the current tick rate of the server
@@ -58,16 +65,9 @@ public interface ServerTickManager {
      *
      * @param tick the tick rate to set the server to
      * @throws IllegalArgumentException if tick rate is too low or too high for
-     * the server to handle
+     *                                  the server to handle
      */
     void setTickRate(float tick);
-
-    /**
-     * Sets the server to a frozen state that does not tick most things.
-     *
-     * @param frozen true to freeze the server, otherwise false
-     */
-    void setFrozen(boolean frozen);
 
     /**
      * Steps the game a certain amount of ticks if the server is currently

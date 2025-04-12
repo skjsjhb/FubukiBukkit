@@ -138,6 +138,7 @@ public interface Boat extends Vehicle {
 
     /**
      * Represents the type of boats.
+     *
      * @deprecated different boats types are now different entity types
      */
     @Deprecated(since = "1.21.2")

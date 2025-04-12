@@ -1,7 +1,5 @@
 package org.bukkit.plugin;
 
-import static org.bukkit.support.MatcherAssert.*;
-import static org.hamcrest.Matchers.*;
 import org.bukkit.event.Event;
 import org.bukkit.event.EventException;
 import org.bukkit.event.EventPriority;
@@ -12,14 +10,19 @@ import org.bukkit.event.player.PlayerInteractEvent;
 import org.bukkit.event.player.PlayerMoveEvent;
 import org.junit.jupiter.api.Test;
 
+import static org.bukkit.support.MatcherAssert.assertThat;
+import static org.hamcrest.Matchers.is;
+
 public class TimedRegisteredListenerTest {
 
     @Test
     public void testEventClass() throws EventException {
-        Listener listener = new Listener() {};
+        Listener listener = new Listener() {
+        };
         EventExecutor executor = new EventExecutor() {
             @Override
-            public void execute(Listener listener, Event event) {}
+            public void execute(Listener listener, Event event) {
+            }
         };
         TestPlugin plugin = new TestPlugin("Test");
 

@@ -30,7 +30,7 @@ public interface Damageable extends Entity {
      * Deals the given amount of damage to this entity from a specified
      * {@link DamageSource}.
      *
-     * @param amount amount of damage to deal
+     * @param amount       amount of damage to deal
      * @param damageSource source to which the damage should be attributed
      */
     @ApiStatus.Experimental
@@ -49,7 +49,7 @@ public interface Damageable extends Entity {
      *
      * @param health New health represented from 0 to max
      * @throws IllegalArgumentException Thrown if the health is {@literal < 0 or >}
-     *     {@link #getMaxHealth()}
+     *                                  {@link #getMaxHealth()}
      */
     void setHealth(double health);
 
@@ -69,7 +69,7 @@ public interface Damageable extends Entity {
      *
      * @param amount new absorption amount from 0
      * @throws IllegalArgumentException thrown if health is {@literal < 0} or
-     * non-finite.
+     *                                  non-finite.
      */
     void setAbsorptionAmount(double amount);
 
@@ -99,6 +99,7 @@ public interface Damageable extends Entity {
 
     /**
      * Resets the max health to the original amount.
+     *
      * @deprecated use {@link Attribute#MAX_HEALTH}.
      */
     @Deprecated(since = "1.11")

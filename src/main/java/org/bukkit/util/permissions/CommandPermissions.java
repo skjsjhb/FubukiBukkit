@@ -8,7 +8,8 @@ public final class CommandPermissions {
     private static final String ROOT = "bukkit.command";
     private static final String PREFIX = ROOT + ".";
 
-    private CommandPermissions() {}
+    private CommandPermissions() {
+    }
 
     @NotNull
     public static Permission registerPermissions(@NotNull Permission parent) {

@@ -1,11 +1,12 @@
 package org.bukkit.util;
 
-import java.util.Collection;
 import org.jetbrains.annotations.NotNull;
+
+import java.util.Collection;
 
 /**
  * A shape made out of voxels.
- *
+ * <p>
  * For example, used to represent the detailed collision shape of blocks.
  */
 public interface VoxelShape {

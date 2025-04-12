@@ -1,11 +1,12 @@
 package org.bukkit.inventory;
 
 import com.google.common.base.Preconditions;
-import java.util.Collections;
 import org.bukkit.Keyed;
 import org.bukkit.Material;
 import org.bukkit.NamespacedKey;
 import org.jetbrains.annotations.NotNull;
+
+import java.util.Collections;
 
 /**
  * Represents a Stonecutting recipe.
@@ -19,7 +20,7 @@ public class StonecuttingRecipe implements Recipe, Keyed {
     /**
      * Create a Stonecutting recipe to craft the specified ItemStack.
      *
-     * @param key The unique recipe key
+     * @param key    The unique recipe key
      * @param result The item you want the recipe to create.
      * @param source The input material.
      */
@@ -30,27 +31,15 @@ public class StonecuttingRecipe implements Recipe, Keyed {
     /**
      * Create a cooking recipe to craft the specified ItemStack.
      *
-     * @param key The unique recipe key
+     * @param key    The unique recipe key
      * @param result The item you want the recipe to create.
-     * @param input The input choices.
+     * @param input  The input choices.
      */
     public StonecuttingRecipe(@NotNull NamespacedKey key, @NotNull ItemStack result, @NotNull RecipeChoice input) {
         Preconditions.checkArgument(result.getType() != Material.AIR, "Recipe must have non-AIR result.");
         this.key = key;
         this.output = new ItemStack(result);
         this.ingredient = input;
-    }
-
-    /**
-     * Sets the input of this cooking recipe.
-     *
-     * @param input The input material.
-     * @return The changed recipe, so you can chain calls.
-     */
-    @NotNull
-    public StonecuttingRecipe setInput(@NotNull Material input) {
-        this.ingredient = new RecipeChoice.MaterialChoice(Collections.singletonList(input));
-        return this;
     }
 
     /**
@@ -66,13 +55,13 @@ public class StonecuttingRecipe implements Recipe, Keyed {
     /**
      * Sets the input of this cooking recipe.
      *
-     * @param input The input choice.
+     * @param input The input material.
      * @return The changed recipe, so you can chain calls.
      */
     @NotNull
-    public StonecuttingRecipe setInputChoice(@NotNull RecipeChoice input) {
-        this.ingredient = input;
-        return (StonecuttingRecipe) this;
+    public StonecuttingRecipe setInput(@NotNull Material input) {
+        this.ingredient = new RecipeChoice.MaterialChoice(Collections.singletonList(input));
+        return this;
     }
 
     /**
@@ -83,6 +72,18 @@ public class StonecuttingRecipe implements Recipe, Keyed {
     @NotNull
     public RecipeChoice getInputChoice() {
         return this.ingredient.clone();
+    }
+
+    /**
+     * Sets the input of this cooking recipe.
+     *
+     * @param input The input choice.
+     * @return The changed recipe, so you can chain calls.
+     */
+    @NotNull
+    public StonecuttingRecipe setInputChoice(@NotNull RecipeChoice input) {
+        this.ingredient = input;
+        return (StonecuttingRecipe) this;
     }
 
     /**
@@ -118,7 +119,7 @@ public class StonecuttingRecipe implements Recipe, Keyed {
      * together when displayed in the client.
      *
      * @param group recipe group. An empty string denotes no group. May not be
-     * null.
+     *              null.
      */
     public void setGroup(@NotNull String group) {
         Preconditions.checkArgument(group != null, "group cannot be null");

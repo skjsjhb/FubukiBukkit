@@ -23,6 +23,11 @@ public class VaultDisplayItemEvent extends BlockEvent implements Cancellable {
         this.displayItem = displayItem;
     }
 
+    @NotNull
+    public static HandlerList getHandlerList() {
+        return handlers;
+    }
+
     /**
      * Gets the item that will be displayed inside the vault.
      *
@@ -55,11 +60,6 @@ public class VaultDisplayItemEvent extends BlockEvent implements Cancellable {
     @NotNull
     @Override
     public HandlerList getHandlers() {
-        return handlers;
-    }
-
-    @NotNull
-    public static HandlerList getHandlerList() {
         return handlers;
     }
 }

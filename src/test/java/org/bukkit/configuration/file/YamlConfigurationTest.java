@@ -1,18 +1,16 @@
 package org.bukkit.configuration.file;
 
-import static org.junit.jupiter.api.Assertions.*;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.HashMap;
-import java.util.LinkedHashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.Map.Entry;
 import org.bukkit.configuration.ConfigurationSection;
 import org.bukkit.configuration.InvalidConfigurationException;
 import org.bukkit.configuration.MemoryConfiguration;
 import org.jetbrains.annotations.NotNull;
 import org.junit.jupiter.api.Test;
+
+import java.util.*;
+import java.util.Map.Entry;
+
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
 
 public class YamlConfigurationTest extends FileConfigurationTest {
 
@@ -159,8 +157,7 @@ public class YamlConfigurationTest extends FileConfigurationTest {
             commentBuilder.append("# Comment ").append(i).append("\n");
         }
 
-        final String data = ""
-                + commentBuilder
+        final String data = commentBuilder
                 + "simpleKey: simpleValue\n"
                 + "\n";
 
@@ -265,20 +262,19 @@ public class YamlConfigurationTest extends FileConfigurationTest {
     // Recursively converts all configuration sections to Maps, including within any nested data
     // structures such as Maps and Lists.
     private Object convertSectionsToMaps(Object object) {
-        if (object instanceof ConfigurationSection) {
-            ConfigurationSection section = (ConfigurationSection) object;
+        if (object instanceof ConfigurationSection section) {
             Map<String, Object> values = section.getValues(false);
             return convertSectionsToMaps(values);
-        } else if (object instanceof Map) {
-            Map<?, ?> map = (Map<?, ?>) object; // Might be immutable
+        } else if (object instanceof Map<?, ?> map) {
+            // Might be immutable
             Map<Object, Object> newMap = new LinkedHashMap<>();
             for (Entry<?, ?> entry : map.entrySet()) {
                 newMap.put(entry.getKey(), convertSectionsToMaps(entry.getValue()));
             }
             return newMap;
-        } else if (object instanceof Iterable) {
+        } else if (object instanceof Iterable<?> iterable) {
             // Any other type of Collection is converted to a list:
-            Iterable<?> iterable = (Iterable<?>) object; // Might be immutable
+            // Might be immutable
             List<Object> newList = new ArrayList<>();
             for (Object element : iterable) {
                 newList.add(convertSectionsToMaps(element));

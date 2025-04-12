@@ -1,13 +1,14 @@
 package org.bukkit;
 
-import java.util.Set;
 import org.bukkit.entity.EntityType;
 import org.jetbrains.annotations.NotNull;
+
+import java.util.Set;
 
 /**
  * Represents a tag that may be defined by the server or a resource pack to
  * group like things together.
- *
+ * <p>
  * Note that whilst all tags defined within this interface must be present in
  * implementations, their existence is not guaranteed across future versions.
  *
@@ -980,6 +981,13 @@ public interface Tag<T extends Keyed> extends Keyed {
      */
     Tag<Material> ITEMS_AXOLOTL_FOOD = Bukkit.getTag(REGISTRY_ITEMS, NamespacedKey.minecraft("axolotl_food"), Material.class);
     /**
+     * Vanilla item tag representing all items which tempt axolotls.
+     *
+     * @deprecated use {@link #ITEMS_AXOLOTL_FOOD}
+     */
+    @Deprecated(since = "1.20.5")
+    Tag<Material> AXOLOTL_TEMPT_ITEMS = ITEMS_AXOLOTL_FOOD;
+    /**
      * Vanilla item tag representing all banner items.
      */
     Tag<Material> ITEMS_BANNERS = Bukkit.getTag(REGISTRY_ITEMS, NamespacedKey.minecraft("banners"), Material.class);
@@ -1289,11 +1297,11 @@ public interface Tag<T extends Keyed> extends Keyed {
      * Vanilla item tag representing all items enchantable with mace enchantments.
      */
     Tag<Material> ITEMS_ENCHANTABLE_MACE = Bukkit.getTag(REGISTRY_ITEMS, NamespacedKey.minecraft("enchantable/mace"), Material.class);
-        /**
+    /**
      * Vanilla item tag representing all items which when equipped will hide the entity from maps.
      */
     Tag<Material> ITEMS_MAP_INVISIBILITY_EQUIPMENT = Bukkit.getTag(REGISTRY_ITEMS, NamespacedKey.minecraft("map_invisibility_equipment"), Material.class);
-        /**
+    /**
      * Vanilla item tag representing all items which disguise the wearer's gaze from other entities.
      */
     Tag<Material> ITEMS_GAZE_DISGUISE_EQUIPMENT = Bukkit.getTag(REGISTRY_ITEMS, NamespacedKey.minecraft("gaze_disguise_equipment"), Material.class);
@@ -1302,13 +1310,6 @@ public interface Tag<T extends Keyed> extends Keyed {
      * the wearer.
      */
     Tag<Material> FREEZE_IMMUNE_WEARABLES = Bukkit.getTag(REGISTRY_ITEMS, NamespacedKey.minecraft("freeze_immune_wearables"), Material.class);
-    /**
-     * Vanilla item tag representing all items which tempt axolotls.
-     *
-     * @deprecated use {@link #ITEMS_AXOLOTL_FOOD}
-     */
-    @Deprecated(since = "1.20.5")
-    Tag<Material> AXOLOTL_TEMPT_ITEMS = ITEMS_AXOLOTL_FOOD;
     /**
      * Vanilla item tag representing all items which are preferred for
      * harvesting clusters (unused).
@@ -1392,6 +1393,7 @@ public interface Tag<T extends Keyed> extends Keyed {
     Tag<EntityType> ENTITY_TYPES_DEFLECTS_PROJECTILES = Bukkit.getTag(REGISTRY_ENTITY_TYPES, NamespacedKey.minecraft("deflects_projectiles"), EntityType.class);
     /**
      * Vanilla tag representing entities which deflect arrows.
+     *
      * @deprecated use {@link #ENTITY_TYPES_DEFLECTS_PROJECTILES}
      */
     @Deprecated(since = "1.20.5")

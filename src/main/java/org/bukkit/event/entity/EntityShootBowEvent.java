@@ -17,9 +17,9 @@ public class EntityShootBowEvent extends EntityEvent implements Cancellable {
     private static final HandlerList handlers = new HandlerList();
     private final ItemStack bow;
     private final ItemStack consumable;
-    private Entity projectile;
     private final EquipmentSlot hand;
     private final float force;
+    private Entity projectile;
     private boolean consumeItem;
     private boolean cancelled;
 
@@ -31,6 +31,11 @@ public class EntityShootBowEvent extends EntityEvent implements Cancellable {
         this.hand = hand;
         this.force = force;
         this.consumeItem = consumeItem;
+    }
+
+    @NotNull
+    public static HandlerList getHandlerList() {
+        return handlers;
     }
 
     @NotNull
@@ -51,7 +56,7 @@ public class EntityShootBowEvent extends EntityEvent implements Cancellable {
 
     /**
      * Get the ItemStack to be consumed in this event (if any).
-     *
+     * <p>
      * For instance, bows will consume an arrow ItemStack in a player's
      * inventory.
      *
@@ -102,7 +107,7 @@ public class EntityShootBowEvent extends EntityEvent implements Cancellable {
 
     /**
      * Set whether or not the consumable item should be consumed in this event.
-     *
+     * <p>
      * If set to false, it is recommended that a call to
      * {@link Player#updateInventory()} is made as the client may disagree with
      * the server's decision to not consume a consumable item.
@@ -141,11 +146,6 @@ public class EntityShootBowEvent extends EntityEvent implements Cancellable {
     @NotNull
     @Override
     public HandlerList getHandlers() {
-        return handlers;
-    }
-
-    @NotNull
-    public static HandlerList getHandlerList() {
         return handlers;
     }
 }

@@ -13,6 +13,7 @@ public interface AxolotlBucketMeta extends ItemMeta {
      * <p>
      * Plugins should check that hasVariant() returns <code>true</code> before
      * calling this method.
+     *
      * @return axolotl variant
      */
     @NotNull

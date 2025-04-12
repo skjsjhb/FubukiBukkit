@@ -22,7 +22,7 @@ public interface CommandMinecart extends Minecart {
      * String.
      *
      * @param command Command that this CommandMinecart will run when
-     *     activated.
+     *                activated.
      */
     public void setCommand(@Nullable String command);
 

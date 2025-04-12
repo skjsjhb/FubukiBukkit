@@ -5,7 +5,7 @@ import org.jetbrains.annotations.NotNull;
 
 /**
  * 'trial_spawner_state' indicates the current operational phase of the spawner.
-  * <br>
+ * <br>
  * 'ominous' indicates if the block has ominous effects.
  */
 public interface TrialSpawner extends BlockData {

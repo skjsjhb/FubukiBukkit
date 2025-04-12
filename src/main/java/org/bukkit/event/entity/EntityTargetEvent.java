@@ -11,14 +11,19 @@ import org.jetbrains.annotations.Nullable;
  */
 public class EntityTargetEvent extends EntityEvent implements Cancellable {
     private static final HandlerList handlers = new HandlerList();
+    private final TargetReason reason;
     private boolean cancel = false;
     private Entity target;
-    private final TargetReason reason;
 
     public EntityTargetEvent(@NotNull final Entity entity, @Nullable final Entity target, @NotNull final TargetReason reason) {
         super(entity);
         this.target = target;
         this.reason = reason;
+    }
+
+    @NotNull
+    public static HandlerList getHandlerList() {
+        return handlers;
     }
 
     @Override
@@ -73,11 +78,6 @@ public class EntityTargetEvent extends EntityEvent implements Cancellable {
     @NotNull
     @Override
     public HandlerList getHandlers() {
-        return handlers;
-    }
-
-    @NotNull
-    public static HandlerList getHandlerList() {
         return handlers;
     }
 

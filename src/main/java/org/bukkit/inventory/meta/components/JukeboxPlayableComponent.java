@@ -22,19 +22,19 @@ public interface JukeboxPlayableComponent extends ConfigurationSerializable {
     JukeboxSong getSong();
 
     /**
+     * Sets the song assigned to this component.
+     *
+     * @param song the song
+     */
+    void setSong(@NotNull JukeboxSong song);
+
+    /**
      * Gets the key of the song assigned to this component.
      *
      * @return the song key
      */
     @Nullable
     NamespacedKey getSongKey();
-
-    /**
-     * Sets the song assigned to this component.
-     *
-     * @param song the song
-     */
-    void setSong(@NotNull JukeboxSong song);
 
     /**
      * Sets the key of the song assigned to this component.

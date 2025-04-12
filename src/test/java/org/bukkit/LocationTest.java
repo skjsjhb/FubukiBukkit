@@ -1,14 +1,17 @@
 package org.bukkit;
 
-import static org.bukkit.support.MatcherAssert.*;
-import static org.hamcrest.Matchers.*;
-import static org.mockito.Mockito.*;
-import java.util.Random;
-import java.util.stream.Stream;
 import org.bukkit.util.Vector;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.Arguments;
 import org.junit.jupiter.params.provider.MethodSource;
+
+import java.util.Random;
+import java.util.stream.Stream;
+
+import static org.bukkit.support.MatcherAssert.assertThat;
+import static org.hamcrest.Matchers.closeTo;
+import static org.hamcrest.Matchers.is;
+import static org.mockito.Mockito.mock;
 
 public class LocationTest {
     private static final double delta = 1.0 / 1000000;
@@ -32,77 +35,78 @@ public class LocationTest {
      * </pre>
      */
     private static final double HALF_HALF_UNIT = Math.sqrt(1 / 4f);
+    private static final World TEST_WORLD = mock();
 
     public static Stream<Arguments> data() {
         Random RANDOM = new Random(1L); // Test is deterministic
         int r = 0;
         return Stream.of(
-            Arguments.of("X",
-                1, 0, 0,
-                270, 0
-            ),
-            Arguments.of("-X",
-                -1, 0, 0,
-                90, 0
-            ),
-            Arguments.of("Z",
-                0, 0, 1,
-                0, 0
-            ),
-            Arguments.of("-Z",
-                0, 0, -1,
-                180, 0
-            ),
-            Arguments.of("Y",
-                0, 1, 0,
-                0, -90 // Zero is here as a "default" value
-            ),
-            Arguments.of("-Y",
-                0, -1, 0,
-                0, 90 // Zero is here as a "default" value
-            ),
-            Arguments.of("X Z",
-                HALF_UNIT, 0, HALF_UNIT,
-                (270 + 360) / 2, 0
-            ),
-            Arguments.of("X -Z",
-                HALF_UNIT, 0, -HALF_UNIT,
-                (270 + 180) / 2, 0
-            ),
-            Arguments.of("-X -Z",
-                -HALF_UNIT, 0, -HALF_UNIT,
-                (90 + 180) / 2, 0
-            ),
-            Arguments.of("-X Z",
-                -HALF_UNIT, 0, HALF_UNIT,
-                (90 + 0) / 2, 0
-            ),
-            Arguments.of("X Y Z",
-                HALF_HALF_UNIT, HALF_UNIT, HALF_HALF_UNIT,
-                (270 + 360) / 2, -45
-            ),
-            Arguments.of("-X -Y -Z",
-                -HALF_HALF_UNIT, -HALF_UNIT, -HALF_HALF_UNIT,
-                (90 + 180) / 2, 45
-            ),
-            getRandom(RANDOM, r++),
-            getRandom(RANDOM, r++),
-            getRandom(RANDOM, r++),
-            getRandom(RANDOM, r++),
-            getRandom(RANDOM, r++),
-            getRandom(RANDOM, r++),
-            getRandom(RANDOM, r++),
-            getRandom(RANDOM, r++),
-            getRandom(RANDOM, r++),
-            getRandom(RANDOM, r++),
-            getRandom(RANDOM, r++),
-            getRandom(RANDOM, r++),
-            getRandom(RANDOM, r++),
-            getRandom(RANDOM, r++),
-            getRandom(RANDOM, r++),
-            getRandom(RANDOM, r++),
-            getRandom(RANDOM, r++),
-            getRandom(RANDOM, r++)
+                Arguments.of("X",
+                        1, 0, 0,
+                        270, 0
+                ),
+                Arguments.of("-X",
+                        -1, 0, 0,
+                        90, 0
+                ),
+                Arguments.of("Z",
+                        0, 0, 1,
+                        0, 0
+                ),
+                Arguments.of("-Z",
+                        0, 0, -1,
+                        180, 0
+                ),
+                Arguments.of("Y",
+                        0, 1, 0,
+                        0, -90 // Zero is here as a "default" value
+                ),
+                Arguments.of("-Y",
+                        0, -1, 0,
+                        0, 90 // Zero is here as a "default" value
+                ),
+                Arguments.of("X Z",
+                        HALF_UNIT, 0, HALF_UNIT,
+                        (270 + 360) / 2, 0
+                ),
+                Arguments.of("X -Z",
+                        HALF_UNIT, 0, -HALF_UNIT,
+                        (270 + 180) / 2, 0
+                ),
+                Arguments.of("-X -Z",
+                        -HALF_UNIT, 0, -HALF_UNIT,
+                        (90 + 180) / 2, 0
+                ),
+                Arguments.of("-X Z",
+                        -HALF_UNIT, 0, HALF_UNIT,
+                        (90) / 2, 0
+                ),
+                Arguments.of("X Y Z",
+                        HALF_HALF_UNIT, HALF_UNIT, HALF_HALF_UNIT,
+                        (270 + 360) / 2, -45
+                ),
+                Arguments.of("-X -Y -Z",
+                        -HALF_HALF_UNIT, -HALF_UNIT, -HALF_HALF_UNIT,
+                        (90 + 180) / 2, 45
+                ),
+                getRandom(RANDOM, r++),
+                getRandom(RANDOM, r++),
+                getRandom(RANDOM, r++),
+                getRandom(RANDOM, r++),
+                getRandom(RANDOM, r++),
+                getRandom(RANDOM, r++),
+                getRandom(RANDOM, r++),
+                getRandom(RANDOM, r++),
+                getRandom(RANDOM, r++),
+                getRandom(RANDOM, r++),
+                getRandom(RANDOM, r++),
+                getRandom(RANDOM, r++),
+                getRandom(RANDOM, r++),
+                getRandom(RANDOM, r++),
+                getRandom(RANDOM, r++),
+                getRandom(RANDOM, r++),
+                getRandom(RANDOM, r++),
+                getRandom(RANDOM, r++)
         );
     }
 
@@ -137,9 +141,13 @@ public class LocationTest {
         }
 
         return Arguments.of("R" + index,
-            vector.getX(), vector.getY(), vector.getZ(),
-            location.getYaw(), location.getPitch()
+                vector.getX(), vector.getY(), vector.getZ(),
+                location.getYaw(), location.getPitch()
         );
+    }
+
+    private static Location getEmptyLocation() {
+        return new Location(TEST_WORLD, 0, 0, 0);
     }
 
     @ParameterizedTest
@@ -173,12 +181,6 @@ public class LocationTest {
 
     private Vector getVector(double x, double y, double z) {
         return new Vector(x, y, z);
-    }
-
-    private static final World TEST_WORLD = mock();
-
-    private static Location getEmptyLocation() {
-        return new Location(TEST_WORLD, 0, 0, 0);
     }
 
     private Location getLocation(float yaw, float pitch) {

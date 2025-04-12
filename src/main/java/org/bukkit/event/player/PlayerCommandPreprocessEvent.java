@@ -1,12 +1,13 @@
 package org.bukkit.event.player;
 
 import com.google.common.base.Preconditions;
-import java.util.HashSet;
-import java.util.Set;
 import org.bukkit.entity.Player;
 import org.bukkit.event.Cancellable;
 import org.bukkit.event.HandlerList;
 import org.jetbrains.annotations.NotNull;
+
+import java.util.HashSet;
+import java.util.Set;
 
 /**
  * This event is called whenever a player runs a command (by placing a slash
@@ -47,9 +48,9 @@ import org.jetbrains.annotations.NotNull;
  */
 public class PlayerCommandPreprocessEvent extends PlayerEvent implements Cancellable {
     private static final HandlerList handlers = new HandlerList();
+    private final Set<Player> recipients;
     private boolean cancel = false;
     private String message;
-    private final Set<Player> recipients;
 
     public PlayerCommandPreprocessEvent(@NotNull final Player player, @NotNull final String message) {
         super(player);
@@ -61,6 +62,11 @@ public class PlayerCommandPreprocessEvent extends PlayerEvent implements Cancell
         super(player);
         this.recipients = recipients;
         this.message = message;
+    }
+
+    @NotNull
+    public static HandlerList getHandlerList() {
+        return handlers;
     }
 
     @Override
@@ -124,7 +130,7 @@ public class PlayerCommandPreprocessEvent extends PlayerEvent implements Cancell
      *
      * @return All Players who will see this chat message
      * @deprecated This method is provided for backward compatibility with no
-     *     guarantee to the effect of viewing or modifying the set.
+     * guarantee to the effect of viewing or modifying the set.
      */
     @NotNull
     @Deprecated(since = "1.3.1")
@@ -135,11 +141,6 @@ public class PlayerCommandPreprocessEvent extends PlayerEvent implements Cancell
     @NotNull
     @Override
     public HandlerList getHandlers() {
-        return handlers;
-    }
-
-    @NotNull
-    public static HandlerList getHandlerList() {
         return handlers;
     }
 }

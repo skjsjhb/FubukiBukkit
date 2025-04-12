@@ -82,7 +82,7 @@ public interface Skull extends TileState {
      *
      * @param profile the profile of the owning player
      * @throws IllegalArgumentException if the profile does not contain the
-     * necessary information
+     *                                  necessary information
      */
     void setOwnerProfile(@Nullable PlayerProfile profile);
 
@@ -104,7 +104,6 @@ public interface Skull extends TileState {
      * see {@link org.bukkit.Instrument}.
      *
      * @param noteBlockSound the key of the sound to be played, or null
-     *
      */
     public void setNoteBlockSound(@Nullable NamespacedKey noteBlockSound);
 

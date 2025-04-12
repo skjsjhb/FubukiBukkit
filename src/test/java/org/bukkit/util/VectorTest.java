@@ -1,8 +1,9 @@
 package org.bukkit.util;
 
-import static org.junit.jupiter.api.Assertions.*;
 import org.bukkit.block.BlockFace;
 import org.junit.jupiter.api.Test;
+
+import static org.junit.jupiter.api.Assertions.*;
 
 public class VectorTest {
 

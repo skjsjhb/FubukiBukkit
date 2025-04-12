@@ -22,7 +22,7 @@ import org.jetbrains.annotations.NotNull;
  *   <li>An entity, when killed and drops experience, within an 8-block radius of a {@link SculkCatalyst}.</li>
  *   <li>An explicit call from a plugin using {@link SculkCatalyst#bloom(Block, int)}.</li>
  * </ul>
- *
+ * <p>
  * The result of {@link #getBlock()} is the location that the cursor is spawning at.
  */
 public class SculkBloomEvent extends BlockEvent implements Cancellable {
@@ -35,6 +35,11 @@ public class SculkBloomEvent extends BlockEvent implements Cancellable {
     public SculkBloomEvent(@NotNull Block theBlock, int charge) {
         super(theBlock);
         this.charge = charge;
+    }
+
+    @NotNull
+    public static HandlerList getHandlerList() {
+        return handlers;
     }
 
     /**
@@ -78,11 +83,6 @@ public class SculkBloomEvent extends BlockEvent implements Cancellable {
     @NotNull
     @Override
     public HandlerList getHandlers() {
-        return handlers;
-    }
-
-    @NotNull
-    public static HandlerList getHandlerList() {
         return handlers;
     }
 }

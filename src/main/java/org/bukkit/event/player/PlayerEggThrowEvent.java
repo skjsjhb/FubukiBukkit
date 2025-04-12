@@ -24,6 +24,11 @@ public class PlayerEggThrowEvent extends PlayerEvent {
         this.hatchType = hatchingType;
     }
 
+    @NotNull
+    public static HandlerList getHandlerList() {
+        return handlers;
+    }
+
     /**
      * Gets the egg involved in this event.
      *
@@ -48,7 +53,7 @@ public class PlayerEggThrowEvent extends PlayerEvent {
      * Sets whether the egg will hatch or not.
      *
      * @param hatching true if you want the egg to hatch, false if you want it
-     *     not to
+     *                 not to
      */
     public void setHatching(boolean hatching) {
         this.hatching = hatching;
@@ -104,11 +109,6 @@ public class PlayerEggThrowEvent extends PlayerEvent {
     @NotNull
     @Override
     public HandlerList getHandlers() {
-        return handlers;
-    }
-
-    @NotNull
-    public static HandlerList getHandlerList() {
         return handlers;
     }
 }

@@ -1,9 +1,6 @@
 package org.bukkit.event.world;
 
 import com.google.common.base.Preconditions;
-import java.util.Collections;
-import java.util.LinkedHashMap;
-import java.util.Map;
 import org.bukkit.NamespacedKey;
 import org.bukkit.World;
 import org.bukkit.event.HandlerList;
@@ -14,6 +11,10 @@ import org.bukkit.util.EntityTransformer;
 import org.jetbrains.annotations.ApiStatus;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
+
+import java.util.Collections;
+import java.util.LinkedHashMap;
+import java.util.Map;
 
 /**
  * This event will sometimes fire synchronously, depending on how it was
@@ -26,7 +27,7 @@ import org.jetbrains.annotations.Nullable;
  * If a {@link Structure} is naturally placed in a chunk of the world, this
  * event will be asynchronous. If a player executes the '/place structure'
  * command, this event will be synchronous.
- *
+ * <p>
  * Allows to register transformers that can modify the blocks placed and
  * entities spawned by the structure.
  * <p>
@@ -37,24 +38,13 @@ import org.jetbrains.annotations.Nullable;
 @ApiStatus.Experimental
 public class AsyncStructureGenerateEvent extends WorldEvent {
 
-    public static enum Cause {
-        COMMAND,
-        WORLD_GENERATION,
-        CUSTOM;
-    }
-
     private static final HandlerList handlers = new HandlerList();
-
     private final Cause cause;
-
     private final Structure structure;
     private final BoundingBox boundingBox;
-
     private final int chunkX, chunkZ;
-
     private final Map<NamespacedKey, BlockTransformer> blockTransformers = new LinkedHashMap<>();
     private final Map<NamespacedKey, EntityTransformer> entityTransformers = new LinkedHashMap<>();
-
     public AsyncStructureGenerateEvent(@NotNull World world, boolean async, @NotNull Cause cause, @NotNull Structure structure, @NotNull BoundingBox boundingBox, int chunkX, int chunkZ) {
         super(world, async);
         this.structure = structure;
@@ -62,6 +52,11 @@ public class AsyncStructureGenerateEvent extends WorldEvent {
         this.chunkX = chunkX;
         this.chunkZ = chunkZ;
         this.cause = cause;
+    }
+
+    @NotNull
+    public static HandlerList getHandlerList() {
+        return handlers;
     }
 
     /**
@@ -78,7 +73,6 @@ public class AsyncStructureGenerateEvent extends WorldEvent {
      * Gets a block transformer by key.
      *
      * @param key the key of the block transformer
-     *
      * @return the block transformer or null
      */
     @Nullable
@@ -90,7 +84,7 @@ public class AsyncStructureGenerateEvent extends WorldEvent {
     /**
      * Sets a block transformer to a key.
      *
-     * @param key the key
+     * @param key         the key
      * @param transformer the block transformer
      */
     public void setBlockTransformer(@NotNull NamespacedKey key, @NotNull BlockTransformer transformer) {
@@ -130,7 +124,6 @@ public class AsyncStructureGenerateEvent extends WorldEvent {
      * Gets a entity transformer by key.
      *
      * @param key the key of the entity transformer
-     *
      * @return the entity transformer or null
      */
     @Nullable
@@ -142,7 +135,7 @@ public class AsyncStructureGenerateEvent extends WorldEvent {
     /**
      * Sets a entity transformer to a key.
      *
-     * @param key the key
+     * @param key         the key
      * @param transformer the entity transformer
      */
     public void setEntityTransformer(@NotNull NamespacedKey key, @NotNull EntityTransformer transformer) {
@@ -222,8 +215,9 @@ public class AsyncStructureGenerateEvent extends WorldEvent {
         return handlers;
     }
 
-    @NotNull
-    public static HandlerList getHandlerList() {
-        return handlers;
+    public static enum Cause {
+        COMMAND,
+        WORLD_GENERATION,
+        CUSTOM;
     }
 }

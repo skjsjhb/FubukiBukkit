@@ -1,11 +1,12 @@
 package org.bukkit.boss;
 
-import java.util.Collection;
 import org.bukkit.Location;
 import org.bukkit.entity.EnderCrystal;
 import org.bukkit.entity.EnderDragon;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
+
+import java.util.Collection;
 
 /**
  * Represents a dragon battle state for a world with an end environment.
@@ -44,7 +45,6 @@ public interface DragonBattle {
      * Generate the end portal.
      *
      * @param withPortals whether end portal blocks should be generated
-     *
      * @return true if generated, false if already present
      */
     public boolean generateEndPortal(boolean withPortals);
@@ -63,7 +63,7 @@ public interface DragonBattle {
      * when it is finally killed.
      *
      * @param previouslyKilled true if the dragon has been killed before, false
-     * otherwise
+     *                         otherwise
      */
     public void setPreviouslyKilled(boolean previouslyKilled);
 
@@ -77,10 +77,9 @@ public interface DragonBattle {
      * Try to initiate a respawn sequence to summon the dragon.
      *
      * @param enderCrystals the {@link EnderCrystal EnderCrystals} to use in the
-     * respawn, or a null or empty list to render the respawn sequence
-     * uncancellable. null entries or crystals that do not reside in the same
-     * world as this dragon battle will be ignored.
-     *
+     *                      respawn, or a null or empty list to render the respawn sequence
+     *                      uncancellable. null entries or crystals that do not reside in the same
+     *                      world as this dragon battle will be ignored.
      * @return true if the respawn was initiated, false otherwise.
      */
     public boolean initiateRespawn(@Nullable Collection<EnderCrystal> enderCrystals);
@@ -99,9 +98,7 @@ public interface DragonBattle {
      * This method will is unsuccessful if a dragon respawn is not in progress.
      *
      * @param phase the phase to set
-     *
      * @return true if successful, false otherwise
-     *
      * @see #initiateRespawn()
      */
     public boolean setRespawnPhase(@NotNull RespawnPhase phase);

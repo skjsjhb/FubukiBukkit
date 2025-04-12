@@ -1,11 +1,12 @@
 package org.bukkit.util;
 
+import org.jetbrains.annotations.NotNull;
+
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.nio.channels.FileChannel;
-import org.jetbrains.annotations.NotNull;
 
 /**
  * Class containing file utilities
@@ -15,7 +16,7 @@ public class FileUtil {
     /**
      * This method copies one file to another location
      *
-     * @param inFile the source filename
+     * @param inFile  the source filename
      * @param outFile the target filename
      * @return true on success
      */

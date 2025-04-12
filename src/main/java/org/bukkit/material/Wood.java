@@ -9,7 +9,6 @@ import org.bukkit.TreeSpecies;
  * @see Material#LEGACY_WOOD
  * @see Material#LEGACY_SAPLING
  * @see Material#LEGACY_WOOD_DOUBLE_STEP
- *
  * @deprecated all usage of MaterialData is deprecated and subject to removal.
  * Use {@link org.bukkit.block.data.BlockData}.
  */
@@ -46,7 +45,7 @@ public class Wood extends MaterialData {
     /**
      * Constructs a wood block of the given type and tree species.
      *
-     * @param type the type of wood block
+     * @param type    the type of wood block
      * @param species the species of the wood block
      */
     public Wood(final Material type, final TreeSpecies species) {
@@ -66,33 +65,9 @@ public class Wood extends MaterialData {
     }
 
     /**
-     * Gets the current species of this wood block
-     *
-     * @return TreeSpecies of this wood block
-     */
-    public TreeSpecies getSpecies() {
-        switch (getItemType()) {
-            case LEGACY_WOOD:
-            case LEGACY_WOOD_DOUBLE_STEP:
-                return TreeSpecies.getByData((byte) getData());
-            case LEGACY_LOG:
-            case LEGACY_LEAVES:
-                return TreeSpecies.getByData((byte) (getData() & 0x3));
-            case LEGACY_LOG_2:
-            case LEGACY_LEAVES_2:
-                return TreeSpecies.getByData((byte) ((getData() & 0x3) | 0x4));
-            case LEGACY_SAPLING:
-            case LEGACY_WOOD_STEP:
-                return TreeSpecies.getByData((byte) (getData() & 0x7));
-            default:
-                throw new IllegalArgumentException("Invalid block type for tree species");
-        }
-    }
-
-    /**
      * Correct the block type for certain species-type combinations.
      *
-     * @param type The desired type
+     * @param type    The desired type
      * @param species The required species
      * @return The actual type for this species given the desired type
      */
@@ -125,6 +100,30 @@ public class Wood extends MaterialData {
     }
 
     /**
+     * Gets the current species of this wood block
+     *
+     * @return TreeSpecies of this wood block
+     */
+    public TreeSpecies getSpecies() {
+        switch (getItemType()) {
+            case LEGACY_WOOD:
+            case LEGACY_WOOD_DOUBLE_STEP:
+                return TreeSpecies.getByData((byte) getData());
+            case LEGACY_LOG:
+            case LEGACY_LEAVES:
+                return TreeSpecies.getByData((byte) (getData() & 0x3));
+            case LEGACY_LOG_2:
+            case LEGACY_LEAVES_2:
+                return TreeSpecies.getByData((byte) ((getData() & 0x3) | 0x4));
+            case LEGACY_SAPLING:
+            case LEGACY_WOOD_STEP:
+                return TreeSpecies.getByData((byte) (getData() & 0x7));
+            default:
+                throw new IllegalArgumentException("Invalid block type for tree species");
+        }
+    }
+
+    /**
      * Sets the species of this wood block
      *
      * @param species New species of this wood block
@@ -139,7 +138,7 @@ public class Wood extends MaterialData {
             case LEGACY_LOG:
             case LEGACY_LEAVES:
                 firstType = true;
-            // fall through to next switch statement below
+                // fall through to next switch statement below
             case LEGACY_LOG_2:
             case LEGACY_LEAVES_2:
                 switch (species) {

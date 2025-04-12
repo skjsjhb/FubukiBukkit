@@ -1,10 +1,11 @@
 package org.bukkit;
 
 import com.google.common.collect.Maps;
-import java.util.Map;
 import org.bukkit.block.BlockFace;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
+
+import java.util.Map;
 
 /**
  * A list of effects that the server is able to send to players.
@@ -24,71 +25,81 @@ public enum Effect {
     BOW_FIRE(1002, Type.SOUND),
     /**
      * Sound of a door opening.
-     * @deprecated no longer exists
+     *
      * @see Sound#BLOCK_WOODEN_DOOR_OPEN
+     * @deprecated no longer exists
      */
     @Deprecated(since = "1.19.3")
     DOOR_TOGGLE(1006, Type.SOUND),
     /**
      * Sound of a door opening.
-     * @deprecated no longer exists
+     *
      * @see Sound#BLOCK_IRON_DOOR_OPEN
+     * @deprecated no longer exists
      */
     @Deprecated(since = "1.19.3")
     IRON_DOOR_TOGGLE(1005, Type.SOUND),
     /**
      * Sound of a trapdoor opening.
-     * @deprecated no longer exists
+     *
      * @see Sound#BLOCK_WOODEN_TRAPDOOR_OPEN
+     * @deprecated no longer exists
      */
     @Deprecated(since = "1.19.3")
     TRAPDOOR_TOGGLE(1007, Type.SOUND),
     /**
      * Sound of a door opening.
-     * @deprecated no longer exists
+     *
      * @see Sound#BLOCK_IRON_TRAPDOOR_OPEN
+     * @deprecated no longer exists
      */
     @Deprecated(since = "1.19.3")
     IRON_TRAPDOOR_TOGGLE(1037, Type.SOUND),
     /**
      * Sound of a door opening.
-     * @deprecated no longer exists
+     *
      * @see Sound#BLOCK_FENCE_GATE_OPEN
+     * @deprecated no longer exists
      */
     @Deprecated(since = "1.19.3")
     FENCE_GATE_TOGGLE(1008, Type.SOUND),
     /**
      * Sound of a door closing.
-     * @deprecated no longer exists
+     *
      * @see Sound#BLOCK_WOODEN_DOOR_CLOSE
+     * @deprecated no longer exists
      */
     @Deprecated(since = "1.19.3")
     DOOR_CLOSE(1012, Type.SOUND),
     /**
      * Sound of a door closing.
-     * @deprecated no longer exists
+     *
      * @see Sound#BLOCK_IRON_DOOR_CLOSE
+     * @deprecated no longer exists
      */
     @Deprecated(since = "1.19.3")
     IRON_DOOR_CLOSE(1011, Type.SOUND),
     /**
      * Sound of a trapdoor closing.
-     * @deprecated no longer exists
+     *
      * @see Sound#BLOCK_WOODEN_TRAPDOOR_CLOSE
+     * @deprecated no longer exists
      */
     @Deprecated(since = "1.19.3")
     TRAPDOOR_CLOSE(1013, Type.SOUND),
     /**
      * Sound of a door closing.
-     * @deprecated no longer exists
+     *
      * @see Sound#BLOCK_IRON_TRAPDOOR_CLOSE
+     * @deprecated no longer exists
      */
     @Deprecated(since = "1.19.3")
     IRON_TRAPDOOR_CLOSE(1036, Type.SOUND),
     /**
      * Sound of a door closing.
-     * @deprecated no longer exists
+     *
      * @see Sound#BLOCK_FENCE_GATE_CLOSE
+     * @deprecated no longer exists
      */
     @Deprecated(since = "1.19.3")
     FENCE_GATE_CLOSE(1014, Type.SOUND),
@@ -273,13 +284,13 @@ public enum Effect {
     /**
      * The sound played / particles shown when a composter is being attempted to
      * fill.
-     *
+     * <p>
      * True for a successful attempt false for an unsuccessful attempt.
      */
     COMPOSTER_FILL_ATTEMPT(1500, Type.VISUAL, Boolean.class),
     /**
      * The sound played / particles shown when lava interacts with the world.
-     *
+     * <p>
      * For example by forming stone, obsidian, basalt or destroying blocks such
      * as torches.
      */
@@ -295,7 +306,7 @@ public enum Effect {
     END_PORTAL_FRAME_FILL(1503, Type.VISUAL),
     /**
      * The particles shown when a dripstone drips lava or water.
-     *
+     * <p>
      * This effect requires a dripstone at the location as well as lava or water
      * at the root of the dripstone.
      */
@@ -303,7 +314,7 @@ public enum Effect {
     /**
      * The sound played / particles shown when bone meal is used to grow a
      * plant.
-     *
+     * <p>
      * Data is the number of particles.
      */
     BONE_MEAL_USE(1505, Type.VISUAL, Integer.class),
@@ -318,7 +329,7 @@ public enum Effect {
     /**
      * The particles shown when a lightning hits a lightning rod or oxidized
      * copper.
-     *
+     * <p>
      * Data is the axis at which the particle should be shown. If no data is
      * provided it will show the particles at the block faces.
      */
@@ -338,10 +349,17 @@ public enum Effect {
     OXIDISED_COPPER_SCRAPE(3005, Type.VISUAL),
     ;
 
+    private static final Map<Integer, Effect> BY_ID = Maps.newHashMap();
+
+    static {
+        for (Effect effect : values()) {
+            BY_ID.put(effect.id, effect);
+        }
+    }
+
     private final int id;
     private final Type type;
     private final Class<?> data;
-    private static final Map<Integer, Effect> BY_ID = Maps.newHashMap();
 
     Effect(int id, /*@NotNull*/ Type type) {
         this(id, type, null);
@@ -351,6 +369,19 @@ public enum Effect {
         this.id = id;
         this.type = type;
         this.data = data;
+    }
+
+    /**
+     * Gets the Effect associated with the given ID.
+     *
+     * @param id ID of the Effect to return
+     * @return Effect with the given ID
+     * @deprecated Magic value
+     */
+    @Deprecated(since = "1.6.2")
+    @Nullable
+    public static Effect getById(int id) {
+        return BY_ID.get(id);
     }
 
     /**
@@ -374,7 +405,7 @@ public enum Effect {
 
     /**
      * @return The class which represents data for this effect, or null if
-     *     none
+     * none
      */
     @Nullable
     public Class<?> getData() {
@@ -382,26 +413,7 @@ public enum Effect {
     }
 
     /**
-     * Gets the Effect associated with the given ID.
-     *
-     * @param id ID of the Effect to return
-     * @return Effect with the given ID
-     * @deprecated Magic value
-     */
-    @Deprecated(since = "1.6.2")
-    @Nullable
-    public static Effect getById(int id) {
-        return BY_ID.get(id);
-    }
-
-    static {
-        for (Effect effect : values()) {
-            BY_ID.put(effect.id, effect);
-        }
-    }
-
-    /**
      * Represents the type of an effect.
      */
-    public enum Type { SOUND, VISUAL }
+    public enum Type {SOUND, VISUAL}
 }

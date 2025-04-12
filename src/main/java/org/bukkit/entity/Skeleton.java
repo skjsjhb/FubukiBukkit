@@ -24,7 +24,6 @@ public interface Skeleton extends AbstractSkeleton {
      * When this reaches 0, the entity will be converted.
      *
      * @return the conversion time left represented in ticks.
-     *
      * @throws IllegalStateException if {@link #isConverting()} is false.
      */
     int getConversionTime();
@@ -46,7 +45,7 @@ public interface Skeleton extends AbstractSkeleton {
      * entities on the server.
      *
      * @deprecated classes are different types. This interface only remains in
-     *     the Skeleton interface to preserve backwards compatibility.
+     * the Skeleton interface to preserve backwards compatibility.
      */
     @Deprecated(since = "1.11")
     public enum SkeletonType {

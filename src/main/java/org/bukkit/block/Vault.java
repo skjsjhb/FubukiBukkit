@@ -1,12 +1,13 @@
 package org.bukkit.block;
 
-import java.util.Set;
-import java.util.UUID;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.loot.LootTable;
 import org.jetbrains.annotations.ApiStatus;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
+
+import java.util.Set;
+import java.util.UUID;
 
 /**
  * Represents a captured state of a vault.
@@ -28,7 +29,7 @@ public interface Vault extends TileState {
      * activate.
      *
      * @param range the distance at which a player must enter for this
-     * vault to activate.
+     *              vault to activate.
      */
     void setActivationRange(double range);
 
@@ -46,7 +47,7 @@ public interface Vault extends TileState {
      * deactivate.
      *
      * @param range the distance at which a player must exit for this
-     * vault to deactivate.
+     *              vault to deactivate.
      */
     void setDeactivationRange(double range);
 

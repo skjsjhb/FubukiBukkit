@@ -1,11 +1,12 @@
 package org.bukkit.block.spawner;
 
 import com.google.common.base.Preconditions;
-import java.util.LinkedHashMap;
-import java.util.Map;
 import org.bukkit.configuration.serialization.ConfigurationSerializable;
 import org.bukkit.configuration.serialization.SerializableAs;
 import org.jetbrains.annotations.NotNull;
+
+import java.util.LinkedHashMap;
+import java.util.Map;
 
 /**
  * Represents a spawn rule that controls what conditions an entity from a
@@ -23,13 +24,13 @@ public class SpawnRule implements Cloneable, ConfigurationSerializable {
      * Constructs a new SpawnRule.
      *
      * @param minBlockLight The minimum (inclusive) block light required for
-     * spawning to succeed.
+     *                      spawning to succeed.
      * @param maxBlockLight The maximum (inclusive) block light required for
-     * spawning to succeed.
-     * @param minSkyLight The minimum (inclusive) sky light required for
-     * spawning to succeed.
-     * @param maxSkyLight The maximum (inclusive) sky light required for
-     * spawning to succeed.
+     *                      spawning to succeed.
+     * @param minSkyLight   The minimum (inclusive) sky light required for
+     *                      spawning to succeed.
+     * @param maxSkyLight   The maximum (inclusive) sky light required for
+     *                      spawning to succeed.
      */
     public SpawnRule(int minBlockLight, int maxBlockLight, int minSkyLight, int maxSkyLight) {
         Preconditions.checkArgument(minBlockLight <= maxBlockLight, "minBlockLight must be <= maxBlockLight (%s <= %s)", minBlockLight, maxBlockLight);
@@ -43,6 +44,43 @@ public class SpawnRule implements Cloneable, ConfigurationSerializable {
         this.maxBlockLight = maxBlockLight;
         this.minSkyLight = minSkyLight;
         this.maxSkyLight = maxSkyLight;
+    }
+
+    @NotNull
+    public static SpawnRule deserialize(@NotNull Map<String, Object> args) {
+        int minBlock = 0;
+        int maxBlock = 0;
+        int minSky = 0;
+        int maxSky = 0;
+
+        Object block = args.get("block-light");
+        Object sky = args.get("sky-light");
+
+        if (block instanceof Map<?, ?>) {
+            Map<?, ?> blockMap = (Map<?, ?>) block;
+
+            if (blockMap.containsKey("min")) {
+                minBlock = (int) blockMap.get("min");
+            }
+
+            if (blockMap.containsKey("max")) {
+                maxBlock = (int) blockMap.get("max");
+            }
+        }
+
+        if (sky instanceof Map<?, ?>) {
+            Map<?, ?> skyMap = (Map<?, ?>) sky;
+
+            if (skyMap.containsKey("min")) {
+                minSky = (int) skyMap.get("min");
+            }
+
+            if (skyMap.containsKey("max")) {
+                maxSky = (int) skyMap.get("max");
+            }
+        }
+
+        return new SpawnRule(minBlock, maxBlock, minSky, maxSky);
     }
 
     /**
@@ -178,42 +216,5 @@ public class SpawnRule implements Cloneable, ConfigurationSerializable {
         result.put("sky-light", sky);
 
         return result;
-    }
-
-    @NotNull
-    public static SpawnRule deserialize(@NotNull Map<String, Object> args) {
-        int minBlock = 0;
-        int maxBlock = 0;
-        int minSky = 0;
-        int maxSky = 0;
-
-        Object block = args.get("block-light");
-        Object sky = args.get("sky-light");
-
-        if (block instanceof Map<?, ?>) {
-            Map<?, ?> blockMap = (Map<?, ?>) block;
-
-            if (blockMap.containsKey("min")) {
-                minBlock = (int) blockMap.get("min");
-            }
-
-            if (blockMap.containsKey("max")) {
-                maxBlock = (int) blockMap.get("max");
-            }
-        }
-
-        if (sky instanceof Map<?, ?>) {
-            Map<?, ?> skyMap = (Map<?, ?>) sky;
-
-            if (skyMap.containsKey("min")) {
-                minSky = (int) skyMap.get("min");
-            }
-
-            if (skyMap.containsKey("max")) {
-                maxSky = (int) skyMap.get("max");
-            }
-        }
-
-        return new SpawnRule(minBlock, maxBlock, minSky, maxSky);
     }
 }

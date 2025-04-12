@@ -1,13 +1,14 @@
 package org.bukkit.block;
 
-import java.util.List;
-import java.util.Map;
 import org.bukkit.Material;
 import org.bukkit.Tag;
 import org.bukkit.inventory.BlockInventoryHolder;
 import org.bukkit.inventory.DecoratedPotInventory;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
+
+import java.util.List;
+import java.util.Map;
 
 /**
  * Represents a captured state of a decorated pot.
@@ -17,11 +18,11 @@ public interface DecoratedPot extends TileState, BlockInventoryHolder {
     /**
      * Set the sherd on the provided side.
      *
-     * @param side the side to set
+     * @param side  the side to set
      * @param sherd the sherd, or null to set a blank side.
      * @throws IllegalArgumentException if the sherd is not either
-     * tagged by {@link Tag#ITEMS_DECORATED_POT_SHERDS}, {@link Material#BRICK},
-     * or {@code null}
+     *                                  tagged by {@link Tag#ITEMS_DECORATED_POT_SHERDS}, {@link Material#BRICK},
+     *                                  or {@code null}
      */
     public void setSherd(@NotNull Side side, @Nullable Material sherd);
 

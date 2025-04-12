@@ -1,8 +1,9 @@
 package org.bukkit;
 
-import java.util.Date;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
+
+import java.util.Date;
 
 /**
  * A single entry from a ban list. This may represent either a player ban or
@@ -115,7 +116,7 @@ public interface BanEntry<T> {
      * "infinite" bans.
      *
      * @param expiration the new expiration date, or null to indicate an
-     *     eternity
+     *                   eternity
      * @see #save() saving changes
      */
     public void setExpiration(@Nullable Date expiration);
@@ -132,7 +133,7 @@ public interface BanEntry<T> {
      * Sets the reason for this ban. Reasons must not be null.
      *
      * @param reason the new reason, null values assume the implementation
-     *     default
+     *               default
      * @see #save() saving changes
      */
     public void setReason(@Nullable String reason);

@@ -1,12 +1,13 @@
 package org.bukkit.inventory.meta.components.consumable;
 
-import java.util.List;
 import org.bukkit.Sound;
 import org.bukkit.configuration.serialization.ConfigurationSerializable;
 import org.bukkit.inventory.meta.components.consumable.effects.ConsumableEffect;
 import org.jetbrains.annotations.ApiStatus;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
+
+import java.util.List;
 
 /**
  * Represents a component which item can be consumed on use.
@@ -71,7 +72,7 @@ public interface ConsumableComponent extends ConfigurationSerializable {
      * Sets whether consumption particles are emitted while consuming this item.
      *
      * @param consumeParticles if particles need to be emitted while consuming
-     * the item
+     *                         the item
      */
     void setConsumeParticles(boolean consumeParticles);
 

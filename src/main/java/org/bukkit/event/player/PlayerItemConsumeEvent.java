@@ -21,14 +21,14 @@ import org.jetbrains.annotations.Nullable;
  */
 public class PlayerItemConsumeEvent extends PlayerEvent implements Cancellable {
     private static final HandlerList handlers = new HandlerList();
+    private final EquipmentSlot hand;
     private boolean isCancelled = false;
     private ItemStack item;
-    private final EquipmentSlot hand;
 
     /**
      * @param player the player consuming
-     * @param item the ItemStack being consumed
-     * @param hand the hand that was used
+     * @param item   the ItemStack being consumed
+     * @param hand   the hand that was used
      */
     public PlayerItemConsumeEvent(@NotNull final Player player, @NotNull final ItemStack item, @NotNull final EquipmentSlot hand) {
         super(player);
@@ -39,12 +39,17 @@ public class PlayerItemConsumeEvent extends PlayerEvent implements Cancellable {
 
     /**
      * @param player the player consuming
-     * @param item the ItemStack being consumed
+     * @param item   the ItemStack being consumed
      * @deprecated use {@link #PlayerItemConsumeEvent(Player, ItemStack, EquipmentSlot)}
      */
     @Deprecated(since = "1.19.2")
     public PlayerItemConsumeEvent(@NotNull final Player player, @NotNull final ItemStack item) {
         this(player, item, EquipmentSlot.HAND);
+    }
+
+    @NotNull
+    public static HandlerList getHandlerList() {
+        return handlers;
     }
 
     /**
@@ -95,11 +100,6 @@ public class PlayerItemConsumeEvent extends PlayerEvent implements Cancellable {
     @NotNull
     @Override
     public HandlerList getHandlers() {
-        return handlers;
-    }
-
-    @NotNull
-    public static HandlerList getHandlerList() {
         return handlers;
     }
 }

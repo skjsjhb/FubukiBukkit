@@ -1,22 +1,16 @@
 package org.bukkit.entity;
 
-import java.util.Collection;
-import java.util.Set;
 import org.bukkit.GameMode;
 import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.NamespacedKey;
-import org.bukkit.inventory.Inventory;
-import org.bukkit.inventory.InventoryHolder;
-import org.bukkit.inventory.InventoryView;
-import org.bukkit.inventory.ItemStack;
-import org.bukkit.inventory.MainHand;
-import org.bukkit.inventory.MenuType;
-import org.bukkit.inventory.Merchant;
-import org.bukkit.inventory.PlayerInventory;
+import org.bukkit.inventory.*;
 import org.bukkit.inventory.meta.FireworkMeta;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
+
+import java.util.Collection;
+import java.util.Set;
 
 /**
  * Represents a human entity, such as an NPC or a player
@@ -36,7 +30,7 @@ public interface HumanEntity extends LivingEntity, AnimalTamer, InventoryHolder 
      * Get the player's inventory.
      *
      * @return The inventory of the player, this also contains the armor
-     *     slots.
+     * slots.
      */
     @NotNull
     @Override
@@ -62,7 +56,7 @@ public interface HumanEntity extends LivingEntity, AnimalTamer, InventoryHolder 
      * If the player currently has an inventory window open, this method will
      * set a property of that window, such as the state of a progress bar.
      *
-     * @param prop The property.
+     * @param prop  The property.
      * @param value The value to set the property to.
      * @return True if the property was successfully set.
      * @deprecated use {@link InventoryView} and its children.
@@ -72,7 +66,7 @@ public interface HumanEntity extends LivingEntity, AnimalTamer, InventoryHolder 
 
     /**
      * Gets the player's current enchantment seed.
-     *
+     * <p>
      * The Seed is used to generate enchantment options in the enchanting table
      * for the player.
      *
@@ -82,7 +76,7 @@ public interface HumanEntity extends LivingEntity, AnimalTamer, InventoryHolder 
 
     /**
      * Sets the player's enchantment seed.
-     *
+     * <p>
      * The Seed is used to generate enchantment options in the enchanting table
      * for the player.
      *
@@ -114,11 +108,11 @@ public interface HumanEntity extends LivingEntity, AnimalTamer, InventoryHolder 
      * on the bottom.
      *
      * @param location The location to attach it to. If null, the player's
-     *     location is used.
-     * @param force If false, and there is no workbench block at the location,
-     *     no inventory will be opened and null will be returned.
+     *                 location is used.
+     * @param force    If false, and there is no workbench block at the location,
+     *                 no inventory will be opened and null will be returned.
      * @return The newly opened inventory view, or null if it could not be
-     *     opened.
+     * opened.
      * @deprecated This method should be replaced by {@link MenuType#CRAFTING}
      * see {@link MenuType.Typed#builder()} and its options for more information.
      */
@@ -131,11 +125,11 @@ public interface HumanEntity extends LivingEntity, AnimalTamer, InventoryHolder 
      * on the bottom.
      *
      * @param location The location to attach it to. If null, the player's
-     *     location is used.
-     * @param force If false, and there is no enchanting table at the
-     *     location, no inventory will be opened and null will be returned.
+     *                 location is used.
+     * @param force    If false, and there is no enchanting table at the
+     *                 location, no inventory will be opened and null will be returned.
      * @return The newly opened inventory view, or null if it could not be
-     *     opened.
+     * opened.
      * @deprecated This method should be replaced by {@link MenuType#ENCHANTMENT}
      * see {@link MenuType.Typed#builder()} and its options for more information.
      */
@@ -158,12 +152,12 @@ public interface HumanEntity extends LivingEntity, AnimalTamer, InventoryHolder 
 
     /**
      * Starts a trade between the player and the villager.
-     *
+     * <p>
      * Note that only one player may trade with a villager at once. You must use
      * the force parameter for this.
      *
      * @param trader The merchant to trade with. Cannot be null.
-     * @param force whether to force the trade even if another player is trading
+     * @param force  whether to force the trade even if another player is trading
      * @return The newly opened inventory view, or null if it could not be
      * opened.
      * @deprecated This method can be replaced by using {@link MenuType#MERCHANT}
@@ -175,12 +169,12 @@ public interface HumanEntity extends LivingEntity, AnimalTamer, InventoryHolder 
 
     /**
      * Starts a trade between the player and the merchant.
-     *
+     * <p>
      * Note that only one player may trade with a merchant at once. You must use
      * the force parameter for this.
      *
      * @param merchant The merchant to trade with. Cannot be null.
-     * @param force whether to force the trade even if another player is trading
+     * @param force    whether to force the trade even if another player is trading
      * @return The newly opened inventory view, or null if it could not be
      * opened.
      * @deprecated This method can be replaced by using {@link MenuType#MERCHANT}
@@ -264,7 +258,7 @@ public interface HumanEntity extends LivingEntity, AnimalTamer, InventoryHolder 
      * for attacking.
      *
      * @param material the material to set the cooldown for
-     * @param ticks the amount of ticks to set or 0 to remove
+     * @param ticks    the amount of ticks to set or 0 to remove
      * @throws IllegalArgumentException if the material is not an item
      */
     public void setCooldown(@NotNull Material material, int ticks);
@@ -295,7 +289,7 @@ public interface HumanEntity extends LivingEntity, AnimalTamer, InventoryHolder 
      * Note that cooldowns will not by themselves stop an item from being used
      * for attacking.
      *
-     * @param item the item to set the cooldown for
+     * @param item  the item to set the cooldown for
      * @param ticks the amount of ticks to set or 0 to remove
      */
     public void setCooldown(@NotNull ItemStack item, int ticks);
@@ -315,8 +309,8 @@ public interface HumanEntity extends LivingEntity, AnimalTamer, InventoryHolder 
      * to bed, monsters, and dimension type if force is not set.
      *
      * @param location the location of the bed
-     * @param force whether to try and sleep at the location even if not
-     * normally possible
+     * @param force    whether to try and sleep at the location even if not
+     *                 normally possible
      * @return whether the sleep was successful
      */
     public boolean sleep(@NotNull Location location, boolean force);
@@ -325,7 +319,7 @@ public interface HumanEntity extends LivingEntity, AnimalTamer, InventoryHolder 
      * Causes the player to wakeup if they are currently sleeping.
      *
      * @param setSpawnLocation whether to set their spawn location to the bed
-     * they are currently sleeping in
+     *                         they are currently sleeping in
      * @throws IllegalStateException if not sleeping
      */
     public void wakeup(boolean setSpawnLocation);
@@ -333,9 +327,9 @@ public interface HumanEntity extends LivingEntity, AnimalTamer, InventoryHolder 
     /**
      * Make the player start a riptide spin attack.
      *
-     * @param duration spin attack duration in ticks.
+     * @param duration       spin attack duration in ticks.
      * @param attackStrength damage value inflicted upon entities hit by spin attack.
-     * @param attackItem item used to attack.
+     * @param attackItem     item used to attack.
      */
     public void startRiptideAttack(int duration, float attackStrength, @Nullable ItemStack attackItem);
 
@@ -387,7 +381,7 @@ public interface HumanEntity extends LivingEntity, AnimalTamer, InventoryHolder 
 
     /**
      * Gets the current cooldown for a player's attack.
-     *
+     * <p>
      * This is used to calculate damage, with 1.0 representing a fully charged
      * attack and 0.0 representing a non-charged attack
      *
@@ -401,7 +395,6 @@ public interface HumanEntity extends LivingEntity, AnimalTamer, InventoryHolder 
      * player's recipe book.
      *
      * @param recipe the key of the recipe to discover
-     *
      * @return whether or not the recipe was newly discovered
      */
     public boolean discoverRecipe(@NotNull NamespacedKey recipe);
@@ -413,7 +406,6 @@ public interface HumanEntity extends LivingEntity, AnimalTamer, InventoryHolder 
      * collection has already been discovered, it will be silently ignored.
      *
      * @param recipes the keys of the recipes to discover
-     *
      * @return the amount of newly discovered recipes where 0 indicates that
      * none were newly discovered and a number equal to {@code recipes.size()}
      * indicates that all were new
@@ -426,7 +418,6 @@ public interface HumanEntity extends LivingEntity, AnimalTamer, InventoryHolder 
      * player's recipe book.
      *
      * @param recipe the key of the recipe to undiscover
-     *
      * @return whether or not the recipe was successfully undiscovered (i.e. it
      * was previously discovered)
      */
@@ -439,7 +430,6 @@ public interface HumanEntity extends LivingEntity, AnimalTamer, InventoryHolder 
      * collection has not yet been discovered, it will be silently ignored.
      *
      * @param recipes the keys of the recipes to undiscover
-     *
      * @return the amount of undiscovered recipes where 0 indicates that none
      * were undiscovered and a number equal to {@code recipes.size()} indicates
      * that all were undiscovered
@@ -450,7 +440,6 @@ public interface HumanEntity extends LivingEntity, AnimalTamer, InventoryHolder 
      * Check whether or not this entity has discovered the specified recipe.
      *
      * @param recipe the key of the recipe to check
-     *
      * @return true if discovered, false otherwise
      */
     public boolean hasDiscoveredRecipe(@NotNull NamespacedKey recipe);

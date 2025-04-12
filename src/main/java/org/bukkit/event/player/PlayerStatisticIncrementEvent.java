@@ -16,16 +16,15 @@ import org.jetbrains.annotations.Nullable;
  * <p>
  * This event is not called for some high frequency statistics, e.g. movement
  * based statistics.
- *
  */
 public class PlayerStatisticIncrementEvent extends PlayerEvent implements Cancellable {
     private static final HandlerList handlers = new HandlerList();
     protected final Statistic statistic;
     private final int initialValue;
     private final int newValue;
-    private boolean isCancelled = false;
     private final EntityType entityType;
     private final Material material;
+    private boolean isCancelled = false;
 
     public PlayerStatisticIncrementEvent(@NotNull Player player, @NotNull Statistic statistic, int initialValue, int newValue) {
         super(player);
@@ -62,6 +61,11 @@ public class PlayerStatisticIncrementEvent extends PlayerEvent implements Cancel
             }
         }
         this.material = material;
+    }
+
+    @NotNull
+    public static HandlerList getHandlerList() {
+        return handlers;
     }
 
     /**
@@ -127,11 +131,6 @@ public class PlayerStatisticIncrementEvent extends PlayerEvent implements Cancel
     @NotNull
     @Override
     public HandlerList getHandlers() {
-        return handlers;
-    }
-
-    @NotNull
-    public static HandlerList getHandlerList() {
         return handlers;
     }
 }

@@ -26,6 +26,11 @@ public class VillagerReplenishTradeEvent extends EntityEvent implements Cancella
         this.recipe = recipe;
     }
 
+    @NotNull
+    public static HandlerList getHandlerList() {
+        return handlers;
+    }
+
     /**
      * Get the recipe to replenish.
      *
@@ -87,11 +92,6 @@ public class VillagerReplenishTradeEvent extends EntityEvent implements Cancella
     @NotNull
     @Override
     public HandlerList getHandlers() {
-        return handlers;
-    }
-
-    @NotNull
-    public static HandlerList getHandlerList() {
         return handlers;
     }
 }

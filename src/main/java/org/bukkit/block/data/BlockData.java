@@ -1,15 +1,7 @@
 package org.bukkit.block.data;
 
-import org.bukkit.Color;
-import org.bukkit.Location;
-import org.bukkit.Material;
-import org.bukkit.Server;
-import org.bukkit.SoundGroup;
-import org.bukkit.block.Block;
-import org.bukkit.block.BlockFace;
-import org.bukkit.block.BlockState;
-import org.bukkit.block.BlockSupport;
-import org.bukkit.block.PistonMoveReaction;
+import org.bukkit.*;
+import org.bukkit.block.*;
 import org.bukkit.block.structure.Mirror;
 import org.bukkit.block.structure.StructureRotation;
 import org.bukkit.inventory.ItemStack;
@@ -59,8 +51,7 @@ public interface BlockData extends Cloneable {
      * }</pre>
      *
      * @param hideUnspecified true if unspecified states should be omitted,
-     * false if they are to be shown as performed by {@link #getAsString()}.
-     *
+     *                        false if they are to be shown as performed by {@link #getAsString()}.
      * @return serialized data string for this block
      */
     @NotNull
@@ -145,7 +136,7 @@ public interface BlockData extends Cloneable {
 
     /**
      * Returns if the given item is a preferred choice to break this Block.
-     *
+     * <p>
      * In some cases this determines if a block will drop anything or extra
      * loot.
      *
@@ -183,7 +174,6 @@ public interface BlockData extends Cloneable {
      * capable of surviving on its neighbouring block states.
      *
      * @param location the location at which the state would be placed
-     *
      * @return true if the block is supported, false if this state would not survive
      * the world conditions
      */
@@ -198,9 +188,8 @@ public interface BlockData extends Cloneable {
      * torches only on the center of the upper block face, whereas a grass block would
      * support all levels of block support on all block faces.
      *
-     * @param face the face to check
+     * @param face    the face to check
      * @param support the possible support level
-     *
      * @return true if the face is sturdy and can support a block, false otherwise
      */
     boolean isFaceSturdy(@NotNull BlockFace face, @NotNull BlockSupport support);
@@ -218,12 +207,13 @@ public interface BlockData extends Cloneable {
      * <p>
      * For most blocks this is the same as {@link #getMaterial()} but some blocks
      * have different materials used to place them.
-     *
+     * <p>
      * For example:
      * <pre>
      * {@link Material#REDSTONE_WIRE} -> {@link Material#REDSTONE}
      * {@link Material#CARROTS} -> {@link Material#CARROT}
      * </pre>
+     *
      * @return placement material
      */
     @NotNull

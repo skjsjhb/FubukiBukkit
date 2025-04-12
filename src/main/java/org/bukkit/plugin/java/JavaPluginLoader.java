@@ -1,24 +1,6 @@
 package org.bukkit.plugin.java;
 
 import com.google.common.base.Preconditions;
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.IOException;
-import java.io.InputStream;
-import java.lang.reflect.InvocationTargetException;
-import java.lang.reflect.Method;
-import java.util.Arrays;
-import java.util.Collection;
-import java.util.HashMap;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Map;
-import java.util.Set;
-import java.util.concurrent.CopyOnWriteArrayList;
-import java.util.jar.JarEntry;
-import java.util.jar.JarFile;
-import java.util.logging.Level;
-import java.util.regex.Pattern;
 import org.bukkit.Server;
 import org.bukkit.Warning;
 import org.bukkit.Warning.WarningState;
@@ -30,20 +12,23 @@ import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.server.PluginDisableEvent;
 import org.bukkit.event.server.PluginEnableEvent;
-import org.bukkit.plugin.AuthorNagException;
-import org.bukkit.plugin.EventExecutor;
-import org.bukkit.plugin.InvalidDescriptionException;
-import org.bukkit.plugin.InvalidPluginException;
-import org.bukkit.plugin.Plugin;
-import org.bukkit.plugin.PluginDescriptionFile;
-import org.bukkit.plugin.PluginLoader;
-import org.bukkit.plugin.RegisteredListener;
-import org.bukkit.plugin.SimplePluginManager;
-import org.bukkit.plugin.TimedRegisteredListener;
-import org.bukkit.plugin.UnknownDependencyException;
+import org.bukkit.plugin.*;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 import org.yaml.snakeyaml.error.YAMLException;
+
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.io.InputStream;
+import java.lang.reflect.InvocationTargetException;
+import java.lang.reflect.Method;
+import java.util.*;
+import java.util.concurrent.CopyOnWriteArrayList;
+import java.util.jar.JarEntry;
+import java.util.jar.JarFile;
+import java.util.logging.Level;
+import java.util.regex.Pattern;
 
 /**
  * Represents a Java plugin loader, allowing plugins in the form of .jar
@@ -92,39 +77,38 @@ public final class JavaPluginLoader implements PluginLoader {
 
         final File parentFile = file.getParentFile();
         final File dataFolder = new File(parentFile, description.getName());
-        @SuppressWarnings("deprecation")
-        final File oldDataFolder = new File(parentFile, description.getRawName());
+        @SuppressWarnings("deprecation") final File oldDataFolder = new File(parentFile, description.getRawName());
 
         // Found old data folder
         if (dataFolder.equals(oldDataFolder)) {
             // They are equal -- nothing needs to be done!
         } else if (dataFolder.isDirectory() && oldDataFolder.isDirectory()) {
             server.getLogger().warning(String.format(
-                "While loading %s (%s) found old-data folder: `%s' next to the new one `%s'",
-                description.getFullName(),
-                file,
-                oldDataFolder,
-                dataFolder
+                    "While loading %s (%s) found old-data folder: `%s' next to the new one `%s'",
+                    description.getFullName(),
+                    file,
+                    oldDataFolder,
+                    dataFolder
             ));
         } else if (oldDataFolder.isDirectory() && !dataFolder.exists()) {
             if (!oldDataFolder.renameTo(dataFolder)) {
                 throw new InvalidPluginException("Unable to rename old data folder: `" + oldDataFolder + "' to: `" + dataFolder + "'");
             }
             server.getLogger().log(Level.INFO, String.format(
-                "While loading %s (%s) renamed data folder: `%s' to `%s'",
-                description.getFullName(),
-                file,
-                oldDataFolder,
-                dataFolder
+                    "While loading %s (%s) renamed data folder: `%s' to `%s'",
+                    description.getFullName(),
+                    file,
+                    oldDataFolder,
+                    dataFolder
             ));
         }
 
         if (dataFolder.exists() && !dataFolder.isDirectory()) {
             throw new InvalidPluginException(String.format(
-                "Projected datafolder: `%s' for %s (%s) exists and is not a directory",
-                dataFolder,
-                description.getFullName(),
-                file
+                    "Projected datafolder: `%s' for %s (%s) exists and is not a directory",
+                    dataFolder,
+                    description.getFullName(),
+                    file
             ));
         }
 

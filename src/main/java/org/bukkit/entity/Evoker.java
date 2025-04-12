@@ -9,6 +9,27 @@ import org.jetbrains.annotations.Nullable;
 public interface Evoker extends Spellcaster {
 
     /**
+     * Gets the {@link Spell} the Evoker is currently using.
+     *
+     * @return the current spell
+     * @deprecated future versions of Minecraft have additional spell casting
+     * entities.
+     */
+    @Deprecated(since = "1.11.2")
+    @NotNull
+    Spell getCurrentSpell();
+
+    /**
+     * Sets the {@link Spell} the Evoker is currently using.
+     *
+     * @param spell the spell the evoker should be using
+     * @deprecated future versions of Minecraft have additional spell casting
+     * entities.
+     */
+    @Deprecated(since = "1.11.2")
+    void setCurrentSpell(@Nullable Spell spell);
+
+    /**
      * Represents the current spell the Evoker is using.
      *
      * @deprecated future versions of Minecraft have additional spell casting
@@ -42,26 +63,4 @@ public interface Evoker extends Spellcaster {
          */
         BLINDNESS;
     }
-
-    /**
-     * Gets the {@link Spell} the Evoker is currently using.
-     *
-     * @return the current spell
-     * @deprecated future versions of Minecraft have additional spell casting
-     * entities.
-     *
-     */
-    @Deprecated(since = "1.11.2")
-    @NotNull
-    Spell getCurrentSpell();
-
-    /**
-     * Sets the {@link Spell} the Evoker is currently using.
-     *
-     * @param spell the spell the evoker should be using
-     * @deprecated future versions of Minecraft have additional spell casting
-     * entities.
-     */
-    @Deprecated(since = "1.11.2")
-    void setCurrentSpell(@Nullable Spell spell);
 }

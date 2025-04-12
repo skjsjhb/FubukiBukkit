@@ -10,13 +10,18 @@ import org.jetbrains.annotations.NotNull;
 public class PlayerExpCooldownChangeEvent extends PlayerEvent {
 
     private static final HandlerList handlers = new HandlerList();
-    private int newCooldown;
     private final ChangeReason reason;
+    private int newCooldown;
 
     public PlayerExpCooldownChangeEvent(@NotNull final Player player, int newcooldown, @NotNull ChangeReason reason) {
         super(player);
         this.newCooldown = newcooldown;
         this.reason = reason;
+    }
+
+    @NotNull
+    public static HandlerList getHandlerList() {
+        return handlers;
     }
 
     /**
@@ -52,11 +57,6 @@ public class PlayerExpCooldownChangeEvent extends PlayerEvent {
     @NotNull
     @Override
     public HandlerList getHandlers() {
-        return handlers;
-    }
-
-    @NotNull
-    public static HandlerList getHandlerList() {
         return handlers;
     }
 

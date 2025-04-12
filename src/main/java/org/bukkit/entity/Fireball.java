@@ -9,6 +9,19 @@ import org.jetbrains.annotations.NotNull;
 public interface Fireball extends Projectile, Explosive {
 
     /**
+     * Retrieve the direction this fireball is heading toward.
+     * The returned vector is not normalized.
+     *
+     * @return the direction
+     * @see #getAcceleration()
+     * @deprecated badly named method, returns the value of
+     * {@link #getAcceleration()}
+     */
+    @NotNull
+    @Deprecated(since = "1.20.6")
+    public Vector getDirection();
+
+    /**
      * Sets the direction the fireball should be flying towards.
      * <br>
      * This is a convenience method, it will change the velocity direction and
@@ -28,21 +41,16 @@ public interface Fireball extends Projectile, Explosive {
     public void setDirection(@NotNull Vector direction);
 
     /**
-     * Retrieve the direction this fireball is heading toward.
-     * The returned vector is not normalized.
+     * Retrieve the acceleration of this fireball.
      *
-     * @return the direction
-     * @see #getAcceleration()
-     * @deprecated badly named method, returns the value of
-     * {@link #getAcceleration()}
+     * @return the acceleration
      */
     @NotNull
-    @Deprecated(since = "1.20.6")
-    public Vector getDirection();
+    Vector getAcceleration();
 
     /**
      * Sets the acceleration of the fireball.
-     *
+     * <p>
      * The acceleration gets applied to the velocity every tick, depending on
      * the specific type of the fireball a damping / drag factor is applied so
      * that the velocity does not grow into infinity.
@@ -54,12 +62,4 @@ public interface Fireball extends Projectile, Explosive {
      * @param acceleration the acceleration
      */
     void setAcceleration(@NotNull Vector acceleration);
-
-    /**
-     * Retrieve the acceleration of this fireball.
-     *
-     * @return the acceleration
-     */
-    @NotNull
-    Vector getAcceleration();
 }

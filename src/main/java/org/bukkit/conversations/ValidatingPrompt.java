@@ -20,7 +20,7 @@ public abstract class ValidatingPrompt implements Prompt {
      * the next Prompt in the prompt graph is returned.
      *
      * @param context Context information about the conversation.
-     * @param input The input text from the user.
+     * @param input   The input text from the user.
      * @return This prompt or the next Prompt in the prompt graph.
      */
     @Override
@@ -53,7 +53,7 @@ public abstract class ValidatingPrompt implements Prompt {
      * Override this method to check the validity of the player's input.
      *
      * @param context Context information about the conversation.
-     * @param input The player's raw console input.
+     * @param input   The player's raw console input.
      * @return True or false depending on the validity of the input.
      */
     protected abstract boolean isInputValid(@NotNull ConversationContext context, @NotNull String input);
@@ -64,7 +64,7 @@ public abstract class ValidatingPrompt implements Prompt {
      * be returned.
      *
      * @param context Context information about the conversation.
-     * @param input The validated input text from the user.
+     * @param input   The validated input text from the user.
      * @return The next Prompt in the prompt graph.
      */
     @Nullable
@@ -74,7 +74,7 @@ public abstract class ValidatingPrompt implements Prompt {
      * Optionally override this method to display an additional message if the
      * user enters an invalid input.
      *
-     * @param context Context information about the conversation.
+     * @param context      Context information about the conversation.
      * @param invalidInput The invalid input provided by the user.
      * @return A message explaining how to correct the input.
      */

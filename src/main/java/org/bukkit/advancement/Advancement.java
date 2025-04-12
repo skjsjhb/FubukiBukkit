@@ -1,9 +1,10 @@
 package org.bukkit.advancement;
 
-import java.util.Collection;
 import org.bukkit.Keyed;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
+
+import java.util.Collection;
 
 /**
  * Represents an advancement that may be awarded to a player. This class is not
@@ -29,7 +30,7 @@ public interface Advancement extends Keyed {
 
     /**
      * Returns the display information for this advancement.
-     *
+     * <p>
      * This includes it's name, description and other visible tags.
      *
      * @return a AdvancementDisplay object, or null if not set.

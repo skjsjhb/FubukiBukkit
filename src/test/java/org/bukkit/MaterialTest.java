@@ -1,11 +1,14 @@
 package org.bukkit;
 
-import static org.bukkit.support.MatcherAssert.*;
-import static org.hamcrest.Matchers.*;
-import static org.junit.jupiter.api.Assertions.*;
-import java.util.Locale;
 import org.bukkit.material.MaterialData;
 import org.junit.jupiter.api.Test;
+
+import java.util.Locale;
+
+import static org.bukkit.support.MatcherAssert.assertThat;
+import static org.hamcrest.Matchers.*;
+import static org.junit.jupiter.api.Assertions.assertNull;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 public class MaterialTest {
     @Test

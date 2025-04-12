@@ -23,15 +23,6 @@ public interface Creeper extends Monster {
     public void setPowered(boolean value);
 
     /**
-     * Set the maximum fuse ticks for this Creeper, where the maximum ticks
-     * is the amount of time in which a creeper is allowed to be in the
-     * primed state before exploding.
-     *
-     * @param ticks the new maximum fuse ticks
-     */
-    public void setMaxFuseTicks(int ticks);
-
-    /**
      * Get the maximum fuse ticks for this Creeper, where the maximum ticks
      * is the amount of time in which a creeper is allowed to be in the
      * primed state before exploding.
@@ -41,12 +32,13 @@ public interface Creeper extends Monster {
     public int getMaxFuseTicks();
 
     /**
-     * Set the fuse ticks for this Creeper, where the ticks is the amount of
-     * time in which a creeper has been in the primed state.
+     * Set the maximum fuse ticks for this Creeper, where the maximum ticks
+     * is the amount of time in which a creeper is allowed to be in the
+     * primed state before exploding.
      *
-     * @param ticks the new fuse ticks
+     * @param ticks the new maximum fuse ticks
      */
-    public void setFuseTicks(int ticks);
+    public void setMaxFuseTicks(int ticks);
 
     /**
      * Get the maximum fuse ticks for this Creeper, where the ticks is the
@@ -57,11 +49,12 @@ public interface Creeper extends Monster {
     public int getFuseTicks();
 
     /**
-     * Set the explosion radius in which this Creeper's explosion will affect.
+     * Set the fuse ticks for this Creeper, where the ticks is the amount of
+     * time in which a creeper has been in the primed state.
      *
-     * @param radius the new explosion radius
+     * @param ticks the new fuse ticks
      */
-    public void setExplosionRadius(int radius);
+    public void setFuseTicks(int ticks);
 
     /**
      * Get the explosion radius in which this Creeper's explosion will affect.
@@ -69,6 +62,13 @@ public interface Creeper extends Monster {
      * @return the explosion radius
      */
     public int getExplosionRadius();
+
+    /**
+     * Set the explosion radius in which this Creeper's explosion will affect.
+     *
+     * @param radius the new explosion radius
+     */
+    public void setExplosionRadius(int radius);
 
     /**
      * Makes this Creeper explode instantly.

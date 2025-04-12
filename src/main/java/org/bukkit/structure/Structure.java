@@ -1,8 +1,5 @@
 package org.bukkit.structure;
 
-import java.util.Collection;
-import java.util.List;
-import java.util.Random;
 import org.bukkit.Location;
 import org.bukkit.RegionAccessor;
 import org.bukkit.block.structure.Mirror;
@@ -14,6 +11,10 @@ import org.bukkit.util.BlockVector;
 import org.bukkit.util.EntityTransformer;
 import org.jetbrains.annotations.ApiStatus;
 import org.jetbrains.annotations.NotNull;
+
+import java.util.Collection;
+import java.util.List;
+import java.util.Random;
 
 /**
  * Represents a structure.
@@ -59,7 +60,7 @@ public interface Structure extends PersistentDataHolder {
 
     /**
      * Gets a list of entities that have been included in the Structure.
-     *
+     * <p>
      * The entity positions are offsets relative to the structure's position
      * that is provided once the structure is placed into the world.
      *
@@ -78,37 +79,37 @@ public interface Structure extends PersistentDataHolder {
     /**
      * Place a structure in the world.
      *
-     * @param location The location to place the structure at.
-     * @param includeEntities If the entities present in the structure should be
-     * spawned.
+     * @param location          The location to place the structure at.
+     * @param includeEntities   If the entities present in the structure should be
+     *                          spawned.
      * @param structureRotation The rotation of the structure.
-     * @param mirror The mirror settings of the structure.
-     * @param palette The palette index of the structure to use, starting at
-     * {@code 0}, or {@code -1} to pick a random palette.
-     * @param integrity Determines how damaged the building should look by
-     * randomly skipping blocks to place. This value can range from 0 to 1. With
-     * 0 removing all blocks and 1 spawning the structure in pristine condition.
-     * @param random The randomizer used for setting the structure's
-     * {@link org.bukkit.loot.LootTable}s and integrity.
+     * @param mirror            The mirror settings of the structure.
+     * @param palette           The palette index of the structure to use, starting at
+     *                          {@code 0}, or {@code -1} to pick a random palette.
+     * @param integrity         Determines how damaged the building should look by
+     *                          randomly skipping blocks to place. This value can range from 0 to 1. With
+     *                          0 removing all blocks and 1 spawning the structure in pristine condition.
+     * @param random            The randomizer used for setting the structure's
+     *                          {@link org.bukkit.loot.LootTable}s and integrity.
      */
     void place(@NotNull Location location, boolean includeEntities, @NotNull StructureRotation structureRotation, @NotNull Mirror mirror, int palette, float integrity, @NotNull Random random);
 
     /**
      * Place a structure in the world.
      *
-     * @param location The location to place the structure at.
-     * @param includeEntities If the entities present in the structure should be
-     * spawned.
-     * @param structureRotation The rotation of the structure.
-     * @param mirror The mirror settings of the structure.
-     * @param palette The palette index of the structure to use, starting at
-     * {@code 0}, or {@code -1} to pick a random palette.
-     * @param integrity Determines how damaged the building should look by
-     * randomly skipping blocks to place. This value can range from 0 to 1. With
-     * 0 removing all blocks and 1 spawning the structure in pristine condition.
-     * @param random The randomizer used for setting the structure's
-     * {@link org.bukkit.loot.LootTable}s and integrity.
-     * @param blockTransformers A collection of {@link BlockTransformer}s to apply to the structure.
+     * @param location           The location to place the structure at.
+     * @param includeEntities    If the entities present in the structure should be
+     *                           spawned.
+     * @param structureRotation  The rotation of the structure.
+     * @param mirror             The mirror settings of the structure.
+     * @param palette            The palette index of the structure to use, starting at
+     *                           {@code 0}, or {@code -1} to pick a random palette.
+     * @param integrity          Determines how damaged the building should look by
+     *                           randomly skipping blocks to place. This value can range from 0 to 1. With
+     *                           0 removing all blocks and 1 spawning the structure in pristine condition.
+     * @param random             The randomizer used for setting the structure's
+     *                           {@link org.bukkit.loot.LootTable}s and integrity.
+     * @param blockTransformers  A collection of {@link BlockTransformer}s to apply to the structure.
      * @param entityTransformers A collection of {@link EntityTransformer}s to apply to the structure.
      */
     @ApiStatus.Experimental
@@ -117,39 +118,39 @@ public interface Structure extends PersistentDataHolder {
     /**
      * Place a structure in the world.
      *
-     * @param regionAccessor The world to place the structure in.
-     * @param location The location to place the structure at.
-     * @param includeEntities If the entities present in the structure should be
-     * spawned.
+     * @param regionAccessor    The world to place the structure in.
+     * @param location          The location to place the structure at.
+     * @param includeEntities   If the entities present in the structure should be
+     *                          spawned.
      * @param structureRotation The rotation of the structure.
-     * @param mirror The mirror settings of the structure.
-     * @param palette The palette index of the structure to use, starting at
-     * {@code 0}, or {@code -1} to pick a random palette.
-     * @param integrity Determines how damaged the building should look by
-     * randomly skipping blocks to place. This value can range from 0 to 1. With
-     * 0 removing all blocks and 1 spawning the structure in pristine condition.
-     * @param random The randomizer used for setting the structure's
-     * {@link org.bukkit.loot.LootTable}s and integrity.
+     * @param mirror            The mirror settings of the structure.
+     * @param palette           The palette index of the structure to use, starting at
+     *                          {@code 0}, or {@code -1} to pick a random palette.
+     * @param integrity         Determines how damaged the building should look by
+     *                          randomly skipping blocks to place. This value can range from 0 to 1. With
+     *                          0 removing all blocks and 1 spawning the structure in pristine condition.
+     * @param random            The randomizer used for setting the structure's
+     *                          {@link org.bukkit.loot.LootTable}s and integrity.
      */
     void place(@NotNull RegionAccessor regionAccessor, @NotNull BlockVector location, boolean includeEntities, @NotNull StructureRotation structureRotation, @NotNull Mirror mirror, int palette, float integrity, @NotNull Random random);
 
     /**
      * Place a structure in the world.
      *
-     * @param regionAccessor The world to place the structure in.
-     * @param location The location to place the structure at.
-     * @param includeEntities If the entities present in the structure should be
-     * spawned.
-     * @param structureRotation The rotation of the structure.
-     * @param mirror The mirror settings of the structure.
-     * @param palette The palette index of the structure to use, starting at
-     * {@code 0}, or {@code -1} to pick a random palette.
-     * @param integrity Determines how damaged the building should look by
-     * randomly skipping blocks to place. This value can range from 0 to 1. With
-     * 0 removing all blocks and 1 spawning the structure in pristine condition.
-     * @param random The randomizer used for setting the structure's
-     * {@link org.bukkit.loot.LootTable}s and integrity.
-     * @param blockTransformers A collection of {@link BlockTransformer}s to apply to the structure.
+     * @param regionAccessor     The world to place the structure in.
+     * @param location           The location to place the structure at.
+     * @param includeEntities    If the entities present in the structure should be
+     *                           spawned.
+     * @param structureRotation  The rotation of the structure.
+     * @param mirror             The mirror settings of the structure.
+     * @param palette            The palette index of the structure to use, starting at
+     *                           {@code 0}, or {@code -1} to pick a random palette.
+     * @param integrity          Determines how damaged the building should look by
+     *                           randomly skipping blocks to place. This value can range from 0 to 1. With
+     *                           0 removing all blocks and 1 spawning the structure in pristine condition.
+     * @param random             The randomizer used for setting the structure's
+     *                           {@link org.bukkit.loot.LootTable}s and integrity.
+     * @param blockTransformers  A collection of {@link BlockTransformer}s to apply to the structure.
      * @param entityTransformers A collection of {@link EntityTransformer}s to apply to the structure.
      */
     @ApiStatus.Experimental
@@ -166,10 +167,10 @@ public interface Structure extends PersistentDataHolder {
      * saved this way can not be loaded by using a structure block. Using the
      * API however will still work.
      *
-     * @param corner1 A corner of the structure.
-     * @param corner2 The corner opposite from corner1.
+     * @param corner1         A corner of the structure.
+     * @param corner2         The corner opposite from corner1.
      * @param includeEntities true if entities should be included in the saved
-     * structure.
+     *                        structure.
      */
     void fill(@NotNull Location corner1, @NotNull Location corner2, boolean includeEntities);
 
@@ -184,10 +185,10 @@ public interface Structure extends PersistentDataHolder {
      * saved this way can not be loaded by using a structure block. Using the
      * API however will still work.
      *
-     * @param origin The origin of the structure.
-     * @param size The size of the structure, must be at least 1x1x1.
+     * @param origin          The origin of the structure.
+     * @param size            The size of the structure, must be at least 1x1x1.
      * @param includeEntities true if entities should be included in the saved
-     * structure.
+     *                        structure.
      * @throws IllegalArgumentException Thrown if size is smaller than 1x1x1
      */
     void fill(@NotNull Location origin, @NotNull BlockVector size, boolean includeEntities);

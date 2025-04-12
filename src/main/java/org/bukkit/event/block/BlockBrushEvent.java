@@ -26,6 +26,11 @@ public class BlockBrushEvent extends BlockEvent implements Cancellable {
         this.player = player;
     }
 
+    @NotNull
+    public static HandlerList getHandlerList() {
+        return handlers;
+    }
+
     /**
      * Gets the Player that is brushing the block involved in this event.
      *
@@ -59,11 +64,6 @@ public class BlockBrushEvent extends BlockEvent implements Cancellable {
     @Override
     @NotNull
     public HandlerList getHandlers() {
-        return handlers;
-    }
-
-    @NotNull
-    public static HandlerList getHandlerList() {
         return handlers;
     }
 }

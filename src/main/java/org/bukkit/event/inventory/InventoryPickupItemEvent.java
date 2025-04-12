@@ -12,14 +12,19 @@ import org.jetbrains.annotations.NotNull;
  */
 public class InventoryPickupItemEvent extends Event implements Cancellable {
     private static final HandlerList handlers = new HandlerList();
-    private boolean cancelled;
     private final Inventory inventory;
     private final Item item;
+    private boolean cancelled;
 
     public InventoryPickupItemEvent(@NotNull final Inventory inventory, @NotNull final Item item) {
         super();
         this.inventory = inventory;
         this.item = item;
+    }
+
+    @NotNull
+    public static HandlerList getHandlerList() {
+        return handlers;
     }
 
     /**
@@ -55,11 +60,6 @@ public class InventoryPickupItemEvent extends Event implements Cancellable {
     @NotNull
     @Override
     public HandlerList getHandlers() {
-        return handlers;
-    }
-
-    @NotNull
-    public static HandlerList getHandlerList() {
         return handlers;
     }
 }

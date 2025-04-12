@@ -24,19 +24,19 @@ public interface BrewingStandView extends InventoryView {
     int getFuelLevel();
 
     /**
-     * Gets the amount of brewing ticks left.
-     *
-     * @return The amount of ticks left for the brewing task
-     */
-    int getBrewingTicks();
-
-    /**
      * Sets the fuel level left.
      *
      * @param level the level of the fuel, which is no less than 0
      * @throws IllegalArgumentException if the level is less than 0
      */
     void setFuelLevel(final int level) throws IllegalArgumentException;
+
+    /**
+     * Gets the amount of brewing ticks left.
+     *
+     * @return The amount of ticks left for the brewing task
+     */
+    int getBrewingTicks();
 
     /**
      * Sets the brewing ticks left.

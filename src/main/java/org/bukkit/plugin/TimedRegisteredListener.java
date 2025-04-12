@@ -20,6 +20,14 @@ public class TimedRegisteredListener extends RegisteredListener {
         super(pluginListener, eventExecutor, eventPriority, registeredPlugin, listenCancelled);
     }
 
+    @NotNull
+    private static Class<?> getCommonSuperclass(@NotNull Class<?> class1, @NotNull Class<?> class2) {
+        while (!class1.isAssignableFrom(class2)) {
+            class1 = class1.getSuperclass();
+        }
+        return class1;
+    }
+
     @Override
     public void callEvent(@NotNull Event event) throws EventException {
         if (event.isAsynchronous()) {
@@ -37,14 +45,6 @@ public class TimedRegisteredListener extends RegisteredListener {
         long start = System.nanoTime();
         super.callEvent(event);
         totalTime += System.nanoTime() - start;
-    }
-
-    @NotNull
-    private static Class<?> getCommonSuperclass(@NotNull Class<?> class1, @NotNull Class<?> class2) {
-        while (!class1.isAssignableFrom(class2)) {
-            class1 = class1.getSuperclass();
-        }
-        return class1;
     }
 
     /**

@@ -2,7 +2,6 @@ package org.bukkit.entity;
 
 import com.google.common.base.Preconditions;
 import com.google.common.collect.Lists;
-import java.util.Locale;
 import org.bukkit.Keyed;
 import org.bukkit.NamespacedKey;
 import org.bukkit.Registry;
@@ -10,6 +9,8 @@ import org.bukkit.registry.RegistryAware;
 import org.bukkit.util.OldEnum;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
+
+import java.util.Locale;
 
 /**
  * A Frog.
@@ -70,18 +71,6 @@ public interface Frog extends Animals {
         }
 
         /**
-         * {@inheritDoc}
-         *
-         * @see #getKeyOrThrow()
-         * @see #isRegistered()
-         * @deprecated A key might not always be present, use {@link #getKeyOrThrow()} instead.
-         */
-        @NotNull
-        @Override
-        @Deprecated(since = "1.21.4")
-        NamespacedKey getKey();
-
-        /**
          * @param name of the frog variant.
          * @return the frog variant with the given name.
          * @deprecated only for backwards compatibility, use {@link Registry#get(NamespacedKey)} instead.
@@ -103,5 +92,17 @@ public interface Frog extends Animals {
         static Variant[] values() {
             return Lists.newArrayList(Registry.FROG_VARIANT).toArray(new Variant[0]);
         }
+
+        /**
+         * {@inheritDoc}
+         *
+         * @see #getKeyOrThrow()
+         * @see #isRegistered()
+         * @deprecated A key might not always be present, use {@link #getKeyOrThrow()} instead.
+         */
+        @NotNull
+        @Override
+        @Deprecated(since = "1.21.4")
+        NamespacedKey getKey();
     }
 }

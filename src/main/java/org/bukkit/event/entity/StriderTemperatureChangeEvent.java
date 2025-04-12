@@ -21,6 +21,11 @@ public class StriderTemperatureChangeEvent extends EntityEvent implements Cancel
     }
 
     @NotNull
+    public static HandlerList getHandlerList() {
+        return handlers;
+    }
+
+    @NotNull
     @Override
     public Strider getEntity() {
         return (Strider) entity;
@@ -48,11 +53,6 @@ public class StriderTemperatureChangeEvent extends EntityEvent implements Cancel
     @Override
     @NotNull
     public HandlerList getHandlers() {
-        return handlers;
-    }
-
-    @NotNull
-    public static HandlerList getHandlerList() {
         return handlers;
     }
 }

@@ -2,16 +2,13 @@ package org.bukkit.block;
 
 import com.google.common.base.Preconditions;
 import com.google.common.collect.Lists;
-import java.util.Locale;
-import org.bukkit.Bukkit;
-import org.bukkit.FeatureFlag;
-import org.bukkit.Keyed;
-import org.bukkit.NamespacedKey;
-import org.bukkit.Registry;
+import org.bukkit.*;
 import org.bukkit.packs.DataPack;
 import org.bukkit.registry.RegistryAware;
 import org.bukkit.util.OldEnum;
 import org.jetbrains.annotations.NotNull;
+
+import java.util.Locale;
 
 /**
  * Holds all accepted Biomes in the server.
@@ -103,18 +100,6 @@ public interface Biome extends OldEnum<Biome>, Keyed, RegistryAware {
     }
 
     /**
-     * {@inheritDoc}
-     *
-     * @see #getKeyOrThrow()
-     * @see #isRegistered()
-     * @deprecated A key might not always be present, use {@link #getKeyOrThrow()} instead.
-     */
-    @NotNull
-    @Override
-    @Deprecated(since = "1.21.4")
-    NamespacedKey getKey();
-
-    /**
      * @param name of the biome.
      * @return the biome with the given name.
      * @deprecated only for backwards compatibility, use {@link Registry#get(NamespacedKey)} instead.
@@ -140,4 +125,16 @@ public interface Biome extends OldEnum<Biome>, Keyed, RegistryAware {
     static Biome[] values() {
         return Lists.newArrayList(Registry.BIOME).toArray(new Biome[0]);
     }
+
+    /**
+     * {@inheritDoc}
+     *
+     * @see #getKeyOrThrow()
+     * @see #isRegistered()
+     * @deprecated A key might not always be present, use {@link #getKeyOrThrow()} instead.
+     */
+    @NotNull
+    @Override
+    @Deprecated(since = "1.21.4")
+    NamespacedKey getKey();
 }

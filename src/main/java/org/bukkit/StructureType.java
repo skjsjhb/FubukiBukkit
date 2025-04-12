@@ -3,12 +3,13 @@ package org.bukkit;
 import com.google.common.base.Preconditions;
 import com.google.common.base.Strings;
 import com.google.common.collect.ImmutableMap;
-import java.util.HashMap;
-import java.util.Map;
-import java.util.Objects;
 import org.bukkit.map.MapCursor;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
+
+import java.util.HashMap;
+import java.util.Map;
+import java.util.Objects;
 
 /**
  * This class handles the creation and storage of all structure types for
@@ -174,15 +175,33 @@ public final class StructureType implements Keyed {
      * this structure should not be compatible with explorer maps, use null for
      * <i>mapIcon</i>.
      *
-     * @param name the name of the structure, case-sensitive
+     * @param name    the name of the structure, case-sensitive
      * @param mapIcon the {@link org.bukkit.map.MapCursor.Type} this structure type should use
-     * when creating explorer maps. Use null to indicate this structure should
-     * not be compatible with explorer maps.
+     *                when creating explorer maps. Use null to indicate this structure should
+     *                not be compatible with explorer maps.
      */
     private StructureType(@NotNull String name, @Nullable MapCursor.Type mapIcon) {
         Preconditions.checkArgument(!Strings.isNullOrEmpty(name), "Structure name cannot be empty");
         this.key = NamespacedKey.minecraft(name);
         this.mapCursor = mapIcon;
+    }
+
+    @NotNull
+    private static <T extends StructureType> T register(@NotNull T type) {
+        Preconditions.checkNotNull(type, "Cannot register null StructureType.");
+        Preconditions.checkArgument(!structureTypeMap.containsKey(type.getName()), "Cannot register same StructureType twice. %s", type.getName());
+        StructureType.structureTypeMap.put(type.getName(), type);
+        return type;
+    }
+
+    /**
+     * Get all registered {@link StructureType}s.
+     *
+     * @return an immutable copy of registered structure types.
+     */
+    @NotNull
+    public static Map<String, StructureType> getStructureTypes() {
+        return ImmutableMap.copyOf(structureTypeMap);
     }
 
     /**
@@ -230,24 +249,6 @@ public final class StructureType implements Keyed {
     @Override
     public String toString() {
         return "StructureType{key=" + this.key + ", cursor=" + this.mapCursor + "}";
-    }
-
-    @NotNull
-    private static <T extends StructureType> T register(@NotNull T type) {
-        Preconditions.checkNotNull(type, "Cannot register null StructureType.");
-        Preconditions.checkArgument(!structureTypeMap.containsKey(type.getName()), "Cannot register same StructureType twice. %s", type.getName());
-        StructureType.structureTypeMap.put(type.getName(), type);
-        return type;
-    }
-
-    /**
-     * Get all registered {@link StructureType}s.
-     *
-     * @return an immutable copy of registered structure types.
-     */
-    @NotNull
-    public static Map<String, StructureType> getStructureTypes() {
-        return ImmutableMap.copyOf(structureTypeMap);
     }
 
     @NotNull

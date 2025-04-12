@@ -2,8 +2,6 @@ package org.bukkit.potion;
 
 import com.google.common.base.Preconditions;
 import com.google.common.base.Suppliers;
-import java.util.List;
-import java.util.function.Supplier;
 import org.bukkit.Bukkit;
 import org.bukkit.Keyed;
 import org.bukkit.NamespacedKey;
@@ -11,6 +9,9 @@ import org.bukkit.registry.RegistryAware;
 import org.jetbrains.annotations.ApiStatus;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
+
+import java.util.List;
+import java.util.function.Supplier;
 
 /**
  * This enum reflects and matches each potion state that can be obtained from
@@ -71,6 +72,23 @@ public enum PotionType implements Keyed, RegistryAware {
     PotionType(String key) {
         this.key = NamespacedKey.minecraft(key);
         this.internalPotionDataSupplier = Suppliers.memoize(() -> Bukkit.getUnsafe().getInternalPotionData(this.key));
+    }
+
+    /**
+     * @param effectType the effect to get by
+     * @return the matching potion type
+     * @deprecated Misleading
+     */
+    @Deprecated(since = "1.9")
+    @Nullable
+    public static PotionType getByEffect(@Nullable PotionEffectType effectType) {
+        if (effectType == null)
+            return WATER;
+        for (PotionType type : PotionType.values()) {
+            if (effectType.equals(type.getEffectType()))
+                return type;
+        }
+        return null;
     }
 
     /**
@@ -142,23 +160,6 @@ public enum PotionType implements Keyed, RegistryAware {
     @Override
     public boolean isRegistered() {
         return this.key != null;
-    }
-
-    /**
-     * @param effectType the effect to get by
-     * @return the matching potion type
-     * @deprecated Misleading
-     */
-    @Deprecated(since = "1.9")
-    @Nullable
-    public static PotionType getByEffect(@Nullable PotionEffectType effectType) {
-        if (effectType == null)
-            return WATER;
-        for (PotionType type : PotionType.values()) {
-            if (effectType.equals(type.getEffectType()))
-                return type;
-        }
-        return null;
     }
 
     /**

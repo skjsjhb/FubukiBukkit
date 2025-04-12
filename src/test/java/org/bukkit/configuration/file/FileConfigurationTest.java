@@ -1,15 +1,17 @@
 package org.bukkit.configuration.file;
 
-import static org.junit.jupiter.api.Assertions.*;
+import org.bukkit.configuration.MemoryConfigurationTest;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.io.TempDir;
+
 import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileWriter;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
-import org.bukkit.configuration.MemoryConfigurationTest;
-import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.io.TempDir;
+
+import static org.junit.jupiter.api.Assertions.*;
 
 public abstract class FileConfigurationTest extends MemoryConfigurationTest {
     @TempDir
@@ -376,7 +378,7 @@ public abstract class FileConfigurationTest extends MemoryConfigurationTest {
         config.options().parseComments(true);
         config.loadFromString("key1: value1\nkey2: value2 # Test inline\nkey3: value3");
 
-        assertEquals(Arrays.asList("Test inline"), config.getInlineComments("key2"));
+        assertEquals(List.of("Test inline"), config.getInlineComments("key2"));
     }
 
     @Test
@@ -387,7 +389,7 @@ public abstract class FileConfigurationTest extends MemoryConfigurationTest {
         config.set("key1", "value1");
         config.set("key2", "value2");
         config.set("key3", "value3");
-        config.setInlineComments("key2", Arrays.asList("Test inline"));
+        config.setInlineComments("key2", List.of("Test inline"));
 
         String result = config.saveToString();
         String expected = "key1: value1\nkey2: value2 # Test inline\nkey3: value3\n";

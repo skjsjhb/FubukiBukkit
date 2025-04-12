@@ -1,7 +1,8 @@
 package org.bukkit.conversations;
 
-import java.util.regex.Pattern;
 import org.jetbrains.annotations.NotNull;
+
+import java.util.regex.Pattern;
 
 /**
  * RegexPrompt is the base class for any prompt that requires an input
@@ -20,7 +21,8 @@ public abstract class RegexPrompt extends ValidatingPrompt {
         this.pattern = pattern;
     }
 
-    private RegexPrompt() {}
+    private RegexPrompt() {
+    }
 
     @Override
     protected boolean isInputValid(@NotNull ConversationContext context, @NotNull String input) {

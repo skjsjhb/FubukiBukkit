@@ -12,8 +12,13 @@ public class PlayerExpChangeEvent extends PlayerEvent {
     private int exp;
 
     public PlayerExpChangeEvent(@NotNull final Player player, final int expAmount) {
-         super(player);
-         exp = expAmount;
+        super(player);
+        exp = expAmount;
+    }
+
+    @NotNull
+    public static HandlerList getHandlerList() {
+        return handlers;
     }
 
     /**
@@ -37,11 +42,6 @@ public class PlayerExpChangeEvent extends PlayerEvent {
     @NotNull
     @Override
     public HandlerList getHandlers() {
-        return handlers;
-    }
-
-    @NotNull
-    public static HandlerList getHandlerList() {
         return handlers;
     }
 }

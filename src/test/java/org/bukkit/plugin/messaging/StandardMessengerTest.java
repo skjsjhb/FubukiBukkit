@@ -1,20 +1,29 @@
 package org.bukkit.plugin.messaging;
 
-import static org.bukkit.support.MatcherAssert.*;
-import static org.hamcrest.Matchers.*;
-import static org.junit.jupiter.api.Assertions.*;
-import static org.mockito.Mockito.*;
-import java.util.Collection;
 import org.bukkit.entity.Player;
 import org.bukkit.plugin.TestPlugin;
 import org.junit.jupiter.api.Test;
 
+import java.util.Collection;
+
+import static org.bukkit.support.MatcherAssert.assertThat;
+import static org.hamcrest.Matchers.hasItems;
+import static org.hamcrest.Matchers.is;
+import static org.junit.jupiter.api.Assertions.*;
+import static org.mockito.Mockito.mock;
+
 public class StandardMessengerTest {
+    private int count = 0;
+
+    private static <T> void assertCollectionEquals(Collection<T> actual, T... expected) {
+        assertThat(actual.size(), is(expected.length), "Size of the array");
+        assertThat(actual, hasItems(expected));
+    }
+
     public StandardMessenger getMessenger() {
         return new StandardMessenger();
     }
 
-    private int count = 0;
     public TestPlugin getPlugin() {
         return new TestPlugin("" + count++);
     }
@@ -297,10 +306,5 @@ public class StandardMessengerTest {
     public void testValidateAndCorrectChannel() {
         assertEquals("bungeecord:main", StandardMessenger.validateAndCorrectChannel("BungeeCord"));
         assertEquals("BungeeCord", StandardMessenger.validateAndCorrectChannel("bungeecord:main"));
-    }
-
-    private static <T> void assertCollectionEquals(Collection<T> actual, T... expected) {
-        assertThat(actual.size(), is(expected.length), "Size of the array");
-        assertThat(actual, hasItems(expected));
     }
 }

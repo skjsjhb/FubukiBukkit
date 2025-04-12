@@ -11,12 +11,17 @@ import org.jetbrains.annotations.NotNull;
  */
 public class EntityTameEvent extends EntityEvent implements Cancellable {
     private static final HandlerList handlers = new HandlerList();
-    private boolean cancelled;
     private final AnimalTamer owner;
+    private boolean cancelled;
 
     public EntityTameEvent(@NotNull final LivingEntity entity, @NotNull final AnimalTamer owner) {
         super(entity);
         this.owner = owner;
+    }
+
+    @NotNull
+    public static HandlerList getHandlerList() {
+        return handlers;
     }
 
     @NotNull
@@ -48,11 +53,6 @@ public class EntityTameEvent extends EntityEvent implements Cancellable {
     @NotNull
     @Override
     public HandlerList getHandlers() {
-        return handlers;
-    }
-
-    @NotNull
-    public static HandlerList getHandlerList() {
         return handlers;
     }
 }

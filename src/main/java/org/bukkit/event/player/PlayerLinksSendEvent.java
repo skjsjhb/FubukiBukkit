@@ -20,6 +20,11 @@ public class PlayerLinksSendEvent extends PlayerEvent {
         this.links = links;
     }
 
+    @NotNull
+    public static HandlerList getHandlerList() {
+        return handlers;
+    }
+
     /**
      * Gets the links to be sent, for modification.
      *
@@ -33,11 +38,6 @@ public class PlayerLinksSendEvent extends PlayerEvent {
     @NotNull
     @Override
     public HandlerList getHandlers() {
-        return handlers;
-    }
-
-    @NotNull
-    public static HandlerList getHandlerList() {
         return handlers;
     }
 }

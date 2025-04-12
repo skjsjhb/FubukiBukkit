@@ -155,7 +155,7 @@ public interface Display extends Entity {
 
     /**
      * Gets the billboard setting of this entity.
-     *
+     * <p>
      * The billboard setting controls the automatic rotation of the entity to
      * face the player.
      *
@@ -166,7 +166,7 @@ public interface Display extends Entity {
 
     /**
      * Sets the billboard setting of this entity.
-     *
+     * <p>
      * The billboard setting controls the automatic rotation of the entity to
      * face the player.
      *

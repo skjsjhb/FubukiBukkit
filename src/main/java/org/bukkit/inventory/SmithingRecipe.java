@@ -18,9 +18,9 @@ public class SmithingRecipe implements Recipe, Keyed {
     /**
      * Create a smithing recipe to produce the specified result ItemStack.
      *
-     * @param key The unique recipe key
-     * @param result The item you want the recipe to create.
-     * @param base The base ingredient
+     * @param key      The unique recipe key
+     * @param result   The item you want the recipe to create.
+     * @param base     The base ingredient
      * @param addition The addition ingredient
      * @deprecated as of Minecraft 1.20, smithing recipes are now separated into two
      * distinct recipe types, {@link SmithingTransformRecipe} and {@link SmithingTrimRecipe}.

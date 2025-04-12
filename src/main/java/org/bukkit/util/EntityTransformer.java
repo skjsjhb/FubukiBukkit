@@ -15,13 +15,12 @@ public interface EntityTransformer {
     /**
      * Transforms a entity in a structure.
      *
-     * @param region the accessible region
-     * @param x the x position of the entity
-     * @param y the y position of the entity
-     * @param z the z position of the entity
-     * @param entity the entity
+     * @param region         the accessible region
+     * @param x              the x position of the entity
+     * @param y              the y position of the entity
+     * @param z              the z position of the entity
+     * @param entity         the entity
      * @param allowedToSpawn if the entity is allowed to spawn
-     *
      * @return {@code true} if the entity should be spawned otherwise
      * {@code false}
      */

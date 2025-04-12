@@ -1,13 +1,6 @@
 package org.bukkit.attribute;
 
 import com.google.common.base.Preconditions;
-import java.nio.charset.StandardCharsets;
-import java.util.HashMap;
-import java.util.Locale;
-import java.util.Map;
-import java.util.Objects;
-import java.util.UUID;
-import java.util.regex.Pattern;
 import org.bukkit.Keyed;
 import org.bukkit.NamespacedKey;
 import org.bukkit.configuration.serialization.ConfigurationSerializable;
@@ -16,6 +9,10 @@ import org.bukkit.inventory.EquipmentSlotGroup;
 import org.bukkit.util.NumberConversions;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
+
+import java.nio.charset.StandardCharsets;
+import java.util.*;
+import java.util.regex.Pattern;
 
 /**
  * Concrete implementation of an attribute modifier.
@@ -56,6 +53,30 @@ public class AttributeModifier implements ConfigurationSerializable, Keyed {
         this.amount = amount;
         this.operation = operation;
         this.slot = slot;
+    }
+
+    @NotNull
+    public static AttributeModifier deserialize(@NotNull Map<String, Object> args) {
+        NamespacedKey key;
+        if (args.containsKey("uuid")) {
+            key = NamespacedKey.fromString((String) args.get("uuid"));
+        } else {
+            key = NamespacedKey.fromString((String) args.get("key"));
+        }
+        if (args.containsKey("slot")) {
+            EquipmentSlotGroup slotGroup = EquipmentSlotGroup.getByName(args.get("slot").toString().toLowerCase(Locale.ROOT));
+            if (slotGroup == null) {
+                slotGroup = EquipmentSlotGroup.ANY;
+
+                EquipmentSlot slot = EquipmentSlot.valueOf((args.get("slot").toString().toUpperCase(Locale.ROOT)));
+                if (slot != null) {
+                    slotGroup = slot.getGroup();
+                }
+            }
+
+            return new AttributeModifier(key, NumberConversions.toDouble(args.get("amount")), Operation.values()[NumberConversions.toInt(args.get("operation"))], slotGroup);
+        }
+        return new AttributeModifier(key, NumberConversions.toDouble(args.get("amount")), Operation.values()[NumberConversions.toInt(args.get("operation"))], EquipmentSlotGroup.ANY);
     }
 
     /**
@@ -180,30 +201,6 @@ public class AttributeModifier implements ConfigurationSerializable, Keyed {
                 + ", amount=" + this.amount
                 + ", slot=" + (this.slot != null ? this.slot.toString() : "")
                 + "}";
-    }
-
-    @NotNull
-    public static AttributeModifier deserialize(@NotNull Map<String, Object> args) {
-        NamespacedKey key;
-        if (args.containsKey("uuid")) {
-            key = NamespacedKey.fromString((String) args.get("uuid"));
-        } else {
-            key = NamespacedKey.fromString((String) args.get("key"));
-        }
-        if (args.containsKey("slot")) {
-            EquipmentSlotGroup slotGroup = EquipmentSlotGroup.getByName(args.get("slot").toString().toLowerCase(Locale.ROOT));
-            if (slotGroup == null) {
-                slotGroup = EquipmentSlotGroup.ANY;
-
-                EquipmentSlot slot = EquipmentSlot.valueOf((args.get("slot").toString().toUpperCase(Locale.ROOT)));
-                if (slot != null) {
-                    slotGroup = slot.getGroup();
-                }
-            }
-
-            return new AttributeModifier(key, NumberConversions.toDouble(args.get("amount")), Operation.values()[NumberConversions.toInt(args.get("operation"))], slotGroup);
-        }
-        return new AttributeModifier(key, NumberConversions.toDouble(args.get("amount")), Operation.values()[NumberConversions.toInt(args.get("operation"))], EquipmentSlotGroup.ANY);
     }
 
     /**

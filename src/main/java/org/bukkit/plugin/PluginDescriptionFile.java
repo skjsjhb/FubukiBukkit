@@ -3,21 +3,7 @@ package org.bukkit.plugin;
 import com.google.common.collect.ImmutableList;
 import com.google.common.collect.ImmutableMap;
 import com.google.common.collect.ImmutableSet;
-import java.io.InputStream;
-import java.io.Reader;
-import java.io.Writer;
-import java.util.HashMap;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Locale;
-import java.util.Map;
-import java.util.Set;
-import java.util.regex.Pattern;
-import org.bukkit.command.Command;
-import org.bukkit.command.CommandExecutor;
-import org.bukkit.command.CommandSender;
-import org.bukkit.command.PluginCommand;
-import org.bukkit.command.TabCompleter;
+import org.bukkit.command.*;
 import org.bukkit.permissions.Permissible;
 import org.bukkit.permissions.Permission;
 import org.bukkit.permissions.PermissionDefault;
@@ -33,6 +19,12 @@ import org.yaml.snakeyaml.constructor.SafeConstructor;
 import org.yaml.snakeyaml.nodes.Node;
 import org.yaml.snakeyaml.nodes.Tag;
 import org.yaml.snakeyaml.representer.Representer;
+
+import java.io.InputStream;
+import java.io.Reader;
+import java.io.Writer;
+import java.util.*;
+import java.util.regex.Pattern;
 
 /**
  * This type is the runtime-container for the information in the plugin.yml.
@@ -146,25 +138,25 @@ import org.yaml.snakeyaml.representer.Representer;
  * </table>
  * <p>
  * A plugin.yml example:<blockquote><pre>
- *name: Inferno
- *provides: [Hell]
- *version: 1.4.1
- *description: This plugin is so 31337. You can set yourself on fire.
- *# We could place every author in the authors list, but chose not to for illustrative purposes
- *# Also, having an author distinguishes that person as the project lead, and ensures their
- *# name is displayed first
- *author: CaptainInflamo
- *authors: [Cogito, verrier, EvilSeph]
- *contributors: [Choco, md_5]
- *website: http://www.curse.com/server-mods/minecraft/myplugin
+ * name: Inferno
+ * provides: [Hell]
+ * version: 1.4.1
+ * description: This plugin is so 31337. You can set yourself on fire.
+ * # We could place every author in the authors list, but chose not to for illustrative purposes
+ * # Also, having an author distinguishes that person as the project lead, and ensures their
+ * # name is displayed first
+ * author: CaptainInflamo
+ * authors: [Cogito, verrier, EvilSeph]
+ * contributors: [Choco, md_5]
+ * website: http://www.curse.com/server-mods/minecraft/myplugin
  *
- *main: com.captaininflamo.bukkit.inferno.Inferno
- *depend: [NewFire, FlameWire]
- *api-version: 1.13
- *libraries:
-    - com.squareup.okhttp3:okhttp:4.9.0
+ * main: com.captaininflamo.bukkit.inferno.Inferno
+ * depend: [NewFire, FlameWire]
+ * api-version: 1.13
+ * libraries:
+ * - com.squareup.okhttp3:okhttp:4.9.0
  *
- *commands:
+ * commands:
  *  flagrate:
  *    description: Set yourself on fire.
  *    aliases: [combust_me, combustMe]
@@ -179,7 +171,7 @@ import org.yaml.snakeyaml.representer.Representer;
  *      Example: /&lt;command&gt; - see how many times you have burned to death
  *      Example: /&lt;command&gt; CaptainIce - see how many times CaptainIce has burned to death
  *
- *permissions:
+ * permissions:
  *  inferno.*:
  *    description: Gives access to all Inferno commands
  *    children:
@@ -197,7 +189,7 @@ import org.yaml.snakeyaml.representer.Representer;
  *    default: op
  *    children:
  *      inferno.burningdeaths: true
- *</pre></blockquote>
+ * </pre></blockquote>
  */
 public final class PluginDescriptionFile {
     private static final Pattern VALID_NAME = Pattern.compile("^[A-Za-z0-9 _.-]+$");
@@ -270,7 +262,7 @@ public final class PluginDescriptionFile {
      *
      * @param reader The reader
      * @throws InvalidDescriptionException If the PluginDescriptionFile is
-     *     invalid
+     *                                     invalid
      */
     public PluginDescriptionFile(@NotNull final Reader reader) throws InvalidDescriptionException {
         loadMap(asMap(YAML.get().load(reader)));
@@ -279,9 +271,9 @@ public final class PluginDescriptionFile {
     /**
      * Creates a new PluginDescriptionFile with the given detailed
      *
-     * @param pluginName Name of this plugin
+     * @param pluginName    Name of this plugin
      * @param pluginVersion Version of this plugin
-     * @param mainClass Full location of the main class of this plugin
+     * @param mainClass     Full location of the main class of this plugin
      */
     public PluginDescriptionFile(@NotNull final String pluginName, @NotNull final String pluginVersion, @NotNull final String mainClass) {
         name = rawName = pluginName;
@@ -292,6 +284,26 @@ public final class PluginDescriptionFile {
         name = name.replace(' ', '_');
         version = pluginVersion;
         main = mainClass;
+    }
+
+    @NotNull
+    private static List<String> makePluginNameList(@NotNull final Map<?, ?> map, @NotNull final String key) throws InvalidDescriptionException {
+        final Object value = map.get(key);
+        if (value == null) {
+            return ImmutableList.of();
+        }
+
+        final ImmutableList.Builder<String> builder = ImmutableList.<String>builder();
+        try {
+            for (final Object entry : (Iterable<?>) value) {
+                builder.add(entry.toString().replace(' ', '_'));
+            }
+        } catch (ClassCastException ex) {
+            throw new InvalidDescriptionException(ex, key + " is of wrong type");
+        } catch (NullPointerException ex) {
+            throw new InvalidDescriptionException(ex, "invalid " + key + " format");
+        }
+        return builder.build();
     }
 
     /**
@@ -345,8 +357,8 @@ public final class PluginDescriptionFile {
      * <p>
      * Example:
      * <blockquote><pre>provides:
-     *- OtherPluginName
-     *- OldPluginName</pre></blockquote>
+     * - OtherPluginName
+     * - OldPluginName</pre></blockquote>
      *
      * @return immutable list of the plugin APIs which this plugin provides
      */
@@ -470,9 +482,9 @@ public final class PluginDescriptionFile {
      * When both are specified, author will be the first entry in the list, so
      * this example:
      * <blockquote><pre>author: Grum
-     *authors:
-     *- feildmaster
-     *- amaranth</pre></blockquote>
+     * authors:
+     * - feildmaster
+     * - amaranth</pre></blockquote>
      * Is equivilant to this example:
      * <pre>authors: [Grum, feildmaster, aramanth]</pre>
      *
@@ -548,8 +560,8 @@ public final class PluginDescriptionFile {
      * <p>
      * Example:
      * <blockquote><pre>depend:
-     *- OnePlugin
-     *- AnotherPlugin</pre></blockquote>
+     * - OnePlugin
+     * - AnotherPlugin</pre></blockquote>
      *
      * @return immutable list of the plugin's dependencies
      */
@@ -607,11 +619,11 @@ public final class PluginDescriptionFile {
      * <p>
      * Example:
      * <blockquote><pre>loadbefore:
-     *- OnePlugin
-     *- AnotherPlugin</pre></blockquote>
+     * - OnePlugin
+     * - AnotherPlugin</pre></blockquote>
      *
      * @return immutable list of plugins that should consider this plugin a
-     *     soft-dependency
+     * soft-dependency
      */
     @NotNull
     public List<String> getLoadBefore() {
@@ -669,7 +681,7 @@ public final class PluginDescriptionFile {
      *         that are already registered. <i>Aliases are not effective when
      *         defined at runtime,</i> so the plugin description file is the
      *         only way to have them properly defined.
-     *         <p>
+     * <p>
      *         Note: Command aliases may not have a colon in them.</td>
      *     <td>Single alias format:
      *         <blockquote><pre>aliases: combust_me</pre></blockquote> or
@@ -727,7 +739,7 @@ public final class PluginDescriptionFile {
      * <p>
      * Here is an example bringing together the piecemeal examples above, as
      * well as few more definitions:<blockquote><pre>
-     *commands:
+     * commands:
      *  flagrate:
      *    description: Set yourself on fire.
      *    aliases: [combust_me, combustMe]
@@ -747,7 +759,7 @@ public final class PluginDescriptionFile {
      *  # The next command has no description, aliases, etc. defined, but is still valid
      *  # Having an empty declaration is useful for defining the description, permission, and messages from a configuration dynamically
      *  apocalypse:
-     *</pre></blockquote>
+     * </pre></blockquote>
      * Note: Command names may not have a colon in their name.
      *
      * @return the commands this plugin will register
@@ -783,7 +795,7 @@ public final class PluginDescriptionFile {
      *     <td>The default state for the permission, as defined by {@link
      *         Permission#getDefault()}. If not defined, it will be set to
      *         the value of {@link PluginDescriptionFile#getPermissionDefault()}.
-     *         <p>
+     * <p>
      *         For reference:<ul>
      *         <li><code>true</code> - Represents a positive assignment to
      *             {@link Permissible permissibles}.
@@ -808,7 +820,7 @@ public final class PluginDescriptionFile {
      *         <li>When a parent permission is assigned positively, child
      *             permissions are assigned based on their association.
      *         </ul>
-     *         <p>
+     * <p>
      *         Child permissions may be defined in a number of ways:<ul>
      *         <li>Children may be defined as a <a
      *             href="https://en.wikipedia.org/wiki/YAML#Lists">list</a> of
@@ -847,7 +859,7 @@ public final class PluginDescriptionFile {
      * properties of the table above).
      * <p>
      * Here is an example using some of the properties:<blockquote><pre>
-     *permissions:
+     * permissions:
      *  inferno.*:
      *    description: Gives access to all Inferno commands
      *    children:
@@ -859,7 +871,7 @@ public final class PluginDescriptionFile {
      *  inferno.burningdeaths:
      *    description: Allows you to see how many times you have burned to death
      *    default: true
-     *</pre></blockquote>
+     * </pre></blockquote>
      * Another example, with nested definitions, can be found <a
      * href="doc-files/permissions-example_plugin.yml">here</a>.
      *
@@ -926,7 +938,7 @@ public final class PluginDescriptionFile {
      * In the plugin.yml, this entry is named <code>awareness</code>.
      * <p>
      * Example:<blockquote><pre>awareness:
-     *- !@UTF8</pre></blockquote>
+     * - !@UTF8</pre></blockquote>
      * <p>
      * <b>Note:</b> Although unknown versions of some future awareness are
      * gracefully substituted, previous versions of Bukkit (ones prior to the
@@ -1179,26 +1191,6 @@ public final class PluginDescriptionFile {
         if (map.get("prefix") != null) {
             prefix = map.get("prefix").toString();
         }
-    }
-
-    @NotNull
-    private static List<String> makePluginNameList(@NotNull final Map<?, ?> map, @NotNull final String key) throws InvalidDescriptionException {
-        final Object value = map.get(key);
-        if (value == null) {
-            return ImmutableList.of();
-        }
-
-        final ImmutableList.Builder<String> builder = ImmutableList.<String>builder();
-        try {
-            for (final Object entry : (Iterable<?>) value) {
-                builder.add(entry.toString().replace(' ', '_'));
-            }
-        } catch (ClassCastException ex) {
-            throw new InvalidDescriptionException(ex, key + " is of wrong type");
-        } catch (NullPointerException ex) {
-            throw new InvalidDescriptionException(ex, "invalid " + key + " format");
-        }
-        return builder.build();
     }
 
     @NotNull

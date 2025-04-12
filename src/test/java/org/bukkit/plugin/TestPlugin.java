@@ -1,8 +1,5 @@
 package org.bukkit.plugin;
 
-import java.io.File;
-import java.io.InputStream;
-import java.util.List;
 import org.bukkit.Server;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
@@ -10,17 +7,16 @@ import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.generator.BiomeProvider;
 import org.bukkit.generator.ChunkGenerator;
 
-public class TestPlugin extends PluginBase {
-    private boolean enabled = true;
+import java.io.File;
+import java.io.InputStream;
+import java.util.List;
 
+public class TestPlugin extends PluginBase {
     private final String pluginName;
+    private boolean enabled = true;
 
     public TestPlugin(String pluginName) {
         this.pluginName = pluginName;
-    }
-
-    public void setEnabled(boolean enabled) {
-        this.enabled = enabled;
     }
 
     @Override
@@ -81,6 +77,10 @@ public class TestPlugin extends PluginBase {
     @Override
     public boolean isEnabled() {
         return enabled;
+    }
+
+    public void setEnabled(boolean enabled) {
+        this.enabled = enabled;
     }
 
     @Override

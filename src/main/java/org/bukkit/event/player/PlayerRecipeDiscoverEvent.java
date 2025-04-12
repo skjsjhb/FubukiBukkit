@@ -12,13 +12,17 @@ import org.jetbrains.annotations.NotNull;
 public class PlayerRecipeDiscoverEvent extends PlayerEvent implements Cancellable {
 
     private static final HandlerList handlers = new HandlerList();
-
-    private boolean cancel = false;
     private final NamespacedKey recipe;
+    private boolean cancel = false;
 
     public PlayerRecipeDiscoverEvent(@NotNull Player who, @NotNull NamespacedKey recipe) {
         super(who);
         this.recipe = recipe;
+    }
+
+    @NotNull
+    public static HandlerList getHandlerList() {
+        return handlers;
     }
 
     /**
@@ -44,11 +48,6 @@ public class PlayerRecipeDiscoverEvent extends PlayerEvent implements Cancellabl
     @NotNull
     @Override
     public HandlerList getHandlers() {
-        return handlers;
-    }
-
-    @NotNull
-    public static HandlerList getHandlerList() {
         return handlers;
     }
 }

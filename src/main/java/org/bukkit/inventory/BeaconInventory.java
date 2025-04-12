@@ -8,17 +8,17 @@ import org.jetbrains.annotations.Nullable;
 public interface BeaconInventory extends Inventory {
 
     /**
-     * Set the item powering the beacon.
-     *
-     * @param item The new item
-     */
-    void setItem(@Nullable ItemStack item);
-
-    /**
      * Get the item powering the beacon.
      *
      * @return The current item.
      */
     @Nullable
     ItemStack getItem();
+
+    /**
+     * Set the item powering the beacon.
+     *
+     * @param item The new item
+     */
+    void setItem(@Nullable ItemStack item);
 }

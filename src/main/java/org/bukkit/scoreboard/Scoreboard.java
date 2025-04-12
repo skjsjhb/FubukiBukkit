@@ -1,9 +1,10 @@
 package org.bukkit.scoreboard;
 
-import java.util.Set;
 import org.bukkit.OfflinePlayer;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
+
+import java.util.Set;
 
 /**
  * A scoreboard
@@ -13,13 +14,13 @@ public interface Scoreboard {
     /**
      * Registers an Objective on this Scoreboard
      *
-     * @param name Name of the Objective
+     * @param name     Name of the Objective
      * @param criteria Criteria for the Objective
      * @return The registered Objective
      * @throws IllegalArgumentException if name is longer than 32767
-     *     characters.
+     *                                  characters.
      * @throws IllegalArgumentException if an objective by that name already
-     *     exists
+     *                                  exists
      * @deprecated a displayName should be explicitly specified
      */
     @Deprecated(since = "1.13")
@@ -29,14 +30,14 @@ public interface Scoreboard {
     /**
      * Registers an Objective on this Scoreboard
      *
-     * @param name Name of the Objective
-     * @param criteria Criteria for the Objective
+     * @param name        Name of the Objective
+     * @param criteria    Criteria for the Objective
      * @param displayName Name displayed to players for the Objective.
      * @return The registered Objective
      * @throws IllegalArgumentException if name is longer than 32767
-     *     characters.
+     *                                  characters.
      * @throws IllegalArgumentException if an objective by that name already
-     *     exists
+     *                                  exists
      * @deprecated use {@link #registerNewObjective(String, Criteria, String)}
      */
     @Deprecated(since = "1.20.5")
@@ -46,15 +47,15 @@ public interface Scoreboard {
     /**
      * Registers an Objective on this Scoreboard
      *
-     * @param name Name of the Objective
-     * @param criteria Criteria for the Objective
+     * @param name        Name of the Objective
+     * @param criteria    Criteria for the Objective
      * @param displayName Name displayed to players for the Objective.
-     * @param renderType Manner of rendering the Objective
+     * @param renderType  Manner of rendering the Objective
      * @return The registered Objective
      * @throws IllegalArgumentException if name is longer than 32767
-     *     characters.
+     *                                  characters.
      * @throws IllegalArgumentException if an objective by that name already
-     *     exists
+     *                                  exists
      * @deprecated use {@link #registerNewObjective(String, Criteria, String, RenderType)}
      */
     @Deprecated(since = "1.20.5")
@@ -64,14 +65,14 @@ public interface Scoreboard {
     /**
      * Registers an Objective on this Scoreboard
      *
-     * @param name Name of the Objective
-     * @param criteria Criteria for the Objective
+     * @param name        Name of the Objective
+     * @param criteria    Criteria for the Objective
      * @param displayName Name displayed to players for the Objective.
      * @return The registered Objective
      * @throws IllegalArgumentException if name is longer than 32767
-     *     characters.
+     *                                  characters.
      * @throws IllegalArgumentException if an objective by that name already
-     *     exists
+     *                                  exists
      */
     @NotNull
     Objective registerNewObjective(@NotNull String name, @NotNull Criteria criteria, @NotNull String displayName);
@@ -79,15 +80,15 @@ public interface Scoreboard {
     /**
      * Registers an Objective on this Scoreboard
      *
-     * @param name Name of the Objective
-     * @param criteria Criteria for the Objective
+     * @param name        Name of the Objective
+     * @param criteria    Criteria for the Objective
      * @param displayName Name displayed to players for the Objective.
-     * @param renderType Manner of rendering the Objective
+     * @param renderType  Manner of rendering the Objective
      * @return The registered Objective
      * @throws IllegalArgumentException if name is longer than 32767
-     *     characters.
+     *                                  characters.
      * @throws IllegalArgumentException if an objective by that name already
-     *     exists
+     *                                  exists
      */
     @NotNull
     Objective registerNewObjective(@NotNull String name, @NotNull Criteria criteria, @NotNull String displayName, @NotNull RenderType renderType);
@@ -135,7 +136,7 @@ public interface Scoreboard {
      *
      * @param slot The DisplaySlot
      * @return the Objective currently displayed or null if nothing is
-     *     displayed in that DisplaySlot
+     * displayed in that DisplaySlot
      */
     @Nullable
     Objective getObjective(@NotNull DisplaySlot slot);

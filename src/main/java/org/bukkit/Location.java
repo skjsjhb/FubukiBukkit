@@ -1,16 +1,17 @@
 package org.bukkit;
 
 import com.google.common.base.Preconditions;
-import java.lang.ref.Reference;
-import java.lang.ref.WeakReference;
-import java.util.HashMap;
-import java.util.Map;
 import org.bukkit.block.Block;
 import org.bukkit.configuration.serialization.ConfigurationSerializable;
 import org.bukkit.util.NumberConversions;
 import org.bukkit.util.Vector;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
+
+import java.lang.ref.Reference;
+import java.lang.ref.WeakReference;
+import java.util.HashMap;
+import java.util.Map;
 
 /**
  * Represents a 3-dimensional position in a world.
@@ -32,9 +33,9 @@ public class Location implements Cloneable, ConfigurationSerializable {
      * Constructs a new Location with the given coordinates
      *
      * @param world The world in which this location resides
-     * @param x The x-coordinate of this new location
-     * @param y The y-coordinate of this new location
-     * @param z The z-coordinate of this new location
+     * @param x     The x-coordinate of this new location
+     * @param y     The y-coordinate of this new location
+     * @param z     The z-coordinate of this new location
      */
     public Location(@Nullable final World world, final double x, final double y, final double z) {
         this(world, x, y, z, 0, 0);
@@ -44,10 +45,10 @@ public class Location implements Cloneable, ConfigurationSerializable {
      * Constructs a new Location with the given coordinates and direction
      *
      * @param world The world in which this location resides
-     * @param x The x-coordinate of this new location
-     * @param y The y-coordinate of this new location
-     * @param z The z-coordinate of this new location
-     * @param yaw The absolute rotation on the x-plane, in degrees
+     * @param x     The x-coordinate of this new location
+     * @param y     The y-coordinate of this new location
+     * @param z     The z-coordinate of this new location
+     * @param yaw   The absolute rotation on the x-plane, in degrees
      * @param pitch The absolute rotation on the y-plane, in degrees
      */
     public Location(@Nullable final World world, final double x, final double y, final double z, final float yaw, final float pitch) {
@@ -63,12 +64,70 @@ public class Location implements Cloneable, ConfigurationSerializable {
     }
 
     /**
-     * Sets the world that this location resides in
+     * Safely converts a double (location coordinate) to an int (block
+     * coordinate)
      *
-     * @param world New world that this location resides in
+     * @param loc Precise coordinate
+     * @return Block coordinate
      */
-    public void setWorld(@Nullable World world) {
-        this.world = (world == null) ? null : new WeakReference<>(world);
+    public static int locToBlock(double loc) {
+        return NumberConversions.floor(loc);
+    }
+
+    /**
+     * Required method for deserialization
+     *
+     * @param args map to deserialize
+     * @return deserialized location
+     * @throws IllegalArgumentException if the world don't exists
+     * @see ConfigurationSerializable
+     */
+    @NotNull
+    public static Location deserialize(@NotNull Map<String, Object> args) {
+        World world = null;
+        if (args.containsKey("world")) {
+            world = Bukkit.getWorld((String) args.get("world"));
+            if (world == null) {
+                throw new IllegalArgumentException("unknown world");
+            }
+        }
+
+        return new Location(world, NumberConversions.toDouble(args.get("x")), NumberConversions.toDouble(args.get("y")), NumberConversions.toDouble(args.get("z")), NumberConversions.toFloat(args.get("yaw")), NumberConversions.toFloat(args.get("pitch")));
+    }
+
+    /**
+     * Normalizes the given yaw angle to a value between <code>+/-180</code>
+     * degrees.
+     *
+     * @param yaw the yaw in degrees
+     * @return the normalized yaw in degrees
+     * @see Location#getYaw()
+     */
+    public static float normalizeYaw(float yaw) {
+        yaw %= 360.0f;
+        if (yaw >= 180.0f) {
+            yaw -= 360.0f;
+        } else if (yaw < -180.0f) {
+            yaw += 360.0f;
+        }
+        return yaw;
+    }
+
+    /**
+     * Normalizes the given pitch angle to a value between <code>+/-90</code>
+     * degrees.
+     *
+     * @param pitch the pitch in degrees
+     * @return the normalized pitch in degrees
+     * @see Location#getPitch()
+     */
+    public static float normalizePitch(float pitch) {
+        if (pitch > 90.0f) {
+            pitch = 90.0f;
+        } else if (pitch < -90.0f) {
+            pitch = -90.0f;
+        }
+        return pitch;
     }
 
     /**
@@ -104,6 +163,15 @@ public class Location implements Cloneable, ConfigurationSerializable {
     }
 
     /**
+     * Sets the world that this location resides in
+     *
+     * @param world New world that this location resides in
+     */
+    public void setWorld(@Nullable World world) {
+        this.world = (world == null) ? null : new WeakReference<>(world);
+    }
+
+    /**
      * Gets the chunk at the represented location
      *
      * @return Chunk at the represented location
@@ -124,21 +192,21 @@ public class Location implements Cloneable, ConfigurationSerializable {
     }
 
     /**
-     * Sets the x-coordinate of this location
-     *
-     * @param x X-coordinate
-     */
-    public void setX(double x) {
-        this.x = x;
-    }
-
-    /**
      * Gets the x-coordinate of this location
      *
      * @return x-coordinate
      */
     public double getX() {
         return x;
+    }
+
+    /**
+     * Sets the x-coordinate of this location
+     *
+     * @param x X-coordinate
+     */
+    public void setX(double x) {
+        this.x = x;
     }
 
     /**
@@ -152,21 +220,21 @@ public class Location implements Cloneable, ConfigurationSerializable {
     }
 
     /**
-     * Sets the y-coordinate of this location
-     *
-     * @param y y-coordinate
-     */
-    public void setY(double y) {
-        this.y = y;
-    }
-
-    /**
      * Gets the y-coordinate of this location
      *
      * @return y-coordinate
      */
     public double getY() {
         return y;
+    }
+
+    /**
+     * Sets the y-coordinate of this location
+     *
+     * @param y y-coordinate
+     */
+    public void setY(double y) {
+        this.y = y;
     }
 
     /**
@@ -180,21 +248,21 @@ public class Location implements Cloneable, ConfigurationSerializable {
     }
 
     /**
-     * Sets the z-coordinate of this location
-     *
-     * @param z z-coordinate
-     */
-    public void setZ(double z) {
-        this.z = z;
-    }
-
-    /**
      * Gets the z-coordinate of this location
      *
      * @return z-coordinate
      */
     public double getZ() {
         return z;
+    }
+
+    /**
+     * Sets the z-coordinate of this location
+     *
+     * @param z z-coordinate
+     */
+    public void setZ(double z) {
+        this.z = z;
     }
 
     /**
@@ -205,24 +273,6 @@ public class Location implements Cloneable, ConfigurationSerializable {
      */
     public int getBlockZ() {
         return locToBlock(z);
-    }
-
-    /**
-     * Sets the yaw of this location, measured in degrees.
-     * <ul>
-     * <li>A yaw of 0 or 360 represents the positive z direction.
-     * <li>A yaw of 180 represents the negative z direction.
-     * <li>A yaw of 90 represents the negative x direction.
-     * <li>A yaw of 270 represents the positive x direction.
-     * </ul>
-     * Increasing yaw values are the equivalent of turning to your
-     * right-facing, increasing the scale of the next respective axis, and
-     * decreasing the scale of the previous axis.
-     *
-     * @param yaw new rotation's yaw
-     */
-    public void setYaw(float yaw) {
-        this.yaw = yaw;
     }
 
     /**
@@ -244,19 +294,21 @@ public class Location implements Cloneable, ConfigurationSerializable {
     }
 
     /**
-     * Sets the pitch of this location, measured in degrees.
+     * Sets the yaw of this location, measured in degrees.
      * <ul>
-     * <li>A pitch of 0 represents level forward facing.
-     * <li>A pitch of 90 represents downward facing, or negative y
-     *     direction.
-     * <li>A pitch of -90 represents upward facing, or positive y direction.
+     * <li>A yaw of 0 or 360 represents the positive z direction.
+     * <li>A yaw of 180 represents the negative z direction.
+     * <li>A yaw of 90 represents the negative x direction.
+     * <li>A yaw of 270 represents the positive x direction.
      * </ul>
-     * Increasing pitch values the equivalent of looking down.
+     * Increasing yaw values are the equivalent of turning to your
+     * right-facing, increasing the scale of the next respective axis, and
+     * decreasing the scale of the previous axis.
      *
-     * @param pitch new incline's pitch
+     * @param yaw new rotation's yaw
      */
-    public void setPitch(float pitch) {
-        this.pitch = pitch;
+    public void setYaw(float yaw) {
+        this.yaw = yaw;
     }
 
     /**
@@ -276,11 +328,27 @@ public class Location implements Cloneable, ConfigurationSerializable {
     }
 
     /**
+     * Sets the pitch of this location, measured in degrees.
+     * <ul>
+     * <li>A pitch of 0 represents level forward facing.
+     * <li>A pitch of 90 represents downward facing, or negative y
+     *     direction.
+     * <li>A pitch of -90 represents upward facing, or positive y direction.
+     * </ul>
+     * Increasing pitch values the equivalent of looking down.
+     *
+     * @param pitch new incline's pitch
+     */
+    public void setPitch(float pitch) {
+        this.pitch = pitch;
+    }
+
+    /**
      * Gets a unit-vector pointing in the direction that this Location is
      * facing.
      *
      * @return a vector pointing the direction of this location's {@link
-     *     #getPitch() pitch} and {@link #getYaw() yaw}
+     * #getPitch() pitch} and {@link #getYaw() yaw}
      */
     @NotNull
     public Vector getDirection() {
@@ -590,7 +658,7 @@ public class Location implements Cloneable, ConfigurationSerializable {
      * Constructs a new {@link Vector} based on this Location
      *
      * @return New Vector containing the coordinates represented by this
-     *     Location
+     * Location
      */
     @NotNull
     public Vector toVector() {
@@ -620,17 +688,6 @@ public class Location implements Cloneable, ConfigurationSerializable {
         NumberConversions.checkFinite(yaw, "yaw not finite");
     }
 
-    /**
-     * Safely converts a double (location coordinate) to an int (block
-     * coordinate)
-     *
-     * @param loc Precise coordinate
-     * @return Block coordinate
-     */
-    public static int locToBlock(double loc) {
-        return NumberConversions.floor(loc);
-    }
-
     @Override
     @Utility
     @NotNull
@@ -649,61 +706,5 @@ public class Location implements Cloneable, ConfigurationSerializable {
         data.put("pitch", this.pitch);
 
         return data;
-    }
-
-    /**
-     * Required method for deserialization
-     *
-     * @param args map to deserialize
-     * @return deserialized location
-     * @throws IllegalArgumentException if the world don't exists
-     * @see ConfigurationSerializable
-     */
-    @NotNull
-    public static Location deserialize(@NotNull Map<String, Object> args) {
-        World world = null;
-        if (args.containsKey("world")) {
-            world = Bukkit.getWorld((String) args.get("world"));
-            if (world == null) {
-                throw new IllegalArgumentException("unknown world");
-            }
-        }
-
-        return new Location(world, NumberConversions.toDouble(args.get("x")), NumberConversions.toDouble(args.get("y")), NumberConversions.toDouble(args.get("z")), NumberConversions.toFloat(args.get("yaw")), NumberConversions.toFloat(args.get("pitch")));
-    }
-
-    /**
-     * Normalizes the given yaw angle to a value between <code>+/-180</code>
-     * degrees.
-     *
-     * @param yaw the yaw in degrees
-     * @return the normalized yaw in degrees
-     * @see Location#getYaw()
-     */
-    public static float normalizeYaw(float yaw) {
-        yaw %= 360.0f;
-        if (yaw >= 180.0f) {
-            yaw -= 360.0f;
-        } else if (yaw < -180.0f) {
-            yaw += 360.0f;
-        }
-        return yaw;
-    }
-
-    /**
-     * Normalizes the given pitch angle to a value between <code>+/-90</code>
-     * degrees.
-     *
-     * @param pitch the pitch in degrees
-     * @return the normalized pitch in degrees
-     * @see Location#getPitch()
-     */
-    public static float normalizePitch(float pitch) {
-        if (pitch > 90.0f) {
-            pitch = 90.0f;
-        } else if (pitch < -90.0f) {
-            pitch = -90.0f;
-        }
-        return pitch;
     }
 }

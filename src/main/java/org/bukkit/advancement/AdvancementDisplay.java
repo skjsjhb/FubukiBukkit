@@ -50,7 +50,7 @@ public interface AdvancementDisplay {
     /**
      * Whether to hide this advancement and all its children from the
      * advancement screen until this advancement have been completed.
-     *
+     * <p>
      * Has no effect on root advancements themselves, but still affects all
      * their children.
      *

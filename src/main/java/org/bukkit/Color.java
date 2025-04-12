@@ -2,14 +2,15 @@ package org.bukkit;
 
 import com.google.common.base.Preconditions;
 import com.google.common.collect.ImmutableMap;
-import java.util.Arrays;
-import java.util.Locale;
-import java.util.Map;
-import java.util.Objects;
 import org.bukkit.configuration.serialization.ConfigurationSerializable;
 import org.bukkit.configuration.serialization.SerializableAs;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
+
+import java.util.Arrays;
+import java.util.Locale;
+import java.util.Map;
+import java.util.Objects;
 
 /**
  * A container for a color palette. This class is immutable; the set methods
@@ -111,13 +112,29 @@ public final class Color implements ConfigurationSerializable {
     private final byte green;
     private final byte blue;
 
+    private Color(int red, int green, int blue) {
+        this(DEFAULT_ALPHA, red, green, blue);
+    }
+
+    private Color(int alpha, int red, int green, int blue) {
+        Preconditions.checkArgument(alpha >= 0 && alpha <= BIT_MASK, "Alpha[%s] is not between 0-255", alpha);
+        Preconditions.checkArgument(red >= 0 && red <= BIT_MASK, "Red[%s] is not between 0-255", red);
+        Preconditions.checkArgument(green >= 0 && green <= BIT_MASK, "Green[%s] is not between 0-255", green);
+        Preconditions.checkArgument(blue >= 0 && blue <= BIT_MASK, "Blue[%s] is not between 0-255", blue);
+
+        this.alpha = (byte) alpha;
+        this.red = (byte) red;
+        this.green = (byte) green;
+        this.blue = (byte) blue;
+    }
+
     /**
      * Creates a new Color object from an alpha, red, green, and blue
      *
      * @param alpha integer from 0-255
-     * @param red integer from 0-255
+     * @param red   integer from 0-255
      * @param green integer from 0-255
-     * @param blue integer from 0-255
+     * @param blue  integer from 0-255
      * @return a new Color object for the alpha, red, green, blue
      * @throws IllegalArgumentException if any value is strictly {@literal >255 or <0}
      */
@@ -129,9 +146,9 @@ public final class Color implements ConfigurationSerializable {
     /**
      * Creates a new Color object from a red, green, and blue
      *
-     * @param red integer from 0-255
+     * @param red   integer from 0-255
      * @param green integer from 0-255
-     * @param blue integer from 0-255
+     * @param blue  integer from 0-255
      * @return a new Color object for the red, green, blue
      * @throws IllegalArgumentException if any value is strictly {@literal >255 or <0}
      */
@@ -143,9 +160,9 @@ public final class Color implements ConfigurationSerializable {
     /**
      * Creates a new Color object from a blue, green, and red
      *
-     * @param blue integer from 0-255
+     * @param blue  integer from 0-255
      * @param green integer from 0-255
-     * @param red integer from 0-255
+     * @param red   integer from 0-255
      * @return a new Color object for the red, green, blue
      * @throws IllegalArgumentException if any value is strictly {@literal >255 or <0}
      */
@@ -161,7 +178,7 @@ public final class Color implements ConfigurationSerializable {
      * @param rgb the integer storing the red, green, and blue values
      * @return a new color object for specified values
      * @throws IllegalArgumentException if any data is in the highest order 8
-     *     bits
+     *                                  bits
      */
     @NotNull
     public static Color fromRGB(int rgb) throws IllegalArgumentException {
@@ -188,7 +205,7 @@ public final class Color implements ConfigurationSerializable {
      * @param bgr the integer storing the blue, green, and red values
      * @return a new color object for specified values
      * @throws IllegalArgumentException if any data is in the highest order 8
-     *     bits
+     *                                  bits
      */
     @NotNull
     public static Color fromBGR(int bgr) throws IllegalArgumentException {
@@ -196,20 +213,30 @@ public final class Color implements ConfigurationSerializable {
         return fromBGR(bgr >> 16 & BIT_MASK, bgr >> 8 & BIT_MASK, bgr & BIT_MASK);
     }
 
-    private Color(int red, int green, int blue) {
-        this(DEFAULT_ALPHA, red, green, blue);
+    @SuppressWarnings("javadoc")
+    @NotNull
+    public static Color deserialize(@NotNull Map<String, Object> map) {
+        return fromARGB(
+                asInt("ALPHA", map, DEFAULT_ALPHA),
+                asInt("RED", map),
+                asInt("GREEN", map),
+                asInt("BLUE", map)
+        );
     }
 
-    private Color(int alpha, int red, int green, int blue) {
-        Preconditions.checkArgument(alpha >= 0 && alpha <= BIT_MASK, "Alpha[%s] is not between 0-255", alpha);
-        Preconditions.checkArgument(red >= 0 && red <= BIT_MASK, "Red[%s] is not between 0-255", red);
-        Preconditions.checkArgument(green >= 0 && green <= BIT_MASK, "Green[%s] is not between 0-255", green);
-        Preconditions.checkArgument(blue >= 0 && blue <= BIT_MASK, "Blue[%s] is not between 0-255", blue);
+    private static int asInt(@NotNull String string, @NotNull Map<String, Object> map) {
+        return asInt(string, map, null);
+    }
 
-        this.alpha = (byte) alpha;
-        this.red = (byte) red;
-        this.green = (byte) green;
-        this.blue = (byte) blue;
+    private static int asInt(@NotNull String string, @NotNull Map<String, Object> map, @Nullable Object defaultValue) {
+        Object value = map.getOrDefault(string, defaultValue);
+        if (value == null) {
+            throw new IllegalArgumentException(string + " not in map " + map);
+        }
+        if (!(value instanceof Number)) {
+            throw new IllegalArgumentException(string + '(' + value + ") is not a number");
+        }
+        return ((Number) value).intValue();
     }
 
     /**
@@ -399,32 +426,6 @@ public final class Color implements ConfigurationSerializable {
                 "BLUE", getBlue(),
                 "GREEN", getGreen()
         );
-    }
-
-    @SuppressWarnings("javadoc")
-    @NotNull
-    public static Color deserialize(@NotNull Map<String, Object> map) {
-        return fromARGB(
-                asInt("ALPHA", map, DEFAULT_ALPHA),
-                asInt("RED", map),
-                asInt("GREEN", map),
-                asInt("BLUE", map)
-        );
-    }
-
-    private static int asInt(@NotNull String string, @NotNull Map<String, Object> map) {
-        return asInt(string, map, null);
-    }
-
-    private static int asInt(@NotNull String string, @NotNull Map<String, Object> map, @Nullable Object defaultValue) {
-        Object value = map.getOrDefault(string, defaultValue);
-        if (value == null) {
-            throw new IllegalArgumentException(string + " not in map " + map);
-        }
-        if (!(value instanceof Number)) {
-            throw new IllegalArgumentException(string + '(' + value + ") is not a number");
-        }
-        return ((Number) value).intValue();
     }
 
     @Override

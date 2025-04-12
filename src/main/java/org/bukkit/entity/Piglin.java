@@ -1,9 +1,10 @@
 package org.bukkit.entity;
 
-import java.util.Set;
 import org.bukkit.Material;
 import org.bukkit.inventory.InventoryHolder;
 import org.jetbrains.annotations.NotNull;
+
+import java.util.Set;
 
 /**
  * Represents a Piglin.
@@ -28,7 +29,6 @@ public interface Piglin extends PiglinAbstract, InventoryHolder {
      * Adds a material to the allowed list of materials to barter with.
      *
      * @param material The material to add
-     *
      * @return true if the item has been added successfully, false otherwise
      */
     public boolean addBarterMaterial(@NotNull Material material);
@@ -41,7 +41,6 @@ public interface Piglin extends PiglinAbstract, InventoryHolder {
      * {@link org.bukkit.event.entity.PiglinBarterEvent}.
      *
      * @param material The material to remove
-     *
      * @return true if the item has been removed successfully, false otherwise
      */
     public boolean removeBarterMaterial(@NotNull Material material);
@@ -50,7 +49,6 @@ public interface Piglin extends PiglinAbstract, InventoryHolder {
      * Adds a material the piglin will pickup and store in his inventory.
      *
      * @param material The material you want the piglin to be interested in
-     *
      * @return true if the item has been added successfully, false otherwise
      */
     public boolean addMaterialOfInterest(@NotNull Material material);

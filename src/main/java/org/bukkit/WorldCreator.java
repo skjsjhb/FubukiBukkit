@@ -1,13 +1,14 @@
 package org.bukkit;
 
 import com.google.common.base.Preconditions;
-import java.util.Random;
 import org.bukkit.command.CommandSender;
 import org.bukkit.generator.BiomeProvider;
 import org.bukkit.generator.ChunkGenerator;
 import org.bukkit.plugin.Plugin;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
+
+import java.util.Random;
 
 /**
  * Represents various types of options that may be used to create a world.
@@ -34,6 +35,101 @@ public class WorldCreator {
 
         this.name = name;
         this.seed = (new Random()).nextLong();
+    }
+
+    /**
+     * Creates a new {@link WorldCreator} for the given world name
+     *
+     * @param name Name of the world to load or create
+     * @return Resulting WorldCreator
+     */
+    @NotNull
+    public static WorldCreator name(@NotNull String name) {
+        return new WorldCreator(name);
+    }
+
+    /**
+     * Attempts to get the {@link ChunkGenerator} with the given name.
+     * <p>
+     * If the generator is not found, null will be returned and a message will
+     * be printed to the specified {@link CommandSender} explaining why.
+     * <p>
+     * The name must be in the "plugin:id" notation, or optionally just
+     * "plugin", where "plugin" is the safe-name of a plugin and "id" is an
+     * optional unique identifier for the generator you wish to request from
+     * the plugin.
+     *
+     * @param world  Name of the world this will be used for
+     * @param name   Name of the generator to retrieve
+     * @param output Where to output if errors are present
+     * @return Resulting generator, or null
+     */
+    @Nullable
+    public static ChunkGenerator getGeneratorForName(@NotNull String world, @Nullable String name, @Nullable CommandSender output) {
+        Preconditions.checkArgument(world != null, "World name must be specified");
+        ChunkGenerator result = null;
+
+        if (output == null) {
+            output = Bukkit.getConsoleSender();
+        }
+
+        if (name != null) {
+            String[] split = name.split(":", 2);
+            String id = (split.length > 1) ? split[1] : null;
+            Plugin plugin = Bukkit.getPluginManager().getPlugin(split[0]);
+
+            if (plugin == null) {
+                output.sendMessage("Could not set generator for world '" + world + "': Plugin '" + split[0] + "' does not exist");
+            } else if (!plugin.isEnabled()) {
+                output.sendMessage("Could not set generator for world '" + world + "': Plugin '" + plugin.getDescription().getFullName() + "' is not enabled");
+            } else {
+                result = plugin.getDefaultWorldGenerator(world, id);
+            }
+        }
+
+        return result;
+    }
+
+    /**
+     * Attempts to get the {@link BiomeProvider} with the given name.
+     * <p>
+     * If the biome provider is not found, null will be returned and a message
+     * will be printed to the specified {@link CommandSender} explaining why.
+     * <p>
+     * The name must be in the "plugin:id" notation, or optionally just
+     * "plugin", where "plugin" is the safe-name of a plugin and "id" is an
+     * optional unique identifier for the biome provider you wish to request
+     * from the plugin.
+     *
+     * @param world  Name of the world this will be used for
+     * @param name   Name of the biome provider to retrieve
+     * @param output Where to output if errors are present
+     * @return Resulting biome provider, or null
+     */
+    @Nullable
+    public static BiomeProvider getBiomeProviderForName(@NotNull String world, @Nullable String name, @Nullable CommandSender output) {
+        Preconditions.checkArgument(world != null, "World name must be specified");
+        BiomeProvider result = null;
+
+        if (output == null) {
+            output = Bukkit.getConsoleSender();
+        }
+
+        if (name != null) {
+            String[] split = name.split(":", 2);
+            String id = (split.length > 1) ? split[1] : null;
+            Plugin plugin = Bukkit.getPluginManager().getPlugin(split[0]);
+
+            if (plugin == null) {
+                output.sendMessage("Could not set biome provider for world '" + world + "': Plugin '" + split[0] + "' does not exist");
+            } else if (!plugin.isEnabled()) {
+                output.sendMessage("Could not set set biome provider for world '" + world + "': Plugin '" + plugin.getDescription().getFullName() + "' is not enabled");
+            } else {
+                result = plugin.getDefaultBiomeProvider(world, id);
+            }
+        }
+
+        return result;
     }
 
     /**
@@ -219,8 +315,8 @@ public class WorldCreator {
      * printed to the specified output
      *
      * @param generator Name of the generator to use, in "plugin:id" notation
-     * @param output {@link CommandSender} that will receive any error
-     *     messages
+     * @param output    {@link CommandSender} that will receive any error
+     *                  messages
      * @return This object, for chaining
      */
     @NotNull
@@ -274,7 +370,7 @@ public class WorldCreator {
      * specified output
      *
      * @param biomeProvider Name of the biome provider to use, in "plugin:id"
-     * notation
+     *                      notation
      * @return This object, for chaining
      */
     @NotNull
@@ -297,8 +393,8 @@ public class WorldCreator {
      * specified output
      *
      * @param biomeProvider Name of the biome provider to use, in "plugin:id"
-     * notation
-     * @param output {@link CommandSender} that will receive any error messages
+     *                      notation
+     * @param output        {@link CommandSender} that will receive any error messages
      * @return This object, for chaining
      */
     @NotNull
@@ -317,7 +413,7 @@ public class WorldCreator {
      * <code>{"layers": [{"block": "stone", "height": 1}, {"block": "grass_block", "height": 1}], "biome":"plains"}</code>
      *
      * @param generatorSettings The settings that should be used by the
-     * generator
+     *                          generator
      * @return This object, for chaining
      * @see <a href="https://minecraft.wiki/w/Custom_dimension">Custom
      * dimension</a> (scroll to "When the generator ID type is
@@ -366,7 +462,7 @@ public class WorldCreator {
 
     /**
      * Sets whether the world will be hardcore or not.
-     *
+     * <p>
      * In a hardcore world the difficulty will be locked to hard.
      *
      * @param hardcore Whether the world will be hardcore
@@ -381,7 +477,7 @@ public class WorldCreator {
 
     /**
      * Gets whether the world will be hardcore or not.
-     *
+     * <p>
      * In a hardcore world the difficulty will be locked to hard.
      *
      * @return hardcore status
@@ -428,100 +524,5 @@ public class WorldCreator {
     @Nullable
     public World createWorld() {
         return Bukkit.createWorld(this);
-    }
-
-    /**
-     * Creates a new {@link WorldCreator} for the given world name
-     *
-     * @param name Name of the world to load or create
-     * @return Resulting WorldCreator
-     */
-    @NotNull
-    public static WorldCreator name(@NotNull String name) {
-        return new WorldCreator(name);
-    }
-
-    /**
-     * Attempts to get the {@link ChunkGenerator} with the given name.
-     * <p>
-     * If the generator is not found, null will be returned and a message will
-     * be printed to the specified {@link CommandSender} explaining why.
-     * <p>
-     * The name must be in the "plugin:id" notation, or optionally just
-     * "plugin", where "plugin" is the safe-name of a plugin and "id" is an
-     * optional unique identifier for the generator you wish to request from
-     * the plugin.
-     *
-     * @param world Name of the world this will be used for
-     * @param name Name of the generator to retrieve
-     * @param output Where to output if errors are present
-     * @return Resulting generator, or null
-     */
-    @Nullable
-    public static ChunkGenerator getGeneratorForName(@NotNull String world, @Nullable String name, @Nullable CommandSender output) {
-        Preconditions.checkArgument(world != null, "World name must be specified");
-        ChunkGenerator result = null;
-
-        if (output == null) {
-            output = Bukkit.getConsoleSender();
-        }
-
-        if (name != null) {
-            String[] split = name.split(":", 2);
-            String id = (split.length > 1) ? split[1] : null;
-            Plugin plugin = Bukkit.getPluginManager().getPlugin(split[0]);
-
-            if (plugin == null) {
-                output.sendMessage("Could not set generator for world '" + world + "': Plugin '" + split[0] + "' does not exist");
-            } else if (!plugin.isEnabled()) {
-                output.sendMessage("Could not set generator for world '" + world + "': Plugin '" + plugin.getDescription().getFullName() + "' is not enabled");
-            } else {
-                result = plugin.getDefaultWorldGenerator(world, id);
-            }
-        }
-
-        return result;
-    }
-
-    /**
-     * Attempts to get the {@link BiomeProvider} with the given name.
-     * <p>
-     * If the biome provider is not found, null will be returned and a message
-     * will be printed to the specified {@link CommandSender} explaining why.
-     * <p>
-     * The name must be in the "plugin:id" notation, or optionally just
-     * "plugin", where "plugin" is the safe-name of a plugin and "id" is an
-     * optional unique identifier for the biome provider you wish to request
-     * from the plugin.
-     *
-     * @param world Name of the world this will be used for
-     * @param name Name of the biome provider to retrieve
-     * @param output Where to output if errors are present
-     * @return Resulting biome provider, or null
-     */
-    @Nullable
-    public static BiomeProvider getBiomeProviderForName(@NotNull String world, @Nullable String name, @Nullable CommandSender output) {
-        Preconditions.checkArgument(world != null, "World name must be specified");
-        BiomeProvider result = null;
-
-        if (output == null) {
-            output = Bukkit.getConsoleSender();
-        }
-
-        if (name != null) {
-            String[] split = name.split(":", 2);
-            String id = (split.length > 1) ? split[1] : null;
-            Plugin plugin = Bukkit.getPluginManager().getPlugin(split[0]);
-
-            if (plugin == null) {
-                output.sendMessage("Could not set biome provider for world '" + world + "': Plugin '" + split[0] + "' does not exist");
-            } else if (!plugin.isEnabled()) {
-                output.sendMessage("Could not set set biome provider for world '" + world + "': Plugin '" + plugin.getDescription().getFullName() + "' is not enabled");
-            } else {
-                result = plugin.getDefaultBiomeProvider(world, id);
-            }
-        }
-
-        return result;
     }
 }

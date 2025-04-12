@@ -1,44 +1,17 @@
 package org.bukkit.inventory;
 
 import com.google.common.collect.Multimap;
-import java.util.function.Consumer;
-import org.bukkit.Keyed;
-import org.bukkit.Material;
-import org.bukkit.NamespacedKey;
-import org.bukkit.Registry;
-import org.bukkit.Translatable;
-import org.bukkit.World;
+import org.bukkit.*;
 import org.bukkit.attribute.Attribute;
 import org.bukkit.attribute.AttributeModifier;
 import org.bukkit.block.BlockType;
-import org.bukkit.inventory.meta.ArmorMeta;
-import org.bukkit.inventory.meta.AxolotlBucketMeta;
-import org.bukkit.inventory.meta.BannerMeta;
-import org.bukkit.inventory.meta.BlockStateMeta;
-import org.bukkit.inventory.meta.BookMeta;
-import org.bukkit.inventory.meta.BundleMeta;
-import org.bukkit.inventory.meta.ColorableArmorMeta;
-import org.bukkit.inventory.meta.CompassMeta;
-import org.bukkit.inventory.meta.CrossbowMeta;
-import org.bukkit.inventory.meta.EnchantmentStorageMeta;
-import org.bukkit.inventory.meta.FireworkEffectMeta;
-import org.bukkit.inventory.meta.FireworkMeta;
-import org.bukkit.inventory.meta.ItemMeta;
-import org.bukkit.inventory.meta.KnowledgeBookMeta;
-import org.bukkit.inventory.meta.LeatherArmorMeta;
-import org.bukkit.inventory.meta.MapMeta;
-import org.bukkit.inventory.meta.MusicInstrumentMeta;
-import org.bukkit.inventory.meta.OminousBottleMeta;
-import org.bukkit.inventory.meta.PotionMeta;
-import org.bukkit.inventory.meta.ShieldMeta;
-import org.bukkit.inventory.meta.SkullMeta;
-import org.bukkit.inventory.meta.SpawnEggMeta;
-import org.bukkit.inventory.meta.SuspiciousStewMeta;
-import org.bukkit.inventory.meta.TropicalFishBucketMeta;
+import org.bukkit.inventory.meta.*;
 import org.bukkit.registry.RegistryAware;
 import org.jetbrains.annotations.ApiStatus;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
+
+import java.util.function.Consumer;
 
 /**
  * While this API is in a public interface, it is not intended for use by
@@ -51,49 +24,11 @@ import org.jetbrains.annotations.Nullable;
 public interface ItemType extends Keyed, Translatable, RegistryAware {
 
     /**
-     * Typed represents a subtype of {@link ItemType}s that have a known item meta type
-     * at compile time.
-     *
-     * @param <M> the generic type of the item meta that represents the item type.
-     */
-    interface Typed<M extends ItemMeta> extends ItemType {
-
-        /**
-         * Gets the ItemMeta class of this ItemType
-         *
-         * @return the ItemMeta class of this ItemType
-         */
-        @Override
-        @NotNull
-        Class<M> getItemMetaClass();
-
-        /**
-         * Constructs a new item stack with this item type with the amount 1.
-         *
-         * @param metaConfigurator an optional consumer of the items {@link ItemMeta} that is called.
-         *                         May be null if no intent exists to mutate the item meta at this point.
-         * @return the created and configured item stack.
-         */
-        @NotNull
-        ItemStack createItemStack(@Nullable Consumer<? super M> metaConfigurator);
-
-        /**
-         * Constructs a new item stack with this item type.
-         *
-         * @param amount           the amount of itemstack.
-         * @param metaConfigurator an optional consumer of the items {@link ItemMeta} that is called.
-         *                         May be null if no intent exists to mutate the item meta at this point.
-         * @return the created and configured item stack.
-         */
-        @NotNull
-        ItemStack createItemStack(int amount, @Nullable Consumer<? super M> metaConfigurator);
-    }
-
-    //<editor-fold desc="ItemTypes" defaultstate="collapsed">
-    /**
      * Air does not have any ItemMeta
      */
     ItemType AIR = getItemType("air");
+
+    //<editor-fold desc="ItemTypes" defaultstate="collapsed">
     ItemType.Typed<ItemMeta> STONE = getItemType("stone");
     ItemType.Typed<ItemMeta> GRANITE = getItemType("granite");
     ItemType.Typed<ItemMeta> POLISHED_GRANITE = getItemType("polished_granite");
@@ -2239,13 +2174,13 @@ public interface ItemType extends Keyed, Translatable, RegistryAware {
      * ItemMeta: {@link OminousBottleMeta}
      */
     ItemType.Typed<OminousBottleMeta> OMINOUS_BOTTLE = getItemType("ominous_bottle");
-    //</editor-fold>
 
     @NotNull
     private static <M extends ItemType> M getItemType(@NotNull String key) {
         // Cast instead of using ItemType#typed, since item type can be a mock during testing and would return null
         return (M) Registry.ITEM.getOrThrow(NamespacedKey.minecraft(key));
     }
+    //</editor-fold>
 
     /**
      * Yields this item type as a typed version of itself with a plain {@link ItemMeta} representing it.
@@ -2259,7 +2194,7 @@ public interface ItemType extends Keyed, Translatable, RegistryAware {
      * Yields this item type as a typed version of itself with a plain {@link ItemMeta} representing it.
      *
      * @param itemMetaType the class type of the {@link ItemMeta} to type this {@link ItemType} with.
-     * @param <M> the generic type of the item meta to type this item type with.
+     * @param <M>          the generic type of the item meta to type this item type with.
      * @return the typed item type.
      */
     @NotNull
@@ -2354,10 +2289,10 @@ public interface ItemType extends Keyed, Translatable, RegistryAware {
     /**
      * Get the chance that this item type will successfully compost. The
      * returned value is between 0 and 1 (inclusive).
-     *
+     * <p>
      * Items with a compost chance of 1 will always raise the composter's level,
      * while items with a compost chance of 0 will never raise it.
-     *
+     * <p>
      * Plugins should check that {@link #isCompostable} returns true before
      * calling this method.
      *
@@ -2376,20 +2311,10 @@ public interface ItemType extends Keyed, Translatable, RegistryAware {
     @Nullable
     ItemType getCraftingRemainingItem();
 
-//    /**
-//     * Get the best suitable slot for this item type.
-//     *
-//     * For most items this will be {@link EquipmentSlot#HAND}.
-//     *
-//     * @return the best EquipmentSlot for this item type
-//     */
-//    @NotNull
-//    EquipmentSlot getEquipmentSlot();
-
     /**
      * Return an immutable copy of all default {@link Attribute}s and their
      * {@link AttributeModifier}s for a given {@link EquipmentSlot}.
-     *
+     * <p>
      * Default attributes are those that are always preset on some items, such
      * as the attack damage on weapons or the armor value on armor.
      *
@@ -2399,6 +2324,16 @@ public interface ItemType extends Keyed, Translatable, RegistryAware {
      */
     @NotNull
     Multimap<Attribute, AttributeModifier> getDefaultAttributeModifiers(@NotNull EquipmentSlot slot);
+
+//    /**
+//     * Get the best suitable slot for this item type.
+//     *
+//     * For most items this will be {@link EquipmentSlot#HAND}.
+//     *
+//     * @return the best EquipmentSlot for this item type
+//     */
+//    @NotNull
+//    EquipmentSlot getEquipmentSlot();
 
     /**
      * Get the {@link CreativeCategory} to which this item type belongs.
@@ -2439,4 +2374,43 @@ public interface ItemType extends Keyed, Translatable, RegistryAware {
     @Nullable
     @Deprecated(since = "1.20.6")
     Material asMaterial();
+
+    /**
+     * Typed represents a subtype of {@link ItemType}s that have a known item meta type
+     * at compile time.
+     *
+     * @param <M> the generic type of the item meta that represents the item type.
+     */
+    interface Typed<M extends ItemMeta> extends ItemType {
+
+        /**
+         * Gets the ItemMeta class of this ItemType
+         *
+         * @return the ItemMeta class of this ItemType
+         */
+        @Override
+        @NotNull
+        Class<M> getItemMetaClass();
+
+        /**
+         * Constructs a new item stack with this item type with the amount 1.
+         *
+         * @param metaConfigurator an optional consumer of the items {@link ItemMeta} that is called.
+         *                         May be null if no intent exists to mutate the item meta at this point.
+         * @return the created and configured item stack.
+         */
+        @NotNull
+        ItemStack createItemStack(@Nullable Consumer<? super M> metaConfigurator);
+
+        /**
+         * Constructs a new item stack with this item type.
+         *
+         * @param amount           the amount of itemstack.
+         * @param metaConfigurator an optional consumer of the items {@link ItemMeta} that is called.
+         *                         May be null if no intent exists to mutate the item meta at this point.
+         * @return the created and configured item stack.
+         */
+        @NotNull
+        ItemStack createItemStack(int amount, @Nullable Consumer<? super M> metaConfigurator);
+    }
 }

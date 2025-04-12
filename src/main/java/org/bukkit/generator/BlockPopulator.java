@@ -1,10 +1,11 @@
 package org.bukkit.generator;
 
-import java.util.Random;
 import org.bukkit.Chunk;
 import org.bukkit.World;
 import org.bukkit.event.world.WorldInitEvent;
 import org.jetbrains.annotations.NotNull;
+
+import java.util.Random;
 
 /**
  * A block populator is responsible for generating a small area of blocks.
@@ -30,7 +31,7 @@ public abstract class BlockPopulator {
      * populator should record any changes required for those chunks and
      * perform the changes when they are ready.
      *
-     * @param world The world to generate in
+     * @param world  The world to generate in
      * @param random The random generator to use
      * @param source The chunk to generate for
      * @deprecated Use {@link #populate(WorldInfo, Random, int, int, LimitedRegion)}
@@ -60,10 +61,10 @@ public abstract class BlockPopulator {
      * {@link LimitedRegion},
      * <b>never</b> use methods from a {@link World} to modify the chunk.
      *
-     * @param worldInfo The world info of the world to generate in
-     * @param random The random generator to use
-     * @param chunkX The X-coordinate of the chunk
-     * @param chunkZ The Z-coordinate of the chunk
+     * @param worldInfo     The world info of the world to generate in
+     * @param random        The random generator to use
+     * @param chunkX        The X-coordinate of the chunk
+     * @param chunkZ        The Z-coordinate of the chunk
      * @param limitedRegion The chunk region to populate
      */
     public void populate(@NotNull WorldInfo worldInfo, @NotNull Random random, int chunkX, int chunkZ, @NotNull LimitedRegion limitedRegion) {

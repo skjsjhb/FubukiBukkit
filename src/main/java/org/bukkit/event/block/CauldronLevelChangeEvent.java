@@ -15,17 +15,22 @@ import org.jetbrains.annotations.Nullable;
 public class CauldronLevelChangeEvent extends BlockEvent implements Cancellable {
 
     private static final HandlerList handlers = new HandlerList();
-    private boolean cancelled;
     //
     private final Entity entity;
     private final ChangeReason reason;
     private final BlockState newState;
+    private boolean cancelled;
 
     public CauldronLevelChangeEvent(@NotNull Block block, @Nullable Entity entity, @NotNull ChangeReason reason, @NotNull BlockState newBlock) {
         super(block);
         this.entity = entity;
         this.reason = reason;
         this.newState = newBlock;
+    }
+
+    @NotNull
+    public static HandlerList getHandlerList() {
+        return handlers;
     }
 
     /**
@@ -111,11 +116,6 @@ public class CauldronLevelChangeEvent extends BlockEvent implements Cancellable 
     @NotNull
     @Override
     public HandlerList getHandlers() {
-        return handlers;
-    }
-
-    @NotNull
-    public static HandlerList getHandlerList() {
         return handlers;
     }
 

@@ -23,6 +23,11 @@ public class EntityRemoveEvent extends EntityEvent {
         this.cause = cause;
     }
 
+    @NotNull
+    public static HandlerList getHandlerList() {
+        return handlers;
+    }
+
     /**
      * Gets the cause why the entity got removed.
      *
@@ -36,11 +41,6 @@ public class EntityRemoveEvent extends EntityEvent {
     @NotNull
     @Override
     public HandlerList getHandlers() {
-        return handlers;
-    }
-
-    @NotNull
-    public static HandlerList getHandlerList() {
         return handlers;
     }
 

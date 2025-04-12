@@ -1,11 +1,12 @@
 package org.bukkit.event.server;
 
-import java.util.Set;
 import org.bukkit.command.CommandSender;
 import org.bukkit.event.Cancellable;
 import org.bukkit.event.HandlerList;
 import org.bukkit.event.player.AsyncPlayerChatEvent;
 import org.jetbrains.annotations.NotNull;
+
+import java.util.Set;
 
 /**
  * Event triggered for server broadcast messages such as from
@@ -18,8 +19,8 @@ import org.jetbrains.annotations.NotNull;
 public class BroadcastMessageEvent extends ServerEvent implements Cancellable {
 
     private static final HandlerList handlers = new HandlerList();
-    private String message;
     private final Set<CommandSender> recipients;
+    private String message;
     private boolean cancelled = false;
 
     @Deprecated(since = "1.14")
@@ -31,6 +32,11 @@ public class BroadcastMessageEvent extends ServerEvent implements Cancellable {
         super(isAsync);
         this.message = message;
         this.recipients = recipients;
+    }
+
+    @NotNull
+    public static HandlerList getHandlerList() {
+        return handlers;
     }
 
     /**
@@ -83,11 +89,6 @@ public class BroadcastMessageEvent extends ServerEvent implements Cancellable {
     @NotNull
     @Override
     public HandlerList getHandlers() {
-        return handlers;
-    }
-
-    @NotNull
-    public static HandlerList getHandlerList() {
         return handlers;
     }
 }

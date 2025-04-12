@@ -1,12 +1,13 @@
 package org.bukkit.event.block;
 
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
 import org.bukkit.block.Block;
 import org.bukkit.block.BlockFace;
 import org.bukkit.event.HandlerList;
 import org.jetbrains.annotations.NotNull;
+
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
 
 /**
  * Called when a piston extends
@@ -30,12 +31,17 @@ public class BlockPistonExtendEvent extends BlockPistonEvent {
         this.blocks = blocks;
     }
 
+    @NotNull
+    public static HandlerList getHandlerList() {
+        return handlers;
+    }
+
     /**
      * Get the amount of blocks which will be moved while extending.
      *
      * @return the amount of moving blocks
      * @deprecated slime blocks make the value of this method
-     *          inaccurate due to blocks being pushed at the side
+     * inaccurate due to blocks being pushed at the side
      */
     @Deprecated(since = "1.8")
     public int getLength() {
@@ -63,11 +69,6 @@ public class BlockPistonExtendEvent extends BlockPistonEvent {
     @NotNull
     @Override
     public HandlerList getHandlers() {
-        return handlers;
-    }
-
-    @NotNull
-    public static HandlerList getHandlerList() {
         return handlers;
     }
 }

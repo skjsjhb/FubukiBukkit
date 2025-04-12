@@ -9,19 +9,19 @@ import org.jetbrains.annotations.Nullable;
 public interface DecoratedPotInventory extends Inventory {
 
     /**
-     * Set the item stack in the decorated pot.
-     *
-     * @param item the new item stack
-     */
-    public void setItem(@Nullable ItemStack item);
-
-    /**
      * Get the item stack in the decorated pot.
      *
      * @return the current item stack
      */
     @Nullable
     public ItemStack getItem();
+
+    /**
+     * Set the item stack in the decorated pot.
+     *
+     * @param item the new item stack
+     */
+    public void setItem(@Nullable ItemStack item);
 
     @Nullable
     @Override

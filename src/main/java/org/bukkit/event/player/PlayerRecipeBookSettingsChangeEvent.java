@@ -21,6 +21,11 @@ public class PlayerRecipeBookSettingsChangeEvent extends PlayerEvent {
         this.filtering = filtering;
     }
 
+    @NotNull
+    public static HandlerList getHandlerList() {
+        return handlers;
+    }
+
     /**
      * Gets the type of recipe book the player is changing the settings for.
      *
@@ -52,11 +57,6 @@ public class PlayerRecipeBookSettingsChangeEvent extends PlayerEvent {
     @NotNull
     @Override
     public HandlerList getHandlers() {
-        return handlers;
-    }
-
-    @NotNull
-    public static HandlerList getHandlerList() {
         return handlers;
     }
 

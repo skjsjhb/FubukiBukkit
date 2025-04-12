@@ -23,6 +23,11 @@ public class FluidLevelChangeEvent extends BlockEvent implements Cancellable {
         this.newData = newData;
     }
 
+    @NotNull
+    public static HandlerList getHandlerList() {
+        return handlers;
+    }
+
     /**
      * Gets the new data of the changed block.
      *
@@ -59,11 +64,6 @@ public class FluidLevelChangeEvent extends BlockEvent implements Cancellable {
     @NotNull
     @Override
     public HandlerList getHandlers() {
-        return handlers;
-    }
-
-    @NotNull
-    public static HandlerList getHandlerList() {
         return handlers;
     }
 }

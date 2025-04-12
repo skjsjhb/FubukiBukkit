@@ -1,8 +1,9 @@
 package org.bukkit.util;
 
-import java.util.Map;
 import org.bukkit.configuration.serialization.SerializableAs;
 import org.jetbrains.annotations.NotNull;
+
+import java.util.Map;
 
 /**
  * A vector with a hash function that floors the X, Y, Z components, a la
@@ -72,6 +73,25 @@ public class BlockVector extends Vector {
         this.z = z;
     }
 
+    @NotNull
+    public static BlockVector deserialize(@NotNull Map<String, Object> args) {
+        double x = 0;
+        double y = 0;
+        double z = 0;
+
+        if (args.containsKey("x")) {
+            x = (Double) args.get("x");
+        }
+        if (args.containsKey("y")) {
+            y = (Double) args.get("y");
+        }
+        if (args.containsKey("z")) {
+            z = (Double) args.get("z");
+        }
+
+        return new BlockVector(x, y, z);
+    }
+
     /**
      * Checks if another object is equivalent.
      *
@@ -107,24 +127,5 @@ public class BlockVector extends Vector {
     @Override
     public BlockVector clone() {
         return (BlockVector) super.clone();
-    }
-
-    @NotNull
-    public static BlockVector deserialize(@NotNull Map<String, Object> args) {
-        double x = 0;
-        double y = 0;
-        double z = 0;
-
-        if (args.containsKey("x")) {
-            x = (Double) args.get("x");
-        }
-        if (args.containsKey("y")) {
-            y = (Double) args.get("y");
-        }
-        if (args.containsKey("z")) {
-            z = (Double) args.get("z");
-        }
-
-        return new BlockVector(x, y, z);
     }
 }

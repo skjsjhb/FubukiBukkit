@@ -1,7 +1,6 @@
 package org.bukkit.enchantments;
 
 import com.google.common.collect.Lists;
-import java.util.Locale;
 import org.bukkit.Keyed;
 import org.bukkit.NamespacedKey;
 import org.bukkit.Registry;
@@ -11,6 +10,8 @@ import org.bukkit.registry.RegistryAware;
 import org.jetbrains.annotations.Contract;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
+
+import java.util.Locale;
 
 /**
  * The various type of enchantments that may be added to armour or weapons
@@ -234,6 +235,53 @@ public abstract class Enchantment implements Keyed, Translatable, RegistryAware 
     }
 
     /**
+     * Gets the Enchantment at the specified key
+     *
+     * @param key key to fetch
+     * @return Resulting Enchantment, or null if not found
+     * @deprecated only for backwards compatibility, use {@link Registry#get(NamespacedKey)} instead
+     */
+    @Contract("null -> null")
+    @Nullable
+    @Deprecated(since = "1.20.3")
+    public static Enchantment getByKey(@Nullable NamespacedKey key) {
+        if (key == null) {
+            return null;
+        }
+        return Registry.ENCHANTMENT.get(key);
+    }
+
+    /**
+     * Gets the Enchantment at the specified name
+     *
+     * @param name Name to fetch
+     * @return Resulting Enchantment, or null if not found
+     * @deprecated enchantments are badly named, use {@link #getByKey(org.bukkit.NamespacedKey)}.
+     */
+    @Deprecated(since = "1.13")
+    @Contract("null -> null")
+    @Nullable
+    public static Enchantment getByName(@Nullable String name) {
+        if (name == null) {
+            return null;
+        }
+
+        return getByKey(NamespacedKey.fromString(name.toLowerCase(Locale.ROOT)));
+    }
+
+    /**
+     * Gets an array of all the registered {@link Enchantment}s
+     *
+     * @return Array of enchantments
+     * @deprecated use {@link Registry#iterator() Registry.ENCHANTMENT.iterator()}
+     */
+    @NotNull
+    @Deprecated(since = "1.20.3")
+    public static Enchantment[] values() {
+        return Lists.newArrayList(Registry.ENCHANTMENT).toArray(new Enchantment[0]);
+    }
+
+    /**
      * Gets the unique name of this enchantment
      *
      * @return Unique name
@@ -323,51 +371,4 @@ public abstract class Enchantment implements Keyed, Translatable, RegistryAware 
     @Override
     @Deprecated(since = "1.21.4")
     public abstract NamespacedKey getKey();
-
-    /**
-     * Gets the Enchantment at the specified key
-     *
-     * @param key key to fetch
-     * @return Resulting Enchantment, or null if not found
-     * @deprecated only for backwards compatibility, use {@link Registry#get(NamespacedKey)} instead
-     */
-    @Contract("null -> null")
-    @Nullable
-    @Deprecated(since = "1.20.3")
-    public static Enchantment getByKey(@Nullable NamespacedKey key) {
-        if (key == null) {
-            return null;
-        }
-        return Registry.ENCHANTMENT.get(key);
-    }
-
-    /**
-     * Gets the Enchantment at the specified name
-     *
-     * @param name Name to fetch
-     * @return Resulting Enchantment, or null if not found
-     * @deprecated enchantments are badly named, use {@link #getByKey(org.bukkit.NamespacedKey)}.
-     */
-    @Deprecated(since = "1.13")
-    @Contract("null -> null")
-    @Nullable
-    public static Enchantment getByName(@Nullable String name) {
-        if (name == null) {
-            return null;
-        }
-
-        return getByKey(NamespacedKey.fromString(name.toLowerCase(Locale.ROOT)));
-    }
-
-    /**
-     * Gets an array of all the registered {@link Enchantment}s
-     *
-     * @return Array of enchantments
-     * @deprecated use {@link Registry#iterator() Registry.ENCHANTMENT.iterator()}
-     */
-    @NotNull
-    @Deprecated(since = "1.20.3")
-    public static Enchantment[] values() {
-        return Lists.newArrayList(Registry.ENCHANTMENT).toArray(new Enchantment[0]);
-    }
 }

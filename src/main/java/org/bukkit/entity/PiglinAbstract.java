@@ -22,7 +22,7 @@ public interface PiglinAbstract extends Monster, Ageable {
     /**
      * Gets the amount of ticks until this entity will be converted to a
      * Zombified Piglin.
-     *
+     * <p>
      * When this reaches 300, the entity will be converted.
      *
      * @return conversion time
@@ -33,7 +33,7 @@ public interface PiglinAbstract extends Monster, Ageable {
     /**
      * Sets the amount of ticks until this entity will be converted to a
      * Zombified Piglin.
-     *
+     * <p>
      * When this reaches 0, the entity will be converted. A value of less than 0
      * will stop the current conversion process without converting the current
      * entity.

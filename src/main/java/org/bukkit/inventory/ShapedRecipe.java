@@ -1,13 +1,14 @@
 package org.bukkit.inventory;
 
 import com.google.common.base.Preconditions;
-import java.util.Collections;
-import java.util.HashMap;
-import java.util.Map;
 import org.bukkit.Material;
 import org.bukkit.NamespacedKey;
 import org.bukkit.material.MaterialData;
 import org.jetbrains.annotations.NotNull;
+
+import java.util.Collections;
+import java.util.HashMap;
+import java.util.Map;
 
 /**
  * Represents a shaped (ie normal) crafting recipe.
@@ -40,9 +41,9 @@ public class ShapedRecipe extends CraftingRecipe {
      * constructor merely determines the result and type; to set the actual
      * recipe, you'll need to call the appropriate methods.
      *
-     * @param key the unique recipe key
+     * @param key    the unique recipe key
      * @param result The item you want the recipe to create.
-     * @exception IllegalArgumentException if the {@code result} is an empty item (AIR)
+     * @throws IllegalArgumentException if the {@code result} is an empty item (AIR)
      * @see ShapedRecipe#shape(String...)
      * @see ShapedRecipe#setIngredient(char, Material)
      * @see ShapedRecipe#setIngredient(char, Material, int)
@@ -105,7 +106,7 @@ public class ShapedRecipe extends CraftingRecipe {
      * Note that before an ingredient can be set, the recipe's shape must be defined
      * with {@link #shape(String...)}.
      *
-     * @param key The character that represents the ingredient in the shape.
+     * @param key        The character that represents the ingredient in the shape.
      * @param ingredient The ingredient.
      * @return The changed recipe, so you can chain calls.
      * @throws IllegalArgumentException if the {@code key} is a space character
@@ -122,7 +123,7 @@ public class ShapedRecipe extends CraftingRecipe {
      * Note that before an ingredient can be set, the recipe's shape must be defined
      * with {@link #shape(String...)}.
      *
-     * @param key The character that represents the ingredient in the shape.
+     * @param key        The character that represents the ingredient in the shape.
      * @param ingredient The ingredient.
      * @return The changed recipe, so you can chain calls.
      * @throws IllegalArgumentException if the {@code key} is a space character
@@ -139,9 +140,9 @@ public class ShapedRecipe extends CraftingRecipe {
      * Note that before an ingredient can be set, the recipe's shape must be defined
      * with {@link #shape(String...)}.
      *
-     * @param key The character that represents the ingredient in the shape.
+     * @param key        The character that represents the ingredient in the shape.
      * @param ingredient The ingredient.
-     * @param raw The raw material data as an integer.
+     * @param raw        The raw material data as an integer.
      * @return The changed recipe, so you can chain calls.
      * @throws IllegalArgumentException if the {@code key} is a space character
      * @throws IllegalArgumentException if the {@code key} does not appear in the shape.
@@ -168,7 +169,7 @@ public class ShapedRecipe extends CraftingRecipe {
      * Note that before an ingredient can be set, the recipe's shape must be defined
      * with {@link #shape(String...)}.
      *
-     * @param key The character that represents the ingredient in the shape.
+     * @param key        The character that represents the ingredient in the shape.
      * @param ingredient The ingredient.
      * @return The changed recipe, so you can chain calls.
      * @throws IllegalArgumentException if the {@code key} is a space character

@@ -24,6 +24,11 @@ public class TradeSelectEvent extends InventoryInteractEvent {
         this.index = newIndex;
     }
 
+    @NotNull
+    public static HandlerList getHandlerList() {
+        return handlers;
+    }
+
     /**
      * Used to get the index of the trade the player clicked on.
      *
@@ -58,11 +63,6 @@ public class TradeSelectEvent extends InventoryInteractEvent {
     @NotNull
     @Override
     public HandlerList getHandlers() {
-        return handlers;
-    }
-
-    @NotNull
-    public static HandlerList getHandlerList() {
         return handlers;
     }
 }

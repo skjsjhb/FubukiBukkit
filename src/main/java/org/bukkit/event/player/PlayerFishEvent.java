@@ -15,11 +15,11 @@ import org.jetbrains.annotations.Nullable;
 public class PlayerFishEvent extends PlayerEvent implements Cancellable {
     private static final HandlerList handlers = new HandlerList();
     private final Entity entity;
-    private boolean cancel = false;
-    private int exp;
     private final State state;
     private final FishHook hookEntity;
     private final EquipmentSlot hand;
+    private boolean cancel = false;
+    private int exp;
 
     public PlayerFishEvent(@NotNull final Player player, @Nullable final Entity entity, @NotNull final FishHook hookEntity, @Nullable EquipmentSlot hand, @NotNull final State state) {
         super(player);
@@ -33,6 +33,11 @@ public class PlayerFishEvent extends PlayerEvent implements Cancellable {
         this(player, entity, hookEntity, null, state);
     }
 
+    @NotNull
+    public static HandlerList getHandlerList() {
+        return handlers;
+    }
+
     /**
      * Gets the entity caught by the player.
      * <p>
@@ -40,7 +45,7 @@ public class PlayerFishEvent extends PlayerEvent implements Cancellable {
      * org.bukkit.entity.Item}.
      *
      * @return Entity caught by the player, Entity if fishing, and null if
-     *     bobber has gotten stuck in the ground or nothing has been caught
+     * bobber has gotten stuck in the ground or nothing has been caught
      */
     @Nullable
     public Entity getCaught() {
@@ -117,11 +122,6 @@ public class PlayerFishEvent extends PlayerEvent implements Cancellable {
     @NotNull
     @Override
     public HandlerList getHandlers() {
-        return handlers;
-    }
-
-    @NotNull
-    public static HandlerList getHandlerList() {
         return handlers;
     }
 

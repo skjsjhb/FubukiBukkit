@@ -2,6 +2,12 @@ package org.bukkit.plugin.java;
 
 import com.google.common.base.Preconditions;
 import com.google.common.io.ByteStreams;
+import org.bukkit.plugin.InvalidPluginException;
+import org.bukkit.plugin.PluginDescriptionFile;
+import org.bukkit.plugin.SimplePluginManager;
+import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
+
 import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
@@ -12,26 +18,22 @@ import java.net.URL;
 import java.net.URLClassLoader;
 import java.security.CodeSigner;
 import java.security.CodeSource;
-import java.util.Collection;
-import java.util.Collections;
-import java.util.Enumeration;
-import java.util.Map;
-import java.util.Set;
+import java.util.*;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.jar.JarEntry;
 import java.util.jar.JarFile;
 import java.util.jar.Manifest;
 import java.util.logging.Level;
-import org.bukkit.plugin.InvalidPluginException;
-import org.bukkit.plugin.PluginDescriptionFile;
-import org.bukkit.plugin.SimplePluginManager;
-import org.jetbrains.annotations.NotNull;
-import org.jetbrains.annotations.Nullable;
 
 /**
  * A ClassLoader for plugins, to allow shared classes across multiple plugins
  */
 final class PluginClassLoader extends URLClassLoader {
+    static {
+        ClassLoader.registerAsParallelCapable();
+    }
+
+    final JavaPlugin plugin;
     private final JavaPluginLoader loader;
     private final Map<String, Class<?>> classes = new ConcurrentHashMap<String, Class<?>>();
     private final PluginDescriptionFile description;
@@ -41,17 +43,12 @@ final class PluginClassLoader extends URLClassLoader {
     private final Manifest manifest;
     private final URL url;
     private final ClassLoader libraryLoader;
-    final JavaPlugin plugin;
+    private final Set<String> seenIllegalAccess = Collections.newSetFromMap(new ConcurrentHashMap<>());
     private JavaPlugin pluginInit;
     private IllegalStateException pluginState;
-    private final Set<String> seenIllegalAccess = Collections.newSetFromMap(new ConcurrentHashMap<>());
-
-    static {
-        ClassLoader.registerAsParallelCapable();
-    }
 
     PluginClassLoader(@NotNull final JavaPluginLoader loader, @Nullable final ClassLoader parent, @NotNull final PluginDescriptionFile description, @NotNull final File dataFolder, @NotNull final File file, @Nullable ClassLoader libraryLoader) throws IOException, InvalidPluginException, MalformedURLException {
-        super(new URL[] {file.toURI().toURL()}, parent);
+        super(new URL[]{file.toURI().toURL()}, parent);
         Preconditions.checkArgument(loader != null, "Loader cannot be null");
 
         this.loader = loader;

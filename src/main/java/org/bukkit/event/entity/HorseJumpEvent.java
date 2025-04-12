@@ -18,6 +18,11 @@ public class HorseJumpEvent extends EntityEvent implements Cancellable {
         this.power = power;
     }
 
+    @NotNull
+    public static HandlerList getHandlerList() {
+        return handlers;
+    }
+
     @Override
     public boolean isCancelled() {
         return cancelled;
@@ -80,11 +85,6 @@ public class HorseJumpEvent extends EntityEvent implements Cancellable {
     @NotNull
     @Override
     public HandlerList getHandlers() {
-        return handlers;
-    }
-
-    @NotNull
-    public static HandlerList getHandlerList() {
         return handlers;
     }
 }

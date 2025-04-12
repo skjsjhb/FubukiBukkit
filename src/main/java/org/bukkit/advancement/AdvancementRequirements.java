@@ -1,11 +1,12 @@
 package org.bukkit.advancement;
 
-import java.util.List;
 import org.jetbrains.annotations.NotNull;
+
+import java.util.List;
 
 /**
  * The list of requirements for the advancement.
- *
+ * <p>
  * Requirements are complimentary to criteria. They are just lists that contain
  * more lists, which in turn contains strings that equal the names of the
  * criteria. Ultimately defining the logic around how criteria are completed in

@@ -11,10 +11,10 @@ import org.jetbrains.annotations.NotNull;
  */
 public class PlayerRespawnEvent extends PlayerEvent {
     private static final HandlerList handlers = new HandlerList();
-    private Location respawnLocation;
     private final boolean isBedSpawn;
     private final boolean isAnchorSpawn;
     private final RespawnReason respawnReason;
+    private Location respawnLocation;
 
     @Deprecated(since = "1.16.1")
     public PlayerRespawnEvent(@NotNull final Player respawnPlayer, @NotNull final Location respawnLocation, final boolean isBedSpawn) {
@@ -32,6 +32,11 @@ public class PlayerRespawnEvent extends PlayerEvent {
         this.isBedSpawn = isBedSpawn;
         this.isAnchorSpawn = isAnchorSpawn;
         this.respawnReason = respawnReason;
+    }
+
+    @NotNull
+    public static HandlerList getHandlerList() {
+        return handlers;
     }
 
     /**
@@ -87,11 +92,6 @@ public class PlayerRespawnEvent extends PlayerEvent {
     @NotNull
     @Override
     public HandlerList getHandlers() {
-        return handlers;
-    }
-
-    @NotNull
-    public static HandlerList getHandlerList() {
         return handlers;
     }
 

@@ -24,6 +24,11 @@ public class BlockShearEntityEvent extends BlockEvent implements Cancellable {
         this.tool = tool;
     }
 
+    @NotNull
+    public static HandlerList getHandlerList() {
+        return handlers;
+    }
+
     /**
      * Gets the entity that was sheared.
      *
@@ -57,11 +62,6 @@ public class BlockShearEntityEvent extends BlockEvent implements Cancellable {
     @NotNull
     @Override
     public HandlerList getHandlers() {
-        return handlers;
-    }
-
-    @NotNull
-    public static HandlerList getHandlerList() {
         return handlers;
     }
 }

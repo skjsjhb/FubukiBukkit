@@ -23,6 +23,11 @@ public class RaidTriggerEvent extends RaidEvent implements Cancellable {
         this.player = player;
     }
 
+    @NotNull
+    public static HandlerList getHandlerList() {
+        return handlers;
+    }
+
     /**
      * Returns the player who triggered the raid.
      *
@@ -46,11 +51,6 @@ public class RaidTriggerEvent extends RaidEvent implements Cancellable {
     @NotNull
     @Override
     public HandlerList getHandlers() {
-        return handlers;
-    }
-
-    @NotNull
-    public static HandlerList getHandlerList() {
         return handlers;
     }
 }

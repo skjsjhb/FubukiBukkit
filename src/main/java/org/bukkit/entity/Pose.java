@@ -7,7 +7,6 @@ public enum Pose {
 
     /**
      * Entity is standing normally.
-     *
      */
     STANDING,
     /**

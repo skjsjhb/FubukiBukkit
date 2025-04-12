@@ -11,14 +11,15 @@ import org.jetbrains.annotations.NotNull;
  * Called when a block is damaged by a player.
  * <p>
  * If a Block Damage event is cancelled, the block will not be damaged.
+ *
  * @see BlockDamageAbortEvent
  */
 public class BlockDamageEvent extends BlockEvent implements Cancellable {
     private static final HandlerList handlers = new HandlerList();
     private final Player player;
+    private final ItemStack itemstack;
     private boolean instaBreak;
     private boolean cancel;
-    private final ItemStack itemstack;
 
     public BlockDamageEvent(@NotNull final Player player, @NotNull final Block block, @NotNull final ItemStack itemInHand, final boolean instaBreak) {
         super(block);
@@ -26,6 +27,11 @@ public class BlockDamageEvent extends BlockEvent implements Cancellable {
         this.player = player;
         this.itemstack = itemInHand;
         this.cancel = false;
+    }
+
+    @NotNull
+    public static HandlerList getHandlerList() {
+        return handlers;
     }
 
     /**
@@ -42,7 +48,7 @@ public class BlockDamageEvent extends BlockEvent implements Cancellable {
      * Gets if the block is set to instantly break when damaged by the player.
      *
      * @return true if the block should instantly break when damaged by the
-     *     player
+     * player
      */
     public boolean getInstaBreak() {
         return instaBreak;
@@ -52,7 +58,7 @@ public class BlockDamageEvent extends BlockEvent implements Cancellable {
      * Sets if the block should instantly break when damaged by the player.
      *
      * @param bool true if you want the block to instantly break when damaged
-     *     by the player
+     *             by the player
      */
     public void setInstaBreak(boolean bool) {
         this.instaBreak = bool;
@@ -81,11 +87,6 @@ public class BlockDamageEvent extends BlockEvent implements Cancellable {
     @NotNull
     @Override
     public HandlerList getHandlers() {
-        return handlers;
-    }
-
-    @NotNull
-    public static HandlerList getHandlerList() {
         return handlers;
     }
 }

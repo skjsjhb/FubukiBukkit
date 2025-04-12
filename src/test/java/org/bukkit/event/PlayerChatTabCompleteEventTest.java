@@ -1,11 +1,12 @@
 package org.bukkit.event;
 
-import static org.bukkit.support.MatcherAssert.*;
-import static org.hamcrest.Matchers.*;
-import static org.mockito.Mockito.*;
 import com.google.common.collect.ImmutableList;
 import org.bukkit.event.player.PlayerChatTabCompleteEvent;
 import org.junit.jupiter.api.Test;
+
+import static org.bukkit.support.MatcherAssert.assertThat;
+import static org.hamcrest.Matchers.is;
+import static org.mockito.Mockito.mock;
 
 public class PlayerChatTabCompleteEventTest {
 

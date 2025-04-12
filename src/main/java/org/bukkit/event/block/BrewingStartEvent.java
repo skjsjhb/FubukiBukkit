@@ -18,6 +18,11 @@ public class BrewingStartEvent extends InventoryBlockStartEvent {
         this.brewingTime = brewingTime;
     }
 
+    @NotNull
+    public static HandlerList getHandlerList() {
+        return handlers;
+    }
+
     /**
      * Gets the total brew time associated with this event.
      *
@@ -39,11 +44,6 @@ public class BrewingStartEvent extends InventoryBlockStartEvent {
     @NotNull
     @Override
     public HandlerList getHandlers() {
-        return handlers;
-    }
-
-    @NotNull
-    public static HandlerList getHandlerList() {
         return handlers;
     }
 }

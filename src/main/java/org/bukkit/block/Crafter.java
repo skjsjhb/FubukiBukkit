@@ -40,7 +40,7 @@ public interface Crafter extends Container, Lootable {
      * Sets whether the slot at the specified index is disabled and will not
      * have items placed in it.
      *
-     * @param slot slot index
+     * @param slot     slot index
      * @param disabled disabled status
      */
     void setSlotDisabled(int slot, boolean disabled);

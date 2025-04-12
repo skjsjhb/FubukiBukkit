@@ -7,7 +7,7 @@ public interface SculkSensor extends TileState {
 
     /**
      * Gets the last vibration frequency of this sensor.
-     *
+     * <p>
      * Different activities detected by the sensor will produce different
      * frequencies and dictate the output of connected comparators.
      *
@@ -17,7 +17,7 @@ public interface SculkSensor extends TileState {
 
     /**
      * Sets the last vibration frequency of this sensor.
-     *
+     * <p>
      * Different activities detected by the sensor will produce different
      * frequencies and dictate the output of connected comparators.
      *

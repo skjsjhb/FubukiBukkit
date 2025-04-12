@@ -15,6 +15,11 @@ public class MapInitializeEvent extends ServerEvent {
         this.mapView = mapView;
     }
 
+    @NotNull
+    public static HandlerList getHandlerList() {
+        return handlers;
+    }
+
     /**
      * Gets the map initialized in this event.
      *
@@ -28,11 +33,6 @@ public class MapInitializeEvent extends ServerEvent {
     @NotNull
     @Override
     public HandlerList getHandlers() {
-        return handlers;
-    }
-
-    @NotNull
-    public static HandlerList getHandlerList() {
         return handlers;
     }
 }

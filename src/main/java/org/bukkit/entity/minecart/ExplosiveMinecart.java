@@ -9,24 +9,24 @@ import org.bukkit.entity.Minecart;
 public interface ExplosiveMinecart extends Minecart, Explosive {
 
     /**
-     * Set the fuse ticks of this minecart.
-     *
-     * If the fuse ticks are set to a non-zero value, this will ignite the
-     * explosive.
-     *
-     * @param ticks the ticks
-     */
-    public void setFuseTicks(int ticks);
-
-    /**
      * Get the fuse ticks of this minecart.
-     *
+     * <p>
      * If the fuse ticks reach 0, the minecart will explode.
      *
      * @return the fuse ticks, or -1 if this minecart's fuse has not yet been
      * ignited
      */
     public int getFuseTicks();
+
+    /**
+     * Set the fuse ticks of this minecart.
+     * <p>
+     * If the fuse ticks are set to a non-zero value, this will ignite the
+     * explosive.
+     *
+     * @param ticks the ticks
+     */
+    public void setFuseTicks(int ticks);
 
     /**
      * Gets the factor by which explosion yield increases based on Minecart

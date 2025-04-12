@@ -1,9 +1,10 @@
 package org.bukkit.entity;
 
-import java.util.List;
 import org.bukkit.potion.PotionEffect;
 import org.bukkit.potion.PotionEffectType;
 import org.jetbrains.annotations.NotNull;
+
+import java.util.List;
 
 /**
  * Represents a mushroom {@link AbstractCow}
@@ -34,9 +35,9 @@ public interface MushroomCow extends AbstractCow {
      * Adds a custom potion effect to be applied to the next suspicious stew
      * received from milking this {@link MushroomCow}.
      *
-     * @param effect the potion effect to add
+     * @param effect    the potion effect to add
      * @param overwrite true if any existing effect of the same type should be
-     * overwritten
+     *                  overwritten
      * @return true if the effects to be applied to the suspicious stew changed
      * as a result of this call
      */

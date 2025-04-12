@@ -21,6 +21,11 @@ public class FurnaceStartSmeltEvent extends InventoryBlockStartEvent {
         this.totalCookTime = recipe.getCookingTime();
     }
 
+    @NotNull
+    public static HandlerList getHandlerList() {
+        return handlers;
+    }
+
     /**
      * Gets the FurnaceRecipe associated with this event
      *
@@ -52,11 +57,6 @@ public class FurnaceStartSmeltEvent extends InventoryBlockStartEvent {
     @NotNull
     @Override
     public HandlerList getHandlers() {
-        return handlers;
-    }
-
-    @NotNull
-    public static HandlerList getHandlerList() {
         return handlers;
     }
 }

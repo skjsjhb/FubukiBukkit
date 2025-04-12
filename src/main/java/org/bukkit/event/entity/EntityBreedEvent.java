@@ -40,6 +40,11 @@ public class EntityBreedEvent extends EntityEvent implements Cancellable {
     }
 
     @NotNull
+    public static HandlerList getHandlerList() {
+        return handlers;
+    }
+
+    @NotNull
     @Override
     public LivingEntity getEntity() {
         return (LivingEntity) entity;
@@ -118,11 +123,6 @@ public class EntityBreedEvent extends EntityEvent implements Cancellable {
     @NotNull
     @Override
     public HandlerList getHandlers() {
-        return handlers;
-    }
-
-    @NotNull
-    public static HandlerList getHandlerList() {
         return handlers;
     }
 }

@@ -13,12 +13,10 @@ import org.jetbrains.annotations.NotNull;
 public class AsyncStructureSpawnEvent extends WorldEvent implements Cancellable {
 
     private static final HandlerList handlers = new HandlerList();
-    private boolean cancelled = false;
-
     private final Structure structure;
     private final BoundingBox boundingBox;
-
     private final int chunkX, chunkZ;
+    private boolean cancelled = false;
 
     public AsyncStructureSpawnEvent(@NotNull World world, @NotNull Structure structure, @NotNull BoundingBox boundingBox, int chunkX, int chunkZ) {
         super(world, true);
@@ -26,6 +24,11 @@ public class AsyncStructureSpawnEvent extends WorldEvent implements Cancellable 
         this.boundingBox = boundingBox;
         this.chunkX = chunkX;
         this.chunkZ = chunkZ;
+    }
+
+    @NotNull
+    public static HandlerList getHandlerList() {
+        return handlers;
     }
 
     /**
@@ -85,11 +88,6 @@ public class AsyncStructureSpawnEvent extends WorldEvent implements Cancellable 
     @NotNull
     @Override
     public HandlerList getHandlers() {
-        return handlers;
-    }
-
-    @NotNull
-    public static HandlerList getHandlerList() {
         return handlers;
     }
 }

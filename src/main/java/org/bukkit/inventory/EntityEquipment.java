@@ -21,8 +21,8 @@ public interface EntityEquipment {
     /**
      * Stores the ItemStack at the given equipment slot in the inventory.
      *
-     * @param slot the slot to put the ItemStack
-     * @param item the ItemStack to set
+     * @param slot   the slot to put the ItemStack
+     * @param item   the ItemStack to set
      * @param silent whether or not the equip sound should be silenced
      */
     public void setItem(@NotNull EquipmentSlot slot, @Nullable ItemStack item, boolean silent);
@@ -55,7 +55,7 @@ public interface EntityEquipment {
     /**
      * Sets the item the entity is holding in their main hand.
      *
-     * @param item The item to put into the entities hand
+     * @param item   The item to put into the entities hand
      * @param silent whether or not the equip sound should be silenced
      */
     void setItemInMainHand(@Nullable ItemStack item, boolean silent);
@@ -79,7 +79,7 @@ public interface EntityEquipment {
     /**
      * Sets the item the entity is holding in their off hand.
      *
-     * @param item The item to put into the entities hand
+     * @param item   The item to put into the entities hand
      * @param silent whether or not the equip sound should be silenced
      */
     void setItemInOffHand(@Nullable ItemStack item, boolean silent);
@@ -91,7 +91,7 @@ public interface EntityEquipment {
      * @see #getItemInMainHand()
      * @see #getItemInOffHand()
      * @deprecated entities can duel wield now use the methods for the
-     *      specific hand instead
+     * specific hand instead
      */
     @Deprecated(since = "1.9")
     @NotNull
@@ -104,7 +104,7 @@ public interface EntityEquipment {
      * @see #setItemInMainHand(ItemStack)
      * @see #setItemInOffHand(ItemStack)
      * @deprecated entities can duel wield now use the methods for the
-     *      specific hand instead
+     * specific hand instead
      */
     @Deprecated(since = "1.9")
     void setItemInHand(@Nullable ItemStack stack);
@@ -151,7 +151,7 @@ public interface EntityEquipment {
      * Sets the chest plate worn by the entity
      *
      * @param chestplate The chest plate to put on the entity
-     * @param silent whether or not the equip sound should be silenced
+     * @param silent     whether or not the equip sound should be silenced
      */
     void setChestplate(@Nullable ItemStack chestplate, boolean silent);
 
@@ -174,7 +174,7 @@ public interface EntityEquipment {
      * Sets the leggings worn by the entity
      *
      * @param leggings The leggings to put on the entity
-     * @param silent whether or not the equip sound should be silenced
+     * @param silent   whether or not the equip sound should be silenced
      */
     void setLeggings(@Nullable ItemStack leggings, boolean silent);
 
@@ -196,7 +196,7 @@ public interface EntityEquipment {
     /**
      * Sets the boots worn by the entity
      *
-     * @param boots The boots to put on the entity
+     * @param boots  The boots to put on the entity
      * @param silent whether or not the equip sound should be silenced
      */
     void setBoots(@Nullable ItemStack boots, boolean silent);

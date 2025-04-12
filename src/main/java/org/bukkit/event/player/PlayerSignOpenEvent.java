@@ -25,6 +25,11 @@ public class PlayerSignOpenEvent extends PlayerEvent implements Cancellable {
         this.cause = cause;
     }
 
+    @NotNull
+    public static HandlerList getHandlerList() {
+        return handlers;
+    }
+
     /**
      * Gets the sign that was opened.
      *
@@ -68,11 +73,6 @@ public class PlayerSignOpenEvent extends PlayerEvent implements Cancellable {
     @NotNull
     @Override
     public HandlerList getHandlers() {
-        return handlers;
-    }
-
-    @NotNull
-    public static HandlerList getHandlerList() {
         return handlers;
     }
 

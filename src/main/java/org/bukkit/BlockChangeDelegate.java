@@ -13,9 +13,9 @@ public interface BlockChangeDelegate {
     /**
      * Set a block data at the specified coordinates.
      *
-     * @param x X coordinate
-     * @param y Y coordinate
-     * @param z Z coordinate
+     * @param x         X coordinate
+     * @param y         Y coordinate
+     * @param z         Z coordinate
      * @param blockData Block data
      * @return true if the block was set successfully
      */

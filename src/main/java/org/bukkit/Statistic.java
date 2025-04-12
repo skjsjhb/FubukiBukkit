@@ -1,7 +1,8 @@
 package org.bukkit;
 
-import java.util.Locale;
 import org.jetbrains.annotations.NotNull;
+
+import java.util.Locale;
 
 /**
  * Represents a countable statistic, which is tracked by the server.
@@ -151,7 +152,6 @@ public enum Statistic implements Keyed {
 
     /**
      * The type of statistic.
-     *
      */
     public enum Type {
         /**

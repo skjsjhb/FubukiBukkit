@@ -19,6 +19,11 @@ public class PrepareAnvilEvent extends PrepareInventoryResultEvent {
     }
 
     @NotNull
+    public static HandlerList getHandlerList() {
+        return handlers;
+    }
+
+    @NotNull
     @Override
     public AnvilInventory getInventory() {
         return (AnvilInventory) super.getInventory();
@@ -33,11 +38,6 @@ public class PrepareAnvilEvent extends PrepareInventoryResultEvent {
     @NotNull
     @Override
     public HandlerList getHandlers() {
-        return handlers;
-    }
-
-    @NotNull
-    public static HandlerList getHandlerList() {
         return handlers;
     }
 }

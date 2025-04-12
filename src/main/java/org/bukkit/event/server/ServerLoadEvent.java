@@ -8,16 +8,8 @@ import org.jetbrains.annotations.NotNull;
  */
 public class ServerLoadEvent extends ServerEvent {
 
-    /**
-     * Represents the context in which the enclosing event has been completed.
-     */
-    public enum LoadType {
-        STARTUP, RELOAD;
-    }
-
     private static final HandlerList handlers = new HandlerList();
     private final LoadType type;
-
     /**
      * Creates a {@code ServerLoadEvent} with a given loading type.
      *
@@ -25,6 +17,11 @@ public class ServerLoadEvent extends ServerEvent {
      */
     public ServerLoadEvent(@NotNull LoadType type) {
         this.type = type;
+    }
+
+    @NotNull
+    public static HandlerList getHandlerList() {
+        return handlers;
     }
 
     /**
@@ -43,8 +40,10 @@ public class ServerLoadEvent extends ServerEvent {
         return handlers;
     }
 
-    @NotNull
-    public static HandlerList getHandlerList() {
-        return handlers;
+    /**
+     * Represents the context in which the enclosing event has been completed.
+     */
+    public enum LoadType {
+        STARTUP, RELOAD;
     }
 }

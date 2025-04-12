@@ -1,13 +1,14 @@
 package org.bukkit.structure;
 
+import org.bukkit.NamespacedKey;
+import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
+
 import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
 import java.util.Map;
-import org.bukkit.NamespacedKey;
-import org.jetbrains.annotations.NotNull;
-import org.jetbrains.annotations.Nullable;
 
 public interface StructureManager {
 
@@ -42,7 +43,7 @@ public interface StructureManager {
      * Registers the given structure. See {@link #getStructures()}.
      *
      * @param structureKey The key for which to register the structure
-     * @param structure The structure to register
+     * @param structure    The structure to register
      * @return The structure for the specified key, or <code>null</code> if the
      * structure could not be found.
      */
@@ -75,7 +76,7 @@ public interface StructureManager {
      * {@link #getStructureFile(NamespacedKey)}.
      *
      * @param structureKey The key for which to load the structure
-     * @param register <code>true</code> to register the loaded structure.
+     * @param register     <code>true</code> to register the loaded structure.
      * @return The structure, or <code>null</code> if no structure was found for
      * the specified key
      */
@@ -106,7 +107,7 @@ public interface StructureManager {
      * Saves a structure with a given key to the primary world folder.
      *
      * @param structureKey The key for which to save the structure for
-     * @param structure The structure to save for this structureKey
+     * @param structure    The structure to save for this structureKey
      */
     void saveStructure(@NotNull NamespacedKey structureKey, @NotNull Structure structure) throws IOException;
 
@@ -130,8 +131,8 @@ public interface StructureManager {
      * work fine.
      *
      * @param structureKey The key of the structure to remove
-     * @param unregister Whether to also unregister the specified structure if
-     * it is currently loaded.
+     * @param unregister   Whether to also unregister the specified structure if
+     *                     it is currently loaded.
      * @throws IOException If the file could not be removed for some reason.
      */
     void deleteStructure(@NotNull NamespacedKey structureKey, boolean unregister) throws IOException;
@@ -171,7 +172,7 @@ public interface StructureManager {
      * Save a structure to a file. This will overwrite a file if it already
      * exists.
      *
-     * @param file the target to save to.
+     * @param file      the target to save to.
      * @param structure the Structure to save.
      * @throws IOException when the given file can not be written to.
      */
@@ -181,7 +182,7 @@ public interface StructureManager {
      * Save a structure to a stream.
      *
      * @param outputStream the stream to write to.
-     * @param structure the Structure to save.
+     * @param structure    the Structure to save.
      * @throws IOException when the given file can not be written to.
      */
     void saveStructure(@NotNull OutputStream outputStream, @NotNull Structure structure) throws IOException;

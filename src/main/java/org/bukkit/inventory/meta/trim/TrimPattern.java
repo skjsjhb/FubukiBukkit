@@ -1,10 +1,6 @@
 package org.bukkit.inventory.meta.trim;
 
-import org.bukkit.Keyed;
-import org.bukkit.Material;
-import org.bukkit.NamespacedKey;
-import org.bukkit.Registry;
-import org.bukkit.Translatable;
+import org.bukkit.*;
 import org.bukkit.registry.RegistryAware;
 import org.jetbrains.annotations.NotNull;
 

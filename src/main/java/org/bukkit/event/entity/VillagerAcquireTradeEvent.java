@@ -21,6 +21,11 @@ public class VillagerAcquireTradeEvent extends EntityEvent implements Cancellabl
         this.recipe = recipe;
     }
 
+    @NotNull
+    public static HandlerList getHandlerList() {
+        return handlers;
+    }
+
     /**
      * Get the recipe to be acquired.
      *
@@ -59,11 +64,6 @@ public class VillagerAcquireTradeEvent extends EntityEvent implements Cancellabl
     @NotNull
     @Override
     public HandlerList getHandlers() {
-        return handlers;
-    }
-
-    @NotNull
-    public static HandlerList getHandlerList() {
         return handlers;
     }
 }

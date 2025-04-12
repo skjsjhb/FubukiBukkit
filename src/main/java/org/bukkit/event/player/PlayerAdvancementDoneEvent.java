@@ -19,6 +19,11 @@ public class PlayerAdvancementDoneEvent extends PlayerEvent {
         this.advancement = advancement;
     }
 
+    @NotNull
+    public static HandlerList getHandlerList() {
+        return handlers;
+    }
+
     /**
      * Get the advancement which has been completed.
      *
@@ -32,11 +37,6 @@ public class PlayerAdvancementDoneEvent extends PlayerEvent {
     @NotNull
     @Override
     public HandlerList getHandlers() {
-        return handlers;
-    }
-
-    @NotNull
-    public static HandlerList getHandlerList() {
         return handlers;
     }
 }

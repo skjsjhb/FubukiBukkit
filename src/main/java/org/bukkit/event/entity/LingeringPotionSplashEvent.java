@@ -15,17 +15,22 @@ import org.jetbrains.annotations.Nullable;
  */
 public class LingeringPotionSplashEvent extends ProjectileHitEvent implements Cancellable {
     private static final HandlerList handlers = new HandlerList();
-    private boolean cancelled;
     private final AreaEffectCloud entity;
+    private boolean cancelled;
 
     @Deprecated(since = "1.20.2")
     public LingeringPotionSplashEvent(@NotNull final ThrownPotion potion, @NotNull final AreaEffectCloud entity) {
-       this(potion, null, null, null, entity);
+        this(potion, null, null, null, entity);
     }
 
     public LingeringPotionSplashEvent(@NotNull final ThrownPotion potion, @Nullable Entity hitEntity, @Nullable Block hitBlock, @Nullable BlockFace hitFace, @NotNull final AreaEffectCloud entity) {
         super(potion, hitEntity, hitBlock, hitFace);
         this.entity = entity;
+    }
+
+    @NotNull
+    public static HandlerList getHandlerList() {
+        return handlers;
     }
 
     @NotNull
@@ -57,11 +62,6 @@ public class LingeringPotionSplashEvent extends ProjectileHitEvent implements Ca
     @NotNull
     @Override
     public HandlerList getHandlers() {
-        return handlers;
-    }
-
-    @NotNull
-    public static HandlerList getHandlerList() {
         return handlers;
     }
 }

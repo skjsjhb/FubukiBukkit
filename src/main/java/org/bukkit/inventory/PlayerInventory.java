@@ -20,6 +20,13 @@ public interface PlayerInventory extends Inventory {
     public ItemStack[] getArmorContents();
 
     /**
+     * Put the given ItemStacks into the armor slots
+     *
+     * @param items The ItemStacks to use as armour
+     */
+    public void setArmorContents(@Nullable ItemStack[] items);
+
+    /**
      * Get all additional ItemStacks stored in this inventory.
      * <br>
      * NB: What defines an extra slot is up to the implementation, however it
@@ -32,12 +39,29 @@ public interface PlayerInventory extends Inventory {
     public ItemStack[] getExtraContents();
 
     /**
+     * Put the given ItemStacks into the extra slots
+     * <br>
+     * See {@link #getExtraContents()} for an explanation of extra slots.
+     *
+     * @param items The ItemStacks to use as extra
+     */
+    public void setExtraContents(@Nullable ItemStack[] items);
+
+    /**
      * Return the ItemStack from the helmet slot
      *
      * @return The ItemStack in the helmet slot
      */
     @Nullable
     public ItemStack getHelmet();
+
+    /**
+     * Put the given ItemStack into the helmet slot. This does not check if
+     * the ItemStack is a helmet
+     *
+     * @param helmet The ItemStack to use as helmet
+     */
+    public void setHelmet(@Nullable ItemStack helmet);
 
     /**
      * Return the ItemStack from the chestplate slot
@@ -48,6 +72,14 @@ public interface PlayerInventory extends Inventory {
     public ItemStack getChestplate();
 
     /**
+     * Put the given ItemStack into the chestplate slot. This does not check
+     * if the ItemStack is a chestplate
+     *
+     * @param chestplate The ItemStack to use as chestplate
+     */
+    public void setChestplate(@Nullable ItemStack chestplate);
+
+    /**
      * Return the ItemStack from the leg slot
      *
      * @return The ItemStack in the leg slot
@@ -56,12 +88,28 @@ public interface PlayerInventory extends Inventory {
     public ItemStack getLeggings();
 
     /**
+     * Put the given ItemStack into the leg slot. This does not check if the
+     * ItemStack is a pair of leggings
+     *
+     * @param leggings The ItemStack to use as leggings
+     */
+    public void setLeggings(@Nullable ItemStack leggings);
+
+    /**
      * Return the ItemStack from the boots slot
      *
      * @return The ItemStack in the boots slot
      */
     @Nullable
     public ItemStack getBoots();
+
+    /**
+     * Put the given ItemStack into the boots slot. This does not check if the
+     * ItemStack is a boots
+     *
+     * @param boots The ItemStack to use as boots
+     */
+    public void setBoots(@Nullable ItemStack boots);
 
     /**
      * Stores the ItemStack at the given index of the inventory.
@@ -80,7 +128,7 @@ public interface PlayerInventory extends Inventory {
      * exception will be thrown.
      *
      * @param index The index where to put the ItemStack
-     * @param item The ItemStack to set
+     * @param item  The ItemStack to set
      * @throws ArrayIndexOutOfBoundsException when index &lt; 0 || index &gt; 40
      * @see #setBoots(ItemStack)
      * @see #setChestplate(ItemStack)
@@ -96,7 +144,6 @@ public interface PlayerInventory extends Inventory {
      *
      * @param slot the slot to put the ItemStack
      * @param item the ItemStack to set
-     *
      * @see #setItem(int, ItemStack)
      */
     public void setItem(@NotNull EquipmentSlot slot, @Nullable ItemStack item);
@@ -105,59 +152,10 @@ public interface PlayerInventory extends Inventory {
      * Gets the ItemStack at the given equipment slot in the inventory.
      *
      * @param slot the slot to get the ItemStack
-     *
      * @return the ItemStack in the given slot or null if there is not one
      */
     @Nullable
     public ItemStack getItem(@NotNull EquipmentSlot slot);
-
-    /**
-     * Put the given ItemStacks into the armor slots
-     *
-     * @param items The ItemStacks to use as armour
-     */
-    public void setArmorContents(@Nullable ItemStack[] items);
-
-    /**
-     * Put the given ItemStacks into the extra slots
-     * <br>
-     * See {@link #getExtraContents()} for an explanation of extra slots.
-     *
-     * @param items The ItemStacks to use as extra
-     */
-    public void setExtraContents(@Nullable ItemStack[] items);
-
-    /**
-     * Put the given ItemStack into the helmet slot. This does not check if
-     * the ItemStack is a helmet
-     *
-     * @param helmet The ItemStack to use as helmet
-     */
-    public void setHelmet(@Nullable ItemStack helmet);
-
-    /**
-     * Put the given ItemStack into the chestplate slot. This does not check
-     * if the ItemStack is a chestplate
-     *
-     * @param chestplate The ItemStack to use as chestplate
-     */
-    public void setChestplate(@Nullable ItemStack chestplate);
-
-    /**
-     * Put the given ItemStack into the leg slot. This does not check if the
-     * ItemStack is a pair of leggings
-     *
-     * @param leggings The ItemStack to use as leggings
-     */
-    public void setLeggings(@Nullable ItemStack leggings);
-
-    /**
-     * Put the given ItemStack into the boots slot. This does not check if the
-     * ItemStack is a boots
-     *
-     * @param boots The ItemStack to use as boots
-     */
-    public void setBoots(@Nullable ItemStack boots);
 
     /**
      * Gets a copy of the item the player is currently holding
@@ -198,7 +196,7 @@ public interface PlayerInventory extends Inventory {
      * @see #getItemInMainHand()
      * @see #getItemInOffHand()
      * @deprecated players can duel wield now use the methods for the
-     *      specific hand instead
+     * specific hand instead
      */
     @Deprecated(since = "1.9")
     @NotNull
@@ -211,7 +209,7 @@ public interface PlayerInventory extends Inventory {
      * @see #setItemInMainHand(ItemStack)
      * @see #setItemInOffHand(ItemStack)
      * @deprecated players can duel wield now use the methods for the
-     *      specific hand instead
+     * specific hand instead
      */
     @Deprecated(since = "1.9")
     public void setItemInHand(@Nullable ItemStack stack);
@@ -230,7 +228,7 @@ public interface PlayerInventory extends Inventory {
      *
      * @param slot The new slot number
      * @throws IllegalArgumentException Thrown if slot is not between 0 and 8
-     *     inclusive
+     *                                  inclusive
      */
     public void setHeldItemSlot(int slot);
 

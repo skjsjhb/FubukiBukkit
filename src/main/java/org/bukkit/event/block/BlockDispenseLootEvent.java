@@ -1,7 +1,5 @@
 package org.bukkit.event.block;
 
-import java.util.ArrayList;
-import java.util.List;
 import org.bukkit.block.Block;
 import org.bukkit.entity.Player;
 import org.bukkit.event.Cancellable;
@@ -10,6 +8,9 @@ import org.bukkit.inventory.ItemStack;
 import org.jetbrains.annotations.ApiStatus;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
+
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Called when a block dispenses loot from its designated LootTable. This is not
@@ -32,6 +33,11 @@ public class BlockDispenseLootEvent extends BlockEvent implements Cancellable {
         this.player = player;
         this.block = theBlock;
         this.dispensedLoot = dispensedLoot;
+    }
+
+    @NotNull
+    public static HandlerList getHandlerList() {
+        return handlers;
     }
 
     /**
@@ -80,11 +86,6 @@ public class BlockDispenseLootEvent extends BlockEvent implements Cancellable {
     @NotNull
     @Override
     public HandlerList getHandlers() {
-        return handlers;
-    }
-
-    @NotNull
-    public static HandlerList getHandlerList() {
         return handlers;
     }
 }

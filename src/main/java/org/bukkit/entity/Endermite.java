@@ -4,7 +4,7 @@ public interface Endermite extends Monster {
 
     /**
      * Gets whether this Endermite was spawned by a player.
-     *
+     * <p>
      * An Endermite spawned by a player will be attacked by nearby Enderman.
      *
      * @return player spawned status
@@ -15,7 +15,7 @@ public interface Endermite extends Monster {
 
     /**
      * Sets whether this Endermite was spawned by a player.
-     *
+     * <p>
      * An Endermite spawned by a player will be attacked by nearby Enderman.
      *
      * @param playerSpawned player spawned status

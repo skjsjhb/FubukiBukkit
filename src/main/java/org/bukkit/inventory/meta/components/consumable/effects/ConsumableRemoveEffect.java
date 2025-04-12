@@ -1,8 +1,9 @@
 package org.bukkit.inventory.meta.components.consumable.effects;
 
-import java.util.List;
 import org.bukkit.potion.PotionEffectType;
 import org.jetbrains.annotations.NotNull;
+
+import java.util.List;
 
 /**
  * Represent the effects to be removed when an item is consumed.

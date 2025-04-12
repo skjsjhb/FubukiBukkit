@@ -1,8 +1,5 @@
 package org.bukkit.plugin;
 
-import java.io.File;
-import java.io.InputStream;
-import java.util.logging.Logger;
 import org.bukkit.Server;
 import org.bukkit.command.TabExecutor;
 import org.bukkit.configuration.file.FileConfiguration;
@@ -10,6 +7,10 @@ import org.bukkit.generator.BiomeProvider;
 import org.bukkit.generator.ChunkGenerator;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
+
+import java.io.File;
+import java.io.InputStream;
+import java.util.logging.Logger;
 
 /**
  * Represents a Plugin
@@ -76,11 +77,11 @@ public interface Plugin extends TabExecutor {
      * hierarchy as the .jar file (subdirectories are preserved).
      *
      * @param resourcePath the embedded resource path to look for within the
-     *     plugin's .jar file. (No preceding slash).
-     * @param replace if true, the embedded resource will overwrite the
-     *     contents of an existing file.
+     *                     plugin's .jar file. (No preceding slash).
+     * @param replace      if true, the embedded resource will overwrite the
+     *                     contents of an existing file.
      * @throws IllegalArgumentException if the resource path is null, empty,
-     *     or points to a nonexistent resource.
+     *                                  or points to a nonexistent resource.
      */
     public void saveResource(@NotNull String resourcePath, boolean replace);
 
@@ -150,8 +151,8 @@ public interface Plugin extends TabExecutor {
      * in the server configuration
      *
      * @param worldName Name of the world that this will be applied to
-     * @param id Unique ID, if any, that was specified to indicate which
-     *     generator was requested
+     * @param id        Unique ID, if any, that was specified to indicate which
+     *                  generator was requested
      * @return ChunkGenerator for use in the default world generation
      */
     @Nullable
@@ -162,8 +163,8 @@ public interface Plugin extends TabExecutor {
      * in the server configuration
      *
      * @param worldName Name of the world that this will be applied to
-     * @param id Unique ID, if any, that was specified to indicate which
-     *     biome provider was requested
+     * @param id        Unique ID, if any, that was specified to indicate which
+     *                  biome provider was requested
      * @return BiomeProvider for use in the default world generation
      */
     @Nullable

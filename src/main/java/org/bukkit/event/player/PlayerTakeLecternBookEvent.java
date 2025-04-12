@@ -15,13 +15,18 @@ import org.jetbrains.annotations.Nullable;
 public class PlayerTakeLecternBookEvent extends PlayerEvent implements Cancellable {
 
     private static final HandlerList handlers = new HandlerList();
+    private final Lectern lectern;
     //
     private boolean cancelled;
-    private final Lectern lectern;
 
     public PlayerTakeLecternBookEvent(@NotNull Player who, @NotNull Lectern lectern) {
         super(who);
         this.lectern = lectern;
+    }
+
+    @NotNull
+    public static HandlerList getHandlerList() {
+        return handlers;
     }
 
     /**
@@ -57,11 +62,6 @@ public class PlayerTakeLecternBookEvent extends PlayerEvent implements Cancellab
     @NotNull
     @Override
     public HandlerList getHandlers() {
-        return handlers;
-    }
-
-    @NotNull
-    public static HandlerList getHandlerList() {
         return handlers;
     }
 }

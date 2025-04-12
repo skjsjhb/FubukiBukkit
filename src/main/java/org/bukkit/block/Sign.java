@@ -17,7 +17,7 @@ public interface Sign extends TileState, Colorable {
      * Gets all the lines of text currently on the {@link Side#FRONT} of this sign.
      *
      * @return Array of Strings containing each line of text
-     * @deprecated  A sign may have multiple writable sides now. Use {@link Sign#getSide(Side)} and {@link SignSide#getLines()}.
+     * @deprecated A sign may have multiple writable sides now. Use {@link Sign#getSide(Side)} and {@link SignSide#getLines()}.
      */
     @Deprecated(since = "1.20")
     @NotNull
@@ -44,7 +44,7 @@ public interface Sign extends TileState, Colorable {
      * "Line One".
      *
      * @param index Line number to set the text at, starting from 0
-     * @param line New text to set at the specified index
+     * @param line  New text to set at the specified index
      * @throws IndexOutOfBoundsException If the index is out of the range 0..3
      * @deprecated A sign may have multiple writable sides now. Use {@link #getSide(Side)} and {@link SignSide#setLine(int, String)}.
      */

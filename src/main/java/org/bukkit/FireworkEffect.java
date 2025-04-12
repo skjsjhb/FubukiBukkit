@@ -3,17 +3,168 @@ package org.bukkit;
 import com.google.common.base.Preconditions;
 import com.google.common.collect.ImmutableList;
 import com.google.common.collect.ImmutableMap;
-import java.util.List;
-import java.util.Map;
 import org.bukkit.configuration.serialization.ConfigurationSerializable;
 import org.bukkit.configuration.serialization.SerializableAs;
 import org.jetbrains.annotations.NotNull;
+
+import java.util.List;
+import java.util.Map;
 
 /**
  * Represents a single firework effect.
  */
 @SerializableAs("Firework")
 public final class FireworkEffect implements ConfigurationSerializable {
+
+    private static final String FLICKER = "flicker";
+    private static final String TRAIL = "trail";
+    private static final String COLORS = "colors";
+    private static final String FADE_COLORS = "fade-colors";
+    private static final String TYPE = "type";
+    private final boolean flicker;
+    private final boolean trail;
+    private final ImmutableList<Color> colors;
+    private final ImmutableList<Color> fadeColors;
+    private final Type type;
+    private String string = null;
+    FireworkEffect(boolean flicker, boolean trail, @NotNull ImmutableList<Color> colors, @NotNull ImmutableList<Color> fadeColors, @NotNull Type type) {
+        if (colors.isEmpty()) {
+            throw new IllegalStateException("Cannot make FireworkEffect without any color");
+        }
+        this.flicker = flicker;
+        this.trail = trail;
+        this.colors = colors;
+        this.fadeColors = fadeColors;
+        this.type = type;
+    }
+
+    /**
+     * Construct a firework effect.
+     *
+     * @return A utility object for building a firework effect
+     */
+    @NotNull
+    public static Builder builder() {
+        return new Builder();
+    }
+
+    /**
+     * @param map the map to deserialize
+     * @return the resulting serializable
+     * @see ConfigurationSerializable
+     */
+    @NotNull
+    public static ConfigurationSerializable deserialize(@NotNull Map<String, Object> map) {
+        Type type = Type.valueOf((String) map.get(TYPE));
+
+        return builder()
+                .flicker((Boolean) map.get(FLICKER))
+                .trail((Boolean) map.get(TRAIL))
+                .withColor((Iterable<?>) map.get(COLORS))
+                .withFade((Iterable<?>) map.get(FADE_COLORS))
+                .with(type)
+                .build();
+    }
+
+    /**
+     * Get whether the firework effect flickers.
+     *
+     * @return true if it flickers, false if not
+     */
+    public boolean hasFlicker() {
+        return flicker;
+    }
+
+    /**
+     * Get whether the firework effect has a trail.
+     *
+     * @return true if it has a trail, false if not
+     */
+    public boolean hasTrail() {
+        return trail;
+    }
+
+    /**
+     * Get the primary colors of the firework effect.
+     *
+     * @return An immutable list of the primary colors
+     */
+    @NotNull
+    public List<Color> getColors() {
+        return colors;
+    }
+
+    /**
+     * Get the fade colors of the firework effect.
+     *
+     * @return An immutable list of the fade colors
+     */
+    @NotNull
+    public List<Color> getFadeColors() {
+        return fadeColors;
+    }
+
+    /**
+     * Get the type of the firework effect.
+     *
+     * @return The effect type
+     */
+    @NotNull
+    public Type getType() {
+        return type;
+    }
+
+    @NotNull
+    @Override
+    public Map<String, Object> serialize() {
+        return ImmutableMap.<String, Object>of(
+                FLICKER, flicker,
+                TRAIL, trail,
+                COLORS, colors,
+                FADE_COLORS, fadeColors,
+                TYPE, type.name()
+        );
+    }
+
+    @Override
+    public String toString() {
+        final String string = this.string;
+        if (string == null) {
+            return this.string = "FireworkEffect:" + serialize();
+        }
+        return string;
+    }
+
+    @Override
+    public int hashCode() {
+        // TRUE and FALSE as per boolean.hashCode()
+        final int PRIME = 31, TRUE = 1231, FALSE = 1237;
+        int hash = 1;
+        hash = hash * PRIME + (flicker ? TRUE : FALSE);
+        hash = hash * PRIME + (trail ? TRUE : FALSE);
+        hash = hash * PRIME + type.hashCode();
+        hash = hash * PRIME + colors.hashCode();
+        hash = hash * PRIME + fadeColors.hashCode();
+        return hash;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) {
+            return true;
+        }
+
+        if (!(obj instanceof FireworkEffect)) {
+            return false;
+        }
+
+        FireworkEffect that = (FireworkEffect) obj;
+        return this.flicker == that.flicker
+                && this.trail == that.trail
+                && this.type == that.type
+                && this.colors.equals(that.colors)
+                && this.fadeColors.equals(that.fadeColors);
+    }
 
     /**
      * The type or shape of the effect.
@@ -43,28 +194,19 @@ public final class FireworkEffect implements ConfigurationSerializable {
     }
 
     /**
-     * Construct a firework effect.
-     *
-     * @return A utility object for building a firework effect
-     */
-    @NotNull
-    public static Builder builder() {
-        return new Builder();
-    }
-
-    /**
      * This is a builder for FireworkEffects.
      *
      * @see FireworkEffect#builder()
      */
     public static final class Builder {
+        final ImmutableList.Builder<Color> colors = ImmutableList.builder();
         boolean flicker = false;
         boolean trail = false;
-        final ImmutableList.Builder<Color> colors = ImmutableList.builder();
         ImmutableList.Builder<Color> fadeColors = null;
         Type type = Type.BALL;
 
-        Builder() {}
+        Builder() {
+        }
 
         /**
          * Specify the type of the firework effect.
@@ -149,7 +291,7 @@ public final class FireworkEffect implements ConfigurationSerializable {
          * @return This object, for chaining
          * @throws IllegalArgumentException If colors is null
          * @throws IllegalArgumentException If any color is null (may be
-         *     thrown after changes have occurred)
+         *                                  thrown after changes have occurred)
          */
         @NotNull
         public Builder withColor(@NotNull Color... colors) throws IllegalArgumentException {
@@ -171,11 +313,11 @@ public final class FireworkEffect implements ConfigurationSerializable {
          * Add several primary colors to the firework effect.
          *
          * @param colors An iterable object whose iterator yields the desired
-         *     colors
+         *               colors
          * @return This object, for chaining
          * @throws IllegalArgumentException If colors is null
          * @throws IllegalArgumentException If any color is null (may be
-         *     thrown after changes have occurred)
+         *                                  thrown after changes have occurred)
          */
         @NotNull
         public Builder withColor(@NotNull Iterable<?> colors) throws IllegalArgumentException {
@@ -199,7 +341,7 @@ public final class FireworkEffect implements ConfigurationSerializable {
          * @return This object, for chaining
          * @throws IllegalArgumentException If colors is null
          * @throws IllegalArgumentException If any color is null (may be
-         *     thrown after changes have occurred)
+         *                                  thrown after changes have occurred)
          */
         @NotNull
         public Builder withFade(@NotNull Color color) throws IllegalArgumentException {
@@ -221,7 +363,7 @@ public final class FireworkEffect implements ConfigurationSerializable {
          * @return This object, for chaining
          * @throws IllegalArgumentException If colors is null
          * @throws IllegalArgumentException If any color is null (may be
-         *     thrown after changes have occurred)
+         *                                  thrown after changes have occurred)
          */
         @NotNull
         public Builder withFade(@NotNull Color... colors) throws IllegalArgumentException {
@@ -247,11 +389,11 @@ public final class FireworkEffect implements ConfigurationSerializable {
          * Add several fade colors to the firework effect.
          *
          * @param colors An iterable object whose iterator yields the desired
-         *     colors
+         *               colors
          * @return This object, for chaining
          * @throws IllegalArgumentException If colors is null
          * @throws IllegalArgumentException If any color is null (may be
-         *     thrown after changes have occurred)
+         *                                  thrown after changes have occurred)
          */
         @NotNull
         public Builder withFade(@NotNull Iterable<?> colors) throws IllegalArgumentException {
@@ -283,154 +425,12 @@ public final class FireworkEffect implements ConfigurationSerializable {
         @NotNull
         public FireworkEffect build() {
             return new FireworkEffect(
-                flicker,
-                trail,
-                colors.build(),
-                fadeColors == null ? ImmutableList.<Color>of() : fadeColors.build(),
-                type
+                    flicker,
+                    trail,
+                    colors.build(),
+                    fadeColors == null ? ImmutableList.<Color>of() : fadeColors.build(),
+                    type
             );
         }
-    }
-
-    private static final String FLICKER = "flicker";
-    private static final String TRAIL = "trail";
-    private static final String COLORS = "colors";
-    private static final String FADE_COLORS = "fade-colors";
-    private static final String TYPE = "type";
-
-    private final boolean flicker;
-    private final boolean trail;
-    private final ImmutableList<Color> colors;
-    private final ImmutableList<Color> fadeColors;
-    private final Type type;
-    private String string = null;
-
-    FireworkEffect(boolean flicker, boolean trail, @NotNull ImmutableList<Color> colors, @NotNull ImmutableList<Color> fadeColors, @NotNull Type type) {
-        if (colors.isEmpty()) {
-            throw new IllegalStateException("Cannot make FireworkEffect without any color");
-        }
-        this.flicker = flicker;
-        this.trail = trail;
-        this.colors = colors;
-        this.fadeColors = fadeColors;
-        this.type = type;
-    }
-
-    /**
-     * Get whether the firework effect flickers.
-     *
-     * @return true if it flickers, false if not
-     */
-    public boolean hasFlicker() {
-        return flicker;
-    }
-
-    /**
-     * Get whether the firework effect has a trail.
-     *
-     * @return true if it has a trail, false if not
-     */
-    public boolean hasTrail() {
-        return trail;
-    }
-
-    /**
-     * Get the primary colors of the firework effect.
-     *
-     * @return An immutable list of the primary colors
-     */
-    @NotNull
-    public List<Color> getColors() {
-        return colors;
-    }
-
-    /**
-     * Get the fade colors of the firework effect.
-     *
-     * @return An immutable list of the fade colors
-     */
-    @NotNull
-    public List<Color> getFadeColors() {
-        return fadeColors;
-    }
-
-    /**
-     * Get the type of the firework effect.
-     *
-     * @return The effect type
-     */
-    @NotNull
-    public Type getType() {
-        return type;
-    }
-
-    /**
-     * @param map the map to deserialize
-     * @return the resulting serializable
-     * @see ConfigurationSerializable
-     */
-    @NotNull
-    public static ConfigurationSerializable deserialize(@NotNull Map<String, Object> map) {
-        Type type = Type.valueOf((String) map.get(TYPE));
-
-        return builder()
-            .flicker((Boolean) map.get(FLICKER))
-            .trail((Boolean) map.get(TRAIL))
-            .withColor((Iterable<?>) map.get(COLORS))
-            .withFade((Iterable<?>) map.get(FADE_COLORS))
-            .with(type)
-            .build();
-    }
-
-    @NotNull
-    @Override
-    public Map<String, Object> serialize() {
-        return ImmutableMap.<String, Object>of(
-            FLICKER, flicker,
-            TRAIL, trail,
-            COLORS, colors,
-            FADE_COLORS, fadeColors,
-            TYPE, type.name()
-        );
-    }
-
-    @Override
-    public String toString() {
-        final String string = this.string;
-        if (string == null) {
-            return this.string = "FireworkEffect:" + serialize();
-        }
-        return string;
-    }
-
-    @Override
-    public int hashCode() {
-        // TRUE and FALSE as per boolean.hashCode()
-        final int PRIME = 31, TRUE = 1231, FALSE = 1237;
-        int hash = 1;
-        hash = hash * PRIME + (flicker ? TRUE : FALSE);
-        hash = hash * PRIME + (trail ? TRUE : FALSE);
-        hash = hash * PRIME + type.hashCode();
-        hash = hash * PRIME + colors.hashCode();
-        hash = hash * PRIME + fadeColors.hashCode();
-        return hash;
-    }
-
-    @Override
-    public boolean equals(Object obj) {
-        if (this == obj) {
-            return true;
-        }
-
-        if (!(obj instanceof FireworkEffect)) {
-            return false;
-        }
-
-        FireworkEffect that = (FireworkEffect) obj;
-        return this.flicker == that.flicker
-                && this.trail == that.trail
-                && this.type == that.type
-                && this.colors.equals(that.colors)
-                && this.fadeColors.equals(that.fadeColors);
     }
 }

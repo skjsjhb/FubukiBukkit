@@ -1,13 +1,14 @@
 package org.bukkit.inventory;
 
 import com.google.common.base.Preconditions;
+import org.jetbrains.annotations.ApiStatus;
+import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
+
 import java.util.HashMap;
 import java.util.Locale;
 import java.util.Map;
 import java.util.function.Predicate;
-import org.jetbrains.annotations.ApiStatus;
-import org.jetbrains.annotations.NotNull;
-import org.jetbrains.annotations.Nullable;
 
 /**
  * Represents a group of {@link EquipmentSlot}.
@@ -15,7 +16,6 @@ import org.jetbrains.annotations.Nullable;
 @ApiStatus.Experimental
 public final class EquipmentSlotGroup implements Predicate<EquipmentSlot> {
 
-    private static final Map<String, EquipmentSlotGroup> BY_NAME = new HashMap<>();
     //
     public static final EquipmentSlotGroup ANY = get("any", (test) -> true, EquipmentSlot.HAND);
     public static final EquipmentSlotGroup MAINHAND = get("mainhand", EquipmentSlot.HAND);
@@ -27,6 +27,7 @@ public final class EquipmentSlotGroup implements Predicate<EquipmentSlot> {
     public static final EquipmentSlotGroup HEAD = get("head", EquipmentSlot.HEAD);
     public static final EquipmentSlotGroup ARMOR = get("armor", (test) -> test == EquipmentSlot.FEET || test == EquipmentSlot.LEGS || test == EquipmentSlot.CHEST || test == EquipmentSlot.HEAD, EquipmentSlot.CHEST);
     public static final EquipmentSlotGroup SADDLE = get("saddle", EquipmentSlot.SADDLE);
+    private static final Map<String, EquipmentSlotGroup> BY_NAME = new HashMap<>();
     //
     private final String key;
     private final Predicate<EquipmentSlot> predicate;
@@ -38,6 +39,28 @@ public final class EquipmentSlotGroup implements Predicate<EquipmentSlot> {
         this.example = example;
 
         BY_NAME.put(key, this);
+    }
+
+    /**
+     * Gets the {@link EquipmentSlotGroup} corresponding to the given string.
+     *
+     * @param name group name
+     * @return associated group or null
+     */
+    @Nullable
+    @ApiStatus.Internal
+    public static EquipmentSlotGroup getByName(@NotNull String name) {
+        Preconditions.checkArgument(name != null, "Name cannot be null");
+
+        return BY_NAME.get(name.toLowerCase(Locale.ROOT));
+    }
+
+    private static EquipmentSlotGroup get(@NotNull String key, @NotNull EquipmentSlot slot) {
+        return get(key, (test) -> test == slot, slot);
+    }
+
+    private static EquipmentSlotGroup get(@NotNull String key, @NotNull Predicate<EquipmentSlot> predicate, @NotNull EquipmentSlot example) {
+        return new EquipmentSlotGroup(key, predicate, example);
     }
 
     @Override
@@ -62,27 +85,5 @@ public final class EquipmentSlotGroup implements Predicate<EquipmentSlot> {
     @ApiStatus.Internal
     public EquipmentSlot getExample() {
         return example;
-    }
-
-    /**
-     * Gets the {@link EquipmentSlotGroup} corresponding to the given string.
-     *
-     * @param name group name
-     * @return associated group or null
-     */
-    @Nullable
-    @ApiStatus.Internal
-    public static EquipmentSlotGroup getByName(@NotNull String name) {
-        Preconditions.checkArgument(name != null, "Name cannot be null");
-
-        return BY_NAME.get(name.toLowerCase(Locale.ROOT));
-    }
-
-    private static EquipmentSlotGroup get(@NotNull String key, @NotNull EquipmentSlot slot) {
-        return get(key, (test) -> test == slot, slot);
-    }
-
-    private static EquipmentSlotGroup get(@NotNull String key, @NotNull Predicate<EquipmentSlot> predicate, @NotNull EquipmentSlot example) {
-        return new EquipmentSlotGroup(key, predicate, example);
     }
 }

@@ -3,13 +3,6 @@ package org.bukkit;
 import com.google.common.base.Preconditions;
 import com.google.common.base.Predicates;
 import com.google.common.collect.ImmutableMap;
-import java.util.Iterator;
-import java.util.Locale;
-import java.util.Map;
-import java.util.Objects;
-import java.util.function.Predicate;
-import java.util.stream.Stream;
-import java.util.stream.StreamSupport;
 import org.bukkit.advancement.Advancement;
 import org.bukkit.attribute.Attribute;
 import org.bukkit.block.Biome;
@@ -18,14 +11,7 @@ import org.bukkit.block.banner.PatternType;
 import org.bukkit.boss.KeyedBossBar;
 import org.bukkit.damage.DamageType;
 import org.bukkit.enchantments.Enchantment;
-import org.bukkit.entity.Cat;
-import org.bukkit.entity.Chicken;
-import org.bukkit.entity.Cow;
-import org.bukkit.entity.EntityType;
-import org.bukkit.entity.Frog;
-import org.bukkit.entity.Pig;
-import org.bukkit.entity.Villager;
-import org.bukkit.entity.Wolf;
+import org.bukkit.entity.*;
 import org.bukkit.entity.memory.MemoryKey;
 import org.bukkit.generator.structure.Structure;
 import org.bukkit.generator.structure.StructureType;
@@ -41,6 +27,14 @@ import org.bukkit.potion.PotionType;
 import org.jetbrains.annotations.ApiStatus;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
+
+import java.util.Iterator;
+import java.util.Locale;
+import java.util.Map;
+import java.util.Objects;
+import java.util.function.Predicate;
+import java.util.stream.Stream;
+import java.util.stream.StreamSupport;
 
 /**
  * Represents a registry of Bukkit objects that may be retrieved by
@@ -115,8 +109,8 @@ public interface Registry<T extends Keyed> extends Iterable<T> {
     /**
      * Server block types.
      *
-     * @see BlockType
      * @apiNote BlockType is not ready for public usage yet
+     * @see BlockType
      */
     @ApiStatus.Internal
     Registry<BlockType> BLOCK = Objects.requireNonNull(Bukkit.getRegistry(BlockType.class), "No registry present for BlockType. This is a bug.");
@@ -203,8 +197,8 @@ public interface Registry<T extends Keyed> extends Iterable<T> {
     /**
      * Server item types.
      *
-     * @see ItemType
      * @apiNote ItemType is not ready for public usage yet
+     * @see ItemType
      */
     @ApiStatus.Internal
     Registry<ItemType> ITEM = Objects.requireNonNull(Bukkit.getRegistry(ItemType.class), "No registry present for ItemType. This is a bug.");
@@ -376,6 +370,7 @@ public interface Registry<T extends Keyed> extends Iterable<T> {
      * @see GameEvent
      */
     Registry<GameEvent> GAME_EVENT = Objects.requireNonNull(Bukkit.getRegistry(GameEvent.class), "No registry present for GameEvent. This is a bug.");
+
     /**
      * Get the object by its key.
      *
@@ -387,7 +382,7 @@ public interface Registry<T extends Keyed> extends Iterable<T> {
 
     /**
      * Get the object by its key.
-     *
+     * <p>
      * If there is no object with the given key, an exception will be thrown.
      *
      * @param key to get the object from

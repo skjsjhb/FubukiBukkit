@@ -19,9 +19,9 @@ public class TransmuteRecipe extends CraftingRecipe implements ComplexRecipe {
     /**
      * Create a transmute recipe to produce a result of the specified type.
      *
-     * @param key the unique recipe key
-     * @param result the transmuted result item
-     * @param input the input ingredient
+     * @param key      the unique recipe key
+     * @param result   the transmuted result item
+     * @param input    the input ingredient
      * @param material the additional ingredient
      */
     public TransmuteRecipe(@NotNull NamespacedKey key, @NotNull ItemStack result, @NotNull RecipeChoice input, @NotNull RecipeChoice material) {
@@ -33,9 +33,9 @@ public class TransmuteRecipe extends CraftingRecipe implements ComplexRecipe {
     /**
      * Create a transmute recipe to produce a result of the specified type.
      *
-     * @param key the unique recipe key
-     * @param result the transmuted result material
-     * @param input the input ingredient
+     * @param key      the unique recipe key
+     * @param result   the transmuted result material
+     * @param input    the input ingredient
      * @param material the additional ingredient
      */
     public TransmuteRecipe(@NotNull NamespacedKey key, @NotNull Material result, @NotNull RecipeChoice input, @NotNull RecipeChoice material) {

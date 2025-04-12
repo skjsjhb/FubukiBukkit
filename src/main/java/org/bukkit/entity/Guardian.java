@@ -4,7 +4,7 @@ public interface Guardian extends Monster {
 
     /**
      * Sets whether the guardian laser should show or not.
-     *
+     * <p>
      * A target must be present. If no target is present the laser will not show
      * and the method will return false.
      *
@@ -30,20 +30,6 @@ public interface Guardian extends Monster {
     public int getLaserDuration();
 
     /**
-     * Set the amount of ticks that have elapsed since this guardian has initiated
-     * a laser attack. If set to {@link #getLaserDuration()} or greater, the guardian
-     * will inflict damage upon its target and the laser attack will complete.
-     * <p>
-     * For this value to have any effect, the guardian must have an active target
-     * (see {@link #setTarget(LivingEntity)}) and be charging a laser attack (where
-     * {@link #hasLaser()} is true). The client may display a different animation of
-     * the guardian laser than the set ticks.
-     *
-     * @param ticks the ticks to set. Must be at least -10
-     */
-    public void setLaserTicks(int ticks);
-
-    /**
      * Get the amount of ticks that have elapsed since this guardian has initiated
      * a laser attack.
      * <p>
@@ -56,6 +42,20 @@ public interface Guardian extends Monster {
      * @return the laser ticks ranging from -10 to {@link #getLaserDuration()}
      */
     public int getLaserTicks();
+
+    /**
+     * Set the amount of ticks that have elapsed since this guardian has initiated
+     * a laser attack. If set to {@link #getLaserDuration()} or greater, the guardian
+     * will inflict damage upon its target and the laser attack will complete.
+     * <p>
+     * For this value to have any effect, the guardian must have an active target
+     * (see {@link #setTarget(LivingEntity)}) and be charging a laser attack (where
+     * {@link #hasLaser()} is true). The client may display a different animation of
+     * the guardian laser than the set ticks.
+     *
+     * @param ticks the ticks to set. Must be at least -10
+     */
+    public void setLaserTicks(int ticks);
 
     /**
      * Check if the Guardian is an elder Guardian

@@ -32,20 +32,6 @@ public interface AnvilView extends InventoryView {
     int getRepairItemCountCost();
 
     /**
-     * Gets the experience cost needed to repair.
-     *
-     * @return The repair cost in experience
-     */
-    int getRepairCost();
-
-    /**
-     * Gets the maximum repair cost needed to repair.
-     *
-     * @return The maximum repair cost in experience
-     */
-    int getMaximumRepairCost();
-
-    /**
      * Sets the amount of repair materials required to repair the item.
      *
      * @param amount the amount of repair materials
@@ -53,11 +39,25 @@ public interface AnvilView extends InventoryView {
     void setRepairItemCountCost(int amount);
 
     /**
+     * Gets the experience cost needed to repair.
+     *
+     * @return The repair cost in experience
+     */
+    int getRepairCost();
+
+    /**
      * Sets the repair cost in experience.
      *
      * @param cost the experience cost to repair
      */
     void setRepairCost(int cost);
+
+    /**
+     * Gets the maximum repair cost needed to repair.
+     *
+     * @return The maximum repair cost in experience
+     */
+    int getMaximumRepairCost();
 
     /**
      * Sets maximum repair cost in experience.

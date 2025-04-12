@@ -10,14 +10,19 @@ import org.jetbrains.annotations.NotNull;
  */
 public class PlayerItemHeldEvent extends PlayerEvent implements Cancellable {
     private static final HandlerList handlers = new HandlerList();
-    private boolean cancel = false;
     private final int previous;
     private final int current;
+    private boolean cancel = false;
 
     public PlayerItemHeldEvent(@NotNull final Player player, final int previous, final int current) {
         super(player);
         this.previous = previous;
         this.current = current;
+    }
+
+    @NotNull
+    public static HandlerList getHandlerList() {
+        return handlers;
     }
 
     /**
@@ -51,11 +56,6 @@ public class PlayerItemHeldEvent extends PlayerEvent implements Cancellable {
     @NotNull
     @Override
     public HandlerList getHandlers() {
-        return handlers;
-    }
-
-    @NotNull
-    public static HandlerList getHandlerList() {
         return handlers;
     }
 }

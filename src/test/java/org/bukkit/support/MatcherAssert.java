@@ -20,7 +20,8 @@ import org.hamcrest.Matcher;
  */
 public final class MatcherAssert {
 
-    private MatcherAssert() {}
+    private MatcherAssert() {
+    }
 
     public static <T> void assertThat(T actual, Matcher<? super T> matcher) {
         org.hamcrest.MatcherAssert.assertThat(actual, matcher);

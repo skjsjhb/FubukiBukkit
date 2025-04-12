@@ -1,12 +1,13 @@
 package org.bukkit.util;
 
 import com.google.common.base.Preconditions;
-import java.util.Objects;
 import org.bukkit.block.Block;
 import org.bukkit.block.BlockFace;
 import org.bukkit.entity.Entity;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
+
+import java.util.Objects;
 
 /**
  * The hit result of a ray trace.
@@ -43,7 +44,7 @@ public class RayTraceResult {
     /**
      * Creates a RayTraceResult.
      *
-     * @param hitPosition the hit position
+     * @param hitPosition  the hit position
      * @param hitBlockFace the hit block face
      */
     public RayTraceResult(@NotNull Vector hitPosition, @Nullable BlockFace hitBlockFace) {
@@ -53,8 +54,8 @@ public class RayTraceResult {
     /**
      * Creates a RayTraceResult.
      *
-     * @param hitPosition the hit position
-     * @param hitBlock the hit block
+     * @param hitPosition  the hit position
+     * @param hitBlock     the hit block
      * @param hitBlockFace the hit block face
      */
     public RayTraceResult(@NotNull Vector hitPosition, @Nullable Block hitBlock, @Nullable BlockFace hitBlockFace) {
@@ -65,7 +66,7 @@ public class RayTraceResult {
      * Creates a RayTraceResult.
      *
      * @param hitPosition the hit position
-     * @param hitEntity the hit entity
+     * @param hitEntity   the hit entity
      */
     public RayTraceResult(@NotNull Vector hitPosition, @Nullable Entity hitEntity) {
         this(hitPosition, null, null, hitEntity);
@@ -74,8 +75,8 @@ public class RayTraceResult {
     /**
      * Creates a RayTraceResult.
      *
-     * @param hitPosition the hit position
-     * @param hitEntity the hit entity
+     * @param hitPosition  the hit position
+     * @param hitEntity    the hit entity
      * @param hitBlockFace the hit block face
      */
     public RayTraceResult(@NotNull Vector hitPosition, @Nullable Entity hitEntity, @Nullable BlockFace hitBlockFace) {

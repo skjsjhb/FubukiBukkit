@@ -1,14 +1,6 @@
 package org.bukkit.entity;
 
-import java.util.Collection;
-import java.util.List;
-import java.util.Set;
-import java.util.UUID;
-import org.bukkit.FluidCollisionMode;
-import org.bukkit.Location;
-import org.bukkit.Material;
-import org.bukkit.Sound;
-import org.bukkit.World;
+import org.bukkit.*;
 import org.bukkit.attribute.Attributable;
 import org.bukkit.block.Block;
 import org.bukkit.entity.memory.MemoryKey;
@@ -23,6 +15,11 @@ import org.bukkit.util.RayTraceResult;
 import org.bukkit.util.Vector;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
+
+import java.util.Collection;
+import java.util.List;
+import java.util.Set;
+import java.util.UUID;
 
 /**
  * Represents a living entity, such as a monster or player
@@ -40,7 +37,7 @@ public interface LivingEntity extends Attributable, Damageable, ProjectileSource
      * Gets the height of the living entity's eyes above its Location.
      *
      * @param ignorePose if set to true, the effects of pose changes, eg
-     *     sneaking and gliding will be ignored
+     *                   sneaking and gliding will be ignored
      * @return height of the living entity's eyes above its location
      */
     public double getEyeHeight(boolean ignorePose);
@@ -60,11 +57,11 @@ public interface LivingEntity extends Attributable, Damageable, ProjectileSource
      * target inclusive. This method considers all blocks as 1x1x1 in size.
      *
      * @param transparent Set containing all transparent block Materials (set to
-     *     null for only air)
+     *                    null for only air)
      * @param maxDistance this is the maximum distance to scan (may be limited
-     *     by server by at least 100 blocks, no less)
+     *                    by server by at least 100 blocks, no less)
      * @return list containing all blocks along the living entity's line of
-     *     sight
+     * sight
      */
     @NotNull
     public List<Block> getLineOfSight(@Nullable Set<Material> transparent, int maxDistance);
@@ -77,9 +74,9 @@ public interface LivingEntity extends Attributable, Damageable, ProjectileSource
      * FluidCollisionMode)}.
      *
      * @param transparent Set containing all transparent block Materials (set to
-     *     null for only air)
+     *                    null for only air)
      * @param maxDistance this is the maximum distance to scan (may be limited
-     *     by server by at least 100 blocks, no less)
+     *                    by server by at least 100 blocks, no less)
      * @return block that the living entity has targeted
      */
     @NotNull
@@ -92,11 +89,11 @@ public interface LivingEntity extends Attributable, Damageable, ProjectileSource
      * considers all blocks as 1x1x1 in size.
      *
      * @param transparent Set containing all transparent block Materials (set to
-     *     null for only air)
+     *                    null for only air)
      * @param maxDistance this is the maximum distance to scan. This may be
-     *     further limited by the server, but never to less than 100 blocks
+     *                    further limited by the server, but never to less than 100 blocks
      * @return list containing the last 2 blocks along the living entity's
-     *     line of sight
+     * line of sight
      */
     @NotNull
     public List<Block> getLastTwoTargetBlocks(@Nullable Set<Material> transparent, int maxDistance);
@@ -125,7 +122,7 @@ public interface LivingEntity extends Attributable, Damageable, ProjectileSource
      * This may cause loading of chunks! Some implementations may impose
      * artificial restrictions on the maximum distance.
      *
-     * @param maxDistance the maximum distance to scan
+     * @param maxDistance        the maximum distance to scan
      * @param fluidCollisionMode the fluid collision mode
      * @return block that the living entity has targeted
      * @see #rayTraceBlocks(double, FluidCollisionMode)
@@ -144,7 +141,7 @@ public interface LivingEntity extends Attributable, Damageable, ProjectileSource
      *
      * @param maxDistance the maximum distance to scan
      * @return information on the targeted block, or <code>null</code> if there
-     *     is no targeted block in range
+     * is no targeted block in range
      * @see #rayTraceBlocks(double, FluidCollisionMode)
      */
     @Nullable
@@ -158,10 +155,10 @@ public interface LivingEntity extends Attributable, Damageable, ProjectileSource
      * This may cause loading of chunks! Some implementations may impose
      * artificial restrictions on the maximum distance.
      *
-     * @param maxDistance the maximum distance to scan
+     * @param maxDistance        the maximum distance to scan
      * @param fluidCollisionMode the fluid collision mode
      * @return information on the targeted block, or <code>null</code> if there
-     *     is no targeted block in range
+     * is no targeted block in range
      * @see World#rayTraceBlocks(Location, Vector, double, FluidCollisionMode)
      */
     @Nullable
@@ -348,7 +345,7 @@ public interface LivingEntity extends Attributable, Damageable, ProjectileSource
      * PotionEffectType}.
      *
      * @param effect PotionEffect to be added
-     * @param force whether conflicting effects should be removed
+     * @param force  whether conflicting effects should be removed
      * @return whether the effect could be added
      * @deprecated no need to force since multiple effects of the same type are
      * now supported.
@@ -438,18 +435,18 @@ public interface LivingEntity extends Attributable, Damageable, ProjectileSource
     public EntityEquipment getEquipment();
 
     /**
-     * Sets whether or not the living entity can pick up items.
-     *
-     * @param pickup whether or not the living entity can pick up items
-     */
-    public void setCanPickupItems(boolean pickup);
-
-    /**
      * Gets if the living entity can pick up items.
      *
      * @return whether or not the living entity can pick up items
      */
     public boolean getCanPickupItems();
+
+    /**
+     * Sets whether or not the living entity can pick up items.
+     *
+     * @param pickup whether or not the living entity can pick up items
+     */
+    public void setCanPickupItems(boolean pickup);
 
     /**
      * Returns whether the entity is currently leashed.
@@ -481,6 +478,7 @@ public interface LivingEntity extends Attributable, Damageable, ProjectileSource
 
     /**
      * Checks to see if an entity is gliding, such as using an Elytra.
+     *
      * @return True if this entity is gliding.
      */
     public boolean isGliding();
@@ -489,6 +487,7 @@ public interface LivingEntity extends Attributable, Damageable, ProjectileSource
      * Makes entity start or stop gliding. This will work even if an Elytra
      * is not equipped, but will be reverted by the server immediately after
      * unless an event-cancelling mechanism is put in place.
+     *
      * @param gliding True if the entity is gliding.
      */
     public void setGliding(boolean gliding);
@@ -502,7 +501,7 @@ public interface LivingEntity extends Attributable, Damageable, ProjectileSource
 
     /**
      * Makes entity start or stop swimming.
-     *
+     * <p>
      * This may have unexpected results if the entity is not in water.
      *
      * @param swimming True if the entity is swimming.
@@ -542,7 +541,7 @@ public interface LivingEntity extends Attributable, Damageable, ProjectileSource
 
     /**
      * Sets whether an entity will have AI.
-     *
+     * <p>
      * The entity will be completely unable to move if it has no AI.
      *
      * @param ai whether the mob will have AI or not.
@@ -551,7 +550,7 @@ public interface LivingEntity extends Attributable, Damageable, ProjectileSource
 
     /**
      * Checks whether an entity has AI.
-     *
+     * <p>
      * The entity will be completely unable to move if it has no AI.
      *
      * @return true if the entity has AI, otherwise false.
@@ -560,7 +559,7 @@ public interface LivingEntity extends Attributable, Damageable, ProjectileSource
 
     /**
      * Makes this entity attack the given entity with a melee attack.
-     *
+     * <p>
      * Attack damage is calculated by the server from the attributes and
      * equipment of this mob, and knockback is applied to {@code target} as
      * appropriate.
@@ -571,7 +570,7 @@ public interface LivingEntity extends Attributable, Damageable, ProjectileSource
 
     /**
      * Makes this entity swing their main hand.
-     *
+     * <p>
      * This method does nothing if this entity does not have an animation for
      * swinging their main hand.
      */
@@ -579,7 +578,7 @@ public interface LivingEntity extends Attributable, Damageable, ProjectileSource
 
     /**
      * Makes this entity swing their off hand.
-     *
+     * <p>
      * This method does nothing if this entity does not have an animation for
      * swinging their off hand.
      */
@@ -589,28 +588,10 @@ public interface LivingEntity extends Attributable, Damageable, ProjectileSource
      * Makes this entity flash red as if they were damaged.
      *
      * @param yaw The direction the damage is coming from in relation to the
-     * entity, where 0 is in front of the player, 90 is to the right, 180 is
-     * behind, and 270 is to the left
+     *            entity, where 0 is in front of the player, 90 is to the right, 180 is
+     *            behind, and 270 is to the left
      */
     public void playHurtAnimation(float yaw);
-
-    /**
-     * Set if this entity will be subject to collisions with other entities.
-     * <p>
-     * Exemptions to this rule can be managed with
-     * {@link #getCollidableExemptions()}
-     * <p>
-     * Note that the client may predict the collision between itself and another
-     * entity, resulting in this flag not working for player collisions. This
-     * method should therefore only be used to set the collision status of
-     * non-player entities.
-     * <p>
-     * To control player collisions, use {@link Team.Option#COLLISION_RULE} in
-     * combination with a {@link Scoreboard} and a {@link Team}.
-     *
-     * @param collidable collision status
-     */
-    void setCollidable(boolean collidable);
 
     /**
      * Gets if this entity is subject to collisions with other entities.
@@ -634,6 +615,24 @@ public interface LivingEntity extends Attributable, Damageable, ProjectileSource
      * @return collision status
      */
     boolean isCollidable();
+
+    /**
+     * Set if this entity will be subject to collisions with other entities.
+     * <p>
+     * Exemptions to this rule can be managed with
+     * {@link #getCollidableExemptions()}
+     * <p>
+     * Note that the client may predict the collision between itself and another
+     * entity, resulting in this flag not working for player collisions. This
+     * method should therefore only be used to set the collision status of
+     * non-player entities.
+     * <p>
+     * To control player collisions, use {@link Team.Option#COLLISION_RULE} in
+     * combination with a {@link Scoreboard} and a {@link Team}.
+     *
+     * @param collidable collision status
+     */
+    void setCollidable(boolean collidable);
 
     /**
      * Gets a mutable set of UUIDs of the entities which are exempt from the
@@ -668,7 +667,7 @@ public interface LivingEntity extends Attributable, Damageable, ProjectileSource
      * value by default.
      *
      * @param memoryKey memory to access
-     * @param <T> the type of the return value
+     * @param <T>       the type of the return value
      * @return a instance of the memory section value or null if not present
      */
     @Nullable
@@ -680,9 +679,9 @@ public interface LivingEntity extends Attributable, Damageable, ProjectileSource
      * Note that the value will not be persisted when the specific entity does
      * not have that value by default.
      *
-     * @param memoryKey the memory to access
+     * @param memoryKey   the memory to access
      * @param memoryValue a typed memory value
-     * @param <T> the type of the passed value
+     * @param <T>         the type of the passed value
      */
     <T> void setMemory(@NotNull MemoryKey<T> memoryKey, @Nullable T memoryValue);
 
@@ -763,7 +762,7 @@ public interface LivingEntity extends Attributable, Damageable, ProjectileSource
 
     /**
      * Get the category to which this entity belongs.
-     *
+     * <p>
      * Categories may subject this entity to additional effects, benefits or
      * debuffs.
      *
@@ -775,16 +774,16 @@ public interface LivingEntity extends Attributable, Damageable, ProjectileSource
     public EntityCategory getCategory();
 
     /**
-     * Sets whether the entity is invisible or not.
-     *
-     * @param invisible If the entity is invisible
-     */
-    public void setInvisible(boolean invisible);
-
-    /**
      * Gets whether the entity is invisible or not.
      *
      * @return Whether the entity is invisible
      */
     public boolean isInvisible();
+
+    /**
+     * Sets whether the entity is invisible or not.
+     *
+     * @param invisible If the entity is invisible
+     */
+    public void setInvisible(boolean invisible);
 }

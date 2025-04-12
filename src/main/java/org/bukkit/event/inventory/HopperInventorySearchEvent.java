@@ -14,25 +14,9 @@ import org.jetbrains.annotations.Nullable;
 public class HopperInventorySearchEvent extends BlockEvent {
 
     private static final HandlerList handlers = new HandlerList();
-    private Inventory inventory;
     private final ContainerType containerType;
     private final Block searchBlock;
-
-    public enum ContainerType {
-
-        /**
-         * The source container the hopper is looking for.
-         *
-         * This is the Inventory above the Hopper where it extracts items from.
-         */
-        SOURCE,
-        /**
-         * The container the hopper is attached to.
-         *
-         * This is the Inventory the Hopper pushes items into.
-         */
-        DESTINATION;
-    }
+    private Inventory inventory;
 
     public HopperInventorySearchEvent(@NotNull Inventory inventory, @NotNull ContainerType containerType, @NotNull Block hopper, @NotNull Block searchBlock) {
         super(hopper);
@@ -41,14 +25,9 @@ public class HopperInventorySearchEvent extends BlockEvent {
         this.searchBlock = searchBlock;
     }
 
-    /**
-     * Set the {@link Inventory} that the Hopper will use for its
-     * source/attached Container.
-     *
-     * @param inventory the inventory to use
-     */
-    public void setInventory(@Nullable Inventory inventory) {
-        this.inventory = inventory;
+    @NotNull
+    public static HandlerList getHandlerList() {
+        return handlers;
     }
 
     /**
@@ -60,6 +39,16 @@ public class HopperInventorySearchEvent extends BlockEvent {
     @Nullable
     public Inventory getInventory() {
         return inventory;
+    }
+
+    /**
+     * Set the {@link Inventory} that the Hopper will use for its
+     * source/attached Container.
+     *
+     * @param inventory the inventory to use
+     */
+    public void setInventory(@Nullable Inventory inventory) {
+        this.inventory = inventory;
     }
 
     /**
@@ -88,8 +77,19 @@ public class HopperInventorySearchEvent extends BlockEvent {
         return handlers;
     }
 
-    @NotNull
-    public static HandlerList getHandlerList() {
-        return handlers;
+    public enum ContainerType {
+
+        /**
+         * The source container the hopper is looking for.
+         * <p>
+         * This is the Inventory above the Hopper where it extracts items from.
+         */
+        SOURCE,
+        /**
+         * The container the hopper is attached to.
+         * <p>
+         * This is the Inventory the Hopper pushes items into.
+         */
+        DESTINATION;
     }
 }

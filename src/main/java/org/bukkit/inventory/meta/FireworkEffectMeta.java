@@ -12,13 +12,6 @@ import org.jetbrains.annotations.Nullable;
 public interface FireworkEffectMeta extends ItemMeta {
 
     /**
-     * Sets the firework effect for this meta.
-     *
-     * @param effect the effect to set, or null to indicate none.
-     */
-    void setEffect(@Nullable FireworkEffect effect);
-
-    /**
      * Checks if this meta has an effect.
      *
      * @return true if this meta has an effect, false otherwise
@@ -32,6 +25,13 @@ public interface FireworkEffectMeta extends ItemMeta {
      */
     @Nullable
     FireworkEffect getEffect();
+
+    /**
+     * Sets the firework effect for this meta.
+     *
+     * @param effect the effect to set, or null to indicate none.
+     */
+    void setEffect(@Nullable FireworkEffect effect);
 
     @Override
     @NotNull

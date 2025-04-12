@@ -1,9 +1,9 @@
 package org.bukkit.map;
 
-import java.awt.Color;
-import java.awt.Image;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
+
+import java.awt.*;
 
 /**
  * Represents a canvas for drawing to a map. Each canvas is associated with a
@@ -44,19 +44,19 @@ public interface MapCanvas {
      * which is in the map color range. This means, that
      * {@link #getPixelColor(int, int)} might return another
      * color than set.
-     *
+     * <p>
      * If null is used as color, then the color returned by
      * {@link #getBasePixelColor(int, int)} is shown on the map.
      *
-     * @param x The x coordinate, from 0 to 127.
-     * @param y The y coordinate, from 0 to 127.
+     * @param x     The x coordinate, from 0 to 127.
+     * @param y     The y coordinate, from 0 to 127.
      * @param color The color.
      */
     void setPixelColor(int x, int y, @Nullable Color color);
 
     /**
      * Get a pixel from the canvas.
-     *
+     * <p>
      * If no color is set at the given position for this canvas, then null is
      * returned and the color returned by {@link #getBasePixelColor(int, int)}
      * is shown on the map.
@@ -81,8 +81,8 @@ public interface MapCanvas {
     /**
      * Draw a pixel to the canvas.
      *
-     * @param x The x coordinate, from 0 to 127.
-     * @param y The y coordinate, from 0 to 127.
+     * @param x     The x coordinate, from 0 to 127.
+     * @param y     The y coordinate, from 0 to 127.
      * @param color The color. See {@link MapPalette}.
      * @deprecated Magic value, use {@link #setPixelColor(int, int, Color)}
      */
@@ -114,8 +114,8 @@ public interface MapCanvas {
     /**
      * Draw an image to the map. The image will be clipped if necessary.
      *
-     * @param x The x coordinate of the image.
-     * @param y The y coordinate of the image.
+     * @param x     The x coordinate of the image.
+     * @param y     The y coordinate of the image.
      * @param image The Image to draw.
      */
     public void drawImage(int x, int y, @NotNull Image image);
@@ -126,8 +126,8 @@ public interface MapCanvas {
      * color can be changed using sequences such as "§12;", replacing 12 with
      * the palette index of the color (see {@link MapPalette}).
      *
-     * @param x The column to start rendering on.
-     * @param y The row to start rendering on.
+     * @param x    The column to start rendering on.
+     * @param y    The row to start rendering on.
      * @param font The font to use.
      * @param text The formatted text to render.
      */

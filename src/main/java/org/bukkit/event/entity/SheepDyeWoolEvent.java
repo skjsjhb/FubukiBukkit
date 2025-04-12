@@ -13,9 +13,9 @@ import org.jetbrains.annotations.Nullable;
  */
 public class SheepDyeWoolEvent extends EntityEvent implements Cancellable {
     private static final HandlerList handlers = new HandlerList();
+    private final Player player;
     private boolean cancel;
     private DyeColor color;
-    private final Player player;
 
     @Deprecated(since = "1.17.1")
     public SheepDyeWoolEvent(@NotNull final Sheep sheep, @NotNull final DyeColor color) {
@@ -27,6 +27,11 @@ public class SheepDyeWoolEvent extends EntityEvent implements Cancellable {
         this.cancel = false;
         this.color = color;
         this.player = player;
+    }
+
+    @NotNull
+    public static HandlerList getHandlerList() {
+        return handlers;
     }
 
     @Override
@@ -77,11 +82,6 @@ public class SheepDyeWoolEvent extends EntityEvent implements Cancellable {
     @NotNull
     @Override
     public HandlerList getHandlers() {
-        return handlers;
-    }
-
-    @NotNull
-    public static HandlerList getHandlerList() {
         return handlers;
     }
 

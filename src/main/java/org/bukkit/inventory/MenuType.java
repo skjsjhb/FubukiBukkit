@@ -4,16 +4,7 @@ import org.bukkit.Keyed;
 import org.bukkit.NamespacedKey;
 import org.bukkit.Registry;
 import org.bukkit.entity.HumanEntity;
-import org.bukkit.inventory.view.AnvilView;
-import org.bukkit.inventory.view.BeaconView;
-import org.bukkit.inventory.view.BrewingStandView;
-import org.bukkit.inventory.view.CrafterView;
-import org.bukkit.inventory.view.EnchantmentView;
-import org.bukkit.inventory.view.FurnaceView;
-import org.bukkit.inventory.view.LecternView;
-import org.bukkit.inventory.view.LoomView;
-import org.bukkit.inventory.view.MerchantView;
-import org.bukkit.inventory.view.StonecutterView;
+import org.bukkit.inventory.view.*;
 import org.bukkit.inventory.view.builder.InventoryViewBuilder;
 import org.bukkit.inventory.view.builder.LocationInventoryViewBuilder;
 import org.bukkit.inventory.view.builder.MerchantInventoryViewBuilder;
@@ -130,38 +121,9 @@ public interface MenuType extends Keyed, RegistryAware {
      */
     MenuType.Typed<StonecutterView, LocationInventoryViewBuilder<StonecutterView>> STONECUTTER = get("stonecutter");
 
-    /**
-     * Typed represents a subtype of {@link MenuType}s that have a known
-     * {@link InventoryView} type at compile time.
-     *
-     * @param <V> the generic type of {@link InventoryView} that represents the
-     * view type.
-     * @param <B> the builder type of {@link InventoryViewBuilder} that
-     * represents the view builder.
-     */
-    interface Typed<V extends InventoryView, B extends InventoryViewBuilder<V>> extends MenuType {
-
-        /**
-         * Creates a view of the specified menu type.
-         * <p>
-         * The player provided to create this view must be the player the view
-         * is opened for. See {@link HumanEntity#openInventory(InventoryView)}
-         * for more information.
-         *
-         * @param player the player the view belongs to
-         * @param title the title of the view
-         * @return the created {@link InventoryView}
-         */
-        @NotNull
-        V create(@NotNull HumanEntity player, @NotNull String title);
-
-        /**
-         * Creates a builder for this type of InventoryView.
-         *
-         * @return the new builder
-         */
-        @NotNull
-        B builder();
+    @NotNull
+    private static <T extends MenuType> T get(@NotNull final String key) {
+        return (T) Registry.MENU.getOrThrow(NamespacedKey.minecraft(key));
     }
 
     /**
@@ -178,14 +140,14 @@ public interface MenuType extends Keyed, RegistryAware {
      * {@link InventoryView} representing it.
      *
      * @param viewClass the class type of the {@link InventoryView} to type this
-     * {@link InventoryView} with.
-     * @param <V> the generic type of the InventoryView to get this MenuType
-     * with
-     * @param <B> the generic type of the InventoryViewBuilder to get this
-     * MenuType with
+     *                  {@link InventoryView} with.
+     * @param <V>       the generic type of the InventoryView to get this MenuType
+     *                  with
+     * @param <B>       the generic type of the InventoryViewBuilder to get this
+     *                  MenuType with
      * @return the typed MenuType
      * @throws IllegalArgumentException if the provided viewClass cannot be
-     * typed to this MenuType
+     *                                  typed to this MenuType
      */
     @NotNull
     <V extends InventoryView, B extends InventoryViewBuilder<V>> MenuType.Typed<V, B> typed(@NotNull final Class<V> viewClass) throws IllegalArgumentException;
@@ -210,8 +172,37 @@ public interface MenuType extends Keyed, RegistryAware {
     @Deprecated(since = "1.21.4")
     NamespacedKey getKey();
 
-    @NotNull
-    private static <T extends MenuType> T get(@NotNull final String key) {
-        return (T) Registry.MENU.getOrThrow(NamespacedKey.minecraft(key));
+    /**
+     * Typed represents a subtype of {@link MenuType}s that have a known
+     * {@link InventoryView} type at compile time.
+     *
+     * @param <V> the generic type of {@link InventoryView} that represents the
+     *            view type.
+     * @param <B> the builder type of {@link InventoryViewBuilder} that
+     *            represents the view builder.
+     */
+    interface Typed<V extends InventoryView, B extends InventoryViewBuilder<V>> extends MenuType {
+
+        /**
+         * Creates a view of the specified menu type.
+         * <p>
+         * The player provided to create this view must be the player the view
+         * is opened for. See {@link HumanEntity#openInventory(InventoryView)}
+         * for more information.
+         *
+         * @param player the player the view belongs to
+         * @param title  the title of the view
+         * @return the created {@link InventoryView}
+         */
+        @NotNull
+        V create(@NotNull HumanEntity player, @NotNull String title);
+
+        /**
+         * Creates a builder for this type of InventoryView.
+         *
+         * @return the new builder
+         */
+        @NotNull
+        B builder();
     }
 }

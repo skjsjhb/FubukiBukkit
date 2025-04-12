@@ -49,21 +49,8 @@ public class BlockBreakEvent extends BlockExpEvent implements Cancellable {
     }
 
     /**
-     * Sets whether or not the block will attempt to drop items as it normally
-     * would.
-     *
-     * If and only if this is false then {@link BlockDropItemEvent} will not be
-     * called after this event.
-     *
-     * @param dropItems Whether or not the block will attempt to drop items
-     */
-    public void setDropItems(boolean dropItems) {
-        this.dropItems = dropItems;
-    }
-
-    /**
      * Gets whether or not the block will attempt to drop items.
-     *
+     * <p>
      * If and only if this is false then {@link BlockDropItemEvent} will not be
      * called after this event.
      *
@@ -71,6 +58,19 @@ public class BlockBreakEvent extends BlockExpEvent implements Cancellable {
      */
     public boolean isDropItems() {
         return this.dropItems;
+    }
+
+    /**
+     * Sets whether or not the block will attempt to drop items as it normally
+     * would.
+     * <p>
+     * If and only if this is false then {@link BlockDropItemEvent} will not be
+     * called after this event.
+     *
+     * @param dropItems Whether or not the block will attempt to drop items
+     */
+    public void setDropItems(boolean dropItems) {
+        this.dropItems = dropItems;
     }
 
     @Override

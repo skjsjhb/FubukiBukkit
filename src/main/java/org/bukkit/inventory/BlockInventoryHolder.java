@@ -14,7 +14,7 @@ public interface BlockInventoryHolder extends InventoryHolder {
      *
      * @return the block associated with this holder
      * @throws IllegalStateException if the holder is a block state and is not
-     * placed
+     *                               placed
      */
     @NotNull
     Block getBlock();

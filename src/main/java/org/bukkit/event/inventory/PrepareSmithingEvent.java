@@ -19,6 +19,11 @@ public class PrepareSmithingEvent extends PrepareInventoryResultEvent {
     }
 
     @NotNull
+    public static HandlerList getHandlerList() {
+        return handlers;
+    }
+
+    @NotNull
     @Override
     public SmithingInventory getInventory() {
         return (SmithingInventory) super.getInventory();
@@ -27,11 +32,6 @@ public class PrepareSmithingEvent extends PrepareInventoryResultEvent {
     @NotNull
     @Override
     public HandlerList getHandlers() {
-        return handlers;
-    }
-
-    @NotNull
-    public static HandlerList getHandlerList() {
         return handlers;
     }
 }

@@ -5,7 +5,7 @@ import org.jetbrains.annotations.NotNull;
 
 /**
  * Advancements are displayed in different ways depending on their display type.
- *
+ * <p>
  * This enum contains information about these types and how they are
  * represented.
  */

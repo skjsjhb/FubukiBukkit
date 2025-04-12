@@ -16,7 +16,7 @@ public class InactivityConversationCanceller implements ConversationCanceller {
     /**
      * Creates an InactivityConversationCanceller.
      *
-     * @param plugin The owning plugin.
+     * @param plugin         The owning plugin.
      * @param timeoutSeconds The number of seconds of inactivity to wait.
      */
     public InactivityConversationCanceller(@NotNull Plugin plugin, int timeoutSeconds) {

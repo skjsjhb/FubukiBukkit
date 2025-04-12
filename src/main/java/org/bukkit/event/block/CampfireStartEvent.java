@@ -21,6 +21,11 @@ public class CampfireStartEvent extends InventoryBlockStartEvent {
         this.campfireRecipe = recipe;
     }
 
+    @NotNull
+    public static HandlerList getHandlerList() {
+        return handlers;
+    }
+
     /**
      * Gets the CampfireRecipe associated with this event.
      *
@@ -52,11 +57,6 @@ public class CampfireStartEvent extends InventoryBlockStartEvent {
     @NotNull
     @Override
     public HandlerList getHandlers() {
-        return handlers;
-    }
-
-    @NotNull
-    public static HandlerList getHandlerList() {
         return handlers;
     }
 }

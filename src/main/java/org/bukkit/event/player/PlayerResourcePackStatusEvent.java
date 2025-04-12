@@ -1,9 +1,10 @@
 package org.bukkit.event.player;
 
-import java.util.UUID;
 import org.bukkit.entity.Player;
 import org.bukkit.event.HandlerList;
 import org.jetbrains.annotations.NotNull;
+
+import java.util.UUID;
 
 /**
  * Called when a player takes action on a resource pack request sent via
@@ -19,6 +20,11 @@ public class PlayerResourcePackStatusEvent extends PlayerEvent {
         super(who);
         this.id = id;
         this.status = resourcePackStatus;
+    }
+
+    @NotNull
+    public static HandlerList getHandlerList() {
+        return handlers;
     }
 
     /**
@@ -44,11 +50,6 @@ public class PlayerResourcePackStatusEvent extends PlayerEvent {
     @NotNull
     @Override
     public HandlerList getHandlers() {
-        return handlers;
-    }
-
-    @NotNull
-    public static HandlerList getHandlerList() {
         return handlers;
     }
 

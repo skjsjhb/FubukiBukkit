@@ -14,6 +14,11 @@ import org.jetbrains.annotations.Nullable;
 public final class DamageTypeTags {
 
     /**
+     * Internal use only.
+     */
+    @ApiStatus.Internal
+    public static final String REGISTRY_DAMAGE_TYPES = "damage_types";
+    /**
      * Vanilla tag representing damage types which damage helmets.
      */
     public static final Tag<DamageType> DAMAGES_HELMET = getTag("damages_helmet");
@@ -154,17 +159,12 @@ public final class DamageTypeTags {
      * Vanilla tag representing damage types which originate from mace smashes.
      */
     public static final Tag<DamageType> IS_MACE_SMASH = getTag("mace_smash");
-    /**
-     * Internal use only.
-     */
-    @ApiStatus.Internal
-    public static final String REGISTRY_DAMAGE_TYPES = "damage_types";
+
+    private DamageTypeTags() {
+    }
 
     @Nullable
     private static Tag<DamageType> getTag(String key) {
         return Bukkit.getTag(REGISTRY_DAMAGE_TYPES, NamespacedKey.minecraft(key), DamageType.class);
-    }
-
-    private DamageTypeTags() {
     }
 }

@@ -14,8 +14,8 @@ import org.jetbrains.annotations.Nullable;
  */
 public class BlockBurnEvent extends BlockEvent implements Cancellable {
     private static final HandlerList handlers = new HandlerList();
-    private boolean cancelled;
     private final Block ignitingBlock;
+    private boolean cancelled;
 
     @Deprecated(since = "1.11.2")
     public BlockBurnEvent(@NotNull final Block block) {
@@ -25,6 +25,11 @@ public class BlockBurnEvent extends BlockEvent implements Cancellable {
     public BlockBurnEvent(@NotNull final Block block, @Nullable final Block ignitingBlock) {
         super(block);
         this.ignitingBlock = ignitingBlock;
+    }
+
+    @NotNull
+    public static HandlerList getHandlerList() {
+        return handlers;
     }
 
     /**
@@ -51,11 +56,6 @@ public class BlockBurnEvent extends BlockEvent implements Cancellable {
     @NotNull
     @Override
     public HandlerList getHandlers() {
-        return handlers;
-    }
-
-    @NotNull
-    public static HandlerList getHandlerList() {
         return handlers;
     }
 }

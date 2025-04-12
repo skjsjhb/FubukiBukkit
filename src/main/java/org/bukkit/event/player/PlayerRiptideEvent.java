@@ -30,6 +30,11 @@ public class PlayerRiptideEvent extends PlayerEvent {
         this(who, item, new Vector());
     }
 
+    @NotNull
+    public static HandlerList getHandlerList() {
+        return handlers;
+    }
+
     /**
      * Gets the item containing the used enchantment.
      *
@@ -53,11 +58,6 @@ public class PlayerRiptideEvent extends PlayerEvent {
     @NotNull
     @Override
     public HandlerList getHandlers() {
-        return handlers;
-    }
-
-    @NotNull
-    public static HandlerList getHandlerList() {
         return handlers;
     }
 }

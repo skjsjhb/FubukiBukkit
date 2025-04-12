@@ -18,6 +18,11 @@ public class BlockRedstoneEvent extends BlockEvent {
         this.newCurrent = newCurrent;
     }
 
+    @NotNull
+    public static HandlerList getHandlerList() {
+        return handlers;
+    }
+
     /**
      * Gets the old current of this block
      *
@@ -48,11 +53,6 @@ public class BlockRedstoneEvent extends BlockEvent {
     @NotNull
     @Override
     public HandlerList getHandlers() {
-        return handlers;
-    }
-
-    @NotNull
-    public static HandlerList getHandlerList() {
         return handlers;
     }
 }

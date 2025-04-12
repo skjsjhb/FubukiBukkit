@@ -1,26 +1,16 @@
 package org.bukkit.materials;
 
-import static org.bukkit.support.MatcherAssert.*;
-import static org.hamcrest.Matchers.*;
 import org.bukkit.CropState;
 import org.bukkit.Material;
 import org.bukkit.NetherWartsState;
 import org.bukkit.TreeSpecies;
 import org.bukkit.block.BlockFace;
-import org.bukkit.material.Comparator;
-import org.bukkit.material.Crops;
-import org.bukkit.material.Diode;
-import org.bukkit.material.Door;
-import org.bukkit.material.Hopper;
-import org.bukkit.material.Leaves;
-import org.bukkit.material.Mushroom;
-import org.bukkit.material.NetherWarts;
-import org.bukkit.material.Sapling;
-import org.bukkit.material.Tree;
-import org.bukkit.material.Wood;
-import org.bukkit.material.WoodenStep;
+import org.bukkit.material.*;
 import org.bukkit.material.types.MushroomBlockTexture;
 import org.junit.jupiter.api.Test;
+
+import static org.bukkit.support.MatcherAssert.assertThat;
+import static org.hamcrest.Matchers.equalTo;
 
 public class MaterialDataTest {
 
@@ -34,9 +24,9 @@ public class MaterialDataTest {
         assertThat(door.isOpen(), equalTo(false), "Constructed with default open state");
 
         Material[] types = new Material[]{Material.LEGACY_WOODEN_DOOR,
-            Material.LEGACY_IRON_DOOR_BLOCK, Material.LEGACY_SPRUCE_DOOR,
-            Material.LEGACY_BIRCH_DOOR, Material.LEGACY_JUNGLE_DOOR,
-            Material.LEGACY_ACACIA_DOOR, Material.LEGACY_DARK_OAK_DOOR};
+                Material.LEGACY_IRON_DOOR_BLOCK, Material.LEGACY_SPRUCE_DOOR,
+                Material.LEGACY_BIRCH_DOOR, Material.LEGACY_JUNGLE_DOOR,
+                Material.LEGACY_ACACIA_DOOR, Material.LEGACY_DARK_OAK_DOOR};
         BlockFace[] directions = new BlockFace[]{BlockFace.WEST, BlockFace.NORTH, BlockFace.EAST, BlockFace.SOUTH};
         boolean[] openStates = new boolean[]{false, true};
         boolean[] hingeStates = new boolean[]{false, true};
@@ -109,8 +99,8 @@ public class MaterialDataTest {
 
         Material[] types = new Material[]{Material.LEGACY_LOG, Material.LEGACY_LOG_2};
         TreeSpecies[][] allSpecies = new TreeSpecies[][]{
-            {TreeSpecies.GENERIC, TreeSpecies.REDWOOD, TreeSpecies.BIRCH, TreeSpecies.JUNGLE},
-            {TreeSpecies.ACACIA, TreeSpecies.DARK_OAK}
+                {TreeSpecies.GENERIC, TreeSpecies.REDWOOD, TreeSpecies.BIRCH, TreeSpecies.JUNGLE},
+                {TreeSpecies.ACACIA, TreeSpecies.DARK_OAK}
         };
         BlockFace[] allDirections = new BlockFace[]{BlockFace.UP, BlockFace.WEST, BlockFace.NORTH, BlockFace.SELF};
         for (int t = 0; t < types.length; t++) {
@@ -151,8 +141,8 @@ public class MaterialDataTest {
 
         Material[] types = new Material[]{Material.LEGACY_LEAVES, Material.LEGACY_LEAVES_2};
         TreeSpecies[][] allSpecies = new TreeSpecies[][]{
-            {TreeSpecies.GENERIC, TreeSpecies.REDWOOD, TreeSpecies.BIRCH, TreeSpecies.JUNGLE},
-            {TreeSpecies.ACACIA, TreeSpecies.DARK_OAK}
+                {TreeSpecies.GENERIC, TreeSpecies.REDWOOD, TreeSpecies.BIRCH, TreeSpecies.JUNGLE},
+                {TreeSpecies.ACACIA, TreeSpecies.DARK_OAK}
         };
         boolean[] decayable = new boolean[]{true, false};
         boolean[] decaying = new boolean[]{true, false};
@@ -239,8 +229,8 @@ public class MaterialDataTest {
     public void testMushroom() {
         Material[] mushroomTypes = new Material[]{Material.LEGACY_HUGE_MUSHROOM_1, Material.LEGACY_HUGE_MUSHROOM_2};
         BlockFace[] setFaces = new BlockFace[]{BlockFace.SELF, BlockFace.UP, BlockFace.NORTH,
-            BlockFace.SOUTH, BlockFace.EAST, BlockFace.WEST, BlockFace.NORTH_EAST, BlockFace.NORTH_WEST,
-            BlockFace.SOUTH_EAST, BlockFace.SOUTH_WEST};
+                BlockFace.SOUTH, BlockFace.EAST, BlockFace.WEST, BlockFace.NORTH_EAST, BlockFace.NORTH_WEST,
+                BlockFace.SOUTH_EAST, BlockFace.SOUTH_WEST};
         MushroomBlockTexture[] textures = MushroomBlockTexture.values();
         for (Material type : mushroomTypes) {
             Mushroom mushroom = new Mushroom(type);

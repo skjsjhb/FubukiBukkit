@@ -1,9 +1,12 @@
 package org.bukkit.metadata;
 
-import static org.junit.jupiter.api.Assertions.*;
-import java.util.concurrent.Callable;
 import org.bukkit.plugin.TestPlugin;
 import org.junit.jupiter.api.Test;
+
+import java.util.concurrent.Callable;
+
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 public class LazyMetadataValueTest {
     private LazyMetadataValue subject;

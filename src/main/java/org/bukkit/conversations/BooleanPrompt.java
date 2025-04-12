@@ -1,10 +1,11 @@
 package org.bukkit.conversations;
 
 import com.google.common.collect.ImmutableSet;
-import java.util.Locale;
-import java.util.Set;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
+
+import java.util.Locale;
+import java.util.Set;
 
 /**
  * BooleanPrompt is the base class for any prompt that requires a boolean
@@ -36,7 +37,7 @@ public abstract class BooleanPrompt extends ValidatingPrompt {
      * response.
      *
      * @param context Context information about the conversation.
-     * @param input The user's boolean response.
+     * @param input   The user's boolean response.
      * @return The next {@link Prompt} in the prompt graph.
      */
     @Nullable

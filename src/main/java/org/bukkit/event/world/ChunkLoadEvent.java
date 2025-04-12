@@ -17,6 +17,11 @@ public class ChunkLoadEvent extends ChunkEvent {
         this.newChunk = newChunk;
     }
 
+    @NotNull
+    public static HandlerList getHandlerList() {
+        return handlers;
+    }
+
     /**
      * Gets if this chunk was newly created or not.
      * <p>
@@ -32,11 +37,6 @@ public class ChunkLoadEvent extends ChunkEvent {
     @NotNull
     @Override
     public HandlerList getHandlers() {
-        return handlers;
-    }
-
-    @NotNull
-    public static HandlerList getHandlerList() {
         return handlers;
     }
 }

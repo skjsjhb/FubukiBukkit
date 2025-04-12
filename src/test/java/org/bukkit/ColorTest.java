@@ -1,51 +1,26 @@
 package org.bukkit;
 
-import static org.bukkit.support.MatcherAssert.*;
-import static org.hamcrest.Matchers.*;
-import static org.junit.jupiter.api.Assertions.*;
-import java.util.Locale;
 import org.bukkit.configuration.file.YamlConfiguration;
 import org.junit.jupiter.api.Test;
 
+import java.util.Locale;
+
+import static org.bukkit.support.MatcherAssert.assertThat;
+import static org.hamcrest.Matchers.*;
+import static org.junit.jupiter.api.Assertions.assertThrows;
+
 @SuppressWarnings("javadoc")
 public class ColorTest {
-    static class TestColor {
-        static int id = 0;
-        final String name;
-        final int argb;
-        final int rgb;
-        final int bgr;
-        final int a;
-        final int r;
-        final int g;
-        final int b;
-
-        TestColor(int rgb, int bgr, int r, int g, int b) {
-            this((255 << 24 | r << 16 | g << 8 | b), rgb, bgr, 255, r, g, b);
-        }
-
-        TestColor(int argb, int rgb, int bgr, int a, int r, int g, int b) {
-            this.argb = argb;
-            this.rgb = rgb;
-            this.bgr = bgr;
-            this.a = a;
-            this.r = r;
-            this.g = g;
-            this.b = b;
-            this.name = id + ":" + Integer.toHexString(argb).toUpperCase(Locale.ROOT) + "_" + Integer.toHexString(rgb).toUpperCase(Locale.ROOT) + "_" + Integer.toHexString(bgr).toUpperCase(Locale.ROOT) + "-a" + Integer.toHexString(a).toUpperCase(Locale.ROOT) + "-r" + Integer.toHexString(r).toUpperCase(Locale.ROOT) + "-g" + Integer.toHexString(g).toUpperCase(Locale.ROOT) + "-b" + Integer.toHexString(b).toUpperCase(Locale.ROOT);
-        }
-    }
-
     static TestColor[] examples = new TestColor[]{
-        /*            0xRRGGBB, 0xBBGGRR, 0xRR, 0xGG, 0xBB */
-        new TestColor(0xFFFFFF, 0xFFFFFF, 0xFF, 0xFF, 0xFF),
-        new TestColor(0xFFFFAA, 0xAAFFFF, 0xFF, 0xFF, 0xAA),
-        new TestColor(0xFF00FF, 0xFF00FF, 0xFF, 0x00, 0xFF),
-        new TestColor(0x67FF22, 0x22FF67, 0x67, 0xFF, 0x22),
-        new TestColor(0x000000, 0x000000, 0x00, 0x00, 0x00),
-        /*            0xAARRGGBB, 0xRRGGBB, 0xBBGGRR, 0xAA, 0xRR, 0xGG, 0xBB */
-        new TestColor(0xFF559922, 0x559922, 0x229955, 0xFF, 0x55, 0x99, 0x22),
-        new TestColor(0x00000000, 0x000000, 0x000000, 0x00, 0x00, 0x00, 0x00)
+            /*            0xRRGGBB, 0xBBGGRR, 0xRR, 0xGG, 0xBB */
+            new TestColor(0xFFFFFF, 0xFFFFFF, 0xFF, 0xFF, 0xFF),
+            new TestColor(0xFFFFAA, 0xAAFFFF, 0xFF, 0xFF, 0xAA),
+            new TestColor(0xFF00FF, 0xFF00FF, 0xFF, 0x00, 0xFF),
+            new TestColor(0x67FF22, 0x22FF67, 0x67, 0xFF, 0x22),
+            new TestColor(0x000000, 0x000000, 0x00, 0x00, 0x00),
+            /*            0xAARRGGBB, 0xRRGGBB, 0xBBGGRR, 0xAA, 0xRR, 0xGG, 0xBB */
+            new TestColor(0xFF559922, 0x559922, 0x229955, 0xFF, 0x55, 0x99, 0x22),
+            new TestColor(0x00000000, 0x000000, 0x000000, 0x00, 0x00, 0x00, 0x00)
     };
 
     @Test
@@ -454,5 +429,32 @@ public class ColorTest {
     @Test
     public void testInvalidG12() {
         assertThrows(IllegalArgumentException.class, () -> Color.WHITE.setGreen(0x100));
+    }
+
+    static class TestColor {
+        static int id = 0;
+        final String name;
+        final int argb;
+        final int rgb;
+        final int bgr;
+        final int a;
+        final int r;
+        final int g;
+        final int b;
+
+        TestColor(int rgb, int bgr, int r, int g, int b) {
+            this((255 << 24 | r << 16 | g << 8 | b), rgb, bgr, 255, r, g, b);
+        }
+
+        TestColor(int argb, int rgb, int bgr, int a, int r, int g, int b) {
+            this.argb = argb;
+            this.rgb = rgb;
+            this.bgr = bgr;
+            this.a = a;
+            this.r = r;
+            this.g = g;
+            this.b = b;
+            this.name = id + ":" + Integer.toHexString(argb).toUpperCase(Locale.ROOT) + "_" + Integer.toHexString(rgb).toUpperCase(Locale.ROOT) + "_" + Integer.toHexString(bgr).toUpperCase(Locale.ROOT) + "-a" + Integer.toHexString(a).toUpperCase(Locale.ROOT) + "-r" + Integer.toHexString(r).toUpperCase(Locale.ROOT) + "-g" + Integer.toHexString(g).toUpperCase(Locale.ROOT) + "-b" + Integer.toHexString(b).toUpperCase(Locale.ROOT);
+        }
     }
 }

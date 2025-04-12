@@ -37,6 +37,11 @@ public class BlockIgniteEvent extends BlockEvent implements Cancellable {
         this.cancel = false;
     }
 
+    @NotNull
+    public static HandlerList getHandlerList() {
+        return handlers;
+    }
+
     @Override
     public boolean isCancelled() {
         return cancel;
@@ -91,6 +96,12 @@ public class BlockIgniteEvent extends BlockEvent implements Cancellable {
         return ignitingBlock;
     }
 
+    @NotNull
+    @Override
+    public HandlerList getHandlers() {
+        return handlers;
+    }
+
     /**
      * An enum to specify the cause of the ignite
      */
@@ -128,16 +139,5 @@ public class BlockIgniteEvent extends BlockEvent implements Cancellable {
          * Block ignition caused by a flaming arrow.
          */
         ARROW,
-    }
-
-    @NotNull
-    @Override
-    public HandlerList getHandlers() {
-        return handlers;
-    }
-
-    @NotNull
-    public static HandlerList getHandlerList() {
-        return handlers;
     }
 }

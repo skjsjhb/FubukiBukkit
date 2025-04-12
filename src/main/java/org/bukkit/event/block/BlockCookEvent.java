@@ -22,6 +22,11 @@ public class BlockCookEvent extends BlockEvent implements Cancellable {
         this.cancelled = false;
     }
 
+    @NotNull
+    public static HandlerList getHandlerList() {
+        return handlers;
+    }
+
     /**
      * Gets the smelted ItemStack for this event
      *
@@ -64,11 +69,6 @@ public class BlockCookEvent extends BlockEvent implements Cancellable {
     @NotNull
     @Override
     public HandlerList getHandlers() {
-        return handlers;
-    }
-
-    @NotNull
-    public static HandlerList getHandlerList() {
         return handlers;
     }
 }

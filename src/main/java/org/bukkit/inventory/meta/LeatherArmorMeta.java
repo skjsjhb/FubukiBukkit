@@ -26,7 +26,7 @@ public interface LeatherArmorMeta extends ItemMeta {
      * Sets the color of the armor.
      *
      * @param color the color to set. Setting it to null is equivalent to
-     *     setting it to {@link ItemFactory#getDefaultLeatherColor()}.
+     *              setting it to {@link ItemFactory#getDefaultLeatherColor()}.
      */
     void setColor(@Nullable Color color);
 

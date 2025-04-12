@@ -25,7 +25,7 @@ public interface FishHook extends Projectile {
      * Note that this is before applying lure.
      *
      * @param minWaitTime Minimum number of ticks one has to wait for a fish
-     * appearing
+     *                    appearing
      */
     public void setMinWaitTime(int minWaitTime);
 
@@ -46,7 +46,7 @@ public interface FishHook extends Projectile {
      * Note that this is before applying lure.
      *
      * @param maxWaitTime Maximum number of ticks one has to wait for a fish
-     * appearing
+     *                    appearing
      */
     public void setMaxWaitTime(int maxWaitTime);
 
@@ -82,7 +82,7 @@ public interface FishHook extends Projectile {
      * the fish will appear.
      *
      * @param minLureTime Minimum number of ticks one has to wait for a fish
-     * to bite
+     *                    to bite
      */
     public void setMinLureTime(int minLureTime);
 
@@ -109,7 +109,7 @@ public interface FishHook extends Projectile {
      * the fish will appear.
      *
      * @param maxLureTime Maximum number of ticks one has to wait for a fish
-     * to bite
+     *                    to bite
      */
     public void setMaxLureTime(int maxLureTime);
 
@@ -165,7 +165,7 @@ public interface FishHook extends Projectile {
     /**
      * Set both the minimum (default 0) and maximum (default 360) angle of where
      * a fish will appear after the wait time.
-     *
+     * <p>
      * 0 degrees is positive Z, 90 degrees is negative X.
      *
      * @param min minimum angle in degrees
@@ -195,7 +195,7 @@ public interface FishHook extends Projectile {
      * enchantment.
      *
      * @param applyLure Whether the lure enchantment should be applied to reduce
-     * the wait time
+     *                  the wait time
      */
     public void setApplyLure(boolean applyLure);
 
@@ -219,7 +219,7 @@ public interface FishHook extends Projectile {
      *
      * @param chance the bite chance
      * @throws IllegalArgumentException if the bite chance is not between 0
-     *     and 1
+     *                                  and 1
      * @deprecated has no effect in newer Minecraft versions
      */
     @Deprecated(since = "1.9.2")
@@ -260,7 +260,7 @@ public interface FishHook extends Projectile {
 
     /**
      * Whether or not wait and lure time will be impacted by direct sky access.
-     *
+     * <p>
      * True by default, causes a 50% time increase on average.
      *
      * @return skylight access influences catch rate
@@ -270,7 +270,7 @@ public interface FishHook extends Projectile {
     /**
      * Set whether or not wait and lure time will be impacted by direct sky
      * access.
-     *
+     * <p>
      * True by default, causes a 50% time increase on average.
      *
      * @param skyInfluenced if this hook is influenced by skylight access
@@ -279,7 +279,7 @@ public interface FishHook extends Projectile {
 
     /**
      * Whether or not wait and lure time will be impacted by rain.
-     *
+     * <p>
      * True by default, causes a 25% time decrease on average.
      *
      * @return rain influences catch rate
@@ -288,7 +288,7 @@ public interface FishHook extends Projectile {
 
     /**
      * Set whether or not wait and lure time will be impacted by rain.
-     *
+     * <p>
      * True by default, causes a 25% time decrease on average.
      *
      * @param rainInfluenced if this hook is influenced by rain

@@ -1,12 +1,6 @@
 package org.bukkit.block;
 
-import java.util.Collection;
-import org.bukkit.Chunk;
-import org.bukkit.FluidCollisionMode;
-import org.bukkit.Location;
-import org.bukkit.Material;
-import org.bukkit.Translatable;
-import org.bukkit.World;
+import org.bukkit.*;
 import org.bukkit.block.data.Bisected;
 import org.bukkit.block.data.BlockData;
 import org.bukkit.entity.Entity;
@@ -20,6 +14,8 @@ import org.bukkit.util.VoxelShape;
 import org.jetbrains.annotations.Contract;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
+
+import java.util.Collection;
 
 /**
  * Represents a block. This is a live object, and only one Block may exist for
@@ -50,6 +46,13 @@ public interface Block extends Metadatable, Translatable {
      */
     @NotNull
     BlockData getBlockData();
+
+    /**
+     * Sets the complete data for this block
+     *
+     * @param data new block specific data
+     */
+    void setBlockData(@NotNull BlockData data);
 
     /**
      * Gets the block at the given offsets
@@ -86,7 +89,7 @@ public interface Block extends Metadatable, Translatable {
      * shower.setType(Material.WATER);
      * </pre>
      *
-     * @param face Face of this block to return
+     * @param face     Face of this block to return
      * @param distance Distance to get the block at
      * @return Block at the given face
      */
@@ -100,6 +103,13 @@ public interface Block extends Metadatable, Translatable {
      */
     @NotNull
     Material getType();
+
+    /**
+     * Sets the type of this block
+     *
+     * @param type Material to change this block to
+     */
+    void setType(@NotNull Material type);
 
     /**
      * Gets the light level between 0-15
@@ -188,13 +198,6 @@ public interface Block extends Metadatable, Translatable {
     /**
      * Sets the complete data for this block
      *
-     * @param data new block specific data
-     */
-    void setBlockData(@NotNull BlockData data);
-
-    /**
-     * Sets the complete data for this block
-     *
      * <br>
      * Note that applyPhysics = false is not in general safe. It should only be
      * used when you need to avoid triggering a physics update of neighboring
@@ -208,7 +211,7 @@ public interface Block extends Metadatable, Translatable {
      * triggered at a later point. If this occurs, the resulting behavior is
      * undefined.
      *
-     * @param data new block specific data
+     * @param data         new block specific data
      * @param applyPhysics false to cancel physics from the changed block
      */
     void setBlockData(@NotNull BlockData data, boolean applyPhysics);
@@ -216,13 +219,6 @@ public interface Block extends Metadatable, Translatable {
     /**
      * Sets the type of this block
      *
-     * @param type Material to change this block to
-     */
-    void setType(@NotNull Material type);
-
-    /**
-     * Sets the type of this block
-     *
      * <br>
      * Note that applyPhysics = false is not in general safe. It should only be
      * used when you need to avoid triggering a physics update of neighboring
@@ -236,7 +232,7 @@ public interface Block extends Metadatable, Translatable {
      * triggered at a later point. If this occurs, the resulting behavior is
      * undefined.
      *
-     * @param type Material to change this block to
+     * @param type         Material to change this block to
      * @param applyPhysics False to cancel physics on the changed block.
      */
     void setType(@NotNull Material type, boolean applyPhysics);
@@ -321,7 +317,7 @@ public interface Block extends Metadatable, Translatable {
      * Returns the redstone power being provided to this block face
      *
      * @param face the face of the block to query or BlockFace.SELF for the
-     *     block itself
+     *             block itself
      * @return The power level.
      */
     int getBlockPower(@NotNull BlockFace face);
@@ -399,7 +395,6 @@ public interface Block extends Metadatable, Translatable {
      * Simulate bone meal application to this block (if possible).
      *
      * @param face the face on which bonemeal should be applied
-     *
      * @return true if the block was bonemealed, false otherwise
      */
     boolean applyBoneMeal(@NotNull BlockFace face);
@@ -426,7 +421,7 @@ public interface Block extends Metadatable, Translatable {
      * Returns a list of items which would drop by the entity destroying this
      * block with a specific tool
      *
-     * @param tool The tool or item in hand used for digging
+     * @param tool   The tool or item in hand used for digging
      * @param entity the entity destroying the block
      * @return a list of dropped items for this type of block
      */
@@ -435,7 +430,7 @@ public interface Block extends Metadatable, Translatable {
 
     /**
      * Returns if the given item is a preferred choice to break this Block.
-     *
+     * <p>
      * In some cases this determines if a block will drop anything or extra
      * loot.
      *
@@ -448,7 +443,7 @@ public interface Block extends Metadatable, Translatable {
      * Gets the speed at which the given player would break this block, taking
      * into account tools, potion effects, whether or not the player is in
      * water, enchantments, etc.
-     *
+     * <p>
      * The returned value is the amount of progress made in breaking the block
      * each tick. When the total breaking progress reaches {@code 1.0f}, the
      * block is broken. Note that the break speed can change in the course of
@@ -478,9 +473,9 @@ public interface Block extends Metadatable, Translatable {
      * Performs a ray trace that checks for collision with this specific block
      * in its current state using its precise collision shape.
      *
-     * @param start the start location
-     * @param direction the ray direction
-     * @param maxDistance the maximum distance
+     * @param start              the start location
+     * @param direction          the ray direction
+     * @param maxDistance        the maximum distance
      * @param fluidCollisionMode the fluid collision mode
      * @return the ray trace hit result, or <code>null</code> if there is no hit
      */
@@ -492,10 +487,10 @@ public interface Block extends Metadatable, Translatable {
      * <p>
      * This isn't exact as some blocks {@link org.bukkit.block.data.type.Stairs}
      * contain many bounding boxes to establish their complete form.
-     *
+     * <p>
      * Also, the box may not be exactly the same as the collision shape (such as
      * cactus, which is 16/16 of a block with 15/16 collisional bounds).
-     *
+     * <p>
      * This method will return an empty bounding box if the geometric shape of
      * the block is empty (such as air blocks).
      *

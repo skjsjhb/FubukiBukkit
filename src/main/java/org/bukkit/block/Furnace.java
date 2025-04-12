@@ -1,9 +1,10 @@
 package org.bukkit.block;
 
-import java.util.Map;
 import org.bukkit.inventory.CookingRecipe;
 import org.bukkit.inventory.FurnaceInventory;
 import org.jetbrains.annotations.NotNull;
+
+import java.util.Map;
 
 /**
  * Represents a captured state of a furnace.
@@ -19,7 +20,7 @@ public interface Furnace extends Container {
 
     /**
      * Set burn time.
-     *
+     * <p>
      * A burn time greater than 0 will cause this block to be lit, whilst a time
      * less than 0 will extinguish it.
      *
@@ -29,7 +30,7 @@ public interface Furnace extends Container {
 
     /**
      * Get cook time.
-     *
+     * <p>
      * This is the amount of time the item has been cooking for.
      *
      * @return Cook time
@@ -38,7 +39,7 @@ public interface Furnace extends Container {
 
     /**
      * Set cook time.
-     *
+     * <p>
      * This is the amount of time the item has been cooking for.
      *
      * @param cookTime Cook time
@@ -47,7 +48,7 @@ public interface Furnace extends Container {
 
     /**
      * Get cook time total.
-     *
+     * <p>
      * This is the amount of time the item is required to cook for.
      *
      * @return Cook time total
@@ -56,7 +57,7 @@ public interface Furnace extends Container {
 
     /**
      * Set cook time.
-     *
+     * <p>
      * This is the amount of time the item is required to cook for.
      *
      * @param cookTimeTotal Cook time total

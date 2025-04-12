@@ -1,13 +1,15 @@
 package org.bukkit;
 
-import static org.bukkit.support.MatcherAssert.*;
-import static org.hamcrest.Matchers.*;
-import java.lang.reflect.Method;
-import java.lang.reflect.Modifier;
-import java.util.stream.Stream;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.Arguments;
 import org.junit.jupiter.params.provider.MethodSource;
+
+import java.lang.reflect.Method;
+import java.lang.reflect.Modifier;
+import java.util.stream.Stream;
+
+import static org.bukkit.support.MatcherAssert.assertThat;
+import static org.hamcrest.Matchers.is;
 
 public class BukkitMirrorTest {
 

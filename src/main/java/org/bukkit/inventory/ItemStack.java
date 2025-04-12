@@ -2,15 +2,7 @@ package org.bukkit.inventory;
 
 import com.google.common.base.Preconditions;
 import com.google.common.collect.ImmutableMap;
-import java.util.LinkedHashMap;
-import java.util.Locale;
-import java.util.Map;
-import org.bukkit.Bukkit;
-import org.bukkit.Material;
-import org.bukkit.NamespacedKey;
-import org.bukkit.Registry;
-import org.bukkit.Translatable;
-import org.bukkit.Utility;
+import org.bukkit.*;
 import org.bukkit.configuration.serialization.ConfigurationSerializable;
 import org.bukkit.enchantments.Enchantment;
 import org.bukkit.inventory.meta.Damageable;
@@ -18,6 +10,10 @@ import org.bukkit.inventory.meta.ItemMeta;
 import org.bukkit.material.MaterialData;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
+
+import java.util.LinkedHashMap;
+import java.util.Locale;
+import java.util.Map;
 
 /**
  * Represents a stack of items.
@@ -33,7 +29,8 @@ public class ItemStack implements Cloneable, ConfigurationSerializable, Translat
     private ItemMeta meta;
 
     @Utility
-    protected ItemStack() {}
+    protected ItemStack() {
+    }
 
     /**
      * Defaults stack size to 1, with no extra data.
@@ -55,7 +52,7 @@ public class ItemStack implements Cloneable, ConfigurationSerializable, Translat
      * <i>items</i>. Do not use this class to encapsulate Materials for which
      * {@link Material#isItem()} returns false.</b>
      *
-     * @param type item material
+     * @param type   item material
      * @param amount stack size
      */
     public ItemStack(@NotNull final Material type, final int amount) {
@@ -65,7 +62,7 @@ public class ItemStack implements Cloneable, ConfigurationSerializable, Translat
     /**
      * An item stack with the specified damage / durability
      *
-     * @param type item material
+     * @param type   item material
      * @param amount stack size
      * @param damage durability / damage
      * @deprecated see {@link #setDurability(short)}
@@ -76,10 +73,10 @@ public class ItemStack implements Cloneable, ConfigurationSerializable, Translat
     }
 
     /**
-     * @param type the type
+     * @param type   the type
      * @param amount the amount in the stack
      * @param damage the damage value of the item
-     * @param data the data value or null
+     * @param data   the data value or null
      * @deprecated this method uses an ambiguous data byte object
      */
     @Deprecated(since = "1.4.5")
@@ -107,7 +104,7 @@ public class ItemStack implements Cloneable, ConfigurationSerializable, Translat
      *
      * @param stack the stack to copy
      * @throws IllegalArgumentException if the specified stack is null or
-     *     returns an item meta not created by the item factory
+     *                                  returns an item meta not created by the item factory
      */
     public ItemStack(@NotNull final ItemStack stack) throws IllegalArgumentException {
         Preconditions.checkArgument(stack != null, "Cannot copy null stack");
@@ -119,6 +116,80 @@ public class ItemStack implements Cloneable, ConfigurationSerializable, Translat
         if (stack.hasItemMeta()) {
             setItemMeta0(stack.getItemMeta(), type);
         }
+    }
+
+    /**
+     * Required method for configuration serialization
+     *
+     * @param args map to deserialize
+     * @return deserialized item stack
+     * @see ConfigurationSerializable
+     */
+    @NotNull
+    public static ItemStack deserialize(@NotNull Map<String, Object> args) {
+        int version = (args.containsKey("v")) ? ((Number) args.get("v")).intValue() : -1;
+        short damage = 0;
+        int amount = 1;
+
+        if (args.containsKey("damage")) {
+            damage = ((Number) args.get("damage")).shortValue();
+        }
+
+        Material type;
+        if (version < 0) {
+            type = Material.getMaterial(Material.LEGACY_PREFIX + (String) args.get("type"));
+
+            byte dataVal = (type != null && type.getMaxDurability() == 0) ? (byte) damage : 0; // Actually durable items get a 0 passed into conversion
+            type = Bukkit.getUnsafe().fromLegacy(new MaterialData(type, dataVal), true);
+
+            // We've converted now so the data val isn't a thing and can be reset
+            if (dataVal != 0) {
+                damage = 0;
+            }
+        } else {
+            type = Bukkit.getUnsafe().getMaterial((String) args.get("type"), version);
+        }
+
+        if (args.containsKey("amount")) {
+            amount = ((Number) args.get("amount")).intValue();
+        }
+
+        ItemStack result = new ItemStack(type, amount, damage);
+
+        if (args.containsKey("enchantments")) { // Backward compatiblity, @deprecated
+            Object raw = args.get("enchantments");
+
+            if (raw instanceof Map) {
+                Map<?, ?> map = (Map<?, ?>) raw;
+
+                for (Map.Entry<?, ?> entry : map.entrySet()) {
+                    String stringKey = entry.getKey().toString();
+                    stringKey = Bukkit.getUnsafe().get(Enchantment.class, stringKey);
+                    NamespacedKey key = NamespacedKey.fromString(stringKey.toLowerCase(Locale.ROOT));
+
+                    Enchantment enchantment = Bukkit.getUnsafe().get(Registry.ENCHANTMENT, key);
+
+                    if ((enchantment != null) && (entry.getValue() instanceof Integer)) {
+                        result.addUnsafeEnchantment(enchantment, (Integer) entry.getValue());
+                    }
+                }
+            }
+        } else if (args.containsKey("meta")) { // We cannot and will not have meta when enchantments (pre-ItemMeta) exist
+            Object raw = args.get("meta");
+            if (raw instanceof ItemMeta) {
+                ((ItemMeta) raw).setVersion(version);
+                result.setItemMeta((ItemMeta) raw);
+            }
+        }
+
+        if (version < 0) {
+            // Set damage again incase meta overwrote it
+            if (args.containsKey("damage")) {
+                result.setDurability(damage);
+            }
+        }
+
+        return result;
     }
 
     /**
@@ -210,6 +281,18 @@ public class ItemStack implements Cloneable, ConfigurationSerializable, Translat
     }
 
     /**
+     * Gets the durability of this item
+     *
+     * @return Durability of this item
+     * @deprecated see {@link #setDurability(short)}
+     */
+    @Deprecated(since = "1.13")
+    public short getDurability() {
+        ItemMeta meta = getItemMeta();
+        return (meta == null) ? 0 : (short) ((Damageable) meta).getDamage();
+    }
+
+    /**
      * Sets the durability of this item
      *
      * @param durability Durability of this item
@@ -226,18 +309,6 @@ public class ItemStack implements Cloneable, ConfigurationSerializable, Translat
             ((Damageable) meta).setDamage(durability);
             setItemMeta(meta);
         }
-    }
-
-    /**
-     * Gets the durability of this item
-     *
-     * @return Durability of this item
-     * @deprecated see {@link #setDurability(short)}
-     */
-    @Deprecated(since = "1.13")
-    public short getDurability() {
-        ItemMeta meta = getItemMeta();
-        return (meta == null) ? 0 : (short) ((Damageable) meta).getDamage();
     }
 
     /**
@@ -378,8 +449,8 @@ public class ItemStack implements Cloneable, ConfigurationSerializable, Translat
      * @param enchantments Enchantments to add
      * @throws IllegalArgumentException if the specified enchantments is null
      * @throws IllegalArgumentException if any specific enchantment or level
-     *     is null. <b>Warning</b>: Some enchantments may be added before this
-     *     exception is thrown.
+     *                                  is null. <b>Warning</b>: Some enchantments may be added before this
+     *                                  exception is thrown.
      */
     @Utility
     public void addEnchantments(@NotNull Map<Enchantment, Integer> enchantments) {
@@ -395,10 +466,10 @@ public class ItemStack implements Cloneable, ConfigurationSerializable, Translat
      * If this item stack already contained the given enchantment (at any
      * level), it will be replaced.
      *
-     * @param ench Enchantment to add
+     * @param ench  Enchantment to add
      * @param level Level of the enchantment
      * @throws IllegalArgumentException if enchantment null, or enchantment is
-     *     not applicable
+     *                                  not applicable
      */
     @Utility
     public void addEnchantment(@NotNull Enchantment ench, int level) {
@@ -437,7 +508,7 @@ public class ItemStack implements Cloneable, ConfigurationSerializable, Translat
      * This method is unsafe and will ignore level restrictions or item type.
      * Use at your own discretion.
      *
-     * @param ench Enchantment to add
+     * @param ench  Enchantment to add
      * @param level Level of the enchantment
      */
     public void addUnsafeEnchantment(@NotNull Enchantment ench, int level) {
@@ -496,80 +567,6 @@ public class ItemStack implements Cloneable, ConfigurationSerializable, Translat
     }
 
     /**
-     * Required method for configuration serialization
-     *
-     * @param args map to deserialize
-     * @return deserialized item stack
-     * @see ConfigurationSerializable
-     */
-    @NotNull
-    public static ItemStack deserialize(@NotNull Map<String, Object> args) {
-        int version = (args.containsKey("v")) ? ((Number) args.get("v")).intValue() : -1;
-        short damage = 0;
-        int amount = 1;
-
-        if (args.containsKey("damage")) {
-            damage = ((Number) args.get("damage")).shortValue();
-        }
-
-        Material type;
-        if (version < 0) {
-            type = Material.getMaterial(Material.LEGACY_PREFIX + (String) args.get("type"));
-
-            byte dataVal = (type != null && type.getMaxDurability() == 0) ? (byte) damage : 0; // Actually durable items get a 0 passed into conversion
-            type = Bukkit.getUnsafe().fromLegacy(new MaterialData(type, dataVal), true);
-
-            // We've converted now so the data val isn't a thing and can be reset
-            if (dataVal != 0) {
-                damage = 0;
-            }
-        } else {
-            type = Bukkit.getUnsafe().getMaterial((String) args.get("type"), version);
-        }
-
-        if (args.containsKey("amount")) {
-            amount = ((Number) args.get("amount")).intValue();
-        }
-
-        ItemStack result = new ItemStack(type, amount, damage);
-
-        if (args.containsKey("enchantments")) { // Backward compatiblity, @deprecated
-            Object raw = args.get("enchantments");
-
-            if (raw instanceof Map) {
-                Map<?, ?> map = (Map<?, ?>) raw;
-
-                for (Map.Entry<?, ?> entry : map.entrySet()) {
-                    String stringKey = entry.getKey().toString();
-                    stringKey = Bukkit.getUnsafe().get(Enchantment.class, stringKey);
-                    NamespacedKey key = NamespacedKey.fromString(stringKey.toLowerCase(Locale.ROOT));
-
-                    Enchantment enchantment = Bukkit.getUnsafe().get(Registry.ENCHANTMENT, key);
-
-                    if ((enchantment != null) && (entry.getValue() instanceof Integer)) {
-                        result.addUnsafeEnchantment(enchantment, (Integer) entry.getValue());
-                    }
-                }
-            }
-        } else if (args.containsKey("meta")) { // We cannot and will not have meta when enchantments (pre-ItemMeta) exist
-            Object raw = args.get("meta");
-            if (raw instanceof ItemMeta) {
-                ((ItemMeta) raw).setVersion(version);
-                result.setItemMeta((ItemMeta) raw);
-            }
-        }
-
-        if (version < 0) {
-            // Set damage again incase meta overwrote it
-            if (args.containsKey("damage")) {
-                result.setDurability(damage);
-            }
-        }
-
-        return result;
-    }
-
-    /**
      * Get a copy of this ItemStack's {@link ItemMeta}.
      *
      * @return a copy of the current ItemStack's ItemData
@@ -593,9 +590,9 @@ public class ItemStack implements Cloneable, ConfigurationSerializable, Translat
      *
      * @param itemMeta new ItemMeta, or null to indicate meta data be cleared.
      * @return True if successfully applied ItemMeta, see {@link
-     *     ItemFactory#isApplicable(ItemMeta, ItemStack)}
+     * ItemFactory#isApplicable(ItemMeta, ItemStack)}
      * @throws IllegalArgumentException if the item meta was not created by
-     *     the {@link ItemFactory}
+     *                                  the {@link ItemFactory}
      */
     public boolean setItemMeta(@Nullable ItemMeta itemMeta) {
         return setItemMeta0(itemMeta, type);

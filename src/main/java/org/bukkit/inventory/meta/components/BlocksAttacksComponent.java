@@ -1,7 +1,5 @@
 package org.bukkit.inventory.meta.components;
 
-import java.util.Collection;
-import java.util.List;
 import org.bukkit.Sound;
 import org.bukkit.Tag;
 import org.bukkit.configuration.serialization.ConfigurationSerializable;
@@ -9,6 +7,9 @@ import org.bukkit.damage.DamageType;
 import org.jetbrains.annotations.ApiStatus;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
+
+import java.util.Collection;
+import java.util.List;
 
 /**
  * Represents a component which can turn any item into a shield-like item which
@@ -70,11 +71,11 @@ public interface BlocksAttacksComponent extends ConfigurationSerializable {
      * Add a new damage reduction to this component, which blocks specific types
      * of attacks.
      *
-     * @param type the type of attack
-     * @param base the constant amount of damage to be blocked
-     * @param factor the proportion of damage to be blocked
+     * @param type                    the type of attack
+     * @param base                    the constant amount of damage to be blocked
+     * @param factor                  the proportion of damage to be blocked
      * @param horizontalBlockingAngle the maximum angle at which attacks will be
-     * blocked
+     *                                blocked
      * @return the {@link DamageReduction} instance that was added to this item
      */
     @NotNull
@@ -84,11 +85,11 @@ public interface BlocksAttacksComponent extends ConfigurationSerializable {
      * Add a new damage reduction to this component, which blocks specific types
      * of attacks.
      *
-     * @param types the types of attack
-     * @param base the constant amount of damage to be blocked
-     * @param factor the proportion of damage to be blocked
+     * @param types                   the types of attack
+     * @param base                    the constant amount of damage to be blocked
+     * @param factor                  the proportion of damage to be blocked
      * @param horizontalBlockingAngle the maximum angle at which attacks will be
-     * blocked
+     *                                blocked
      * @return the {@link DamageReduction} instance that was added to this item
      */
     @NotNull
@@ -98,11 +99,11 @@ public interface BlocksAttacksComponent extends ConfigurationSerializable {
      * Add a new damage reduction to this component, which blocks specific types
      * of attacks.
      *
-     * @param tag the type of attacks
-     * @param base the constant amount of damage to be blocked
-     * @param factor the proportion of damage to be blocked
+     * @param tag                     the type of attacks
+     * @param base                    the constant amount of damage to be blocked
+     * @param factor                  the proportion of damage to be blocked
      * @param horizontalBlockingAngle the maximum angle at which attacks will be
-     * blocked
+     *                                blocked
      * @return the {@link DamageReduction} instance that was added to this item
      */
     @NotNull

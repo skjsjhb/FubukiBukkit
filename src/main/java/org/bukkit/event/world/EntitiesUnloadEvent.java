@@ -1,14 +1,15 @@
 package org.bukkit.event.world;
 
-import java.util.List;
 import org.bukkit.Chunk;
 import org.bukkit.entity.Entity;
 import org.bukkit.event.HandlerList;
 import org.jetbrains.annotations.NotNull;
 
+import java.util.List;
+
 /**
  * Called when entities are unloaded.
- *
+ * <p>
  * The provided chunk may or may not be loaded.
  */
 public class EntitiesUnloadEvent extends ChunkEvent {
@@ -19,6 +20,11 @@ public class EntitiesUnloadEvent extends ChunkEvent {
     public EntitiesUnloadEvent(@NotNull Chunk chunk, @NotNull List<Entity> entities) {
         super(chunk);
         this.entities = entities;
+    }
+
+    @NotNull
+    public static HandlerList getHandlerList() {
+        return handlers;
     }
 
     /**
@@ -34,11 +40,6 @@ public class EntitiesUnloadEvent extends ChunkEvent {
     @NotNull
     @Override
     public HandlerList getHandlers() {
-        return handlers;
-    }
-
-    @NotNull
-    public static HandlerList getHandlerList() {
         return handlers;
     }
 }

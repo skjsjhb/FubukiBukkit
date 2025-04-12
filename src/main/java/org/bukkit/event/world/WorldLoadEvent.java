@@ -15,13 +15,13 @@ public class WorldLoadEvent extends WorldEvent {
     }
 
     @NotNull
-    @Override
-    public HandlerList getHandlers() {
+    public static HandlerList getHandlerList() {
         return handlers;
     }
 
     @NotNull
-    public static HandlerList getHandlerList() {
+    @Override
+    public HandlerList getHandlers() {
         return handlers;
     }
 }

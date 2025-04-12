@@ -1,6 +1,5 @@
 package org.bukkit.event.world;
 
-import java.util.List;
 import org.bukkit.World;
 import org.bukkit.block.BlockState;
 import org.bukkit.entity.Entity;
@@ -9,15 +8,17 @@ import org.bukkit.event.HandlerList;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
+import java.util.List;
+
 /**
  * Called when a portal is created
  */
 public class PortalCreateEvent extends WorldEvent implements Cancellable {
     private static final HandlerList handlers = new HandlerList();
-    private boolean cancel = false;
     private final List<BlockState> blocks;
     private final Entity entity;
     private final CreateReason reason;
+    private boolean cancel = false;
 
     @Deprecated(since = "1.14.1")
     public PortalCreateEvent(@NotNull final List<BlockState> blocks, @NotNull final World world, @NotNull CreateReason reason) {
@@ -30,6 +31,11 @@ public class PortalCreateEvent extends WorldEvent implements Cancellable {
         this.blocks = blocks;
         this.entity = entity;
         this.reason = reason;
+    }
+
+    @NotNull
+    public static HandlerList getHandlerList() {
+        return handlers;
     }
 
     /**
@@ -75,11 +81,6 @@ public class PortalCreateEvent extends WorldEvent implements Cancellable {
     @NotNull
     @Override
     public HandlerList getHandlers() {
-        return handlers;
-    }
-
-    @NotNull
-    public static HandlerList getHandlerList() {
         return handlers;
     }
 

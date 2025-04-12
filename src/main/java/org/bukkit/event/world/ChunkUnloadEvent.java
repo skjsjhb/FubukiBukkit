@@ -20,6 +20,11 @@ public class ChunkUnloadEvent extends ChunkEvent {
         this.saveChunk = save;
     }
 
+    @NotNull
+    public static HandlerList getHandlerList() {
+        return handlers;
+    }
+
     /**
      * Return whether this chunk will be saved to disk.
      *
@@ -41,11 +46,6 @@ public class ChunkUnloadEvent extends ChunkEvent {
     @NotNull
     @Override
     public HandlerList getHandlers() {
-        return handlers;
-    }
-
-    @NotNull
-    public static HandlerList getHandlerList() {
         return handlers;
     }
 }

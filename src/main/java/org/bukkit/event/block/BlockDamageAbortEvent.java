@@ -8,6 +8,7 @@ import org.jetbrains.annotations.NotNull;
 
 /**
  * Called when a player stops damaging a Block.
+ *
  * @see BlockDamageEvent
  */
 public class BlockDamageAbortEvent extends BlockEvent {
@@ -20,6 +21,11 @@ public class BlockDamageAbortEvent extends BlockEvent {
         super(block);
         this.player = player;
         this.itemstack = itemInHand;
+    }
+
+    @NotNull
+    public static HandlerList getHandlerList() {
+        return handlers;
     }
 
     /**
@@ -45,11 +51,6 @@ public class BlockDamageAbortEvent extends BlockEvent {
     @NotNull
     @Override
     public HandlerList getHandlers() {
-        return handlers;
-    }
-
-    @NotNull
-    public static HandlerList getHandlerList() {
         return handlers;
     }
 }

@@ -23,6 +23,22 @@ public abstract class CraftingRecipe implements Recipe, Keyed {
         this.output = new ItemStack(result);
     }
 
+    /**
+     * Checks an ItemStack to be used in constructors related to CraftingRecipe
+     * is not empty.
+     *
+     * @param result an ItemStack
+     * @return the same result ItemStack
+     * @throws IllegalArgumentException if the {@code result} is an empty item
+     *                                  (AIR)
+     */
+    @ApiStatus.Internal
+    @NotNull
+    protected static ItemStack checkResult(@NotNull ItemStack result) {
+        Preconditions.checkArgument(result.getType() != Material.AIR, "Recipe must have non-AIR result.");
+        return result;
+    }
+
     @NotNull
     @Override
     public NamespacedKey getKey() {
@@ -56,7 +72,7 @@ public abstract class CraftingRecipe implements Recipe, Keyed {
      * together when displayed in the client.
      *
      * @param group recipe group. An empty string denotes no group. May not be
-     * null.
+     *              null.
      */
     public void setGroup(@NotNull String group) {
         Preconditions.checkArgument(group != null, "group cannot be null");
@@ -85,21 +101,5 @@ public abstract class CraftingRecipe implements Recipe, Keyed {
     public void setCategory(@NotNull CraftingBookCategory category) {
         Preconditions.checkArgument(category != null, "category cannot be null");
         this.category = category;
-    }
-
-    /**
-     * Checks an ItemStack to be used in constructors related to CraftingRecipe
-     * is not empty.
-     *
-     * @param result an ItemStack
-     * @return the same result ItemStack
-     * @throws IllegalArgumentException if the {@code result} is an empty item
-     * (AIR)
-     */
-    @ApiStatus.Internal
-    @NotNull
-    protected static ItemStack checkResult(@NotNull ItemStack result) {
-        Preconditions.checkArgument(result.getType() != Material.AIR, "Recipe must have non-AIR result.");
-        return result;
     }
 }

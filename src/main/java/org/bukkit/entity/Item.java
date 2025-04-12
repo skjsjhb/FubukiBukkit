@@ -1,9 +1,10 @@
 package org.bukkit.entity;
 
-import java.util.UUID;
 import org.bukkit.inventory.ItemStack;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
+
+import java.util.UUID;
 
 /**
  * Represents a dropped item.
@@ -40,13 +41,6 @@ public interface Item extends Entity {
     public void setPickupDelay(int delay);
 
     /**
-     * Sets if this Item should live forever
-     *
-     * @param unlimited true if the lifetime is unlimited
-     */
-    public void setUnlimitedLifetime(boolean unlimited);
-
-    /**
      * Gets if this Item lives forever
      *
      * @return true if the lifetime is unlimited
@@ -54,13 +48,11 @@ public interface Item extends Entity {
     public boolean isUnlimitedLifetime();
 
     /**
-     * Sets the owner of this item.
+     * Sets if this Item should live forever
      *
-     * Other entities will not be able to pickup this item when an owner is set.
-     *
-     * @param owner UUID of new owner
+     * @param unlimited true if the lifetime is unlimited
      */
-    public void setOwner(@Nullable UUID owner);
+    public void setUnlimitedLifetime(boolean unlimited);
 
     /**
      * Get the owner of this item.
@@ -71,22 +63,31 @@ public interface Item extends Entity {
     public UUID getOwner();
 
     /**
-     * Set the thrower of this item.
+     * Sets the owner of this item.
+     * <p>
+     * Other entities will not be able to pickup this item when an owner is set.
      *
-     * The thrower is the entity which dropped the item. This affects the
-     * trigger criteria for item pickups, for things such as advancements.
-     *
-     * @param uuid UUID of thrower
+     * @param owner UUID of new owner
      */
-    public void setThrower(@Nullable UUID uuid);
+    public void setOwner(@Nullable UUID owner);
 
     /**
      * Get the thrower of this item.
-     *
+     * <p>
      * The thrower is the entity which dropped the item.
      *
      * @return UUID of thrower
      */
     @Nullable
     public UUID getThrower();
+
+    /**
+     * Set the thrower of this item.
+     * <p>
+     * The thrower is the entity which dropped the item. This affects the
+     * trigger criteria for item pickups, for things such as advancements.
+     *
+     * @param uuid UUID of thrower
+     */
+    public void setThrower(@Nullable UUID uuid);
 }

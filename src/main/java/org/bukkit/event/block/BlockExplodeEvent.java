@@ -1,12 +1,13 @@
 package org.bukkit.event.block;
 
-import java.util.List;
 import org.bukkit.ExplosionResult;
 import org.bukkit.block.Block;
 import org.bukkit.block.BlockState;
 import org.bukkit.event.Cancellable;
 import org.bukkit.event.HandlerList;
 import org.jetbrains.annotations.NotNull;
+
+import java.util.List;
 
 /**
  * Called when a block explodes.
@@ -17,11 +18,11 @@ import org.jetbrains.annotations.NotNull;
  */
 public class BlockExplodeEvent extends BlockEvent implements Cancellable {
     private static final HandlerList handlers = new HandlerList();
-    private boolean cancel;
     private final BlockState blockState;
     private final List<Block> blocks;
-    private float yield;
     private final ExplosionResult result;
+    private boolean cancel;
+    private float yield;
 
     public BlockExplodeEvent(@NotNull final Block what, @NotNull final BlockState blockState, @NotNull final List<Block> blocks, final float yield, @NotNull final ExplosionResult result) {
         super(what);
@@ -30,6 +31,11 @@ public class BlockExplodeEvent extends BlockEvent implements Cancellable {
         this.yield = yield;
         this.cancel = false;
         this.result = result;
+    }
+
+    @NotNull
+    public static HandlerList getHandlerList() {
+        return handlers;
     }
 
     @Override
@@ -94,11 +100,6 @@ public class BlockExplodeEvent extends BlockEvent implements Cancellable {
     @NotNull
     @Override
     public HandlerList getHandlers() {
-        return handlers;
-    }
-
-    @NotNull
-    public static HandlerList getHandlerList() {
         return handlers;
     }
 }

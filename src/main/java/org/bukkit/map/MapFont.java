@@ -1,9 +1,10 @@
 package org.bukkit.map;
 
-import java.util.HashMap;
 import org.bukkit.ChatColor;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
+
+import java.util.HashMap;
 
 /**
  * Represents a bitmap font drawable to a map.
@@ -11,13 +12,13 @@ import org.jetbrains.annotations.Nullable;
 public class MapFont {
 
     private final HashMap<Character, CharacterSprite> chars = new HashMap<Character, CharacterSprite>();
-    private int height = 0;
     protected boolean malleable = true;
+    private int height = 0;
 
     /**
      * Set the sprite for a given character.
      *
-     * @param ch The character to set the sprite for.
+     * @param ch     The character to set the sprite for.
      * @param sprite The CharacterSprite to set.
      * @throws IllegalStateException if this font is static.
      */
@@ -37,7 +38,7 @@ public class MapFont {
      *
      * @param ch The character to get the sprite for.
      * @return The CharacterSprite associated with the character, or null if
-     *     there is none.
+     * there is none.
      */
     @Nullable
     public CharacterSprite getChar(char ch) {
@@ -92,7 +93,7 @@ public class MapFont {
      *
      * @param text The text.
      * @return True if the string contains only defined characters, false
-     *     otherwise.
+     * otherwise.
      */
     public boolean isValid(@NotNull String text) {
         for (int i = 0; i < text.length(); ++i) {

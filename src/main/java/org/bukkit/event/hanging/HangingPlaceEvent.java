@@ -16,12 +16,12 @@ import org.jetbrains.annotations.Nullable;
  */
 public class HangingPlaceEvent extends HangingEvent implements Cancellable {
     private static final HandlerList handlers = new HandlerList();
-    private boolean cancelled;
     private final Player player;
     private final Block block;
     private final BlockFace blockFace;
     private final EquipmentSlot hand;
     private final ItemStack itemStack;
+    private boolean cancelled;
 
     @Deprecated(since = "1.17.1")
     public HangingPlaceEvent(@NotNull final Hanging hanging, @Nullable final Player player, @NotNull final Block block, @NotNull final BlockFace blockFace, @Nullable final EquipmentSlot hand) {
@@ -35,6 +35,11 @@ public class HangingPlaceEvent extends HangingEvent implements Cancellable {
         this.blockFace = blockFace;
         this.hand = hand;
         this.itemStack = itemStack;
+    }
+
+    @NotNull
+    public static HandlerList getHandlerList() {
+        return handlers;
     }
 
     /**
@@ -101,11 +106,6 @@ public class HangingPlaceEvent extends HangingEvent implements Cancellable {
     @NotNull
     @Override
     public HandlerList getHandlers() {
-        return handlers;
-    }
-
-    @NotNull
-    public static HandlerList getHandlerList() {
         return handlers;
     }
 }

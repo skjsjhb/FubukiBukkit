@@ -20,11 +20,11 @@ import org.jetbrains.annotations.Nullable;
 public class EntityPlaceEvent extends EntityEvent implements Cancellable {
 
     private static final HandlerList handlers = new HandlerList();
-    private boolean cancelled;
     private final Player player;
     private final Block block;
     private final BlockFace blockFace;
     private final EquipmentSlot hand;
+    private boolean cancelled;
 
     public EntityPlaceEvent(@NotNull final Entity entity, @Nullable final Player player, @NotNull final Block block, @NotNull final BlockFace blockFace, @NotNull final EquipmentSlot hand) {
         super(entity);
@@ -37,6 +37,11 @@ public class EntityPlaceEvent extends EntityEvent implements Cancellable {
     @Deprecated(since = "1.19.2")
     public EntityPlaceEvent(@NotNull final Entity entity, @Nullable final Player player, @NotNull final Block block, @NotNull final BlockFace blockFace) {
         this(entity, player, block, blockFace, EquipmentSlot.HAND);
+    }
+
+    @NotNull
+    public static HandlerList getHandlerList() {
+        return handlers;
     }
 
     /**
@@ -92,11 +97,6 @@ public class EntityPlaceEvent extends EntityEvent implements Cancellable {
     @NotNull
     @Override
     public HandlerList getHandlers() {
-        return handlers;
-    }
-
-    @NotNull
-    public static HandlerList getHandlerList() {
         return handlers;
     }
 }

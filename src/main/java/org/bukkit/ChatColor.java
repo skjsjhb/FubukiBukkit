@@ -2,11 +2,12 @@ package org.bukkit;
 
 import com.google.common.base.Preconditions;
 import com.google.common.collect.Maps;
-import java.util.Map;
-import java.util.regex.Pattern;
 import org.jetbrains.annotations.Contract;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
+
+import java.util.Map;
+import java.util.regex.Pattern;
 
 /**
  * All supported color values for chat
@@ -107,13 +108,20 @@ public enum ChatColor {
      */
     public static final char COLOR_CHAR = '\u00A7';
     private static final Pattern STRIP_COLOR_PATTERN = Pattern.compile("(?i)" + String.valueOf(COLOR_CHAR) + "[0-9A-FK-ORX]");
+    private static final Map<Integer, ChatColor> BY_ID = Maps.newHashMap();
+    private static final Map<Character, ChatColor> BY_CHAR = Maps.newHashMap();
+
+    static {
+        for (ChatColor color : values()) {
+            BY_ID.put(color.intCode, color);
+            BY_CHAR.put(color.code, color);
+        }
+    }
 
     private final int intCode;
     private final char code;
     private final boolean isFormat;
     private final String toString;
-    private static final Map<Integer, ChatColor> BY_ID = Maps.newHashMap();
-    private static final Map<Character, ChatColor> BY_CHAR = Maps.newHashMap();
 
     private ChatColor(char code, int intCode) {
         this(code, intCode, false);
@@ -123,40 +131,7 @@ public enum ChatColor {
         this.code = code;
         this.intCode = intCode;
         this.isFormat = isFormat;
-        this.toString = new String(new char[] {COLOR_CHAR, code});
-    }
-
-    /**
-     * Gets the char value associated with this color
-     *
-     * @return A char value of this color code
-     */
-    public char getChar() {
-        return code;
-    }
-
-    @NotNull
-    @Override
-    public String toString() {
-        return toString;
-    }
-
-    /**
-     * Checks if this code is a format code as opposed to a color code.
-     *
-     * @return whether this ChatColor is a format code
-     */
-    public boolean isFormat() {
-        return isFormat;
-    }
-
-    /**
-     * Checks if this code is a color code as opposed to a format code.
-     *
-     * @return whether this ChatColor is a color code
-     */
-    public boolean isColor() {
-        return !isFormat && this != RESET;
+        this.toString = new String(new char[]{COLOR_CHAR, code});
     }
 
     /**
@@ -164,7 +139,7 @@ public enum ChatColor {
      *
      * @param code Code to check
      * @return Associative {@link org.bukkit.ChatColor} with the given code,
-     *     or null if it doesn't exist
+     * or null if it doesn't exist
      */
     @Nullable
     public static ChatColor getByChar(char code) {
@@ -176,7 +151,7 @@ public enum ChatColor {
      *
      * @param code Code to check
      * @return Associative {@link org.bukkit.ChatColor} with the given code,
-     *     or null if it doesn't exist
+     * or null if it doesn't exist
      */
     @Nullable
     public static ChatColor getByChar(@NotNull String code) {
@@ -208,7 +183,7 @@ public enum ChatColor {
      * character. The alternate color code character will only be replaced if
      * it is immediately followed by 0-9, A-F, a-f, K-O, k-o, R or r.
      *
-     * @param altColorChar The alternate color code character to replace. Ex: {@literal &}
+     * @param altColorChar    The alternate color code character to replace. Ex: {@literal &}
      * @param textToTranslate Text containing the alternate color code character.
      * @return Text containing the ChatColor.COLOR_CODE color code character.
      */
@@ -311,10 +286,36 @@ public enum ChatColor {
         return input.substring(index - 12, index + 2);
     }
 
-    static {
-        for (ChatColor color : values()) {
-            BY_ID.put(color.intCode, color);
-            BY_CHAR.put(color.code, color);
-        }
+    /**
+     * Gets the char value associated with this color
+     *
+     * @return A char value of this color code
+     */
+    public char getChar() {
+        return code;
+    }
+
+    @NotNull
+    @Override
+    public String toString() {
+        return toString;
+    }
+
+    /**
+     * Checks if this code is a format code as opposed to a color code.
+     *
+     * @return whether this ChatColor is a format code
+     */
+    public boolean isFormat() {
+        return isFormat;
+    }
+
+    /**
+     * Checks if this code is a color code as opposed to a format code.
+     *
+     * @return whether this ChatColor is a color code
+     */
+    public boolean isColor() {
+        return !isFormat && this != RESET;
     }
 }

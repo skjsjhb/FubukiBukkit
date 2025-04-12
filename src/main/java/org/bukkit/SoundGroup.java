@@ -10,7 +10,7 @@ public interface SoundGroup {
 
     /**
      * Get the volume these sounds are played at.
-     *
+     * <p>
      * Note that this volume does not always represent the actual volume
      * received by the client.
      *
@@ -20,7 +20,7 @@ public interface SoundGroup {
 
     /**
      * Gets the pitch these sounds are played at.
-     *
+     * <p>
      * Note that this pitch does not always represent the actual pitch received
      * by the client.
      *

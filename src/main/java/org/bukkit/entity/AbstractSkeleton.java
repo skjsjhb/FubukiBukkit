@@ -8,7 +8,7 @@ import org.jetbrains.annotations.NotNull;
  * entities on the server. The interface is hence not a direct representation
  * of an entity but rather serves as a parent to interfaces/entity types like
  * {@link Skeleton}, {@link WitherSkeleton} or {@link Stray}.
- *
+ * <p>
  * To compute what specific type of skeleton is present in a variable/field
  * of this type, instanceOf checks against the specific subtypes listed prior
  * are recommended.

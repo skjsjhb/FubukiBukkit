@@ -7,7 +7,7 @@ import org.jetbrains.annotations.NotNull;
 
 /**
  * Called when a human entity experiences exhaustion.
- *
+ * <p>
  * An exhaustion level greater than 4.0 causes a decrease in saturation by 1.
  */
 public class EntityExhaustionEvent extends EntityEvent implements Cancellable {
@@ -21,6 +21,11 @@ public class EntityExhaustionEvent extends EntityEvent implements Cancellable {
         super(who);
         this.exhaustionReason = exhaustionReason;
         this.exhaustion = exhaustion;
+    }
+
+    @NotNull
+    public static HandlerList getHandlerList() {
+        return handlers;
     }
 
     /**
@@ -44,7 +49,7 @@ public class EntityExhaustionEvent extends EntityEvent implements Cancellable {
 
     /**
      * Set the exhaustion to apply to the player.
-     *
+     * <p>
      * The maximum exhaustion that a player can have is 40. No error will be
      * thrown if this limit is hit. This value may be negative, but there is
      * unknown behavior for when exhaustion is below 0.
@@ -69,6 +74,12 @@ public class EntityExhaustionEvent extends EntityEvent implements Cancellable {
     @Override
     public void setCancelled(boolean cancel) {
         this.cancel = cancel;
+    }
+
+    @NotNull
+    @Override
+    public HandlerList getHandlers() {
+        return handlers;
     }
 
     /**
@@ -134,16 +145,5 @@ public class EntityExhaustionEvent extends EntityEvent implements Cancellable {
          * Unknown exhaustion reason
          */
         UNKNOWN
-    }
-
-    @NotNull
-    @Override
-    public HandlerList getHandlers() {
-        return handlers;
-    }
-
-    @NotNull
-    public static HandlerList getHandlerList() {
-        return handlers;
     }
 }

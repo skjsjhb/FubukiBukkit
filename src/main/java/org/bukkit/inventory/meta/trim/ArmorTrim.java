@@ -1,9 +1,10 @@
 package org.bukkit.inventory.meta.trim;
 
 import com.google.common.base.Preconditions;
-import java.util.Objects;
 import org.bukkit.inventory.meta.ArmorMeta;
 import org.jetbrains.annotations.NotNull;
+
+import java.util.Objects;
 
 /**
  * Represents an armor trim that may be applied to an item.
@@ -20,7 +21,7 @@ public class ArmorTrim {
      * {@link TrimPattern}.
      *
      * @param material the material
-     * @param pattern the pattern
+     * @param pattern  the pattern
      */
     public ArmorTrim(@NotNull TrimMaterial material, @NotNull TrimPattern pattern) {
         Preconditions.checkArgument(material != null, "material must not be null");

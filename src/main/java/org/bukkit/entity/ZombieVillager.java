@@ -10,12 +10,6 @@ import org.jetbrains.annotations.Nullable;
 public interface ZombieVillager extends Zombie {
 
     /**
-     * Sets the villager profession of this zombie.
-     */
-    @Override
-    void setVillagerProfession(@Nullable Villager.Profession profession);
-
-    /**
      * Returns the villager profession of this zombie.
      *
      * @return the profession or null
@@ -23,6 +17,12 @@ public interface ZombieVillager extends Zombie {
     @Override
     @Nullable
     Villager.Profession getVillagerProfession();
+
+    /**
+     * Sets the villager profession of this zombie.
+     */
+    @Override
+    void setVillagerProfession(@Nullable Villager.Profession profession);
 
     /**
      * Gets the current type of this villager.
@@ -51,7 +51,7 @@ public interface ZombieVillager extends Zombie {
     /**
      * Gets the amount of ticks until this entity will be converted to a
      * Villager as a result of being cured.
-     *
+     * <p>
      * When this reaches 0, the entity will be converted.
      *
      * @return conversion time
@@ -63,7 +63,7 @@ public interface ZombieVillager extends Zombie {
     /**
      * Sets the amount of ticks until this entity will be converted to a
      * Villager as a result of being cured.
-     *
+     * <p>
      * When this reaches 0, the entity will be converted. A value of less than 0
      * will stop the current conversion process without converting the current
      * entity.

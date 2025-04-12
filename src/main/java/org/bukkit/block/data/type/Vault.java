@@ -19,6 +19,13 @@ public interface Vault extends Directional {
     State getVaultState();
 
     /**
+     * Sets the value of the 'vault_state' property.
+     *
+     * @param state the new 'vault_state' value
+     */
+    void setVaultState(@NotNull State state);
+
+    /**
      * Gets the value of the 'vault_state' property.
      *
      * @return the 'vault_state' value
@@ -27,13 +34,6 @@ public interface Vault extends Directional {
     @Deprecated(since = "1.21.3", forRemoval = true)
     @NotNull
     State getTrialSpawnerState();
-
-    /**
-     * Sets the value of the 'vault_state' property.
-     *
-     * @param state the new 'vault_state' value
-     */
-    void setVaultState(@NotNull State state);
 
     /**
      * Sets the value of the 'vault_state' property.

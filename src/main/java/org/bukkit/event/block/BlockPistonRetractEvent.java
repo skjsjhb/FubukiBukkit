@@ -1,11 +1,12 @@
 package org.bukkit.event.block;
 
-import java.util.List;
 import org.bukkit.Location;
 import org.bukkit.block.Block;
 import org.bukkit.block.BlockFace;
 import org.bukkit.event.HandlerList;
 import org.jetbrains.annotations.NotNull;
+
+import java.util.List;
 
 /**
  * Called when a piston retracts
@@ -18,6 +19,11 @@ public class BlockPistonRetractEvent extends BlockPistonEvent {
         super(block, direction);
 
         this.blocks = blocks;
+    }
+
+    @NotNull
+    public static HandlerList getHandlerList() {
+        return handlers;
     }
 
     /**
@@ -46,11 +52,6 @@ public class BlockPistonRetractEvent extends BlockPistonEvent {
     @NotNull
     @Override
     public HandlerList getHandlers() {
-        return handlers;
-    }
-
-    @NotNull
-    public static HandlerList getHandlerList() {
         return handlers;
     }
 }

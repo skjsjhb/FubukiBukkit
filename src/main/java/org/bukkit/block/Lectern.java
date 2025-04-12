@@ -18,7 +18,7 @@ public interface Lectern extends TileState, BlockInventoryHolder {
 
     /**
      * Set the current lectern page.
-     *
+     * <p>
      * If the page is greater than the number of pages of the book currently in
      * the inventory, then behavior is undefined.
      *

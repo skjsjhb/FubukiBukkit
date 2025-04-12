@@ -2,17 +2,14 @@ package org.bukkit.entity;
 
 import com.google.common.base.Preconditions;
 import com.google.common.collect.Lists;
-import java.util.Locale;
-import java.util.UUID;
-import org.bukkit.Bukkit;
-import org.bukkit.Keyed;
-import org.bukkit.Location;
-import org.bukkit.NamespacedKey;
-import org.bukkit.Registry;
+import org.bukkit.*;
 import org.bukkit.registry.RegistryAware;
 import org.bukkit.util.OldEnum;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
+
+import java.util.Locale;
+import java.util.UUID;
 
 /**
  * Represents a villager NPC
@@ -51,7 +48,7 @@ public interface Villager extends AbstractVillager {
 
     /**
      * Gets the level of this villager.
-     *
+     * <p>
      * A villager with a level of 1 and no experience is liable to lose its
      * profession.
      *
@@ -61,7 +58,7 @@ public interface Villager extends AbstractVillager {
 
     /**
      * Sets the level of this villager.
-     *
+     * <p>
      * A villager with a level of 1 and no experience is liable to lose its
      * profession.
      *
@@ -124,7 +121,7 @@ public interface Villager extends AbstractVillager {
     /**
      * Gets the reputation of an entity for a given type.
      *
-     * @param uuid the UUID of the entity whose reputation is being checked
+     * @param uuid           the UUID of the entity whose reputation is being checked
      * @param reputationType reputation type to be retrieved
      * @return current reputation for the given reputation type
      */
@@ -137,7 +134,7 @@ public interface Villager extends AbstractVillager {
      * reputations of each type, where the reputation is multiplied by weight
      * assigned to its type.
      *
-     * @param uuid the UUID of the entity whose reputation is being checked
+     * @param uuid           the UUID of the entity whose reputation is being checked
      * @param reputationType reputation type to be retrieved
      * @return current reputation for the given reputation type
      * @see ReputationType#getWeight()
@@ -163,10 +160,10 @@ public interface Villager extends AbstractVillager {
      * <p>Note: this will fire a
      * {@link org.bukkit.event.entity.VillagerReputationChangeEvent}.
      *
-     * @param uuid the UUID of the entity for whom the reputation is being
-     *             added
+     * @param uuid           the UUID of the entity for whom the reputation is being
+     *                       added
      * @param reputationType reputation type to be modified
-     * @param amount amount of reputation to add
+     * @param amount         amount of reputation to add
      */
     public void addReputation(@NotNull UUID uuid, @NotNull ReputationType reputationType, int amount);
 
@@ -182,11 +179,11 @@ public interface Villager extends AbstractVillager {
      * <p>Note: this will fire a
      * {@link org.bukkit.event.entity.VillagerReputationChangeEvent}.
      *
-     * @param uuid the UUID of the entity for whom the reputation is being
-     *             added
+     * @param uuid           the UUID of the entity for whom the reputation is being
+     *                       added
      * @param reputationType reputation type to be modified
-     * @param amount amount of reputation to add
-     * @param changeReason reputation change reason
+     * @param amount         amount of reputation to add
+     * @param changeReason   reputation change reason
      */
     public void addReputation(@NotNull UUID uuid, @NotNull ReputationType reputationType, int amount, @NotNull ReputationEvent changeReason);
 
@@ -201,10 +198,10 @@ public interface Villager extends AbstractVillager {
      * <p>Note: this will fire a
      * {@link org.bukkit.event.entity.VillagerReputationChangeEvent}.
      *
-     * @param uuid the UUID of the entity for whom the reputation is being
-     *             removed
+     * @param uuid           the UUID of the entity for whom the reputation is being
+     *                       removed
      * @param reputationType reputation type to be modified
-     * @param amount amount of reputation to remove
+     * @param amount         amount of reputation to remove
      */
     public void removeReputation(@NotNull UUID uuid, @NotNull ReputationType reputationType, int amount);
 
@@ -220,11 +217,11 @@ public interface Villager extends AbstractVillager {
      * <p>Note: this will fire a
      * {@link org.bukkit.event.entity.VillagerReputationChangeEvent}.
      *
-     * @param uuid the UUID of the entity for whom the reputation is being
-     *             removed
+     * @param uuid           the UUID of the entity for whom the reputation is being
+     *                       removed
      * @param reputationType reputation type to be modified
-     * @param amount amount of reputation to remove
-     * @param changeReason reputation change reason
+     * @param amount         amount of reputation to remove
+     * @param changeReason   reputation change reason
      */
     public void removeReputation(@NotNull UUID uuid, @NotNull ReputationType reputationType, int amount, @NotNull ReputationEvent changeReason);
 
@@ -239,10 +236,10 @@ public interface Villager extends AbstractVillager {
      * <p>Note: this will fire a
      * {@link org.bukkit.event.entity.VillagerReputationChangeEvent}.
      *
-     * @param uuid the UUID of the entity for whom the reputation is being
-     *             added
+     * @param uuid           the UUID of the entity for whom the reputation is being
+     *                       added
      * @param reputationType reputation type to be modified
-     * @param amount amount of reputation to add
+     * @param amount         amount of reputation to add
      */
     public void setReputation(@NotNull UUID uuid, @NotNull ReputationType reputationType, int amount);
 
@@ -258,22 +255,13 @@ public interface Villager extends AbstractVillager {
      * <p>Note: this will fire a
      * {@link org.bukkit.event.entity.VillagerReputationChangeEvent}.
      *
-     * @param uuid the UUID of the entity for whom the reputation is being
-     *             added
+     * @param uuid           the UUID of the entity for whom the reputation is being
+     *                       added
      * @param reputationType reputation type to be modified
-     * @param amount amount of reputation to add
-     * @param changeReason reputation change reason
+     * @param amount         amount of reputation to add
+     * @param changeReason   reputation change reason
      */
     public void setReputation(@NotNull UUID uuid, @NotNull ReputationType reputationType, int amount, @NotNull ReputationEvent changeReason);
-
-    /**
-     * Sets the reputation decay time for this villager.
-     *
-     * <p>Defaults to <b>24000</b> (1 daylight cycle).
-     *
-     * @param ticks amount of ticks until the villager's reputation decays
-     */
-    public void setGossipDecayTime(long ticks);
 
     /**
      * Gets the reputation decay time for this villager.
@@ -283,6 +271,15 @@ public interface Villager extends AbstractVillager {
      * @return amount of ticks until the villager's reputation decays
      */
     public long getGossipDecayTime();
+
+    /**
+     * Sets the reputation decay time for this villager.
+     *
+     * <p>Defaults to <b>24000</b> (1 daylight cycle).
+     *
+     * @param ticks amount of ticks until the villager's reputation decays
+     */
+    public void setGossipDecayTime(long ticks);
 
     /**
      * Represents Villager type, usually corresponding to what biome they spawn
@@ -302,18 +299,6 @@ public interface Villager extends AbstractVillager {
         private static Type getType(@NotNull String key) {
             return Registry.VILLAGER_TYPE.getOrThrow(NamespacedKey.minecraft(key));
         }
-
-        /**
-         * {@inheritDoc}
-         *
-         * @see #getKeyOrThrow()
-         * @see #isRegistered()
-         * @deprecated A key might not always be present, use {@link #getKeyOrThrow()} instead.
-         */
-        @NotNull
-        @Override
-        @Deprecated(since = "1.21.4")
-        NamespacedKey getKey();
 
         /**
          * @param name of the villager type.
@@ -337,6 +322,18 @@ public interface Villager extends AbstractVillager {
         static Type[] values() {
             return Lists.newArrayList(Registry.VILLAGER_TYPE).toArray(new Type[0]);
         }
+
+        /**
+         * {@inheritDoc}
+         *
+         * @see #getKeyOrThrow()
+         * @see #isRegistered()
+         * @deprecated A key might not always be present, use {@link #getKeyOrThrow()} instead.
+         */
+        @NotNull
+        @Override
+        @Deprecated(since = "1.21.4")
+        NamespacedKey getKey();
     }
 
     /**
@@ -423,18 +420,6 @@ public interface Villager extends AbstractVillager {
         }
 
         /**
-         * {@inheritDoc}
-         *
-         * @see #getKeyOrThrow()
-         * @see #isRegistered()
-         * @deprecated A key might not always be present, use {@link #getKeyOrThrow()} instead.
-         */
-        @NotNull
-        @Override
-        @Deprecated(since = "1.21.4")
-        NamespacedKey getKey();
-
-        /**
          * @param name of the villager profession.
          * @return the villager profession with the given name.
          * @deprecated only for backwards compatibility, use {@link Registry#get(NamespacedKey)} instead.
@@ -456,6 +441,18 @@ public interface Villager extends AbstractVillager {
         static Profession[] values() {
             return Lists.newArrayList(Registry.VILLAGER_PROFESSION).toArray(new Profession[0]);
         }
+
+        /**
+         * {@inheritDoc}
+         *
+         * @see #getKeyOrThrow()
+         * @see #isRegistered()
+         * @deprecated A key might not always be present, use {@link #getKeyOrThrow()} instead.
+         */
+        @NotNull
+        @Override
+        @Deprecated(since = "1.21.4")
+        NamespacedKey getKey();
     }
 
     /**
@@ -486,8 +483,13 @@ public interface Villager extends AbstractVillager {
          */
         ReputationType TRADING = getReputationType("trading");
 
+        private static ReputationType getReputationType(String key) {
+            return Bukkit.getUnsafe().createReputationType(key);
+        }
+
         /**
          * Get maximum reputation value of this type.
+         *
          * @return maximum value of this reputation type
          */
         int getMaxValue();
@@ -501,10 +503,6 @@ public interface Villager extends AbstractVillager {
          * @return weight assigned to this reputation type
          */
         int getWeight();
-
-        private static ReputationType getReputationType(String key) {
-            return Bukkit.getUnsafe().createReputationType(key);
-        }
     }
 
     /**

@@ -11,8 +11,178 @@ import org.jetbrains.annotations.Nullable;
  */
 public interface InventoryView {
     public static final int OUTSIDE = -999;
+
+    /**
+     * Get the upper inventory involved in this transaction.
+     *
+     * @return the inventory
+     */
+    @NotNull
+    public Inventory getTopInventory();
+
+    /**
+     * Get the lower inventory involved in this transaction.
+     *
+     * @return the inventory
+     */
+    @NotNull
+    public Inventory getBottomInventory();
+
+    /**
+     * Get the player viewing.
+     *
+     * @return the player
+     */
+    @NotNull
+    public HumanEntity getPlayer();
+
+    /**
+     * Determine the type of inventory involved in the transaction. This
+     * indicates the window style being shown. It will never return PLAYER,
+     * since that is common to all windows.
+     *
+     * @return the inventory type
+     */
+    @NotNull
+    public InventoryType getType();
+
+    /**
+     * Sets one item in this inventory view by its raw slot ID.
+     * <p>
+     * Note: If slot ID -999 is chosen, it may be expected that the item is
+     * dropped on the ground. This is not required behaviour, however.
+     *
+     * @param slot The ID as returned by InventoryClickEvent.getRawSlot()
+     * @param item The new item to put in the slot, or null to clear it.
+     */
+    public void setItem(int slot, @Nullable ItemStack item);
+
+    /**
+     * Gets one item in this inventory view by its raw slot ID.
+     *
+     * @param slot The ID as returned by InventoryClickEvent.getRawSlot()
+     * @return The item currently in the slot.
+     */
+    @Nullable
+    public ItemStack getItem(int slot);
+
+    /**
+     * Get the item on the cursor of one of the viewing players.
+     *
+     * @return The item on the player's cursor, or null if they aren't holding
+     * one.
+     */
+    @Nullable
+    public ItemStack getCursor();
+
+    /**
+     * Sets the item on the cursor of one of the viewing players.
+     *
+     * @param item The item to put on the cursor, or null to remove the item
+     *             on their cursor.
+     */
+    public void setCursor(@Nullable ItemStack item);
+
+    /**
+     * Gets the inventory corresponding to the given raw slot ID.
+     * <p>
+     * If the slot ID is {@link #OUTSIDE} null will be returned, otherwise
+     * behaviour for illegal and negative slot IDs is undefined.
+     * <p>
+     * May be used with {@link #convertSlot(int)} to directly index an
+     * underlying inventory.
+     *
+     * @param rawSlot The raw slot ID.
+     * @return corresponding inventory, or null
+     */
+    @Nullable
+    public Inventory getInventory(int rawSlot);
+
+    /**
+     * Converts a raw slot ID into its local slot ID into whichever of the two
+     * inventories the slot points to.
+     * <p>
+     * If the raw slot refers to the upper inventory, it will be returned
+     * unchanged and thus be suitable for getTopInventory().getItem(); if it
+     * refers to the lower inventory, the output will differ from the input
+     * and be suitable for getBottomInventory().getItem().
+     *
+     * @param rawSlot The raw slot ID.
+     * @return The converted slot ID.
+     */
+    public int convertSlot(int rawSlot);
+
+    /**
+     * Determine the type of the slot by its raw slot ID.
+     * <p>
+     * If the type of the slot is unknown, then
+     * {@link InventoryType.SlotType#CONTAINER} will be returned.
+     *
+     * @param slot The raw slot ID
+     * @return the slot type
+     */
+    @NotNull
+    public InventoryType.SlotType getSlotType(int slot);
+
+    /**
+     * Closes the inventory view.
+     */
+    public void close();
+
+    /**
+     * Check the total number of slots in this view, combining the upper and
+     * lower inventories.
+     * <p>
+     * Note though that it's possible for this to be greater than the sum of
+     * the two inventories if for example some slots are not being used.
+     *
+     * @return The total size
+     */
+    public int countSlots();
+
+    /**
+     * Sets an extra property of this inventory if supported by that
+     * inventory, for example the state of a progress bar.
+     *
+     * @param prop  the window property to update
+     * @param value the new value for the window property
+     * @return true if the property was updated successfully, false if the
+     * property is not supported by that inventory
+     */
+    public boolean setProperty(@NotNull Property prop, int value);
+
+    /**
+     * Get the title of this inventory window.
+     *
+     * @return The title.
+     */
+    @NotNull
+    public String getTitle();
+
+    /**
+     * Sets the title of this inventory window to the specified title if the
+     * inventory window supports it.
+     * <p>
+     * Note if the inventory does not support titles that can be changed (ie, it
+     * is not creatable or viewed by a player), then this method will throw an
+     * exception.
+     *
+     * @param title The new title.
+     */
+    public void setTitle(@NotNull String title);
+
+    /**
+     * Get the original title of this inventory window, before any changes were
+     * made using {@link #setTitle(String)}.
+     *
+     * @return the original title
+     */
+    @NotNull
+    public String getOriginalTitle();
+
     /**
      * Represents various extra properties of certain inventory windows.
+     *
      * @deprecated use {@link InventoryView} and its children
      */
     @Deprecated(forRemoval = true, since = "1.21")
@@ -23,7 +193,7 @@ public interface InventoryView {
         BREW_TIME(0, InventoryType.BREWING),
         /**
          * The progress of the fuel slot in a brewing inventory.
-         *
+         * <p>
          * This is a value between 0 and 20, with 0 making the bar empty, and 20
          * making the bar full.
          */
@@ -109,6 +279,7 @@ public interface InventoryView {
         BOOK_PAGE(0, InventoryType.LECTERN);
         int id;
         InventoryType style;
+
         private Property(int id, /*@NotNull*/ InventoryType appliesTo) {
             this.id = id;
             style = appliesTo;
@@ -130,171 +301,4 @@ public interface InventoryView {
             return id;
         }
     }
-    /**
-     * Get the upper inventory involved in this transaction.
-     *
-     * @return the inventory
-     */
-    @NotNull
-    public Inventory getTopInventory();
-
-    /**
-     * Get the lower inventory involved in this transaction.
-     *
-     * @return the inventory
-     */
-    @NotNull
-    public Inventory getBottomInventory();
-
-    /**
-     * Get the player viewing.
-     *
-     * @return the player
-     */
-    @NotNull
-    public HumanEntity getPlayer();
-
-    /**
-     * Determine the type of inventory involved in the transaction. This
-     * indicates the window style being shown. It will never return PLAYER,
-     * since that is common to all windows.
-     *
-     * @return the inventory type
-     */
-    @NotNull
-    public InventoryType getType();
-
-    /**
-     * Sets one item in this inventory view by its raw slot ID.
-     * <p>
-     * Note: If slot ID -999 is chosen, it may be expected that the item is
-     * dropped on the ground. This is not required behaviour, however.
-     *
-     * @param slot The ID as returned by InventoryClickEvent.getRawSlot()
-     * @param item The new item to put in the slot, or null to clear it.
-     */
-    public void setItem(int slot, @Nullable ItemStack item);
-
-    /**
-     * Gets one item in this inventory view by its raw slot ID.
-     *
-     * @param slot The ID as returned by InventoryClickEvent.getRawSlot()
-     * @return The item currently in the slot.
-     */
-    @Nullable
-    public ItemStack getItem(int slot);
-
-    /**
-     * Sets the item on the cursor of one of the viewing players.
-     *
-     * @param item The item to put on the cursor, or null to remove the item
-     *     on their cursor.
-     */
-    public void setCursor(@Nullable ItemStack item);
-
-    /**
-     * Get the item on the cursor of one of the viewing players.
-     *
-     * @return The item on the player's cursor, or null if they aren't holding
-     *     one.
-     */
-    @Nullable
-    public ItemStack getCursor();
-
-    /**
-     * Gets the inventory corresponding to the given raw slot ID.
-     *
-     * If the slot ID is {@link #OUTSIDE} null will be returned, otherwise
-     * behaviour for illegal and negative slot IDs is undefined.
-     *
-     * May be used with {@link #convertSlot(int)} to directly index an
-     * underlying inventory.
-     *
-     * @param rawSlot The raw slot ID.
-     * @return corresponding inventory, or null
-     */
-    @Nullable
-    public Inventory getInventory(int rawSlot);
-
-    /**
-     * Converts a raw slot ID into its local slot ID into whichever of the two
-     * inventories the slot points to.
-     * <p>
-     * If the raw slot refers to the upper inventory, it will be returned
-     * unchanged and thus be suitable for getTopInventory().getItem(); if it
-     * refers to the lower inventory, the output will differ from the input
-     * and be suitable for getBottomInventory().getItem().
-     *
-     * @param rawSlot The raw slot ID.
-     * @return The converted slot ID.
-     */
-    public int convertSlot(int rawSlot);
-
-    /**
-     * Determine the type of the slot by its raw slot ID.
-     * <p>
-     * If the type of the slot is unknown, then
-     * {@link InventoryType.SlotType#CONTAINER} will be returned.
-     *
-     * @param slot The raw slot ID
-     * @return the slot type
-     */
-    @NotNull
-    public InventoryType.SlotType getSlotType(int slot);
-
-    /**
-     * Closes the inventory view.
-     */
-    public void close();
-
-    /**
-     * Check the total number of slots in this view, combining the upper and
-     * lower inventories.
-     * <p>
-     * Note though that it's possible for this to be greater than the sum of
-     * the two inventories if for example some slots are not being used.
-     *
-     * @return The total size
-     */
-    public int countSlots();
-
-    /**
-     * Sets an extra property of this inventory if supported by that
-     * inventory, for example the state of a progress bar.
-     *
-     * @param prop the window property to update
-     * @param value the new value for the window property
-     * @return true if the property was updated successfully, false if the
-     *     property is not supported by that inventory
-     */
-    public boolean setProperty(@NotNull Property prop, int value);
-
-    /**
-     * Get the title of this inventory window.
-     *
-     * @return The title.
-     */
-    @NotNull
-    public String getTitle();
-
-    /**
-     * Get the original title of this inventory window, before any changes were
-     * made using {@link #setTitle(String)}.
-     *
-     * @return the original title
-     */
-    @NotNull
-    public String getOriginalTitle();
-
-    /**
-     * Sets the title of this inventory window to the specified title if the
-     * inventory window supports it.
-     * <p>
-     * Note if the inventory does not support titles that can be changed (ie, it
-     * is not creatable or viewed by a player), then this method will throw an
-     * exception.
-     *
-     * @param title The new title.
-     */
-    public void setTitle(@NotNull String title);
 }

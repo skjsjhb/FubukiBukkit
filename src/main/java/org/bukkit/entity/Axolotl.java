@@ -9,7 +9,7 @@ public interface Axolotl extends Animals {
 
     /**
      * Gets if this axolotl is playing dead.
-     *
+     * <p>
      * An axolotl may play dead when it is damaged underwater.
      *
      * @return playing dead status
@@ -18,7 +18,7 @@ public interface Axolotl extends Animals {
 
     /**
      * Sets if this axolotl is playing dead.
-     *
+     * <p>
      * An axolotl may play dead when it is damaged underwater.
      *
      * @param playingDead playing dead status

@@ -12,13 +12,18 @@ import org.jetbrains.annotations.NotNull;
 public class EntityPickupItemEvent extends EntityEvent implements Cancellable {
     private static final HandlerList handlers = new HandlerList();
     private final Item item;
-    private boolean cancel = false;
     private final int remaining;
+    private boolean cancel = false;
 
     public EntityPickupItemEvent(@NotNull final LivingEntity entity, @NotNull final Item item, final int remaining) {
         super(entity);
         this.item = item;
         this.remaining = remaining;
+    }
+
+    @NotNull
+    public static HandlerList getHandlerList() {
+        return handlers;
     }
 
     @NotNull
@@ -59,11 +64,6 @@ public class EntityPickupItemEvent extends EntityEvent implements Cancellable {
     @NotNull
     @Override
     public HandlerList getHandlers() {
-        return handlers;
-    }
-
-    @NotNull
-    public static HandlerList getHandlerList() {
         return handlers;
     }
 }

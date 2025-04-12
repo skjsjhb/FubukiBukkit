@@ -10,7 +10,7 @@ public interface SculkShrieker extends TileState {
 
     /**
      * Gets the most recent warning level of this block.
-     *
+     * <p>
      * When the warning level reaches 4, the shrieker will attempt to spawn a
      * Warden.
      *
@@ -20,7 +20,7 @@ public interface SculkShrieker extends TileState {
 
     /**
      * Sets the most recent warning level of this block.
-     *
+     * <p>
      * When the warning level reaches 4, the shrieker will attempt to spawn a
      * Warden.
      *

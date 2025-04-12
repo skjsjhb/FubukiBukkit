@@ -2,15 +2,12 @@ package org.bukkit.plugin.messaging;
 
 import com.google.common.collect.ImmutableSet;
 import com.google.common.collect.ImmutableSet.Builder;
-import java.util.HashMap;
-import java.util.HashSet;
-import java.util.Locale;
-import java.util.Map;
-import java.util.Set;
-import java.util.logging.Level;
 import org.bukkit.entity.Player;
 import org.bukkit.plugin.Plugin;
 import org.jetbrains.annotations.NotNull;
+
+import java.util.*;
+import java.util.logging.Level;
 
 /**
  * Standard implementation to {@link Messenger}
@@ -22,6 +19,93 @@ public class StandardMessenger implements Messenger {
     private final Map<Plugin, Set<String>> outgoingByPlugin = new HashMap<Plugin, Set<String>>();
     private final Object incomingLock = new Object();
     private final Object outgoingLock = new Object();
+
+    /**
+     * Validates a Plugin Channel name.
+     *
+     * @param channel Channel name to validate.
+     * @deprecated not an API method
+     */
+    @Deprecated(since = "1.13")
+    public static void validateChannel(@NotNull String channel) {
+        validateAndCorrectChannel(channel);
+    }
+
+    /**
+     * Validates and corrects a Plugin Channel name. Method is not reentrant / idempotent.
+     *
+     * @param channel Channel name to validate.
+     * @return corrected channel name
+     * @deprecated not an API method
+     */
+    @Deprecated(since = "1.13")
+    @NotNull
+    public static String validateAndCorrectChannel(@NotNull String channel) {
+        if (channel == null) {
+            throw new IllegalArgumentException("Channel cannot be null");
+        }
+        // This will correct registrations / outgoing messages
+        // It is not legal to send "BungeeCord" incoming anymore so we are fine there,
+        // but we must make sure that none of the API methods repeatedly call validate
+        if (channel.equals("BungeeCord")) {
+            return "bungeecord:main";
+        }
+        // And this will correct incoming messages.
+        if (channel.equals("bungeecord:main")) {
+            return "BungeeCord";
+        }
+        if (channel.length() > Messenger.MAX_CHANNEL_SIZE) {
+            throw new ChannelNameTooLongException(channel);
+        }
+        if (channel.indexOf(':') == -1) {
+            throw new IllegalArgumentException("Channel must contain : separator (attempted to use " + channel + ")");
+        }
+        if (!channel.toLowerCase(Locale.ROOT).equals(channel)) {
+            // TODO: use NamespacedKey validation here
+            throw new IllegalArgumentException("Channel must be entirely lowercase (attempted to use " + channel + ")");
+        }
+        return channel;
+    }
+
+    /**
+     * Validates the input of a Plugin Message, ensuring the arguments are all
+     * valid.
+     *
+     * @param messenger Messenger to use for validation.
+     * @param source    Source plugin of the Message.
+     * @param channel   Plugin Channel to send the message by.
+     * @param message   Raw message payload to send.
+     * @throws IllegalArgumentException      Thrown if the source plugin is
+     *                                       disabled.
+     * @throws IllegalArgumentException      Thrown if source, channel or message
+     *                                       is null.
+     * @throws MessageTooLargeException      Thrown if the message is too big.
+     * @throws ChannelNameTooLongException   Thrown if the channel name is too
+     *                                       long.
+     * @throws ChannelNotRegisteredException Thrown if the channel is not
+     *                                       registered for this plugin.
+     */
+    public static void validatePluginMessage(@NotNull Messenger messenger, @NotNull Plugin source, @NotNull String channel, @NotNull byte[] message) {
+        if (messenger == null) {
+            throw new IllegalArgumentException("Messenger cannot be null");
+        }
+        if (source == null) {
+            throw new IllegalArgumentException("Plugin source cannot be null");
+        }
+        if (!source.isEnabled()) {
+            throw new IllegalArgumentException("Plugin must be enabled to send messages");
+        }
+        if (message == null) {
+            throw new IllegalArgumentException("Message cannot be null");
+        }
+        if (!messenger.isOutgoingChannelRegistered(source, channel)) {
+            throw new ChannelNotRegisteredException(channel);
+        }
+        if (message.length > Messenger.MAX_MESSAGE_SIZE) {
+            throw new MessageTooLargeException(message);
+        }
+        validateChannel(channel);
+    }
 
     private void addToOutgoing(@NotNull Plugin plugin, @NotNull String channel) {
         synchronized (outgoingLock) {
@@ -455,97 +539,10 @@ public class StandardMessenger implements Messenger {
                 registration.getListener().onPluginMessageReceived(channel, source, message);
             } catch (Throwable t) {
                 registration.getPlugin().getLogger().log(Level.WARNING,
-                    String.format("Plugin %s generated an exception whilst handling plugin message",
-                        registration.getPlugin().getDescription().getFullName()
-                    ), t);
+                        String.format("Plugin %s generated an exception whilst handling plugin message",
+                                registration.getPlugin().getDescription().getFullName()
+                        ), t);
             }
         }
-    }
-
-    /**
-     * Validates a Plugin Channel name.
-     *
-     * @param channel Channel name to validate.
-     * @deprecated not an API method
-     */
-    @Deprecated(since = "1.13")
-    public static void validateChannel(@NotNull String channel) {
-        validateAndCorrectChannel(channel);
-    }
-
-    /**
-     * Validates and corrects a Plugin Channel name. Method is not reentrant / idempotent.
-     *
-     * @param channel Channel name to validate.
-     * @return corrected channel name
-     * @deprecated not an API method
-     */
-    @Deprecated(since = "1.13")
-    @NotNull
-    public static String validateAndCorrectChannel(@NotNull String channel) {
-        if (channel == null) {
-            throw new IllegalArgumentException("Channel cannot be null");
-        }
-        // This will correct registrations / outgoing messages
-        // It is not legal to send "BungeeCord" incoming anymore so we are fine there,
-        // but we must make sure that none of the API methods repeatedly call validate
-        if (channel.equals("BungeeCord")) {
-            return "bungeecord:main";
-        }
-        // And this will correct incoming messages.
-        if (channel.equals("bungeecord:main")) {
-            return "BungeeCord";
-        }
-        if (channel.length() > Messenger.MAX_CHANNEL_SIZE) {
-            throw new ChannelNameTooLongException(channel);
-        }
-        if (channel.indexOf(':') == -1) {
-            throw new IllegalArgumentException("Channel must contain : separator (attempted to use " + channel + ")");
-        }
-        if (!channel.toLowerCase(Locale.ROOT).equals(channel)) {
-            // TODO: use NamespacedKey validation here
-            throw new IllegalArgumentException("Channel must be entirely lowercase (attempted to use " + channel + ")");
-        }
-        return channel;
-    }
-
-    /**
-     * Validates the input of a Plugin Message, ensuring the arguments are all
-     * valid.
-     *
-     * @param messenger Messenger to use for validation.
-     * @param source Source plugin of the Message.
-     * @param channel Plugin Channel to send the message by.
-     * @param message Raw message payload to send.
-     * @throws IllegalArgumentException Thrown if the source plugin is
-     *     disabled.
-     * @throws IllegalArgumentException Thrown if source, channel or message
-     *     is null.
-     * @throws MessageTooLargeException Thrown if the message is too big.
-     * @throws ChannelNameTooLongException Thrown if the channel name is too
-     *     long.
-     * @throws ChannelNotRegisteredException Thrown if the channel is not
-     *     registered for this plugin.
-     */
-    public static void validatePluginMessage(@NotNull Messenger messenger, @NotNull Plugin source, @NotNull String channel, @NotNull byte[] message) {
-        if (messenger == null) {
-            throw new IllegalArgumentException("Messenger cannot be null");
-        }
-        if (source == null) {
-            throw new IllegalArgumentException("Plugin source cannot be null");
-        }
-        if (!source.isEnabled()) {
-            throw new IllegalArgumentException("Plugin must be enabled to send messages");
-        }
-        if (message == null) {
-            throw new IllegalArgumentException("Message cannot be null");
-        }
-        if (!messenger.isOutgoingChannelRegistered(source, channel)) {
-            throw new ChannelNotRegisteredException(channel);
-        }
-        if (message.length > Messenger.MAX_MESSAGE_SIZE) {
-            throw new MessageTooLargeException(message);
-        }
-        validateChannel(channel);
     }
 }

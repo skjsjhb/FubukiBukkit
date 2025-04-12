@@ -1,11 +1,12 @@
 package org.bukkit.block;
 
-import java.util.Collection;
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.Player;
 import org.bukkit.spawner.TrialSpawnerConfiguration;
 import org.jetbrains.annotations.ApiStatus;
 import org.jetbrains.annotations.NotNull;
+
+import java.util.Collection;
 
 /**
  * Represents a captured state of a trial spawner.
@@ -49,7 +50,7 @@ public interface TrialSpawner extends TileState {
      * always active (given that there are players online).
      *
      * @param requiredPlayerRange the maximum distance a player can be
-     * in order for this spawner to be active.
+     *                            in order for this spawner to be active.
      */
     public void setRequiredPlayerRange(int requiredPlayerRange);
 
@@ -61,7 +62,7 @@ public interface TrialSpawner extends TileState {
      * instead.
      *
      * @return a collection of players this spawner is tracking or an empty
-     *         collection if there aren't any
+     * collection if there aren't any
      */
     @NotNull
     public Collection<Player> getTrackedPlayers();
@@ -102,7 +103,7 @@ public interface TrialSpawner extends TileState {
      * instead.
      *
      * @return a collection of entities this spawner is tracking or an empty
-     *         collection if there aren't any
+     * collection if there aren't any
      */
     @NotNull
     public Collection<Entity> getTrackedEntities();

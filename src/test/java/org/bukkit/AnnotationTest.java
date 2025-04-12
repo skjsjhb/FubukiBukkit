@@ -1,17 +1,5 @@
 package org.bukkit;
 
-import static org.junit.jupiter.api.Assertions.*;
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.IOException;
-import java.net.URISyntaxException;
-import java.net.URL;
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.Collections;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 import org.junit.jupiter.api.Test;
@@ -23,82 +11,35 @@ import org.objectweb.asm.tree.ClassNode;
 import org.objectweb.asm.tree.MethodNode;
 import org.objectweb.asm.tree.ParameterNode;
 
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.IOException;
+import java.net.URISyntaxException;
+import java.net.URL;
+import java.util.*;
+
+import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.junit.jupiter.api.Assertions.fail;
+
 public class AnnotationTest {
 
     private static final String[] ACCEPTED_ANNOTATIONS = {
-        "Lorg/jetbrains/annotations/Nullable;",
-        "Lorg/jetbrains/annotations/NotNull;",
-        "Lorg/jetbrains/annotations/Contract;",
-        "Lorg/bukkit/UndefinedNullability;"
+            "Lorg/jetbrains/annotations/Nullable;",
+            "Lorg/jetbrains/annotations/NotNull;",
+            "Lorg/jetbrains/annotations/Contract;",
+            "Lorg/bukkit/UndefinedNullability;"
     };
 
     private static final String[] EXCLUDED_CLASSES = {
-        // Internal technical classes
-        "org/bukkit/plugin/java/JavaPluginLoader",
-        "org/bukkit/util/io/BukkitObjectInputStream",
-        "org/bukkit/util/io/BukkitObjectOutputStream",
-        "org/bukkit/util/io/Wrapper",
-        "org/bukkit/plugin/java/PluginClassLoader",
-        // Generic functional interface
-        "org/bukkit/util/Consumer"
+            // Internal technical classes
+            "org/bukkit/plugin/java/JavaPluginLoader",
+            "org/bukkit/util/io/BukkitObjectInputStream",
+            "org/bukkit/util/io/BukkitObjectOutputStream",
+            "org/bukkit/util/io/Wrapper",
+            "org/bukkit/plugin/java/PluginClassLoader",
+            // Generic functional interface
+            "org/bukkit/util/Consumer"
     };
-
-    @Test
-    public void testAll() throws IOException, URISyntaxException {
-        URL loc = Bukkit.class.getProtectionDomain().getCodeSource().getLocation();
-        File file = new File(loc.toURI());
-
-        // Running from jar is not supported yet
-        assertTrue(file.isDirectory(), "code must be in a directory");
-
-        final HashMap<String, ClassNode> foundClasses = new HashMap<>();
-        collectClasses(file, foundClasses);
-
-        final ArrayList<String> errors = new ArrayList<>();
-
-        for (ClassNode clazz : foundClasses.values()) {
-            if (!isClassIncluded(clazz, foundClasses)) {
-                continue;
-            }
-
-            for (MethodNode method : clazz.methods) {
-                if (!isMethodIncluded(clazz, method, foundClasses)) {
-                    continue;
-                }
-
-                if (mustBeAnnotated(Type.getReturnType(method.desc)) && !isWellAnnotated(method.invisibleAnnotations)) {
-                    warn(errors, clazz, method, "return value");
-                }
-
-                Type[] paramTypes = Type.getArgumentTypes(method.desc);
-                List<ParameterNode> parameters = method.parameters;
-
-                for (int i = 0; i < paramTypes.length; i++) {
-                    if (mustBeAnnotated(paramTypes[i]) ^ isWellAnnotated(method.invisibleParameterAnnotations == null ? null : method.invisibleParameterAnnotations[i])) {
-                        ParameterNode paramNode = parameters == null ? null : parameters.get(i);
-                        String paramName = paramNode == null ? null : paramNode.name;
-
-                        warn(errors, clazz, method, "parameter " + i + (paramName == null ? "" : ": " + paramName));
-                    }
-                }
-            }
-        }
-
-        if (errors.isEmpty()) {
-            // Success
-            return;
-        }
-
-        Collections.sort(errors);
-
-        System.out.println(errors.size() + " missing annotation(s):");
-        for (String message : errors) {
-            System.out.print("\t");
-            System.out.println(message);
-        }
-
-        fail("There " + errors.size() + " are missing annotation(s)");
-    }
 
     private static void collectClasses(@NotNull File from, @NotNull Map<String, ClassNode> to) throws IOException {
         if (from.isDirectory()) {
@@ -167,11 +108,7 @@ public class AnnotationTest {
         }
 
         // Anonymous classes have generated constructors, which can't be annotated nor invoked
-        if ("<init>".equals(method.name) && isAnonymous(clazz)) {
-            return false;
-        }
-
-        return true;
+        return !"<init>".equals(method.name) || !isAnonymous(clazz);
     }
 
     private static boolean isWellAnnotated(@Nullable List<AnnotationNode> annotations) {
@@ -245,5 +182,62 @@ public class AnnotationTest {
 
     private static void warn(@NotNull Collection<String> out, @NotNull ClassNode clazz, @NotNull MethodNode method, @NotNull String description) {
         out.add(clazz.name + " \t" + method.name + " \t" + description);
+    }
+
+    @Test
+    public void testAll() throws IOException, URISyntaxException {
+        URL loc = Bukkit.class.getProtectionDomain().getCodeSource().getLocation();
+        File file = new File(loc.toURI());
+
+        // Running from jar is not supported yet
+        assertTrue(file.isDirectory(), "code must be in a directory");
+
+        final HashMap<String, ClassNode> foundClasses = new HashMap<>();
+        collectClasses(file, foundClasses);
+
+        final ArrayList<String> errors = new ArrayList<>();
+
+        for (ClassNode clazz : foundClasses.values()) {
+            if (!isClassIncluded(clazz, foundClasses)) {
+                continue;
+            }
+
+            for (MethodNode method : clazz.methods) {
+                if (!isMethodIncluded(clazz, method, foundClasses)) {
+                    continue;
+                }
+
+                if (mustBeAnnotated(Type.getReturnType(method.desc)) && !isWellAnnotated(method.invisibleAnnotations)) {
+                    warn(errors, clazz, method, "return value");
+                }
+
+                Type[] paramTypes = Type.getArgumentTypes(method.desc);
+                List<ParameterNode> parameters = method.parameters;
+
+                for (int i = 0; i < paramTypes.length; i++) {
+                    if (mustBeAnnotated(paramTypes[i]) ^ isWellAnnotated(method.invisibleParameterAnnotations == null ? null : method.invisibleParameterAnnotations[i])) {
+                        ParameterNode paramNode = parameters == null ? null : parameters.get(i);
+                        String paramName = paramNode == null ? null : paramNode.name;
+
+                        warn(errors, clazz, method, "parameter " + i + (paramName == null ? "" : ": " + paramName));
+                    }
+                }
+            }
+        }
+
+        if (errors.isEmpty()) {
+            // Success
+            return;
+        }
+
+        Collections.sort(errors);
+
+        System.out.println(errors.size() + " missing annotation(s):");
+        for (String message : errors) {
+            System.out.print("\t");
+            System.out.println(message);
+        }
+
+        fail("There " + errors.size() + " are missing annotation(s)");
     }
 }

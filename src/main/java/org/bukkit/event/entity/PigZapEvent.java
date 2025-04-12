@@ -1,6 +1,5 @@
 package org.bukkit.event.entity;
 
-import java.util.Collections;
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.LightningStrike;
 import org.bukkit.entity.Pig;
@@ -9,19 +8,26 @@ import org.bukkit.event.Cancellable;
 import org.bukkit.event.HandlerList;
 import org.jetbrains.annotations.NotNull;
 
+import java.util.Collections;
+
 /**
  * Stores data for pigs being zapped
  */
 public class PigZapEvent extends EntityTransformEvent implements Cancellable {
     private static final HandlerList handlers = new HandlerList();
-    private boolean canceled;
     private final PigZombie pigzombie;
     private final LightningStrike bolt;
+    private boolean canceled;
 
     public PigZapEvent(@NotNull final Pig pig, @NotNull final LightningStrike bolt, @NotNull final PigZombie pigzombie) {
         super(pig, Collections.singletonList((Entity) pigzombie), TransformReason.LIGHTNING);
         this.bolt = bolt;
         this.pigzombie = pigzombie;
+    }
+
+    @NotNull
+    public static HandlerList getHandlerList() {
+        return handlers;
     }
 
     @Override
@@ -66,11 +72,6 @@ public class PigZapEvent extends EntityTransformEvent implements Cancellable {
     @NotNull
     @Override
     public HandlerList getHandlers() {
-        return handlers;
-    }
-
-    @NotNull
-    public static HandlerList getHandlerList() {
         return handlers;
     }
 }

@@ -1,11 +1,12 @@
 package org.bukkit.event.entity;
 
-import java.util.List;
 import org.bukkit.damage.DamageSource;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
+
+import java.util.List;
 
 /**
  * Thrown whenever a {@link Player} dies
@@ -41,15 +42,6 @@ public class PlayerDeathEvent extends EntityDeathEvent {
     }
 
     /**
-     * Set the death message that will appear to everyone on the server.
-     *
-     * @param deathMessage Message to appear to other players on the server.
-     */
-    public void setDeathMessage(@Nullable String deathMessage) {
-        this.deathMessage = deathMessage;
-    }
-
-    /**
      * Get the death message that will appear to everyone on the server.
      *
      * @return Message to appear to other players on the server.
@@ -57,6 +49,15 @@ public class PlayerDeathEvent extends EntityDeathEvent {
     @Nullable
     public String getDeathMessage() {
         return deathMessage;
+    }
+
+    /**
+     * Set the death message that will appear to everyone on the server.
+     *
+     * @param deathMessage Message to appear to other players on the server.
+     */
+    public void setDeathMessage(@Nullable String deathMessage) {
+        this.deathMessage = deathMessage;
     }
 
     /**
@@ -146,6 +147,15 @@ public class PlayerDeathEvent extends EntityDeathEvent {
     }
 
     /**
+     * Gets if the Player keeps inventory on death.
+     *
+     * @return True if the player keeps inventory on death
+     */
+    public boolean getKeepInventory() {
+        return keepInventory;
+    }
+
+    /**
      * Sets if the Player keeps inventory on death.
      * <p>
      * <b>This doesn't prevent the items from dropping.
@@ -156,14 +166,5 @@ public class PlayerDeathEvent extends EntityDeathEvent {
      */
     public void setKeepInventory(boolean keepInventory) {
         this.keepInventory = keepInventory;
-    }
-
-    /**
-     * Gets if the Player keeps inventory on death.
-     *
-     * @return True if the player keeps inventory on death
-     */
-    public boolean getKeepInventory() {
-        return keepInventory;
     }
 }

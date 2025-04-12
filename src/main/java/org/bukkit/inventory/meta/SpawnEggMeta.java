@@ -25,7 +25,7 @@ public interface SpawnEggMeta extends ItemMeta {
      * Set the type of entity this egg will spawn.
      *
      * @param type The entity type. May be null for implementation specific
-     * default.
+     *             default.
      * @deprecated different types are different items
      */
     @Deprecated(since = "1.13")

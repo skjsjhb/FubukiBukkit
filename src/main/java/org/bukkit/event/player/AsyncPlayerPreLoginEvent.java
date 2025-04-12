@@ -1,10 +1,11 @@
 package org.bukkit.event.player;
 
-import java.net.InetAddress;
-import java.util.UUID;
 import org.bukkit.event.Event;
 import org.bukkit.event.HandlerList;
 import org.jetbrains.annotations.NotNull;
+
+import java.net.InetAddress;
+import java.util.UUID;
 
 /**
  * Stores details for players attempting to log in.
@@ -13,12 +14,12 @@ import org.jetbrains.annotations.NotNull;
  */
 public class AsyncPlayerPreLoginEvent extends Event {
     private static final HandlerList handlers = new HandlerList();
-    private Result result;
-    private String message;
     private final String name;
     private final InetAddress ipAddress;
     private final UUID uniqueId;
     private final boolean transferred;
+    private Result result;
+    private String message;
 
     @Deprecated(since = "1.7.5")
     public AsyncPlayerPreLoginEvent(@NotNull final String name, @NotNull final InetAddress ipAddress) {
@@ -40,6 +41,11 @@ public class AsyncPlayerPreLoginEvent extends Event {
         this.transferred = transferred;
     }
 
+    @NotNull
+    public static HandlerList getHandlerList() {
+        return handlers;
+    }
+
     /**
      * Gets the current result of the login, as an enum
      *
@@ -48,20 +54,6 @@ public class AsyncPlayerPreLoginEvent extends Event {
     @NotNull
     public Result getLoginResult() {
         return result;
-    }
-
-    /**
-     * Gets the current result of the login, as an enum
-     *
-     * @return Current Result of the login
-     * @see #getLoginResult()
-     * @deprecated This method uses a deprecated enum from {@link
-     *     PlayerPreLoginEvent}
-     */
-    @Deprecated(since = "1.3.2")
-    @NotNull
-    public PlayerPreLoginEvent.Result getResult() {
-        return result == null ? null : result.old();
     }
 
     /**
@@ -74,12 +66,26 @@ public class AsyncPlayerPreLoginEvent extends Event {
     }
 
     /**
+     * Gets the current result of the login, as an enum
+     *
+     * @return Current Result of the login
+     * @see #getLoginResult()
+     * @deprecated This method uses a deprecated enum from {@link
+     * PlayerPreLoginEvent}
+     */
+    @Deprecated(since = "1.3.2")
+    @NotNull
+    public PlayerPreLoginEvent.Result getResult() {
+        return result == null ? null : result.old();
+    }
+
+    /**
      * Sets the new result of the login, as an enum
      *
      * @param result New result to set
      * @see #setLoginResult(Result)
      * @deprecated This method uses a deprecated enum from {@link
-     *     PlayerPreLoginEvent}
+     * PlayerPreLoginEvent}
      */
     @Deprecated(since = "1.3.2")
     public void setResult(@NotNull final PlayerPreLoginEvent.Result result) {
@@ -117,7 +123,7 @@ public class AsyncPlayerPreLoginEvent extends Event {
     /**
      * Disallows the player from logging in, with the given reason
      *
-     * @param result New result for disallowing the player
+     * @param result  New result for disallowing the player
      * @param message Kick message to display to the user
      */
     public void disallow(@NotNull final Result result, @NotNull final String message) {
@@ -128,11 +134,11 @@ public class AsyncPlayerPreLoginEvent extends Event {
     /**
      * Disallows the player from logging in, with the given reason
      *
-     * @param result New result for disallowing the player
+     * @param result  New result for disallowing the player
      * @param message Kick message to display to the user
      * @see #disallow(Result, String)
      * @deprecated This method uses a deprecated enum from {@link
-     *     PlayerPreLoginEvent}
+     * PlayerPreLoginEvent}
      */
     @Deprecated(since = "1.3.2")
     public void disallow(@NotNull final PlayerPreLoginEvent.Result result, @NotNull final String message) {
@@ -182,11 +188,6 @@ public class AsyncPlayerPreLoginEvent extends Event {
     @NotNull
     @Override
     public HandlerList getHandlers() {
-        return handlers;
-    }
-
-    @NotNull
-    public static HandlerList getHandlerList() {
         return handlers;
     }
 

@@ -17,11 +17,11 @@ public final class PotionData {
      * Instantiates a final PotionData object to contain information about a
      * Potion
      *
-     * @param type the type of the Potion
+     * @param type     the type of the Potion
      * @param extended whether the potion is extended PotionType#isExtendable()
-     * must be true
+     *                 must be true
      * @param upgraded whether the potion is upgraded PotionType#isUpgradable()
-     * must be true
+     *                 must be true
      */
     public PotionData(@NotNull PotionType type, boolean extended, boolean upgraded) {
         Preconditions.checkArgument(type != null, "Potion Type must not be null");

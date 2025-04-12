@@ -1,11 +1,12 @@
 package org.bukkit.profile;
 
-import java.util.UUID;
-import java.util.concurrent.CompletableFuture;
 import org.bukkit.Server;
 import org.bukkit.configuration.serialization.ConfigurationSerializable;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
+
+import java.util.UUID;
+import java.util.concurrent.CompletableFuture;
 
 /**
  * A player profile.
@@ -47,7 +48,7 @@ public interface PlayerProfile extends Cloneable, ConfigurationSerializable {
      * Copies the given textures.
      *
      * @param textures the textures to copy, or <code>null</code> to clear the
-     * textures
+     *                 textures
      */
     void setTextures(@Nullable PlayerTextures textures);
 

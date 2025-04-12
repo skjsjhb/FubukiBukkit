@@ -2,7 +2,6 @@ package org.bukkit.block.banner;
 
 import com.google.common.base.Preconditions;
 import com.google.common.collect.Lists;
-import java.util.Locale;
 import org.bukkit.Keyed;
 import org.bukkit.NamespacedKey;
 import org.bukkit.Registry;
@@ -11,6 +10,8 @@ import org.bukkit.util.OldEnum;
 import org.jetbrains.annotations.Contract;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
+
+import java.util.Locale;
 
 public interface PatternType extends OldEnum<PatternType>, Keyed, RegistryAware {
     PatternType BASE = getType("base");
@@ -56,30 +57,6 @@ public interface PatternType extends OldEnum<PatternType>, Keyed, RegistryAware 
     PatternType PIGLIN = getType("piglin");
     PatternType FLOW = getType("flow");
     PatternType GUSTER = getType("guster");
-
-    /**
-     * {@inheritDoc}
-     *
-     * @see #getKeyOrThrow()
-     * @see #isRegistered()
-     * @deprecated A key might not always be present, use {@link #getKeyOrThrow()} instead.
-     */
-    @NotNull
-    @Override
-    @Deprecated(since = "1.21.4")
-    NamespacedKey getKey();
-
-    /**
-     * Returns the identifier used to represent
-     * this pattern type
-     *
-     * @return the pattern's identifier
-     * @see #getKey
-     * @deprecated magic value
-     */
-    @NotNull
-    @Deprecated(since = "1.20.4", forRemoval = true)
-    public String getIdentifier();
 
     /**
      * Returns the pattern type which matches the passed
@@ -134,4 +111,28 @@ public interface PatternType extends OldEnum<PatternType>, Keyed, RegistryAware 
     static PatternType[] values() {
         return Lists.newArrayList(Registry.BANNER_PATTERN).toArray(new PatternType[0]);
     }
+
+    /**
+     * {@inheritDoc}
+     *
+     * @see #getKeyOrThrow()
+     * @see #isRegistered()
+     * @deprecated A key might not always be present, use {@link #getKeyOrThrow()} instead.
+     */
+    @NotNull
+    @Override
+    @Deprecated(since = "1.21.4")
+    NamespacedKey getKey();
+
+    /**
+     * Returns the identifier used to represent
+     * this pattern type
+     *
+     * @return the pattern's identifier
+     * @see #getKey
+     * @deprecated magic value
+     */
+    @NotNull
+    @Deprecated(since = "1.20.4", forRemoval = true)
+    public String getIdentifier();
 }

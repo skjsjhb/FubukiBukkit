@@ -23,6 +23,11 @@ public class PlayerMoveEvent extends PlayerEvent implements Cancellable {
         this.to = to;
     }
 
+    @NotNull
+    public static HandlerList getHandlerList() {
+        return handlers;
+    }
+
     /**
      * Gets the cancellation state of this event. A cancelled event will not
      * be executed in the server, but will still pass to other plugins
@@ -101,11 +106,6 @@ public class PlayerMoveEvent extends PlayerEvent implements Cancellable {
     @NotNull
     @Override
     public HandlerList getHandlers() {
-        return handlers;
-    }
-
-    @NotNull
-    public static HandlerList getHandlerList() {
         return handlers;
     }
 }

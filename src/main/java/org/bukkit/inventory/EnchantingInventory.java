@@ -8,13 +8,6 @@ import org.jetbrains.annotations.Nullable;
 public interface EnchantingInventory extends Inventory {
 
     /**
-     * Set the item being enchanted.
-     *
-     * @param item The new item
-     */
-    void setItem(@Nullable ItemStack item);
-
-    /**
      * Get the item being enchanted.
      *
      * @return The current item.
@@ -23,11 +16,11 @@ public interface EnchantingInventory extends Inventory {
     ItemStack getItem();
 
     /**
-     * Set the secondary item being used for the enchant.
+     * Set the item being enchanted.
      *
      * @param item The new item
      */
-    void setSecondary(@Nullable ItemStack item);
+    void setItem(@Nullable ItemStack item);
 
     /**
      * Get the secondary item being used for the enchant.
@@ -36,4 +29,11 @@ public interface EnchantingInventory extends Inventory {
      */
     @Nullable
     ItemStack getSecondary();
+
+    /**
+     * Set the secondary item being used for the enchant.
+     *
+     * @param item The new item
+     */
+    void setSecondary(@Nullable ItemStack item);
 }

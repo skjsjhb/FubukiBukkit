@@ -10,14 +10,19 @@ import org.jetbrains.annotations.NotNull;
  */
 public class EntityRegainHealthEvent extends EntityEvent implements Cancellable {
     private static final HandlerList handlers = new HandlerList();
+    private final RegainReason regainReason;
     private boolean cancelled;
     private double amount;
-    private final RegainReason regainReason;
 
     public EntityRegainHealthEvent(@NotNull final Entity entity, final double amount, @NotNull final RegainReason regainReason) {
         super(entity);
         this.amount = amount;
         this.regainReason = regainReason;
+    }
+
+    @NotNull
+    public static HandlerList getHandlerList() {
+        return handlers;
     }
 
     /**
@@ -52,7 +57,7 @@ public class EntityRegainHealthEvent extends EntityEvent implements Cancellable 
      * Gets the reason for why the entity is regaining health
      *
      * @return A RegainReason detailing the reason for the entity regaining
-     *     health
+     * health
      */
     @NotNull
     public RegainReason getRegainReason() {
@@ -62,11 +67,6 @@ public class EntityRegainHealthEvent extends EntityEvent implements Cancellable 
     @NotNull
     @Override
     public HandlerList getHandlers() {
-        return handlers;
-    }
-
-    @NotNull
-    public static HandlerList getHandlerList() {
         return handlers;
     }
 

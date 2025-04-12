@@ -9,6 +9,14 @@ import org.jetbrains.annotations.Nullable;
 public interface JukeboxInventory extends Inventory {
 
     /**
+     * Get the record in the jukebox.
+     *
+     * @return the current record
+     */
+    @Nullable
+    ItemStack getRecord();
+
+    /**
      * Set the record in the jukebox.
      * <p>
      * This will immediately start playing the inserted item or stop playing if the
@@ -17,14 +25,6 @@ public interface JukeboxInventory extends Inventory {
      * @param item the new record
      */
     void setRecord(@Nullable ItemStack item);
-
-    /**
-     * Get the record in the jukebox.
-     *
-     * @return the current record
-     */
-    @Nullable
-    ItemStack getRecord();
 
     @Nullable
     @Override

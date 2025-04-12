@@ -1,7 +1,5 @@
 package org.bukkit.plugin;
 
-import static org.bukkit.support.MatcherAssert.*;
-import static org.hamcrest.Matchers.*;
 import org.bukkit.Bukkit;
 import org.bukkit.event.Event;
 import org.bukkit.event.TestEvent;
@@ -10,13 +8,11 @@ import org.bukkit.support.AbstractTestingBase;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.Test;
 
+import static org.bukkit.support.MatcherAssert.assertThat;
+import static org.hamcrest.Matchers.*;
+
 public class PluginManagerTest extends AbstractTestingBase {
-    private class MutableObject {
-        volatile Object value = null;
-    }
-
     private static final PluginManager pm = Bukkit.getServer().getPluginManager();
-
     private final MutableObject store = new MutableObject();
 
     @Test
@@ -41,18 +37,18 @@ public class PluginManagerTest extends AbstractTestingBase {
     public void testAsyncLocked() throws InterruptedException {
         final Event event = new TestEvent(true);
         Thread secondThread = new Thread(
-            new Runnable() {
-                @Override
-                public void run() {
-                    try {
-                        synchronized (pm) {
-                            pm.callEvent(event);
+                new Runnable() {
+                    @Override
+                    public void run() {
+                        try {
+                            synchronized (pm) {
+                                pm.callEvent(event);
+                            }
+                        } catch (Throwable ex) {
+                            store.value = ex;
                         }
-                    } catch (Throwable ex) {
-                        store.value = ex;
                     }
                 }
-            }
         );
         secondThread.start();
         secondThread.join();
@@ -64,16 +60,16 @@ public class PluginManagerTest extends AbstractTestingBase {
     public void testAsyncUnlocked() throws InterruptedException {
         final Event event = new TestEvent(true);
         Thread secondThread = new Thread(
-            new Runnable() {
-                @Override
-                public void run() {
-                    try {
-                        pm.callEvent(event);
-                    } catch (Throwable ex) {
-                        store.value = ex;
+                new Runnable() {
+                    @Override
+                    public void run() {
+                        try {
+                            pm.callEvent(event);
+                        } catch (Throwable ex) {
+                            store.value = ex;
+                        }
                     }
                 }
-            }
         );
         secondThread.start();
         secondThread.join();
@@ -86,18 +82,18 @@ public class PluginManagerTest extends AbstractTestingBase {
     public void testSyncUnlocked() throws InterruptedException {
         final Event event = new TestEvent(false);
         Thread secondThread = new Thread(
-            new Runnable() {
-                @Override
-                public void run() {
-                    try {
-                        pm.callEvent(event);
-                    } catch (Throwable ex) {
-                        store.value = ex;
-                        assertThat(event.getEventName() + " cannot be triggered asynchronously from another thread.", is(ex.getMessage()));
-                        return;
+                new Runnable() {
+                    @Override
+                    public void run() {
+                        try {
+                            pm.callEvent(event);
+                        } catch (Throwable ex) {
+                            store.value = ex;
+                            assertThat(event.getEventName() + " cannot be triggered asynchronously from another thread.", is(ex.getMessage()));
+                            return;
+                        }
                     }
                 }
-            }
         );
         secondThread.start();
         secondThread.join();
@@ -110,20 +106,20 @@ public class PluginManagerTest extends AbstractTestingBase {
     public void testSyncLocked() throws InterruptedException {
         final Event event = new TestEvent(false);
         Thread secondThread = new Thread(
-            new Runnable() {
-                @Override
-                public void run() {
-                    try {
-                        synchronized (pm) {
-                            pm.callEvent(event);
+                new Runnable() {
+                    @Override
+                    public void run() {
+                        try {
+                            synchronized (pm) {
+                                pm.callEvent(event);
+                            }
+                        } catch (Throwable ex) {
+                            store.value = ex;
+                            assertThat(event.getEventName() + " cannot be triggered asynchronously from another thread.", is(ex.getMessage()));
+                            return;
                         }
-                    } catch (Throwable ex) {
-                        store.value = ex;
-                        assertThat(event.getEventName() + " cannot be triggered asynchronously from another thread.", is(ex.getMessage()));
-                        return;
                     }
                 }
-            }
         );
         secondThread.start();
         secondThread.join();
@@ -181,5 +177,9 @@ public class PluginManagerTest extends AbstractTestingBase {
     public void tearDown() {
         pm.clearPlugins();
         assertThat(pm.getPermissions(), is(empty()));
+    }
+
+    private class MutableObject {
+        volatile Object value = null;
     }
 }

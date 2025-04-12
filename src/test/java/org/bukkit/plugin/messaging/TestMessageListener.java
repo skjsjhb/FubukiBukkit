@@ -1,7 +1,9 @@
 package org.bukkit.plugin.messaging;
 
-import static org.junit.jupiter.api.Assertions.*;
 import org.bukkit.entity.Player;
+
+import static org.junit.jupiter.api.Assertions.assertArrayEquals;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class TestMessageListener implements PluginMessageListener {
     private final String channel;

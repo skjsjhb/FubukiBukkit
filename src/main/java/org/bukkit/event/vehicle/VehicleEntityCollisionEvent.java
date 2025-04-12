@@ -22,6 +22,11 @@ public class VehicleEntityCollisionEvent extends VehicleCollisionEvent implement
     }
 
     @NotNull
+    public static HandlerList getHandlerList() {
+        return handlers;
+    }
+
+    @NotNull
     public Entity getEntity() {
         return entity;
     }
@@ -55,11 +60,6 @@ public class VehicleEntityCollisionEvent extends VehicleCollisionEvent implement
     @NotNull
     @Override
     public HandlerList getHandlers() {
-        return handlers;
-    }
-
-    @NotNull
-    public static HandlerList getHandlerList() {
         return handlers;
     }
 }

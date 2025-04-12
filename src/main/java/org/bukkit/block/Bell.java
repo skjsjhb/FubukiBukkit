@@ -12,9 +12,9 @@ public interface Bell extends TileState {
     /**
      * Ring this bell. This will call a {@link BellRingEvent}.
      *
-     * @param entity the entity ringing the bell
+     * @param entity    the entity ringing the bell
      * @param direction the direction from which the bell was rung or null to
-     * ring in the direction that the bell is facing
+     *                  ring in the direction that the bell is facing
      * @return true if rung successfully, false if the event was cancelled
      */
     public boolean ring(@Nullable Entity entity, @Nullable BlockFace direction);
@@ -32,7 +32,7 @@ public interface Bell extends TileState {
      * Ring this bell. This will call a {@link BellRingEvent}.
      *
      * @param direction the direction from which the bell was rung or null to
-     * ring in the direction that the bell is facing
+     *                  ring in the direction that the bell is facing
      * @return true if rung successfully, false if the event was cancelled
      */
     public boolean ring(@Nullable BlockFace direction);

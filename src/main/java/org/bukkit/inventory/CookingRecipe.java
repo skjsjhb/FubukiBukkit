@@ -1,15 +1,17 @@
 package org.bukkit.inventory;
 
 import com.google.common.base.Preconditions;
-import java.util.Collections;
 import org.bukkit.Keyed;
 import org.bukkit.Material;
 import org.bukkit.NamespacedKey;
 import org.bukkit.inventory.recipe.CookingBookCategory;
 import org.jetbrains.annotations.NotNull;
 
+import java.util.Collections;
+
 /**
  * Represents a cooking recipe.
+ *
  * @param <T> type of recipe
  */
 public abstract class CookingRecipe<T extends CookingRecipe> implements Recipe, Keyed {
@@ -24,10 +26,10 @@ public abstract class CookingRecipe<T extends CookingRecipe> implements Recipe, 
     /**
      * Create a cooking recipe to craft the specified ItemStack.
      *
-     * @param key The unique recipe key
-     * @param result The item you want the recipe to create.
-     * @param source The input material.
-     * @param experience The experience given by this recipe
+     * @param key         The unique recipe key
+     * @param result      The item you want the recipe to create.
+     * @param source      The input material.
+     * @param experience  The experience given by this recipe
      * @param cookingTime The cooking time (in ticks)
      */
     public CookingRecipe(@NotNull NamespacedKey key, @NotNull ItemStack result, @NotNull Material source, float experience, int cookingTime) {
@@ -37,10 +39,10 @@ public abstract class CookingRecipe<T extends CookingRecipe> implements Recipe, 
     /**
      * Create a cooking recipe to craft the specified ItemStack.
      *
-     * @param key The unique recipe key
-     * @param result The item you want the recipe to create.
-     * @param input The input choices.
-     * @param experience The experience given by this recipe
+     * @param key         The unique recipe key
+     * @param result      The item you want the recipe to create.
+     * @param input       The input choices.
+     * @param experience  The experience given by this recipe
      * @param cookingTime The cooking time (in ticks)
      */
     public CookingRecipe(@NotNull NamespacedKey key, @NotNull ItemStack result, @NotNull RecipeChoice input, float experience, int cookingTime) {
@@ -50,18 +52,6 @@ public abstract class CookingRecipe<T extends CookingRecipe> implements Recipe, 
         this.ingredient = input;
         this.experience = experience;
         this.cookingTime = cookingTime;
-    }
-
-    /**
-     * Sets the input of this cooking recipe.
-     *
-     * @param input The input material.
-     * @return The changed recipe, so you can chain calls.
-     */
-    @NotNull
-    public CookingRecipe setInput(@NotNull Material input) {
-        this.ingredient = new RecipeChoice.MaterialChoice(Collections.singletonList(input));
-        return this;
     }
 
     /**
@@ -77,13 +67,13 @@ public abstract class CookingRecipe<T extends CookingRecipe> implements Recipe, 
     /**
      * Sets the input of this cooking recipe.
      *
-     * @param input The input choice.
+     * @param input The input material.
      * @return The changed recipe, so you can chain calls.
      */
     @NotNull
-    public T setInputChoice(@NotNull RecipeChoice input) {
-        this.ingredient = input;
-        return (T) this;
+    public CookingRecipe setInput(@NotNull Material input) {
+        this.ingredient = new RecipeChoice.MaterialChoice(Collections.singletonList(input));
+        return this;
     }
 
     /**
@@ -94,6 +84,18 @@ public abstract class CookingRecipe<T extends CookingRecipe> implements Recipe, 
     @NotNull
     public RecipeChoice getInputChoice() {
         return this.ingredient.clone();
+    }
+
+    /**
+     * Sets the input of this cooking recipe.
+     *
+     * @param input The input choice.
+     * @return The changed recipe, so you can chain calls.
+     */
+    @NotNull
+    public T setInputChoice(@NotNull RecipeChoice input) {
+        this.ingredient = input;
+        return (T) this;
     }
 
     /**
@@ -108,6 +110,15 @@ public abstract class CookingRecipe<T extends CookingRecipe> implements Recipe, 
     }
 
     /**
+     * Get the experience given by this recipe.
+     *
+     * @return experience level
+     */
+    public float getExperience() {
+        return experience;
+    }
+
+    /**
      * Sets the experience given by this recipe.
      *
      * @param experience the experience level
@@ -117,12 +128,12 @@ public abstract class CookingRecipe<T extends CookingRecipe> implements Recipe, 
     }
 
     /**
-     * Get the experience given by this recipe.
+     * Get the cooking time for this recipe in ticks.
      *
-     * @return experience level
+     * @return cooking time
      */
-    public float getExperience() {
-        return experience;
+    public int getCookingTime() {
+        return cookingTime;
     }
 
     /**
@@ -133,15 +144,6 @@ public abstract class CookingRecipe<T extends CookingRecipe> implements Recipe, 
     public void setCookingTime(int cookingTime) {
         Preconditions.checkArgument(cookingTime >= 0, "cookingTime must be >= 0");
         this.cookingTime = cookingTime;
-    }
-
-    /**
-     * Get the cooking time for this recipe in ticks.
-     *
-     * @return cooking time
-     */
-    public int getCookingTime() {
-        return cookingTime;
     }
 
     @NotNull
@@ -166,7 +168,7 @@ public abstract class CookingRecipe<T extends CookingRecipe> implements Recipe, 
      * together when displayed in the client.
      *
      * @param group recipe group. An empty string denotes no group. May not be
-     * null.
+     *              null.
      */
     public void setGroup(@NotNull String group) {
         Preconditions.checkArgument(group != null, "group cannot be null");
@@ -175,7 +177,7 @@ public abstract class CookingRecipe<T extends CookingRecipe> implements Recipe, 
 
     /**
      * Gets the category which this recipe will appear in the recipe book under.
-     *
+     * <p>
      * Defaults to {@link CookingBookCategory#MISC} if not set.
      *
      * @return recipe book category
@@ -187,7 +189,7 @@ public abstract class CookingRecipe<T extends CookingRecipe> implements Recipe, 
 
     /**
      * Sets the category which this recipe will appear in the recipe book under.
-     *
+     * <p>
      * Defaults to {@link CookingBookCategory#MISC} if not set.
      *
      * @param category recipe book category

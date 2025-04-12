@@ -4,126 +4,12 @@ import com.google.common.base.Preconditions;
 import com.google.common.base.Suppliers;
 import com.google.common.collect.Maps;
 import com.google.common.collect.Multimap;
-import java.lang.reflect.Constructor;
-import java.util.Locale;
-import java.util.Map;
-import java.util.function.Consumer;
-import java.util.function.Supplier;
 import org.bukkit.attribute.Attribute;
 import org.bukkit.attribute.AttributeModifier;
 import org.bukkit.block.Block;
 import org.bukkit.block.BlockType;
-import org.bukkit.block.data.Ageable;
-import org.bukkit.block.data.AnaloguePowerable;
-import org.bukkit.block.data.Bisected;
-import org.bukkit.block.data.BlockData;
-import org.bukkit.block.data.Brushable;
-import org.bukkit.block.data.Directional;
-import org.bukkit.block.data.Hatchable;
-import org.bukkit.block.data.Levelled;
-import org.bukkit.block.data.Lightable;
-import org.bukkit.block.data.MultipleFacing;
-import org.bukkit.block.data.Orientable;
-import org.bukkit.block.data.Powerable;
-import org.bukkit.block.data.Rail;
-import org.bukkit.block.data.Rotatable;
-import org.bukkit.block.data.Snowable;
-import org.bukkit.block.data.Waterlogged;
-import org.bukkit.block.data.type.AmethystCluster;
-import org.bukkit.block.data.type.Bamboo;
-import org.bukkit.block.data.type.Barrel;
-import org.bukkit.block.data.type.Bed;
-import org.bukkit.block.data.type.Beehive;
-import org.bukkit.block.data.type.Bell;
-import org.bukkit.block.data.type.BigDripleaf;
-import org.bukkit.block.data.type.BrewingStand;
-import org.bukkit.block.data.type.BubbleColumn;
-import org.bukkit.block.data.type.Cake;
-import org.bukkit.block.data.type.CalibratedSculkSensor;
-import org.bukkit.block.data.type.Campfire;
-import org.bukkit.block.data.type.Candle;
-import org.bukkit.block.data.type.CaveVines;
-import org.bukkit.block.data.type.CaveVinesPlant;
-import org.bukkit.block.data.type.Chain;
-import org.bukkit.block.data.type.Chest;
-import org.bukkit.block.data.type.ChiseledBookshelf;
-import org.bukkit.block.data.type.Cocoa;
-import org.bukkit.block.data.type.CommandBlock;
-import org.bukkit.block.data.type.Comparator;
-import org.bukkit.block.data.type.CopperBulb;
-import org.bukkit.block.data.type.CoralWallFan;
-import org.bukkit.block.data.type.Crafter;
-import org.bukkit.block.data.type.CreakingHeart;
-import org.bukkit.block.data.type.DaylightDetector;
-import org.bukkit.block.data.type.DecoratedPot;
-import org.bukkit.block.data.type.Dispenser;
-import org.bukkit.block.data.type.Door;
-import org.bukkit.block.data.type.Dripleaf;
-import org.bukkit.block.data.type.EndPortalFrame;
-import org.bukkit.block.data.type.EnderChest;
-import org.bukkit.block.data.type.Farmland;
-import org.bukkit.block.data.type.Fence;
-import org.bukkit.block.data.type.Fire;
-import org.bukkit.block.data.type.Furnace;
-import org.bukkit.block.data.type.Gate;
-import org.bukkit.block.data.type.GlassPane;
-import org.bukkit.block.data.type.GlowLichen;
-import org.bukkit.block.data.type.Grindstone;
-import org.bukkit.block.data.type.HangingMoss;
-import org.bukkit.block.data.type.HangingSign;
-import org.bukkit.block.data.type.Hopper;
-import org.bukkit.block.data.type.Jigsaw;
-import org.bukkit.block.data.type.Jukebox;
-import org.bukkit.block.data.type.Ladder;
-import org.bukkit.block.data.type.Lantern;
-import org.bukkit.block.data.type.LeafLitter;
-import org.bukkit.block.data.type.Leaves;
-import org.bukkit.block.data.type.Lectern;
-import org.bukkit.block.data.type.Light;
-import org.bukkit.block.data.type.LightningRod;
-import org.bukkit.block.data.type.MangrovePropagule;
-import org.bukkit.block.data.type.MossyCarpet;
-import org.bukkit.block.data.type.NoteBlock;
-import org.bukkit.block.data.type.Observer;
-import org.bukkit.block.data.type.PinkPetals;
-import org.bukkit.block.data.type.Piston;
-import org.bukkit.block.data.type.PistonHead;
-import org.bukkit.block.data.type.PitcherCrop;
-import org.bukkit.block.data.type.PointedDripstone;
-import org.bukkit.block.data.type.RedstoneRail;
-import org.bukkit.block.data.type.RedstoneWallTorch;
-import org.bukkit.block.data.type.RedstoneWire;
-import org.bukkit.block.data.type.Repeater;
-import org.bukkit.block.data.type.ResinClump;
-import org.bukkit.block.data.type.RespawnAnchor;
-import org.bukkit.block.data.type.Sapling;
-import org.bukkit.block.data.type.Scaffolding;
-import org.bukkit.block.data.type.SculkCatalyst;
-import org.bukkit.block.data.type.SculkSensor;
-import org.bukkit.block.data.type.SculkShrieker;
-import org.bukkit.block.data.type.SculkVein;
-import org.bukkit.block.data.type.SeaPickle;
-import org.bukkit.block.data.type.Sign;
-import org.bukkit.block.data.type.Skull;
-import org.bukkit.block.data.type.Slab;
-import org.bukkit.block.data.type.SmallDripleaf;
-import org.bukkit.block.data.type.Snow;
-import org.bukkit.block.data.type.Stairs;
-import org.bukkit.block.data.type.StructureBlock;
-import org.bukkit.block.data.type.Switch;
-import org.bukkit.block.data.type.TNT;
-import org.bukkit.block.data.type.TechnicalPiston;
-import org.bukkit.block.data.type.TestBlock;
-import org.bukkit.block.data.type.TrapDoor;
-import org.bukkit.block.data.type.TrialSpawner;
-import org.bukkit.block.data.type.Tripwire;
-import org.bukkit.block.data.type.TripwireHook;
-import org.bukkit.block.data.type.TurtleEgg;
-import org.bukkit.block.data.type.Vault;
-import org.bukkit.block.data.type.Wall;
-import org.bukkit.block.data.type.WallHangingSign;
-import org.bukkit.block.data.type.WallSign;
-import org.bukkit.block.data.type.WallSkull;
+import org.bukkit.block.data.*;
+import org.bukkit.block.data.type.*;
 import org.bukkit.inventory.CreativeCategory;
 import org.bukkit.inventory.EquipmentSlot;
 import org.bukkit.inventory.ItemStack;
@@ -134,6 +20,12 @@ import org.bukkit.registry.RegistryAware;
 import org.jetbrains.annotations.ApiStatus;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
+
+import java.lang.reflect.Constructor;
+import java.util.Locale;
+import java.util.Map;
+import java.util.function.Consumer;
+import java.util.function.Supplier;
 
 /**
  * An enum of all material IDs accepted by the official server and client
@@ -4772,13 +4664,19 @@ public enum Material implements Keyed, Translatable, RegistryAware {
 
     @Deprecated(since = "1.13")
     public static final String LEGACY_PREFIX = "LEGACY_";
+    private static final Map<String, Material> BY_NAME = Maps.newHashMap();
 
+    static {
+        for (Material material : values()) {
+            BY_NAME.put(material.name(), material);
+        }
+    }
+
+    public final Class<?> data;
     private final int id;
     private final Constructor<? extends MaterialData> ctor;
-    private static final Map<String, Material> BY_NAME = Maps.newHashMap();
     private final int maxStack;
     private final short durability;
-    public final Class<?> data;
     private final boolean legacy;
     private final NamespacedKey key;
     private final Supplier<ItemType> itemType;
@@ -4838,6 +4736,91 @@ public enum Material implements Keyed, Translatable, RegistryAware {
             }
             return Registry.BLOCK.get(material.key);
         });
+    }
+
+    /**
+     * Attempts to get the Material with the given name.
+     * <p>
+     * This is a normal lookup, names must be the precise name they are given
+     * in the enum.
+     *
+     * @param name Name of the material to get
+     * @return Material if found, or null
+     */
+    @Nullable
+    public static Material getMaterial(@NotNull final String name) {
+        return getMaterial(name, false);
+    }
+
+    /**
+     * Attempts to get the Material with the given name.
+     * <p>
+     * This is a normal lookup, names must be the precise name they are given in
+     * the enum (but optionally including the LEGACY_PREFIX if legacyName is
+     * true).
+     * <p>
+     * If legacyName is true, then the lookup will be against legacy materials,
+     * but the returned Material will be a modern material (ie this method is
+     * useful for updating stored data).
+     *
+     * @param name       Name of the material to get
+     * @param legacyName whether this is a legacy name lookup
+     * @return Material if found, or null
+     */
+    @Nullable
+    public static Material getMaterial(@NotNull String name, boolean legacyName) {
+        if (legacyName) {
+            if (!name.startsWith(LEGACY_PREFIX)) {
+                name = LEGACY_PREFIX + name;
+            }
+
+            Material match = BY_NAME.get(name);
+            return Bukkit.getUnsafe().fromLegacy(match);
+        }
+
+        return BY_NAME.get(name);
+    }
+
+    /**
+     * Attempts to match the Material with the given name.
+     * <p>
+     * This is a match lookup; names will be stripped of the "minecraft:"
+     * namespace, converted to uppercase, then stripped of special characters in
+     * an attempt to format it like the enum.
+     *
+     * @param name Name of the material to get
+     * @return Material if found, or null
+     */
+    @Nullable
+    public static Material matchMaterial(@NotNull final String name) {
+        return matchMaterial(name, false);
+    }
+
+    /**
+     * Attempts to match the Material with the given name.
+     * <p>
+     * This is a match lookup; names will be stripped of the "minecraft:"
+     * namespace, converted to uppercase, then stripped of special characters in
+     * an attempt to format it like the enum.
+     *
+     * @param name       Name of the material to get
+     * @param legacyName whether this is a legacy name (see
+     *                   {@link #getMaterial(java.lang.String, boolean)}
+     * @return Material if found, or null
+     */
+    @Nullable
+    public static Material matchMaterial(@NotNull final String name, boolean legacyName) {
+        Preconditions.checkArgument(name != null, "Name cannot be null");
+
+        String filtered = name;
+        if (filtered.startsWith(NamespacedKey.MINECRAFT + ":")) {
+            filtered = filtered.substring((NamespacedKey.MINECRAFT + ":").length());
+        }
+
+        filtered = filtered.toUpperCase(Locale.ROOT);
+
+        filtered = filtered.replaceAll("\\s+", "_").replaceAll("\\W", "");
+        return getMaterial(filtered, legacyName);
     }
 
     /**
@@ -5013,97 +4996,6 @@ public enum Material implements Keyed, Translatable, RegistryAware {
     }
 
     /**
-     * Attempts to get the Material with the given name.
-     * <p>
-     * This is a normal lookup, names must be the precise name they are given
-     * in the enum.
-     *
-     * @param name Name of the material to get
-     * @return Material if found, or null
-     */
-    @Nullable
-    public static Material getMaterial(@NotNull final String name) {
-        return getMaterial(name, false);
-    }
-
-    /**
-     * Attempts to get the Material with the given name.
-     * <p>
-     * This is a normal lookup, names must be the precise name they are given in
-     * the enum (but optionally including the LEGACY_PREFIX if legacyName is
-     * true).
-     * <p>
-     * If legacyName is true, then the lookup will be against legacy materials,
-     * but the returned Material will be a modern material (ie this method is
-     * useful for updating stored data).
-     *
-     * @param name Name of the material to get
-     * @param legacyName whether this is a legacy name lookup
-     * @return Material if found, or null
-     */
-    @Nullable
-    public static Material getMaterial(@NotNull String name, boolean legacyName) {
-        if (legacyName) {
-            if (!name.startsWith(LEGACY_PREFIX)) {
-                name = LEGACY_PREFIX + name;
-            }
-
-            Material match = BY_NAME.get(name);
-            return Bukkit.getUnsafe().fromLegacy(match);
-        }
-
-        return BY_NAME.get(name);
-    }
-
-    /**
-     * Attempts to match the Material with the given name.
-     * <p>
-     * This is a match lookup; names will be stripped of the "minecraft:"
-     * namespace, converted to uppercase, then stripped of special characters in
-     * an attempt to format it like the enum.
-     *
-     * @param name Name of the material to get
-     * @return Material if found, or null
-     */
-    @Nullable
-    public static Material matchMaterial(@NotNull final String name) {
-        return matchMaterial(name, false);
-    }
-
-    /**
-     * Attempts to match the Material with the given name.
-     * <p>
-     * This is a match lookup; names will be stripped of the "minecraft:"
-     * namespace, converted to uppercase, then stripped of special characters in
-     * an attempt to format it like the enum.
-     *
-     * @param name Name of the material to get
-     * @param legacyName whether this is a legacy name (see
-     * {@link #getMaterial(java.lang.String, boolean)}
-     * @return Material if found, or null
-     */
-    @Nullable
-    public static Material matchMaterial(@NotNull final String name, boolean legacyName) {
-        Preconditions.checkArgument(name != null, "Name cannot be null");
-
-        String filtered = name;
-        if (filtered.startsWith(NamespacedKey.MINECRAFT + ":")) {
-            filtered = filtered.substring((NamespacedKey.MINECRAFT + ":").length());
-        }
-
-        filtered = filtered.toUpperCase(Locale.ROOT);
-
-        filtered = filtered.replaceAll("\\s+", "_").replaceAll("\\W", "");
-        return getMaterial(filtered, legacyName);
-    }
-
-    static {
-        for (Material material : values()) {
-            BY_NAME.put(material.name(), material);
-        }
-    }
-
-    /**
      * @return True if this material represents a playable music disk.
      */
     public boolean isRecord() {
@@ -5272,7 +5164,7 @@ public enum Material implements Keyed, Translatable, RegistryAware {
             case YELLOW_CARPET:
             case ZOMBIE_HEAD:
             case ZOMBIE_WALL_HEAD:
-            // ----- Legacy Separator -----
+                // ----- Legacy Separator -----
             case LEGACY_AIR:
             case LEGACY_SAPLING:
             case LEGACY_POWERED_RAIL:
@@ -5323,7 +5215,7 @@ public enum Material implements Keyed, Translatable, RegistryAware {
             case LEGACY_BEETROOT_BLOCK:
             case LEGACY_END_GATEWAY:
             case LEGACY_STRUCTURE_VOID:
-            //</editor-fold>
+                //</editor-fold>
                 return true;
             default:
                 return false;
@@ -5402,13 +5294,13 @@ public enum Material implements Keyed, Translatable, RegistryAware {
 
     /**
      * Checks if this Material can be interacted with.
-     *
+     * <p>
      * Interactable materials include those with functionality when they are
      * interacted with by a player such as chests, furnaces, etc.
-     *
+     * <p>
      * Some blocks such as piston heads and stairs are considered interactable
      * though may not perform any additional functionality.
-     *
+     * <p>
      * Note that the interactability of some materials may be dependant on their
      * state as well. This method will return true if there is at least one
      * state in which additional interact handling is performed for the
@@ -5455,12 +5347,12 @@ public enum Material implements Keyed, Translatable, RegistryAware {
 
     /**
      * Returns a value that represents how 'slippery' the block is.
-     *
+     * <p>
      * Blocks with higher slipperiness, like {@link Material#ICE} can be slid on
      * further by the player and other entities.
-     *
+     * <p>
      * Most blocks have a default slipperiness of {@code 0.6f}.
-     *
+     * <p>
      * Only available when {@link #isBlock()} is true.
      *
      * @return the slipperiness of this block
@@ -5488,7 +5380,7 @@ public enum Material implements Keyed, Translatable, RegistryAware {
 
     /**
      * Get the best suitable slot for this Material.
-     *
+     * <p>
      * For most items this will be {@link EquipmentSlot#HAND}.
      *
      * @return the best EquipmentSlot for this Material
@@ -5571,10 +5463,10 @@ public enum Material implements Keyed, Translatable, RegistryAware {
     /**
      * Return an immutable copy of all default {@link Attribute}s and their
      * {@link AttributeModifier}s for a given {@link EquipmentSlot}.
-     *
+     * <p>
      * Default attributes are those that are always preset on some items, such
      * as the attack damage on weapons or the armor value on armor.
-     *
+     * <p>
      * Only available when {@link #isItem()} is true.
      *
      * @param slot the {@link EquipmentSlot} to check
@@ -5602,7 +5494,7 @@ public enum Material implements Keyed, Translatable, RegistryAware {
     /**
      * Get the translation key of the item or block associated with this
      * material.
-     *
+     * <p>
      * If this material has both an item and a block form, the item form is
      * used.
      *
@@ -5675,10 +5567,10 @@ public enum Material implements Keyed, Translatable, RegistryAware {
     /**
      * Get the chance that this material will successfully compost. The returned
      * value is between 0 and 1 (inclusive).
-     *
+     * <p>
      * Materials with a compost chance of 1 will always raise the composter's
      * level, while materials with a compost chance of 0 will never raise it.
-     *
+     * <p>
      * Plugins should check that {@link #isCompostable} returns true before
      * calling this method.
      *

@@ -35,7 +35,7 @@ public interface AbstractArrow extends Projectile {
 
     /**
      * Gets the base amount of damage this arrow will do.
-     *
+     * <p>
      * Defaults to 2.0 for a normal arrow with
      * <code>0.5 * (1 + power level)</code> added for arrows fired from
      * enchanted bows.
@@ -60,7 +60,7 @@ public interface AbstractArrow extends Projectile {
 
     /**
      * Sets the number of times this arrow can pierce through an entity.
-     *
+     * <p>
      * Must be between 0 and 127 times.
      *
      * @param pierceLevel new pierce level

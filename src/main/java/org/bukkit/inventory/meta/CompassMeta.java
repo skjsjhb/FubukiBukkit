@@ -17,7 +17,7 @@ public interface CompassMeta extends ItemMeta {
 
     /**
      * Gets the location that this compass will point to.
-     *
+     * <p>
      * Check {@link #hasLodestone()} first!
      *
      * @return lodestone location
@@ -34,7 +34,7 @@ public interface CompassMeta extends ItemMeta {
 
     /**
      * Gets if this compass is tracking a specific lodestone.
-     *
+     * <p>
      * If true the compass will only work if there is a lodestone at the tracked
      * location.
      *
@@ -44,7 +44,7 @@ public interface CompassMeta extends ItemMeta {
 
     /**
      * Sets if this compass is tracking a specific lodestone.
-     *
+     * <p>
      * If true the compass will only work if there is a lodestone at the tracked
      * location.
      *

@@ -24,7 +24,7 @@ public interface Steerable extends Animals {
 
     /**
      * Get the time in ticks this entity's movement is being increased.
-     *
+     * <p>
      * Movement speed is often increased as a result of using the
      * {@link #getSteerMaterial()}.
      *
@@ -34,7 +34,7 @@ public interface Steerable extends Animals {
 
     /**
      * Set the time in ticks this entity's movement will be increased.
-     *
+     * <p>
      * This will reset the current boost ticks to 0
      * ({@link #getCurrentBoostTicks()}).
      *
@@ -45,7 +45,7 @@ public interface Steerable extends Animals {
     /**
      * Get the time in ticks this entity's movement has been increased as of the
      * most recent boost.
-     *
+     * <p>
      * Current boost ticks will never be {@literal >} {@link #getBoostTicks()}.
      *
      * @return the current boost ticks
@@ -57,7 +57,7 @@ public interface Steerable extends Animals {
      * to the most recent boost.
      *
      * @param ticks the current boost ticks. Must be {@literal >=} 0 and {@literal <=}
-     * {@link #getBoostTicks()}
+     *              {@link #getBoostTicks()}
      */
     public void setCurrentBoostTicks(int ticks);
 

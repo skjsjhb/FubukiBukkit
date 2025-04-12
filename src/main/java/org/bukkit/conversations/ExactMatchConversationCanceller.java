@@ -13,14 +13,15 @@ public class ExactMatchConversationCanceller implements ConversationCanceller {
      * Builds an ExactMatchConversationCanceller.
      *
      * @param escapeSequence The string that, if entered by the user, will
-     *     cancel the conversation.
+     *                       cancel the conversation.
      */
     public ExactMatchConversationCanceller(@NotNull String escapeSequence) {
         this.escapeSequence = escapeSequence;
     }
 
     @Override
-    public void setConversation(@NotNull Conversation conversation) {}
+    public void setConversation(@NotNull Conversation conversation) {
+    }
 
     @Override
     public boolean cancelBasedOnInput(@NotNull ConversationContext context, @NotNull String input) {

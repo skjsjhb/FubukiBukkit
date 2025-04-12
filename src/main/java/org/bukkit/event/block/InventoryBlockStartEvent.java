@@ -24,6 +24,11 @@ public class InventoryBlockStartEvent extends BlockEvent {
         this.source = source;
     }
 
+    @NotNull
+    public static HandlerList getHandlerList() {
+        return handlers;
+    }
+
     /**
      * Gets the source ItemStack for this event.
      *
@@ -37,11 +42,6 @@ public class InventoryBlockStartEvent extends BlockEvent {
     @NotNull
     @Override
     public HandlerList getHandlers() {
-        return handlers;
-    }
-
-    @NotNull
-    public static HandlerList getHandlerList() {
         return handlers;
     }
 }

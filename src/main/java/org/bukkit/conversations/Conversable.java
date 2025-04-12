@@ -1,8 +1,9 @@
 package org.bukkit.conversations;
 
-import java.util.UUID;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
+
+import java.util.UUID;
 
 /**
  * The Conversable interface is used to indicate objects that can have
@@ -31,7 +32,7 @@ public interface Conversable {
      *
      * @param conversation The conversation to begin
      * @return True if the conversation should proceed, false if it has been
-     *     enqueued
+     * enqueued
      */
     public boolean beginConversation(@NotNull Conversation conversation);
 
@@ -46,7 +47,7 @@ public interface Conversable {
      * Abandons an active conversation.
      *
      * @param conversation The conversation to abandon
-     * @param details Details about why the conversation was abandoned
+     * @param details      Details about why the conversation was abandoned
      */
     public void abandonConversation(@NotNull Conversation conversation, @NotNull ConversationAbandonedEvent details);
 
@@ -61,7 +62,7 @@ public interface Conversable {
      * Sends this sender a message raw
      *
      * @param message Message to be displayed
-     * @param sender The sender of this message
+     * @param sender  The sender of this message
      */
     public void sendRawMessage(@Nullable UUID sender, @NotNull String message);
 }

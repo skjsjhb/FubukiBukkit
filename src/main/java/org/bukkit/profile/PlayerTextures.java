@@ -1,8 +1,9 @@
 package org.bukkit.profile;
 
-import java.net.URL;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
+
+import java.net.URL;
 
 /**
  * Provides access to the textures stored inside a {@link PlayerProfile}.
@@ -12,20 +13,6 @@ import org.jetbrains.annotations.Nullable;
  * {@link #getTimestamp() timestamp} and {@link #isSigned() signature}.
  */
 public interface PlayerTextures {
-
-    /**
-     * The different Minecraft skin models.
-     */
-    enum SkinModel {
-        /**
-         * The classic Minecraft skin model.
-         */
-        CLASSIC,
-        /**
-         * The slim model has slimmer arms than the classic model.
-         */
-        SLIM;
-    }
 
     /**
      * Checks if the profile stores no textures.
@@ -57,7 +44,7 @@ public interface PlayerTextures {
      * </pre>
      *
      * @param skinUrl the URL of the player's skin, or <code>null</code> to
-     * unset it
+     *                unset it
      */
     void setSkin(@Nullable URL skinUrl);
 
@@ -72,10 +59,10 @@ public interface PlayerTextures {
      * A skin model of <code>null</code> results in {@link SkinModel#CLASSIC} to
      * be used.
      *
-     * @param skinUrl the URL of the player's skin, or <code>null</code> to
-     * unset it
+     * @param skinUrl   the URL of the player's skin, or <code>null</code> to
+     *                  unset it
      * @param skinModel the skin model, ignored if the skin URL is
-     * <code>null</code>
+     *                  <code>null</code>
      */
     void setSkin(@Nullable URL skinUrl, @Nullable SkinModel skinModel);
 
@@ -106,7 +93,7 @@ public interface PlayerTextures {
      * </pre>
      *
      * @param capeUrl the URL of the player's cape, or <code>null</code> to
-     * unset it
+     *                unset it
      */
     void setCape(@Nullable URL capeUrl);
 
@@ -124,4 +111,18 @@ public interface PlayerTextures {
      * valid
      */
     boolean isSigned();
+
+    /**
+     * The different Minecraft skin models.
+     */
+    enum SkinModel {
+        /**
+         * The classic Minecraft skin model.
+         */
+        CLASSIC,
+        /**
+         * The slim model has slimmer arms than the classic model.
+         */
+        SLIM;
+    }
 }

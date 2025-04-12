@@ -1,10 +1,6 @@
 package org.bukkit.inventory.meta;
 
 import com.google.common.collect.Multimap;
-import java.util.Collection;
-import java.util.List;
-import java.util.Map;
-import java.util.Set;
 import org.bukkit.NamespacedKey;
 import org.bukkit.Sound;
 import org.bukkit.Tag;
@@ -13,19 +9,8 @@ import org.bukkit.attribute.AttributeModifier;
 import org.bukkit.configuration.serialization.ConfigurationSerializable;
 import org.bukkit.damage.DamageType;
 import org.bukkit.enchantments.Enchantment;
-import org.bukkit.inventory.EquipmentSlot;
-import org.bukkit.inventory.ItemFactory;
-import org.bukkit.inventory.ItemFlag;
-import org.bukkit.inventory.ItemRarity;
-import org.bukkit.inventory.ItemStack;
-import org.bukkit.inventory.meta.components.BlocksAttacksComponent;
-import org.bukkit.inventory.meta.components.CustomModelDataComponent;
-import org.bukkit.inventory.meta.components.EquippableComponent;
-import org.bukkit.inventory.meta.components.FoodComponent;
-import org.bukkit.inventory.meta.components.JukeboxPlayableComponent;
-import org.bukkit.inventory.meta.components.ToolComponent;
-import org.bukkit.inventory.meta.components.UseCooldownComponent;
-import org.bukkit.inventory.meta.components.WeaponComponent;
+import org.bukkit.inventory.*;
+import org.bukkit.inventory.meta.components.*;
 import org.bukkit.inventory.meta.components.consumable.ConsumableComponent;
 import org.bukkit.inventory.meta.tags.CustomItemTagContainer;
 import org.bukkit.persistence.PersistentDataHolder;
@@ -33,6 +18,11 @@ import org.bukkit.tag.DamageTypeTags;
 import org.jetbrains.annotations.ApiStatus;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
+
+import java.util.Collection;
+import java.util.List;
+import java.util.Map;
+import java.util.Set;
 
 /**
  * This type represents the storage mechanism for auxiliary item data.
@@ -192,21 +182,6 @@ public interface ItemMeta extends Cloneable, ConfigurationSerializable, Persiste
     int getCustomModelData();
 
     /**
-     * Gets the custom model data set on this item, or creates an empty custom
-     * model data instance.
-     * <p>
-     * The returned component is a snapshot of its current state and does not
-     * reflect a live view of what is on an item. After changing any value on
-     * this component, it must be set with
-     * {@link #setCustomModelDataComponent(CustomModelDataComponent)} to apply
-     * the changes.
-     *
-     * @return component
-     */
-    @NotNull
-    CustomModelDataComponent getCustomModelDataComponent();
-
-    /**
      * Sets the custom model data.
      * <p>
      * CustomModelData is an integer that may be associated client side with a
@@ -222,11 +197,19 @@ public interface ItemMeta extends Cloneable, ConfigurationSerializable, Persiste
     void setCustomModelData(@Nullable Integer data);
 
     /**
-     * Checks if the custom model data component is set.
+     * Gets the custom model data set on this item, or creates an empty custom
+     * model data instance.
+     * <p>
+     * The returned component is a snapshot of its current state and does not
+     * reflect a live view of what is on an item. After changing any value on
+     * this component, it must be set with
+     * {@link #setCustomModelDataComponent(CustomModelDataComponent)} to apply
+     * the changes.
      *
-     * @return if a custom model data component is set
+     * @return component
      */
-    boolean hasCustomModelDataComponent();
+    @NotNull
+    CustomModelDataComponent getCustomModelDataComponent();
 
     /**
      * Sets the custom model data component.
@@ -234,6 +217,13 @@ public interface ItemMeta extends Cloneable, ConfigurationSerializable, Persiste
      * @param customModelData new component
      */
     void setCustomModelDataComponent(@Nullable CustomModelDataComponent customModelData);
+
+    /**
+     * Checks if the custom model data component is set.
+     *
+     * @return if a custom model data component is set
+     */
+    boolean hasCustomModelDataComponent();
 
     /**
      * Gets if the enchantable component is set.
@@ -291,12 +281,12 @@ public interface ItemMeta extends Cloneable, ConfigurationSerializable, Persiste
     /**
      * Adds the specified enchantment to this item meta.
      *
-     * @param ench Enchantment to add
-     * @param level Level for the enchantment
+     * @param ench                   Enchantment to add
+     * @param level                  Level for the enchantment
      * @param ignoreLevelRestriction this indicates the enchantment should be
-     *     applied, ignoring the level limit
+     *                               applied, ignoring the level limit
      * @return true if the item meta changed as a result of this call, false
-     *     otherwise
+     * otherwise
      */
     boolean addEnchant(@NotNull Enchantment ench, int level, boolean ignoreLevelRestriction);
 
@@ -305,7 +295,7 @@ public interface ItemMeta extends Cloneable, ConfigurationSerializable, Persiste
      *
      * @param ench Enchantment to remove
      * @return true if the item meta changed as a result of this call, false
-     *     otherwise
+     * otherwise
      */
     boolean removeEnchant(@NotNull Enchantment ench);
 
@@ -439,7 +429,7 @@ public interface ItemMeta extends Cloneable, ConfigurationSerializable, Persiste
      * Sets the enchantment_glint_override. If true, the item will glint, even
      * without enchantments; if false, the item will not glint, even with
      * enchantments.
-     *
+     * <p>
      * Plugins should check {@link #hasEnchantmentGlintOverride()} before
      * calling this method.
      *
@@ -505,7 +495,7 @@ public interface ItemMeta extends Cloneable, ConfigurationSerializable, Persiste
     /**
      * Gets the type of damage this item will be resistant to when in entity
      * form.
-     *
+     * <p>
      * Plugins should check {@link #hasDamageResistant()} before calling this
      * method.
      *
@@ -554,7 +544,7 @@ public interface ItemMeta extends Cloneable, ConfigurationSerializable, Persiste
 
     /**
      * Gets the item rarity.
-     *
+     * <p>
      * Plugins should check {@link #hasRarity()} before calling this method.
      *
      * @return rarity
@@ -825,7 +815,7 @@ public interface ItemMeta extends Cloneable, ConfigurationSerializable, Persiste
 
     /**
      * Gets the sound to play when the item is broken.
-     *
+     * <p>
      * Plugins should check {@link #hasBreakSound()} before calling this method.
      *
      * @return the sound
@@ -853,57 +843,10 @@ public interface ItemMeta extends Cloneable, ConfigurationSerializable, Persiste
      * Returns null if none exist.
      *
      * @return an immutable {@link Multimap} of Attributes
-     *         and their AttributeModifiers, or null if none exist
+     * and their AttributeModifiers, or null if none exist
      */
     @Nullable
     Multimap<Attribute, AttributeModifier> getAttributeModifiers();
-
-    /**
-     * Return an immutable copy of all {@link Attribute}s and their
-     * {@link AttributeModifier}s for a given {@link EquipmentSlot}.<br>
-     * Any {@link AttributeModifier} that does have have a given
-     * {@link EquipmentSlot} will be returned. This is because
-     * AttributeModifiers without a slot are active in any slot.<br>
-     * If there are no attributes set for the given slot, an empty map
-     * will be returned.
-     *
-     * @param slot the {@link EquipmentSlot} to check
-     * @return the immutable {@link Multimap} with the
-     *         respective Attributes and modifiers, or an empty map
-     *         if no attributes are set.
-     */
-    @NotNull
-    Multimap<Attribute, AttributeModifier> getAttributeModifiers(@NotNull EquipmentSlot slot);
-
-    /**
-     * Return an immutable copy of all {@link AttributeModifier}s
-     * for a given {@link Attribute}
-     *
-     * @param attribute the {@link Attribute}
-     * @return an immutable collection of {@link AttributeModifier}s
-     *          or null if no AttributeModifiers exist for the Attribute.
-     * @throws NullPointerException if Attribute is null
-     */
-    @Nullable
-    Collection<AttributeModifier> getAttributeModifiers(@NotNull Attribute attribute);
-
-    /**
-     * Add an Attribute and it's Modifier.
-     * AttributeModifiers can now support {@link EquipmentSlot}s.
-     * If not set, the {@link AttributeModifier} will be active in ALL slots.
-     * <br>
-     * Two {@link AttributeModifier}s that have the same {@link java.util.UUID}
-     * cannot exist on the same Attribute.
-     *
-     * @param attribute the {@link Attribute} to modify
-     * @param modifier the {@link AttributeModifier} specifying the modification
-     * @return true if the Attribute and AttributeModifier were
-     *         successfully added
-     * @throws NullPointerException if Attribute is null
-     * @throws NullPointerException if AttributeModifier is null
-     * @throws IllegalArgumentException if AttributeModifier already exists
-     */
-    boolean addAttributeModifier(@NotNull Attribute attribute, @NotNull AttributeModifier modifier);
 
     /**
      * Set all {@link Attribute}s and their {@link AttributeModifier}s.
@@ -918,14 +861,61 @@ public interface ItemMeta extends Cloneable, ConfigurationSerializable, Persiste
     void setAttributeModifiers(@Nullable Multimap<Attribute, AttributeModifier> attributeModifiers);
 
     /**
+     * Return an immutable copy of all {@link Attribute}s and their
+     * {@link AttributeModifier}s for a given {@link EquipmentSlot}.<br>
+     * Any {@link AttributeModifier} that does have have a given
+     * {@link EquipmentSlot} will be returned. This is because
+     * AttributeModifiers without a slot are active in any slot.<br>
+     * If there are no attributes set for the given slot, an empty map
+     * will be returned.
+     *
+     * @param slot the {@link EquipmentSlot} to check
+     * @return the immutable {@link Multimap} with the
+     * respective Attributes and modifiers, or an empty map
+     * if no attributes are set.
+     */
+    @NotNull
+    Multimap<Attribute, AttributeModifier> getAttributeModifiers(@NotNull EquipmentSlot slot);
+
+    /**
+     * Return an immutable copy of all {@link AttributeModifier}s
+     * for a given {@link Attribute}
+     *
+     * @param attribute the {@link Attribute}
+     * @return an immutable collection of {@link AttributeModifier}s
+     * or null if no AttributeModifiers exist for the Attribute.
+     * @throws NullPointerException if Attribute is null
+     */
+    @Nullable
+    Collection<AttributeModifier> getAttributeModifiers(@NotNull Attribute attribute);
+
+    /**
+     * Add an Attribute and it's Modifier.
+     * AttributeModifiers can now support {@link EquipmentSlot}s.
+     * If not set, the {@link AttributeModifier} will be active in ALL slots.
+     * <br>
+     * Two {@link AttributeModifier}s that have the same {@link java.util.UUID}
+     * cannot exist on the same Attribute.
+     *
+     * @param attribute the {@link Attribute} to modify
+     * @param modifier  the {@link AttributeModifier} specifying the modification
+     * @return true if the Attribute and AttributeModifier were
+     * successfully added
+     * @throws NullPointerException     if Attribute is null
+     * @throws NullPointerException     if AttributeModifier is null
+     * @throws IllegalArgumentException if AttributeModifier already exists
+     */
+    boolean addAttributeModifier(@NotNull Attribute attribute, @NotNull AttributeModifier modifier);
+
+    /**
      * Remove all {@link AttributeModifier}s associated with the given
      * {@link Attribute}.
      * This will return false if nothing was removed.
      *
      * @param attribute attribute to remove
-     * @return  true if all modifiers were removed from a given
-     *                  Attribute. Returns false if no attributes were
-     *                  removed.
+     * @return true if all modifiers were removed from a given
+     * Attribute. Returns false if no attributes were
+     * removed.
      * @throws NullPointerException if Attribute is null
      */
     boolean removeAttributeModifier(@NotNull Attribute attribute);
@@ -939,7 +929,7 @@ public interface ItemMeta extends Cloneable, ConfigurationSerializable, Persiste
      * @param slot the {@link EquipmentSlot} to clear all Attributes and
      *             their modifiers for
      * @return true if all modifiers were removed that match the given
-     *         EquipmentSlot.
+     * EquipmentSlot.
      */
     boolean removeAttributeModifier(@NotNull EquipmentSlot slot);
 
@@ -948,12 +938,10 @@ public interface ItemMeta extends Cloneable, ConfigurationSerializable, Persiste
      * AttributeModifiers are matched according to their {@link java.util.UUID}.
      *
      * @param attribute the {@link Attribute} to remove
-     * @param modifier the {@link AttributeModifier} to remove
+     * @param modifier  the {@link AttributeModifier} to remove
      * @return if any attribute modifiers were remove
-     *
      * @throws NullPointerException if the Attribute is null
      * @throws NullPointerException if the AttributeModifier is null
-     *
      * @see AttributeModifier#getKey()
      */
     boolean removeAttributeModifier(@NotNull Attribute attribute, @NotNull AttributeModifier modifier);
@@ -1012,11 +1000,11 @@ public interface ItemMeta extends Cloneable, ConfigurationSerializable, Persiste
     /**
      * Returns a public custom tag container capable of storing tags on the
      * item.
-     *
+     * <p>
      * Those tags will be sent to the client with all of their content, so the
      * client is capable of reading them. This will result in the player seeing
      * a NBT Tag notification on the item.
-     *
+     * <p>
      * These tags can also be modified by the client once in creative mode
      *
      * @return the custom tag container
@@ -1031,7 +1019,7 @@ public interface ItemMeta extends Cloneable, ConfigurationSerializable, Persiste
      * Internal use only! Do not use under any circumstances!
      *
      * @param version version
-     * @apiNote  internal use only
+     * @apiNote internal use only
      */
     @ApiStatus.Internal
     void setVersion(int version);

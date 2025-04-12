@@ -18,6 +18,11 @@ public abstract class PlayerChannelEvent extends PlayerEvent {
     }
 
     @NotNull
+    public static HandlerList getHandlerList() {
+        return handlers;
+    }
+
+    @NotNull
     public final String getChannel() {
         return channel;
     }
@@ -25,11 +30,6 @@ public abstract class PlayerChannelEvent extends PlayerEvent {
     @NotNull
     @Override
     public HandlerList getHandlers() {
-        return handlers;
-    }
-
-    @NotNull
-    public static HandlerList getHandlerList() {
         return handlers;
     }
 }

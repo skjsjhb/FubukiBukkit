@@ -2,9 +2,6 @@ package org.bukkit.event.inventory;
 
 import com.google.common.base.Preconditions;
 import com.google.common.collect.ImmutableSet;
-import java.util.Collections;
-import java.util.Map;
-import java.util.Set;
 import org.bukkit.Location;
 import org.bukkit.entity.HumanEntity;
 import org.bukkit.entity.Player;
@@ -16,6 +13,10 @@ import org.bukkit.plugin.Plugin;
 import org.bukkit.scheduler.BukkitScheduler;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
+
+import java.util.Collections;
+import java.util.Map;
+import java.util.Set;
 
 /**
  * This event is called when the player drags an item in their cursor across
@@ -79,6 +80,11 @@ public class InventoryDragEvent extends InventoryInteractEvent {
         this.containerSlots = b.build();
     }
 
+    @NotNull
+    public static HandlerList getHandlerList() {
+        return handlers;
+    }
+
     /**
      * Gets all items to be added to the inventory in this drag.
      *
@@ -103,7 +109,7 @@ public class InventoryDragEvent extends InventoryInteractEvent {
      * Gets the slots to be changed in this drag.
      *
      * @return list of converted slot ids, suitable for {@link
-     *     org.bukkit.inventory.Inventory#getItem(int)}.
+     * org.bukkit.inventory.Inventory#getItem(int)}.
      */
     @NotNull
     public Set<Integer> getInventorySlots() {
@@ -162,11 +168,6 @@ public class InventoryDragEvent extends InventoryInteractEvent {
     @NotNull
     @Override
     public HandlerList getHandlers() {
-        return handlers;
-    }
-
-    @NotNull
-    public static HandlerList getHandlerList() {
         return handlers;
     }
 }

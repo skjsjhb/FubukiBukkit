@@ -70,7 +70,7 @@ public interface Objective {
      * Gets the scoreboard to which this objective is attached.
      *
      * @return Owning scoreboard, or null if it has been {@link #unregister()
-     *     unregistered}
+     * unregistered}
      */
     @Nullable
     Scoreboard getScoreboard();
@@ -83,15 +83,6 @@ public interface Objective {
     void unregister();
 
     /**
-     * Sets this objective to display on the specified slot for the
-     * scoreboard, removing it from any other display slot.
-     *
-     * @param slot display slot to change, or null to not display
-     * @throws IllegalStateException if this objective has been unregistered
-     */
-    void setDisplaySlot(@Nullable DisplaySlot slot);
-
-    /**
      * Gets the display slot this objective is displayed at.
      *
      * @return the display slot for this objective, or null if not displayed
@@ -101,12 +92,13 @@ public interface Objective {
     DisplaySlot getDisplaySlot();
 
     /**
-     * Sets manner in which this objective will be rendered.
+     * Sets this objective to display on the specified slot for the
+     * scoreboard, removing it from any other display slot.
      *
-     * @param renderType new render type
+     * @param slot display slot to change, or null to not display
      * @throws IllegalStateException if this objective has been unregistered
      */
-    void setRenderType(@NotNull RenderType renderType);
+    void setDisplaySlot(@Nullable DisplaySlot slot);
 
     /**
      * Sets manner in which this objective will be rendered.
@@ -116,6 +108,14 @@ public interface Objective {
      */
     @NotNull
     RenderType getRenderType();
+
+    /**
+     * Sets manner in which this objective will be rendered.
+     *
+     * @param renderType new render type
+     * @throws IllegalStateException if this objective has been unregistered
+     */
+    void setRenderType(@NotNull RenderType renderType);
 
     /**
      * Gets a player's Score for an Objective on this Scoreboard
@@ -135,7 +135,7 @@ public interface Objective {
      *
      * @param entry Entry for the Score
      * @return Score tracking the Objective and entry specified
-     * @throws IllegalStateException if this objective has been unregistered
+     * @throws IllegalStateException    if this objective has been unregistered
      * @throws IllegalArgumentException if entry is longer than 32767 characters.
      */
     @NotNull

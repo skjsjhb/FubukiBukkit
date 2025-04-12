@@ -40,6 +40,11 @@ public class BlockPlaceEvent extends BlockEvent implements Cancellable {
         cancel = false;
     }
 
+    @NotNull
+    public static HandlerList getHandlerList() {
+        return handlers;
+    }
+
     @Override
     public boolean isCancelled() {
         return cancel;
@@ -96,7 +101,7 @@ public class BlockPlaceEvent extends BlockEvent implements Cancellable {
      * Gets the item in the player's hand when they placed the block.
      *
      * @return The ItemStack for the item in the player's hand when they
-     *     placed the block
+     * placed the block
      */
     @NotNull
     public ItemStack getItemInHand() {
@@ -105,6 +110,7 @@ public class BlockPlaceEvent extends BlockEvent implements Cancellable {
 
     /**
      * Gets the hand which placed the block
+     *
      * @return Main or off-hand, depending on which hand was used to place the block
      */
     @NotNull
@@ -138,11 +144,6 @@ public class BlockPlaceEvent extends BlockEvent implements Cancellable {
     @NotNull
     @Override
     public HandlerList getHandlers() {
-        return handlers;
-    }
-
-    @NotNull
-    public static HandlerList getHandlerList() {
         return handlers;
     }
 }

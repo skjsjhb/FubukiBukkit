@@ -7,17 +7,6 @@ import com.google.common.io.Resources;
 import com.google.gson.Gson;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonSyntaxException;
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.net.URL;
-import java.net.URLEncoder;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Locale;
-import java.util.Set;
-import java.util.concurrent.locks.ReentrantLock;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.command.CommandSender;
@@ -26,7 +15,20 @@ import org.bukkit.plugin.PluginDescriptionFile;
 import org.bukkit.util.StringUtil;
 import org.jetbrains.annotations.NotNull;
 
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.net.URL;
+import java.net.URLEncoder;
+import java.util.*;
+import java.util.concurrent.locks.ReentrantLock;
+
 public class VersionCommand extends BukkitCommand {
+    private final ReentrantLock versionLock = new ReentrantLock();
+    private final Set<CommandSender> versionWaiters = new HashSet<CommandSender>();
+    private boolean hasVersion = false;
+    private String versionMessage = null;
+    private boolean versionTaskStarted = false;
+    private long lastCheck = 0;
     public VersionCommand(@NotNull String name) {
         super(name);
 
@@ -34,6 +36,27 @@ public class VersionCommand extends BukkitCommand {
         this.usageMessage = "/version [plugin name]";
         this.setPermission("bukkit.command.version");
         this.setAliases(Arrays.asList("ver", "about"));
+    }
+
+    private static int getDistance(@NotNull String repo, @NotNull String hash) {
+        try {
+            BufferedReader reader = Resources.asCharSource(
+                    new URL("https://hub.spigotmc.org/stash/rest/api/1.0/projects/SPIGOT/repos/" + repo + "/commits?since=" + URLEncoder.encode(hash, "UTF-8") + "&withCounts=true"),
+                    Charsets.UTF_8
+            ).openBufferedStream();
+            try {
+                JsonObject obj = new Gson().fromJson(reader, JsonObject.class);
+                return obj.get("totalCount").getAsInt();
+            } catch (JsonSyntaxException ex) {
+                ex.printStackTrace();
+                return -1;
+            } finally {
+                reader.close();
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+            return -1;
+        }
     }
 
     @Override
@@ -145,13 +168,6 @@ public class VersionCommand extends BukkitCommand {
         return ImmutableList.of();
     }
 
-    private final ReentrantLock versionLock = new ReentrantLock();
-    private boolean hasVersion = false;
-    private String versionMessage = null;
-    private final Set<CommandSender> versionWaiters = new HashSet<CommandSender>();
-    private boolean versionTaskStarted = false;
-    private long lastCheck = 0;
-
     private void sendVersion(@NotNull CommandSender sender) {
         if (hasVersion) {
             if (System.currentTimeMillis() - lastCheck > 21600000) {
@@ -231,27 +247,6 @@ public class VersionCommand extends BukkitCommand {
             versionWaiters.clear();
         } finally {
             versionLock.unlock();
-        }
-    }
-
-    private static int getDistance(@NotNull String repo, @NotNull String hash) {
-        try {
-            BufferedReader reader = Resources.asCharSource(
-                    new URL("https://hub.spigotmc.org/stash/rest/api/1.0/projects/SPIGOT/repos/" + repo + "/commits?since=" + URLEncoder.encode(hash, "UTF-8") + "&withCounts=true"),
-                    Charsets.UTF_8
-            ).openBufferedStream();
-            try {
-                JsonObject obj = new Gson().fromJson(reader, JsonObject.class);
-                return obj.get("totalCount").getAsInt();
-            } catch (JsonSyntaxException ex) {
-                ex.printStackTrace();
-                return -1;
-            } finally {
-                reader.close();
-            }
-        } catch (IOException e) {
-            e.printStackTrace();
-            return -1;
         }
     }
 }

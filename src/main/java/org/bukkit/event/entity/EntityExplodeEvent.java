@@ -1,6 +1,5 @@
 package org.bukkit.event.entity;
 
-import java.util.List;
 import org.bukkit.ExplosionResult;
 import org.bukkit.Location;
 import org.bukkit.block.Block;
@@ -9,16 +8,18 @@ import org.bukkit.event.Cancellable;
 import org.bukkit.event.HandlerList;
 import org.jetbrains.annotations.NotNull;
 
+import java.util.List;
+
 /**
  * Called when an entity explodes
  */
 public class EntityExplodeEvent extends EntityEvent implements Cancellable {
     private static final HandlerList handlers = new HandlerList();
-    private boolean cancel;
     private final Location location;
     private final List<Block> blocks;
-    private float yield;
     private final ExplosionResult result;
+    private boolean cancel;
+    private float yield;
 
     public EntityExplodeEvent(@NotNull final Entity what, @NotNull final Location location, @NotNull final List<Block> blocks, final float yield, @NotNull final ExplosionResult result) {
         super(what);
@@ -27,6 +28,11 @@ public class EntityExplodeEvent extends EntityEvent implements Cancellable {
         this.yield = yield;
         this.cancel = false;
         this.result = result;
+    }
+
+    @NotNull
+    public static HandlerList getHandlerList() {
+        return handlers;
     }
 
     @Override
@@ -94,11 +100,6 @@ public class EntityExplodeEvent extends EntityEvent implements Cancellable {
     @NotNull
     @Override
     public HandlerList getHandlers() {
-        return handlers;
-    }
-
-    @NotNull
-    public static HandlerList getHandlerList() {
         return handlers;
     }
 }

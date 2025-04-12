@@ -22,6 +22,11 @@ public class PlayerBedLeaveEvent extends PlayerEvent implements Cancellable {
         this.setBedSpawn = setBedSpawn;
     }
 
+    @NotNull
+    public static HandlerList getHandlerList() {
+        return handlers;
+    }
+
     /**
      * Returns the bed block involved in this event.
      *
@@ -77,11 +82,6 @@ public class PlayerBedLeaveEvent extends PlayerEvent implements Cancellable {
     @NotNull
     @Override
     public HandlerList getHandlers() {
-        return handlers;
-    }
-
-    @NotNull
-    public static HandlerList getHandlerList() {
         return handlers;
     }
 }

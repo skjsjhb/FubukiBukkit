@@ -22,6 +22,11 @@ public class VehicleDestroyEvent extends VehicleEvent implements Cancellable {
         this.attacker = attacker;
     }
 
+    @NotNull
+    public static HandlerList getHandlerList() {
+        return handlers;
+    }
+
     /**
      * Gets the Entity that has destroyed the vehicle, potentially null
      *
@@ -45,11 +50,6 @@ public class VehicleDestroyEvent extends VehicleEvent implements Cancellable {
     @NotNull
     @Override
     public HandlerList getHandlers() {
-        return handlers;
-    }
-
-    @NotNull
-    public static HandlerList getHandlerList() {
         return handlers;
     }
 }

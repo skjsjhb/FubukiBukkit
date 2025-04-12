@@ -1,6 +1,5 @@
 package org.bukkit.event.block;
 
-import java.util.List;
 import org.bukkit.block.Block;
 import org.bukkit.block.BlockState;
 import org.bukkit.entity.Player;
@@ -10,6 +9,8 @@ import org.bukkit.event.world.StructureGrowEvent;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
+import java.util.List;
+
 /**
  * Called with the block changes resulting from a player fertilizing a given
  * block with bonemeal. Will be called after the applicable
@@ -18,15 +19,20 @@ import org.jetbrains.annotations.Nullable;
 public class BlockFertilizeEvent extends BlockEvent implements Cancellable {
 
     private static final HandlerList handlers = new HandlerList();
-    private boolean cancelled;
     //
     private final Player player;
     private final List<BlockState> blocks;
+    private boolean cancelled;
 
     public BlockFertilizeEvent(@NotNull Block theBlock, @Nullable Player player, @NotNull List<BlockState> blocks) {
         super(theBlock);
         this.player = player;
         this.blocks = blocks;
+    }
+
+    @NotNull
+    public static HandlerList getHandlerList() {
+        return handlers;
     }
 
     /**
@@ -62,11 +68,6 @@ public class BlockFertilizeEvent extends BlockEvent implements Cancellable {
     @NotNull
     @Override
     public HandlerList getHandlers() {
-        return handlers;
-    }
-
-    @NotNull
-    public static HandlerList getHandlerList() {
         return handlers;
     }
 }

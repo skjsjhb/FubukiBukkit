@@ -8,7 +8,8 @@ public final class BroadcastPermissions {
     private static final String ROOT = "bukkit.broadcast";
     private static final String PREFIX = ROOT + ".";
 
-    private BroadcastPermissions() {}
+    private BroadcastPermissions() {
+    }
 
     @NotNull
     public static Permission registerPermissions(@NotNull Permission parent) {

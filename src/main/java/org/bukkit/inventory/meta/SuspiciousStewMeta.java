@@ -1,9 +1,10 @@
 package org.bukkit.inventory.meta;
 
-import java.util.List;
 import org.bukkit.potion.PotionEffect;
 import org.bukkit.potion.PotionEffectType;
 import org.jetbrains.annotations.NotNull;
+
+import java.util.List;
 
 /**
  * Represents a suspicious stew that can have custom effects.
@@ -32,9 +33,9 @@ public interface SuspiciousStewMeta extends ItemMeta {
     /**
      * Adds a custom potion effect to this suspicious stew.
      *
-     * @param effect the potion effect to add
+     * @param effect    the potion effect to add
      * @param overwrite true if any existing effect of the same type should be
-     * overwritten
+     *                  overwritten
      * @return true if the suspicious stew meta changed as a result of this call
      */
     boolean addCustomEffect(@NotNull PotionEffect effect, boolean overwrite);

@@ -1,10 +1,11 @@
 package org.bukkit.event.block;
 
-import java.util.List;
 import org.bukkit.block.Block;
 import org.bukkit.entity.LivingEntity;
 import org.bukkit.event.HandlerList;
 import org.jetbrains.annotations.NotNull;
+
+import java.util.List;
 
 /**
  * Called when a bell resonated after being rung and highlights nearby raiders.
@@ -18,6 +19,11 @@ public class BellResonateEvent extends BlockEvent {
     public BellResonateEvent(@NotNull Block theBlock, @NotNull List<LivingEntity> resonatedEntities) {
         super(theBlock);
         this.resonatedEntities = resonatedEntities;
+    }
+
+    @NotNull
+    public static HandlerList getHandlerList() {
+        return handlers;
     }
 
     /**
@@ -40,11 +46,6 @@ public class BellResonateEvent extends BlockEvent {
     @NotNull
     @Override
     public HandlerList getHandlers() {
-        return handlers;
-    }
-
-    @NotNull
-    public static HandlerList getHandlerList() {
         return handlers;
     }
 }

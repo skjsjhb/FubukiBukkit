@@ -14,10 +14,10 @@ import org.jetbrains.annotations.NotNull;
  */
 public class PlayerShearEntityEvent extends PlayerEvent implements Cancellable {
     private static final HandlerList handlers = new HandlerList();
-    private boolean cancel;
     private final Entity what;
     private final ItemStack item;
     private final EquipmentSlot hand;
+    private boolean cancel;
 
     public PlayerShearEntityEvent(@NotNull Player who, @NotNull Entity what, @NotNull ItemStack item, @NotNull EquipmentSlot hand) {
         super(who);
@@ -29,6 +29,11 @@ public class PlayerShearEntityEvent extends PlayerEvent implements Cancellable {
     @Deprecated(since = "1.15.2")
     public PlayerShearEntityEvent(@NotNull final Player who, @NotNull final Entity what) {
         this(who, what, new ItemStack(Material.SHEARS), EquipmentSlot.HAND);
+    }
+
+    @NotNull
+    public static HandlerList getHandlerList() {
+        return handlers;
     }
 
     @Override
@@ -74,11 +79,6 @@ public class PlayerShearEntityEvent extends PlayerEvent implements Cancellable {
     @NotNull
     @Override
     public HandlerList getHandlers() {
-        return handlers;
-    }
-
-    @NotNull
-    public static HandlerList getHandlerList() {
         return handlers;
     }
 

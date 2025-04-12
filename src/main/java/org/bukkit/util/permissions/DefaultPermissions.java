@@ -1,17 +1,19 @@
 package org.bukkit.util.permissions;
 
-import java.util.Map;
 import org.bukkit.Bukkit;
 import org.bukkit.permissions.Permission;
 import org.bukkit.permissions.PermissionDefault;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
+import java.util.Map;
+
 public final class DefaultPermissions {
     private static final String ROOT = "craftbukkit";
     private static final String LEGACY_PREFIX = "craft";
 
-    private DefaultPermissions() {}
+    private DefaultPermissions() {
+    }
 
     @NotNull
     public static Permission registerPermission(@NotNull Permission perm) {

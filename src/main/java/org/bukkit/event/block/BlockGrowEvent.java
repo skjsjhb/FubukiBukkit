@@ -31,6 +31,11 @@ public class BlockGrowEvent extends BlockEvent implements Cancellable {
         this.newState = newState;
     }
 
+    @NotNull
+    public static HandlerList getHandlerList() {
+        return handlers;
+    }
+
     /**
      * Gets the state of the block where it will form or spread to.
      *
@@ -54,11 +59,6 @@ public class BlockGrowEvent extends BlockEvent implements Cancellable {
     @Override
     @NotNull
     public HandlerList getHandlers() {
-        return handlers;
-    }
-
-    @NotNull
-    public static HandlerList getHandlerList() {
         return handlers;
     }
 }

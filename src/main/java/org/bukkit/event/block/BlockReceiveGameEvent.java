@@ -10,7 +10,7 @@ import org.jetbrains.annotations.Nullable;
 
 /**
  * Called when a Sculk sensor receives a game event and hence might activate.
- *
+ * <p>
  * Will be called cancelled if the block's default behavior is to ignore the
  * event.
  */
@@ -25,6 +25,11 @@ public class BlockReceiveGameEvent extends BlockEvent implements Cancellable {
         super(block);
         this.event = event;
         this.entity = entity;
+    }
+
+    @NotNull
+    public static HandlerList getHandlerList() {
+        return handlers;
     }
 
     /**
@@ -48,23 +53,18 @@ public class BlockReceiveGameEvent extends BlockEvent implements Cancellable {
     }
 
     @Override
-    public void setCancelled(boolean cancel) {
-        this.cancelled = cancel;
+    public boolean isCancelled() {
+        return cancelled;
     }
 
     @Override
-    public boolean isCancelled() {
-        return cancelled;
+    public void setCancelled(boolean cancel) {
+        this.cancelled = cancel;
     }
 
     @NotNull
     @Override
     public HandlerList getHandlers() {
-        return handlers;
-    }
-
-    @NotNull
-    public static HandlerList getHandlerList() {
         return handlers;
     }
 }

@@ -43,7 +43,6 @@ import org.jetbrains.annotations.NotNull;
  *
  * @param <T> the primary object type that is stored in the given tag
  * @param <Z> the retrieved object type when applying this item tag type
- *
  * @deprecated please use {@link PersistentDataType} as this part of the api is being replaced
  */
 @Deprecated(since = "1.14")
@@ -107,7 +106,7 @@ public interface ItemTagType<T, Z> {
      * Creates a complex object based of the passed primitive value
      *
      * @param primitive the primitive value
-     * @param context the context this operation is running in
+     * @param context   the context this operation is running in
      * @return the complex object instance
      */
     @NotNull
@@ -116,7 +115,7 @@ public interface ItemTagType<T, Z> {
     /**
      * A default implementation that simply exists to pass on the retrieved or
      * inserted value to the next layer.
-     *
+     * <p>
      * This implementation does not add any kind of logic, but is used to
      * provide default implementations for the primitive types.
      *

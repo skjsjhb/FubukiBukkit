@@ -32,6 +32,11 @@ public class BlockFromToEvent extends BlockEvent implements Cancellable {
         this.cancel = false;
     }
 
+    @NotNull
+    public static HandlerList getHandlerList() {
+        return handlers;
+    }
+
     /**
      * Gets the BlockFace that the block is moving to.
      *
@@ -68,11 +73,6 @@ public class BlockFromToEvent extends BlockEvent implements Cancellable {
     @NotNull
     @Override
     public HandlerList getHandlers() {
-        return handlers;
-    }
-
-    @NotNull
-    public static HandlerList getHandlerList() {
         return handlers;
     }
 }

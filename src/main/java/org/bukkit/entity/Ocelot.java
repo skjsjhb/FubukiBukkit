@@ -1,4 +1,3 @@
-
 package org.bukkit.entity;
 
 import org.jetbrains.annotations.NotNull;
@@ -55,7 +54,6 @@ public interface Ocelot extends Animals {
         SIAMESE_CAT(3);
 
         private static final Type[] types = new Type[Type.values().length];
-        private final int id;
 
         static {
             for (Type type : values()) {
@@ -63,19 +61,10 @@ public interface Ocelot extends Animals {
             }
         }
 
+        private final int id;
+
         private Type(int id) {
             this.id = id;
-        }
-
-        /**
-         * Gets the ID of this cat type.
-         *
-         * @return Type ID.
-         * @deprecated Magic value
-         */
-        @Deprecated(since = "1.6.2")
-        public int getId() {
-            return id;
         }
 
         /**
@@ -89,6 +78,17 @@ public interface Ocelot extends Animals {
         @Nullable
         public static Type getType(int id) {
             return (id >= types.length) ? null : types[id];
+        }
+
+        /**
+         * Gets the ID of this cat type.
+         *
+         * @return Type ID.
+         * @deprecated Magic value
+         */
+        @Deprecated(since = "1.6.2")
+        public int getId() {
+            return id;
         }
     }
 }

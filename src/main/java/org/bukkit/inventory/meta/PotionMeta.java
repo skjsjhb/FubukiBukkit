@@ -1,6 +1,5 @@
 package org.bukkit.inventory.meta;
 
-import java.util.List;
 import org.bukkit.Color;
 import org.bukkit.potion.PotionData;
 import org.bukkit.potion.PotionEffect;
@@ -9,19 +8,12 @@ import org.bukkit.potion.PotionType;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
+import java.util.List;
+
 /**
  * Represents a potion or item that can have custom effects.
  */
 public interface PotionMeta extends ItemMeta {
-
-    /**
-     * Sets the underlying potion data
-     *
-     * @param data PotionData to set the base potion state to
-     * @deprecated Upgraded / extended potions are now their own {@link PotionType} use {@link #setBasePotionType} instead.
-     */
-    @Deprecated(since = "1.20.6")
-    void setBasePotionData(@Nullable PotionData data);
 
     /**
      * Returns the potion data about the base potion
@@ -34,11 +26,13 @@ public interface PotionMeta extends ItemMeta {
     PotionData getBasePotionData();
 
     /**
-     * Sets the underlying potion type
+     * Sets the underlying potion data
      *
-     * @param type PotionType to set the base potion state to
+     * @param data PotionData to set the base potion state to
+     * @deprecated Upgraded / extended potions are now their own {@link PotionType} use {@link #setBasePotionType} instead.
      */
-    void setBasePotionType(@Nullable PotionType type);
+    @Deprecated(since = "1.20.6")
+    void setBasePotionData(@Nullable PotionData data);
 
     /**
      * Returns the potion type about the base potion
@@ -47,6 +41,13 @@ public interface PotionMeta extends ItemMeta {
      */
     @Nullable
     PotionType getBasePotionType();
+
+    /**
+     * Sets the underlying potion type
+     *
+     * @param type PotionType to set the base potion state to
+     */
+    void setBasePotionType(@Nullable PotionType type);
 
     /**
      * Checks for the presence of a base potion type
@@ -77,9 +78,9 @@ public interface PotionMeta extends ItemMeta {
     /**
      * Adds a custom potion effect to this potion.
      *
-     * @param effect the potion effect to add
+     * @param effect    the potion effect to add
      * @param overwrite true if any existing effect of the same type should be
-     * overwritten
+     *                  overwritten
      * @return true if the potion meta changed as a result of this call
      */
     boolean addCustomEffect(@NotNull PotionEffect effect, boolean overwrite);

@@ -2,7 +2,6 @@ package org.bukkit.map;
 
 import com.google.common.base.Preconditions;
 import com.google.common.collect.Lists;
-import java.util.Locale;
 import org.bukkit.Keyed;
 import org.bukkit.NamespacedKey;
 import org.bukkit.Registry;
@@ -10,6 +9,8 @@ import org.bukkit.registry.RegistryAware;
 import org.bukkit.util.OldEnum;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
+
+import java.util.Locale;
 
 /**
  * Represents a cursor on a map.
@@ -24,11 +25,11 @@ public final class MapCursor {
     /**
      * Initialize the map cursor.
      *
-     * @param x The x coordinate, from -128 to 127.
-     * @param y The y coordinate, from -128 to 127.
+     * @param x         The x coordinate, from -128 to 127.
+     * @param y         The y coordinate, from -128 to 127.
      * @param direction The facing of the cursor, from 0 to 15.
-     * @param type The type (color/style) of the map cursor.
-     * @param visible Whether the cursor is visible by default.
+     * @param type      The type (color/style) of the map cursor.
+     * @param visible   Whether the cursor is visible by default.
      * @deprecated Magic value
      */
     @Deprecated(since = "1.6.2")
@@ -39,11 +40,11 @@ public final class MapCursor {
     /**
      * Initialize the map cursor.
      *
-     * @param x The x coordinate, from -128 to 127.
-     * @param y The y coordinate, from -128 to 127.
+     * @param x         The x coordinate, from -128 to 127.
+     * @param y         The y coordinate, from -128 to 127.
      * @param direction The facing of the cursor, from 0 to 15.
-     * @param type The type (color/style) of the map cursor.
-     * @param visible Whether the cursor is visible by default.
+     * @param type      The type (color/style) of the map cursor.
+     * @param visible   Whether the cursor is visible by default.
      */
     public MapCursor(byte x, byte y, byte direction, @NotNull Type type, boolean visible) {
         this(x, y, direction, type, visible, null);
@@ -52,12 +53,12 @@ public final class MapCursor {
     /**
      * Initialize the map cursor.
      *
-     * @param x The x coordinate, from -128 to 127.
-     * @param y The y coordinate, from -128 to 127.
+     * @param x         The x coordinate, from -128 to 127.
+     * @param y         The y coordinate, from -128 to 127.
      * @param direction The facing of the cursor, from 0 to 15.
-     * @param type The type (color/style) of the map cursor.
-     * @param visible Whether the cursor is visible by default.
-     * @param caption cursor caption
+     * @param type      The type (color/style) of the map cursor.
+     * @param visible   Whether the cursor is visible by default.
+     * @param caption   cursor caption
      * @deprecated Magic value, use {@link #MapCursor(byte, byte, byte, Type, boolean, String)}
      */
     @Deprecated(since = "1.13")
@@ -73,12 +74,12 @@ public final class MapCursor {
     /**
      * Initialize the map cursor.
      *
-     * @param x The x coordinate, from -128 to 127.
-     * @param y The y coordinate, from -128 to 127.
+     * @param x         The x coordinate, from -128 to 127.
+     * @param y         The y coordinate, from -128 to 127.
      * @param direction The facing of the cursor, from 0 to 15.
-     * @param type The type (color/style) of the map cursor.
-     * @param visible Whether the cursor is visible by default.
-     * @param caption cursor caption
+     * @param type      The type (color/style) of the map cursor.
+     * @param visible   Whether the cursor is visible by default.
+     * @param caption   cursor caption
      */
     public MapCursor(byte x, byte y, byte direction, @NotNull Type type, boolean visible, @Nullable String caption) {
         this.x = x;
@@ -99,12 +100,30 @@ public final class MapCursor {
     }
 
     /**
+     * Set the X position of this cursor.
+     *
+     * @param x The X coordinate.
+     */
+    public void setX(byte x) {
+        this.x = x;
+    }
+
+    /**
      * Get the Y position of this cursor.
      *
      * @return The Y coordinate.
      */
     public byte getY() {
         return y;
+    }
+
+    /**
+     * Set the Y position of this cursor.
+     *
+     * @param y The Y coordinate.
+     */
+    public void setY(byte y) {
+        this.y = y;
     }
 
     /**
@@ -117,6 +136,16 @@ public final class MapCursor {
     }
 
     /**
+     * Set the direction of this cursor.
+     *
+     * @param direction The facing of the cursor, from 0 to 15.
+     */
+    public void setDirection(byte direction) {
+        Preconditions.checkArgument(direction >= 0 && direction <= 15, "direction must be between 0 and 15 but is %s", direction);
+        this.direction = direction;
+    }
+
+    /**
      * Get the type of this cursor.
      *
      * @return The type (color/style) of the map cursor.
@@ -124,6 +153,15 @@ public final class MapCursor {
     @NotNull
     public Type getType() {
         return type;
+    }
+
+    /**
+     * Set the type of this cursor.
+     *
+     * @param type The type (color/style) of the map cursor.
+     */
+    public void setType(@NotNull Type type) {
+        this.type = type;
     }
 
     /**
@@ -138,52 +176,6 @@ public final class MapCursor {
     }
 
     /**
-     * Get the visibility status of this cursor.
-     *
-     * @return True if visible, false otherwise.
-     */
-    public boolean isVisible() {
-        return visible;
-    }
-
-    /**
-     * Set the X position of this cursor.
-     *
-     * @param x The X coordinate.
-     */
-    public void setX(byte x) {
-        this.x = x;
-    }
-
-    /**
-     * Set the Y position of this cursor.
-     *
-     * @param y The Y coordinate.
-     */
-    public void setY(byte y) {
-        this.y = y;
-    }
-
-    /**
-     * Set the direction of this cursor.
-     *
-     * @param direction The facing of the cursor, from 0 to 15.
-     */
-    public void setDirection(byte direction) {
-        Preconditions.checkArgument(direction >= 0 && direction <= 15, "direction must be between 0 and 15 but is %s", direction);
-        this.direction = direction;
-    }
-
-    /**
-     * Set the type of this cursor.
-     *
-     * @param type The type (color/style) of the map cursor.
-     */
-    public void setType(@NotNull Type type) {
-        this.type = type;
-    }
-
-    /**
      * Set the type of this cursor.
      *
      * @param type The type (color/style) of the map cursor.
@@ -194,6 +186,15 @@ public final class MapCursor {
         Type enumType = Type.byValue(type);
         Preconditions.checkArgument(enumType != null, "Unknown type by id %s", type);
         this.type = enumType;
+    }
+
+    /**
+     * Get the visibility status of this cursor.
+     *
+     * @return True if visible, false otherwise.
+     */
+    public boolean isVisible() {
+        return visible;
     }
 
     /**
@@ -274,27 +275,6 @@ public final class MapCursor {
         }
 
         /**
-         * {@inheritDoc}
-         *
-         * @see #getKeyOrThrow()
-         * @see #isRegistered()
-         * @deprecated A key might not always be present, use {@link #getKeyOrThrow()} instead.
-         */
-        @NotNull
-        @Override
-        @Deprecated(since = "1.21.4")
-        NamespacedKey getKey();
-
-        /**
-         * Gets the internal value of the cursor.
-         *
-         * @return the value
-         * @deprecated Magic value
-         */
-        @Deprecated(since = "1.6.2")
-        byte getValue();
-
-        /**
          * Get a cursor by its internal value.
          *
          * @param value the value
@@ -332,6 +312,27 @@ public final class MapCursor {
         static Type[] values() {
             return Lists.newArrayList(Registry.MAP_DECORATION_TYPE).toArray(new Type[0]);
         }
+
+        /**
+         * {@inheritDoc}
+         *
+         * @see #getKeyOrThrow()
+         * @see #isRegistered()
+         * @deprecated A key might not always be present, use {@link #getKeyOrThrow()} instead.
+         */
+        @NotNull
+        @Override
+        @Deprecated(since = "1.21.4")
+        NamespacedKey getKey();
+
+        /**
+         * Gets the internal value of the cursor.
+         *
+         * @return the value
+         * @deprecated Magic value
+         */
+        @Deprecated(since = "1.6.2")
+        byte getValue();
     }
 
 }

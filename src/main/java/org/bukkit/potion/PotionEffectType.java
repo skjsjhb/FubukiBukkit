@@ -4,16 +4,13 @@ import com.google.common.base.Preconditions;
 import com.google.common.collect.BiMap;
 import com.google.common.collect.HashBiMap;
 import com.google.common.collect.Lists;
-import java.util.Locale;
-import org.bukkit.Color;
-import org.bukkit.Keyed;
-import org.bukkit.NamespacedKey;
-import org.bukkit.Registry;
-import org.bukkit.Translatable;
+import org.bukkit.*;
 import org.bukkit.registry.RegistryAware;
 import org.jetbrains.annotations.Contract;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
+
+import java.util.Locale;
 
 /**
  * Represents a type of potion and its effect on an entity.
@@ -232,10 +229,78 @@ public abstract class PotionEffectType implements Keyed, Translatable, RegistryA
     }
 
     /**
+     * Gets the PotionEffectType at the specified key
+     *
+     * @param key key to fetch
+     * @return Resulting PotionEffectType, or null if not found
+     * @deprecated only for backwards compatibility, use {@link Registry#get(NamespacedKey)} instead.
+     */
+    @Contract("null -> null")
+    @Nullable
+    @Deprecated(since = "1.20.3")
+    public static PotionEffectType getByKey(@Nullable NamespacedKey key) {
+        if (key == null) {
+            return null;
+        }
+
+        return Registry.EFFECT.get(key);
+    }
+
+    /**
+     * Gets the effect type specified by the unique id.
+     *
+     * @param id Unique ID to fetch
+     * @return Resulting type, or null if not found.
+     * @deprecated Magic value
+     */
+    @Deprecated(since = "1.6.2")
+    @Nullable
+    public static PotionEffectType getById(int id) {
+        PotionEffectType type = ID_MAP.get(id);
+
+        if (type != null) {
+            return type;
+        }
+
+        for (PotionEffectType other : Registry.EFFECT) {
+            if (other.getId() == id) {
+                ID_MAP.put(id, other);
+                return other;
+            }
+        }
+
+        return null;
+    }
+
+    /**
+     * Gets the effect type specified by the given name.
+     *
+     * @param name Name of PotionEffectType to fetch
+     * @return Resulting PotionEffectType, or null if not found.
+     * @deprecated only for backwards compatibility, use {@link Registry#get(NamespacedKey)} instead.
+     */
+    @Nullable
+    @Deprecated(since = "1.20.3")
+    public static PotionEffectType getByName(@NotNull String name) {
+        Preconditions.checkArgument(name != null, "name cannot be null");
+        return Registry.EFFECT.get(NamespacedKey.fromString(name.toLowerCase(Locale.ROOT)));
+    }
+
+    /**
+     * @return an array of all known PotionEffectTypes.
+     * @deprecated use {@link Registry#iterator()}.
+     */
+    @NotNull
+    @Deprecated(since = "1.20.3")
+    public static PotionEffectType[] values() {
+        return Lists.newArrayList(Registry.EFFECT).toArray(new PotionEffectType[0]);
+    }
+
+    /**
      * Creates a PotionEffect from this PotionEffectType, applying duration
      * modifiers and checks.
      *
-     * @param duration time in ticks
+     * @param duration  time in ticks
      * @param amplifier the effect's amplifier
      * @return a resulting potion effect
      * @see PotionBrewer#createEffect(PotionEffectType, int, int)
@@ -305,72 +370,4 @@ public abstract class PotionEffectType implements Keyed, Translatable, RegistryA
     @NotNull
     @Deprecated(since = "1.20.3")
     public abstract String getName();
-
-    /**
-     * Gets the PotionEffectType at the specified key
-     *
-     * @param key key to fetch
-     * @return Resulting PotionEffectType, or null if not found
-     * @deprecated only for backwards compatibility, use {@link Registry#get(NamespacedKey)} instead.
-     */
-    @Contract("null -> null")
-    @Nullable
-    @Deprecated(since = "1.20.3")
-    public static PotionEffectType getByKey(@Nullable NamespacedKey key) {
-        if (key == null) {
-            return null;
-        }
-
-        return Registry.EFFECT.get(key);
-    }
-
-    /**
-     * Gets the effect type specified by the unique id.
-     *
-     * @param id Unique ID to fetch
-     * @return Resulting type, or null if not found.
-     * @deprecated Magic value
-     */
-    @Deprecated(since = "1.6.2")
-    @Nullable
-    public static PotionEffectType getById(int id) {
-        PotionEffectType type = ID_MAP.get(id);
-
-        if (type != null) {
-            return type;
-        }
-
-        for (PotionEffectType other : Registry.EFFECT) {
-            if (other.getId() == id) {
-                ID_MAP.put(id, other);
-                return other;
-            }
-        }
-
-        return null;
-    }
-
-    /**
-     * Gets the effect type specified by the given name.
-     *
-     * @param name Name of PotionEffectType to fetch
-     * @return Resulting PotionEffectType, or null if not found.
-     * @deprecated only for backwards compatibility, use {@link Registry#get(NamespacedKey)} instead.
-     */
-    @Nullable
-    @Deprecated(since = "1.20.3")
-    public static PotionEffectType getByName(@NotNull String name) {
-        Preconditions.checkArgument(name != null, "name cannot be null");
-        return Registry.EFFECT.get(NamespacedKey.fromString(name.toLowerCase(Locale.ROOT)));
-    }
-
-    /**
-     * @return an array of all known PotionEffectTypes.
-     * @deprecated use {@link Registry#iterator()}.
-     */
-    @NotNull
-    @Deprecated(since = "1.20.3")
-    public static PotionEffectType[] values() {
-        return Lists.newArrayList(Registry.EFFECT).toArray(new PotionEffectType[0]);
-    }
 }

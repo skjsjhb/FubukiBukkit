@@ -1,11 +1,14 @@
 package org.bukkit;
 
-import static org.bukkit.support.MatcherAssert.*;
-import static org.hamcrest.CoreMatchers.*;
-import static org.junit.jupiter.api.Assertions.*;
 import com.google.common.collect.Lists;
-import java.util.Collection;
 import org.junit.jupiter.api.Test;
+
+import java.util.Collection;
+
+import static org.bukkit.support.MatcherAssert.assertThat;
+import static org.hamcrest.CoreMatchers.is;
+import static org.hamcrest.CoreMatchers.nullValue;
+import static org.junit.jupiter.api.Assertions.*;
 
 public class NoteTest {
     @Test

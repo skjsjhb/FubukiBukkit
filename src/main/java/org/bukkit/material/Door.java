@@ -6,7 +6,7 @@ import org.bukkit.block.BlockFace;
 
 /**
  * Represents a door.
- *
+ * <p>
  * This class was previously deprecated, but has been retrofitted to
  * work with modern doors. Some methods are undefined dependant on <code>isTopHalf()</code>
  * due to Minecraft's internal representation of doors.
@@ -18,7 +18,6 @@ import org.bukkit.block.BlockFace;
  * @see Material#LEGACY_JUNGLE_DOOR
  * @see Material#LEGACY_ACACIA_DOOR
  * @see Material#LEGACY_DARK_OAK_DOOR
- *
  * @deprecated all usage of MaterialData is deprecated and subject to removal.
  * Use {@link org.bukkit.block.data.BlockData}.
  */
@@ -45,7 +44,6 @@ public class Door extends MaterialData implements Directional, Openable {
      *
      * @param type The type of material this door is made of. This must match the type of the block above.
      * @param face The direction the door is facing.
-     *
      * @see Material#LEGACY_WOODEN_DOOR
      * @see Material#LEGACY_IRON_DOOR_BLOCK
      * @see Material#LEGACY_SPRUCE_DOOR
@@ -53,7 +51,6 @@ public class Door extends MaterialData implements Directional, Openable {
      * @see Material#LEGACY_JUNGLE_DOOR
      * @see Material#LEGACY_ACACIA_DOOR
      * @see Material#LEGACY_DARK_OAK_DOOR
-     *
      * @see BlockFace#WEST
      * @see BlockFace#NORTH
      * @see BlockFace#EAST
@@ -67,10 +64,9 @@ public class Door extends MaterialData implements Directional, Openable {
      * Constructs the bottom half of a door of the given material type, facing the specified direction and set to open
      * or closed
      *
-     * @param type The type of material this door is made of. This must match the type of the block above.
-     * @param face The direction the door is facing.
+     * @param type   The type of material this door is made of. This must match the type of the block above.
+     * @param face   The direction the door is facing.
      * @param isOpen Whether the door is currently opened.
-     *
      * @see Material#LEGACY_WOODEN_DOOR
      * @see Material#LEGACY_IRON_DOOR_BLOCK
      * @see Material#LEGACY_SPRUCE_DOOR
@@ -78,7 +74,6 @@ public class Door extends MaterialData implements Directional, Openable {
      * @see Material#LEGACY_JUNGLE_DOOR
      * @see Material#LEGACY_ACACIA_DOOR
      * @see Material#LEGACY_DARK_OAK_DOOR
-     *
      * @see BlockFace#WEST
      * @see BlockFace#NORTH
      * @see BlockFace#EAST
@@ -94,9 +89,8 @@ public class Door extends MaterialData implements Directional, Openable {
     /**
      * Constructs the top half of door of the given material type and with the hinge on the left or right
      *
-     * @param type The type of material this door is made of. This must match the type of the block below.
+     * @param type         The type of material this door is made of. This must match the type of the block below.
      * @param isHingeRight True if the hinge is on the right hand side, false if the hinge is on the left hand side.
-     *
      * @see Material#LEGACY_WOODEN_DOOR
      * @see Material#LEGACY_IRON_DOOR_BLOCK
      * @see Material#LEGACY_SPRUCE_DOOR
@@ -116,10 +110,8 @@ public class Door extends MaterialData implements Directional, Openable {
      * closed
      *
      * @param species The species this wooden door is made of. This must match the species of the block above.
-     * @param face The direction the door is facing.
-     *
+     * @param face    The direction the door is facing.
      * @see TreeSpecies
-     *
      * @see BlockFace#WEST
      * @see BlockFace#NORTH
      * @see BlockFace#EAST
@@ -134,11 +126,9 @@ public class Door extends MaterialData implements Directional, Openable {
      * or closed
      *
      * @param species The species this wooden door is made of. This must match the species of the block above.
-     * @param face The direction the door is facing.
-     * @param isOpen Whether the door is currently opened.
-     *
+     * @param face    The direction the door is facing.
+     * @param isOpen  Whether the door is currently opened.
      * @see TreeSpecies
-     *
      * @see BlockFace#WEST
      * @see BlockFace#NORTH
      * @see BlockFace#EAST
@@ -151,9 +141,8 @@ public class Door extends MaterialData implements Directional, Openable {
     /**
      * Constructs the top half of a wooden door of the given species and with the hinge on the left or right
      *
-     * @param species The species this wooden door is made of. This must match the species of the block below.
+     * @param species      The species this wooden door is made of. This must match the species of the block below.
      * @param isHingeRight True if the hinge is on the right hand side, false if the hinge is on the left hand side.
-     *
      * @see TreeSpecies
      */
     public Door(final TreeSpecies species, boolean isHingeRight) {
@@ -175,7 +164,6 @@ public class Door extends MaterialData implements Directional, Openable {
      *
      * @param species The species of wood door required.
      * @return The item type for the given species.
-     *
      * @see Material#LEGACY_WOODEN_DOOR
      * @see Material#LEGACY_SPRUCE_DOOR
      * @see Material#LEGACY_BIRCH_DOOR
@@ -249,7 +237,7 @@ public class Door extends MaterialData implements Directional, Openable {
 
     /**
      * Set the direction that this door should is facing.
-     *
+     * <p>
      * Undefined if <code>isTopHalf()</code> is true.
      *
      * @param face the direction
@@ -276,7 +264,7 @@ public class Door extends MaterialData implements Directional, Openable {
 
     /**
      * Get the direction that this door is facing.
-     *
+     * <p>
      * Undefined if <code>isTopHalf()</code> is true.
      *
      * @return the direction
@@ -300,7 +288,7 @@ public class Door extends MaterialData implements Directional, Openable {
 
     /**
      * Returns the side of the door the hinge is on.
-     *
+     * <p>
      * Undefined if <code>isTopHalf()</code> is false.
      *
      * @return false for left hinge, true for right hinge
@@ -311,7 +299,7 @@ public class Door extends MaterialData implements Directional, Openable {
 
     /**
      * Set whether the hinge is on the left or right side. Left is false, right is true.
-     *
+     * <p>
      * Undefined if <code>isTopHalf()</code> is false.
      *
      * @param isHingeRight True if the hinge is on the right hand side, false if the hinge is on the left hand side.

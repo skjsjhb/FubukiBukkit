@@ -1,6 +1,5 @@
 package org.bukkit.packs;
 
-import java.util.Collection;
 import org.bukkit.Material;
 import org.bukkit.NamespacedKey;
 import org.bukkit.World;
@@ -10,6 +9,8 @@ import org.bukkit.inventory.ItemType;
 import org.jetbrains.annotations.ApiStatus;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
+
+import java.util.Collection;
 
 /**
  * Manager of data packs.
@@ -55,7 +56,7 @@ public interface DataPackManager {
      * Gets if the Material is enabled for use by the features in World.
      *
      * @param material Material to check (needs to be an {@link Material#isItem()} or {@link Material#isBlock()})
-     * @param world World to check
+     * @param world    World to check
      * @return {@code True} if the Item/Block related to the material is enabled
      */
     public boolean isEnabledByFeature(@NotNull Material material, @NotNull World world);
@@ -64,7 +65,7 @@ public interface DataPackManager {
      * Gets if the ItemType is enabled for use by the features in World.
      *
      * @param itemType ItemType to check
-     * @param world World to check
+     * @param world    World to check
      * @return {@code True} if the ItemType is enabled
      * @apiNote this method is not ready for public usage yet
      */
@@ -75,7 +76,7 @@ public interface DataPackManager {
      * Gets if the BlockType is enabled for use by the features in World.
      *
      * @param blockType BlockType to check
-     * @param world World to check
+     * @param world     World to check
      * @return {@code True} if the BlockType is enabled
      * @apiNote this method is not ready for public usage yet
      */
@@ -86,7 +87,7 @@ public interface DataPackManager {
      * Gets if the EntityType is enabled for use by the Features in World.
      *
      * @param entityType EntityType to check
-     * @param world World to check
+     * @param world      World to check
      * @return {@code True} if the type of entity is enabled
      */
     public boolean isEnabledByFeature(@NotNull EntityType entityType, @NotNull World world);

@@ -1,11 +1,12 @@
 package org.bukkit.scoreboard;
 
-import java.util.Set;
 import org.bukkit.ChatColor;
 import org.bukkit.OfflinePlayer;
 import org.bukkit.potion.PotionEffectType;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
+
+import java.util.Set;
 
 /**
  * A team on a scoreboard that has a common display theme and other
@@ -93,7 +94,7 @@ public interface Team {
      * names are handled by prefixes / suffixes.
      *
      * @param color new color, must be non-null. Use {@link ChatColor#RESET} for
-     * no color
+     *              no color
      */
     void setColor(@NotNull ChatColor color);
 
@@ -185,7 +186,7 @@ public interface Team {
      * Gets the Scoreboard to which this team is attached
      *
      * @return Owning scoreboard, or null if this team has been {@link
-     *     #unregister() unregistered}
+     * #unregister() unregistered}
      */
     @Nullable
     Scoreboard getScoreboard();
@@ -252,6 +253,7 @@ public interface Team {
      */
     @Deprecated(since = "1.8.6")
     boolean hasPlayer(@NotNull OfflinePlayer player);
+
     /**
      * Checks to see if the specified entry is a member of this team.
      *

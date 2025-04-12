@@ -1,9 +1,10 @@
 package org.bukkit.event.player;
 
-import java.net.InetAddress;
 import org.bukkit.entity.Player;
 import org.bukkit.event.HandlerList;
 import org.jetbrains.annotations.NotNull;
+
+import java.net.InetAddress;
 
 /**
  * Stores details for players attempting to log in.
@@ -24,10 +25,10 @@ public class PlayerLoginEvent extends PlayerEvent {
      * This constructor defaults message to an empty string, and result to
      * ALLOWED
      *
-     * @param player The {@link Player} for this event
-     * @param hostname The hostname that was used to connect to the server
-     * @param address The address the player used to connect, provided for
-     *     timing issues
+     * @param player      The {@link Player} for this event
+     * @param hostname    The hostname that was used to connect to the server
+     * @param address     The address the player used to connect, provided for
+     *                    timing issues
      * @param realAddress the actual, unspoofed connecting address
      */
     public PlayerLoginEvent(@NotNull final Player player, @NotNull final String hostname, @NotNull final InetAddress address, final @NotNull InetAddress realAddress) {
@@ -41,10 +42,10 @@ public class PlayerLoginEvent extends PlayerEvent {
      * This constructor defaults message to an empty string, and result to
      * ALLOWED
      *
-     * @param player The {@link Player} for this event
+     * @param player   The {@link Player} for this event
      * @param hostname The hostname that was used to connect to the server
-     * @param address The address the player used to connect, provided for
-     *     timing issues
+     * @param address  The address the player used to connect, provided for
+     *                 timing issues
      */
     public PlayerLoginEvent(@NotNull final Player player, @NotNull final String hostname, @NotNull final InetAddress address) {
         this(player, hostname, address, address);
@@ -53,18 +54,23 @@ public class PlayerLoginEvent extends PlayerEvent {
     /**
      * This constructor pre-configures the event with a result and message
      *
-     * @param player The {@link Player} for this event
-     * @param hostname The hostname that was used to connect to the server
-     * @param address The address the player used to connect, provided for
-     *     timing issues
-     * @param result The result status for this event
-     * @param message The message to be displayed if result denies login
+     * @param player      The {@link Player} for this event
+     * @param hostname    The hostname that was used to connect to the server
+     * @param address     The address the player used to connect, provided for
+     *                    timing issues
+     * @param result      The result status for this event
+     * @param message     The message to be displayed if result denies login
      * @param realAddress the actual, unspoofed connecting address
      */
     public PlayerLoginEvent(@NotNull final Player player, @NotNull String hostname, @NotNull final InetAddress address, @NotNull final Result result, @NotNull final String message, @NotNull final InetAddress realAddress) {
         this(player, hostname, address, realAddress);
         this.result = result;
         this.message = message;
+    }
+
+    @NotNull
+    public static HandlerList getHandlerList() {
+        return handlers;
     }
 
     /**
@@ -128,7 +134,7 @@ public class PlayerLoginEvent extends PlayerEvent {
     /**
      * Disallows the player from logging in, with the given reason
      *
-     * @param result New result for disallowing the player
+     * @param result  New result for disallowing the player
      * @param message Kick message to display to the user
      */
     public void disallow(@NotNull final Result result, @NotNull final String message) {
@@ -142,7 +148,7 @@ public class PlayerLoginEvent extends PlayerEvent {
      * returning null during PlayerLoginEvent.
      *
      * @return The address for this player. For legacy compatibility, this may
-     *     be null.
+     * be null.
      */
     @NotNull
     public InetAddress getAddress() {
@@ -164,11 +170,6 @@ public class PlayerLoginEvent extends PlayerEvent {
     @NotNull
     @Override
     public HandlerList getHandlers() {
-        return handlers;
-    }
-
-    @NotNull
-    public static HandlerList getHandlerList() {
         return handlers;
     }
 

@@ -1,4 +1,3 @@
-
 package org.bukkit.command;
 
 import org.jetbrains.annotations.NotNull;

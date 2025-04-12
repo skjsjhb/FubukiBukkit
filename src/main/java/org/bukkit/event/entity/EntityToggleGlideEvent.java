@@ -16,13 +16,17 @@ import org.jetbrains.annotations.NotNull;
  */
 public class EntityToggleGlideEvent extends EntityEvent implements Cancellable {
     private static final HandlerList handlers = new HandlerList();
-
-    private boolean cancel = false;
     private final boolean isGliding;
+    private boolean cancel = false;
 
     public EntityToggleGlideEvent(@NotNull LivingEntity who, final boolean isGliding) {
         super(who);
         this.isGliding = isGliding;
+    }
+
+    @NotNull
+    public static HandlerList getHandlerList() {
+        return handlers;
     }
 
     @Override
@@ -48,11 +52,6 @@ public class EntityToggleGlideEvent extends EntityEvent implements Cancellable {
     @NotNull
     @Override
     public HandlerList getHandlers() {
-        return handlers;
-    }
-
-    @NotNull
-    public static HandlerList getHandlerList() {
         return handlers;
     }
 

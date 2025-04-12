@@ -12,13 +12,18 @@ import org.jetbrains.annotations.NotNull;
 public class MoistureChangeEvent extends BlockEvent implements Cancellable {
 
     private static final HandlerList handlers = new HandlerList();
-    private boolean cancelled;
     private final BlockState newState;
+    private boolean cancelled;
 
     public MoistureChangeEvent(@NotNull final Block block, @NotNull final BlockState newState) {
         super(block);
         this.newState = newState;
         this.cancelled = false;
+    }
+
+    @NotNull
+    public static HandlerList getHandlerList() {
+        return handlers;
     }
 
     /**
@@ -44,11 +49,6 @@ public class MoistureChangeEvent extends BlockEvent implements Cancellable {
     @NotNull
     @Override
     public HandlerList getHandlers() {
-        return handlers;
-    }
-
-    @NotNull
-    public static HandlerList getHandlerList() {
         return handlers;
     }
 }

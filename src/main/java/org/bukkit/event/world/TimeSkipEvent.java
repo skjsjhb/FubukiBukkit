@@ -13,15 +13,20 @@ import org.jetbrains.annotations.NotNull;
 public class TimeSkipEvent extends WorldEvent implements Cancellable {
 
     private static final HandlerList handlers = new HandlerList();
+    private final SkipReason skipReason;
     //
     private boolean cancelled;
-    private final SkipReason skipReason;
     private long skipAmount;
 
     public TimeSkipEvent(@NotNull World world, @NotNull SkipReason skipReason, long skipAmount) {
         super(world);
         this.skipReason = skipReason;
         this.skipAmount = skipAmount;
+    }
+
+    @NotNull
+    public static HandlerList getHandlerList() {
+        return handlers;
     }
 
     /**
@@ -65,11 +70,6 @@ public class TimeSkipEvent extends WorldEvent implements Cancellable {
     @NotNull
     @Override
     public HandlerList getHandlers() {
-        return handlers;
-    }
-
-    @NotNull
-    public static HandlerList getHandlerList() {
         return handlers;
     }
 

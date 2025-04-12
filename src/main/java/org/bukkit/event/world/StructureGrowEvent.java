@@ -1,6 +1,5 @@
 package org.bukkit.event.world;
 
-import java.util.List;
 import org.bukkit.Location;
 import org.bukkit.TreeType;
 import org.bukkit.block.BlockState;
@@ -10,18 +9,20 @@ import org.bukkit.event.HandlerList;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
+import java.util.List;
+
 /**
  * Event that is called when an organic structure attempts to grow (Sapling {@literal ->}
  * Tree), (Mushroom {@literal ->} Huge Mushroom), naturally or using bonemeal.
  */
 public class StructureGrowEvent extends WorldEvent implements Cancellable {
     private static final HandlerList handlers = new HandlerList();
-    private boolean cancelled = false;
     private final Location location;
     private final TreeType species;
     private final boolean bonemeal;
     private final Player player;
     private final List<BlockState> blocks;
+    private boolean cancelled = false;
 
     public StructureGrowEvent(@NotNull final Location location, @NotNull final TreeType species, final boolean bonemeal, @Nullable final Player player, @NotNull final List<BlockState> blocks) {
         super(location.getWorld());
@@ -30,6 +31,11 @@ public class StructureGrowEvent extends WorldEvent implements Cancellable {
         this.bonemeal = bonemeal;
         this.player = player;
         this.blocks = blocks;
+    }
+
+    @NotNull
+    public static HandlerList getHandlerList() {
+        return handlers;
     }
 
     /**
@@ -66,7 +72,7 @@ public class StructureGrowEvent extends WorldEvent implements Cancellable {
      * Gets the player that created the structure.
      *
      * @return Player that created the structure, null if was not created
-     *     manually
+     * manually
      */
     @Nullable
     public Player getPlayer() {
@@ -96,11 +102,6 @@ public class StructureGrowEvent extends WorldEvent implements Cancellable {
     @NotNull
     @Override
     public HandlerList getHandlers() {
-        return handlers;
-    }
-
-    @NotNull
-    public static HandlerList getHandlerList() {
         return handlers;
     }
 }

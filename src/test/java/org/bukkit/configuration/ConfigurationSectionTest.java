@@ -1,17 +1,14 @@
 package org.bukkit.configuration;
 
-import static org.junit.jupiter.api.Assertions.*;
-import java.util.Arrays;
-import java.util.Collections;
-import java.util.HashMap;
-import java.util.LinkedHashMap;
-import java.util.List;
-import java.util.Map;
 import org.bukkit.Material;
 import org.bukkit.configuration.serialization.ConfigurationSerializable;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.util.Vector;
 import org.junit.jupiter.api.Test;
+
+import java.util.*;
+
+import static org.junit.jupiter.api.Assertions.*;
 
 public abstract class ConfigurationSectionTest {
     public abstract ConfigurationSection getConfigurationSection();
@@ -609,13 +606,13 @@ public abstract class ConfigurationSectionTest {
         WORLD,
         BANANAS;
 
+        public static TestEnum deserialize(Map<String, Object> map) {
+            return TestEnum.valueOf((String) map.get("variant"));
+        }
+
         @Override
         public Map<String, Object> serialize() {
             return Collections.singletonMap("variant", this.name());
-        }
-
-        public static TestEnum deserialize(Map<String, Object> map) {
-            return TestEnum.valueOf((String) map.get("variant"));
         }
     }
 }

@@ -16,7 +16,7 @@ public interface BlockDataMeta extends ItemMeta {
     /**
      * Returns the currently attached block data for this item or creates a new
      * one if one doesn't exist.
-     *
+     * <p>
      * The state is a copy, it must be set back (or to another item) with
      * {@link #setBlockData(org.bukkit.block.data.BlockData)}
      *
@@ -31,7 +31,7 @@ public interface BlockDataMeta extends ItemMeta {
      *
      * @param blockData the block data to attach to the block.
      * @throws IllegalArgumentException if the blockData is null or invalid for
-     * this item.
+     *                                  this item.
      */
     void setBlockData(@NotNull BlockData blockData);
 }

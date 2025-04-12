@@ -21,6 +21,11 @@ public class PlayerKickEvent extends PlayerEvent implements Cancellable {
         this.cancel = false;
     }
 
+    @NotNull
+    public static HandlerList getHandlerList() {
+        return handlers;
+    }
+
     /**
      * Gets the reason why the player is getting kicked
      *
@@ -29,26 +34,6 @@ public class PlayerKickEvent extends PlayerEvent implements Cancellable {
     @NotNull
     public String getReason() {
         return kickReason;
-    }
-
-    /**
-     * Gets the leave message send to all online players
-     *
-     * @return string kick reason
-     */
-    @NotNull
-    public String getLeaveMessage() {
-        return leaveMessage;
-    }
-
-    @Override
-    public boolean isCancelled() {
-        return cancel;
-    }
-
-    @Override
-    public void setCancelled(boolean cancel) {
-        this.cancel = cancel;
     }
 
     /**
@@ -61,6 +46,16 @@ public class PlayerKickEvent extends PlayerEvent implements Cancellable {
     }
 
     /**
+     * Gets the leave message send to all online players
+     *
+     * @return string kick reason
+     */
+    @NotNull
+    public String getLeaveMessage() {
+        return leaveMessage;
+    }
+
+    /**
      * Sets the leave message send to all online players
      *
      * @param leaveMessage leave message
@@ -69,14 +64,19 @@ public class PlayerKickEvent extends PlayerEvent implements Cancellable {
         this.leaveMessage = leaveMessage;
     }
 
-    @NotNull
     @Override
-    public HandlerList getHandlers() {
-        return handlers;
+    public boolean isCancelled() {
+        return cancel;
+    }
+
+    @Override
+    public void setCancelled(boolean cancel) {
+        this.cancel = cancel;
     }
 
     @NotNull
-    public static HandlerList getHandlerList() {
+    @Override
+    public HandlerList getHandlers() {
         return handlers;
     }
 }

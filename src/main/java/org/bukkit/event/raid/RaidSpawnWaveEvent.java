@@ -1,13 +1,14 @@
 package org.bukkit.event.raid;
 
-import java.util.Collections;
-import java.util.List;
 import org.bukkit.Raid;
 import org.bukkit.World;
 import org.bukkit.entity.Raider;
 import org.bukkit.event.HandlerList;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
+
+import java.util.Collections;
+import java.util.List;
 
 /**
  * Called when a raid wave spawns.
@@ -23,6 +24,11 @@ public class RaidSpawnWaveEvent extends RaidEvent {
         super(raid, world);
         this.raiders = raiders;
         this.leader = leader;
+    }
+
+    @NotNull
+    public static HandlerList getHandlerList() {
+        return handlers;
     }
 
     /**
@@ -48,11 +54,6 @@ public class RaidSpawnWaveEvent extends RaidEvent {
     @NotNull
     @Override
     public HandlerList getHandlers() {
-        return handlers;
-    }
-
-    @NotNull
-    public static HandlerList getHandlerList() {
         return handlers;
     }
 }

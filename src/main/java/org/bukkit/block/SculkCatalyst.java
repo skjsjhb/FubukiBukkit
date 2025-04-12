@@ -20,7 +20,7 @@ public interface SculkCatalyst extends TileState {
      * If <code>charges > 1000</code>, multiple cursors will be spawned in the
      * block.
      *
-     * @param block which block to spawn the cursor in
+     * @param block   which block to spawn the cursor in
      * @param charges how much charge to spawn.
      */
     void bloom(@NotNull Block block, int charges);

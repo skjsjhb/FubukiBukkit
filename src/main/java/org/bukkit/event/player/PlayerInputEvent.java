@@ -22,6 +22,11 @@ public class PlayerInputEvent extends PlayerEvent {
         this.input = input;
     }
 
+    @NotNull
+    public static HandlerList getHandlerList() {
+        return handlers;
+    }
+
     /**
      * Gets the new input received from this player.
      *
@@ -35,11 +40,6 @@ public class PlayerInputEvent extends PlayerEvent {
     @NotNull
     @Override
     public HandlerList getHandlers() {
-        return handlers;
-    }
-
-    @NotNull
-    public static HandlerList getHandlerList() {
         return handlers;
     }
 }

@@ -15,14 +15,19 @@ import org.jetbrains.annotations.Nullable;
 public class PigZombieAngerEvent extends EntityEvent implements Cancellable {
 
     private static final HandlerList handlers = new HandlerList();
-    private boolean canceled;
     private final Entity target;
+    private boolean canceled;
     private int newAnger;
 
     public PigZombieAngerEvent(@NotNull final PigZombie pigZombie, @Nullable final Entity target, final int newAnger) {
         super(pigZombie);
         this.target = target;
         this.newAnger = newAnger;
+    }
+
+    @NotNull
+    public static HandlerList getHandlerList() {
+        return handlers;
     }
 
     /**
@@ -74,11 +79,6 @@ public class PigZombieAngerEvent extends EntityEvent implements Cancellable {
     @NotNull
     @Override
     public HandlerList getHandlers() {
-        return handlers;
-    }
-
-    @NotNull
-    public static HandlerList getHandlerList() {
         return handlers;
     }
 }

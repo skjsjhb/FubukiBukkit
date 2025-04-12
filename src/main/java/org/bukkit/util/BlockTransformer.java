@@ -14,6 +14,24 @@ import org.jetbrains.annotations.NotNull;
 public interface BlockTransformer {
 
     /**
+     * Transforms a block in a structure.
+     * <p>
+     * NOTE: The usage of {@link BlockData#createBlockState()} can provide even
+     * more flexibility to return the exact block state you might want to
+     * return.
+     *
+     * @param region  the accessible region
+     * @param x       the x position of the block
+     * @param y       the y position of the block
+     * @param z       the z position of the block
+     * @param current the state of the block that should be placed
+     * @param state   the state of this transformation.
+     * @return the new block state
+     */
+    @NotNull
+    BlockState transform(@NotNull LimitedRegion region, int x, int y, int z, @NotNull BlockState current, @NotNull TransformationState state);
+
+    /**
      * The TransformationState allows access to the original block state and the
      * block state of the block that was at the location of the transformation
      * in the world before the transformation started.
@@ -40,23 +58,4 @@ public interface BlockTransformer {
         BlockState getWorld();
 
     }
-
-    /**
-     * Transforms a block in a structure.
-     *
-     * NOTE: The usage of {@link BlockData#createBlockState()} can provide even
-     * more flexibility to return the exact block state you might want to
-     * return.
-     *
-     * @param region the accessible region
-     * @param x the x position of the block
-     * @param y the y position of the block
-     * @param z the z position of the block
-     * @param current the state of the block that should be placed
-     * @param state the state of this transformation.
-     *
-     * @return the new block state
-     */
-    @NotNull
-    BlockState transform(@NotNull LimitedRegion region, int x, int y, int z, @NotNull BlockState current, @NotNull TransformationState state);
 }

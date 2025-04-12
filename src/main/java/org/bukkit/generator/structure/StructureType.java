@@ -8,7 +8,7 @@ import org.jetbrains.annotations.NotNull;
 
 /**
  * Represent a StructureType of a {@link Structure}.
- *
+ * <p>
  * Listed structure types are present in the default server. Depending on the
  * server there might be additional structure types present (for example
  * structure types added by data packs), which can be received via

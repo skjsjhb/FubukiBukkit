@@ -1,13 +1,14 @@
 package org.bukkit.event.server;
 
 import com.google.common.base.Preconditions;
-import java.util.List;
 import org.bukkit.command.CommandSender;
 import org.bukkit.event.Cancellable;
 import org.bukkit.event.Event;
 import org.bukkit.event.HandlerList;
 import org.bukkit.event.player.PlayerCommandSendEvent;
 import org.jetbrains.annotations.NotNull;
+
+import java.util.List;
 
 /**
  * Called when a {@link CommandSender} of any description (ie: player or
@@ -36,6 +37,11 @@ public class TabCompleteEvent extends Event implements Cancellable {
         this.sender = sender;
         this.buffer = buffer;
         this.completions = completions;
+    }
+
+    @NotNull
+    public static HandlerList getHandlerList() {
+        return handlers;
     }
 
     /**
@@ -92,11 +98,6 @@ public class TabCompleteEvent extends Event implements Cancellable {
     @NotNull
     @Override
     public HandlerList getHandlers() {
-        return handlers;
-    }
-
-    @NotNull
-    public static HandlerList getHandlerList() {
         return handlers;
     }
 }

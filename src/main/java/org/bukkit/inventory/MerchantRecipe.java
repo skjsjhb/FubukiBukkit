@@ -1,14 +1,15 @@
 package org.bukkit.inventory;
 
 import com.google.common.base.Preconditions;
-import java.util.ArrayList;
-import java.util.List;
 import org.bukkit.Material;
 import org.bukkit.entity.Villager;
 import org.bukkit.potion.PotionEffectType;
 import org.bukkit.util.NumberConversions;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
+
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Represents a merchant's trade.
@@ -96,14 +97,6 @@ public class MerchantRecipe implements Recipe {
         ingredients.remove(index);
     }
 
-    public void setIngredients(@NotNull List<ItemStack> ingredients) {
-        Preconditions.checkState(ingredients.size() <= 2, "MerchantRecipe can only have maximum 2 ingredients");
-        this.ingredients = new ArrayList<ItemStack>();
-        for (ItemStack item : ingredients) {
-            this.ingredients.add(item.clone());
-        }
-    }
-
     @NotNull
     public List<ItemStack> getIngredients() {
         List<ItemStack> copy = new ArrayList<ItemStack>();
@@ -111,6 +104,14 @@ public class MerchantRecipe implements Recipe {
             copy.add(item.clone());
         }
         return copy;
+    }
+
+    public void setIngredients(@NotNull List<ItemStack> ingredients) {
+        Preconditions.checkState(ingredients.size() <= 2, "MerchantRecipe can only have maximum 2 ingredients");
+        this.ingredients = new ArrayList<ItemStack>();
+        for (ItemStack item : ingredients) {
+            this.ingredients.add(item.clone());
+        }
     }
 
     /**
@@ -242,7 +243,7 @@ public class MerchantRecipe implements Recipe {
      * Set whether to reward experience to the player for the trade.
      *
      * @param flag whether to reward experience to the player for completing
-     * this trade
+     *             this trade
      */
     public void setExperienceReward(boolean flag) {
         this.experienceReward = flag;

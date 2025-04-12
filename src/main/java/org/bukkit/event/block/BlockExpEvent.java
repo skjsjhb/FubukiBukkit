@@ -17,6 +17,11 @@ public class BlockExpEvent extends BlockEvent {
         this.exp = exp;
     }
 
+    @NotNull
+    public static HandlerList getHandlerList() {
+        return handlers;
+    }
+
     /**
      * Get the experience dropped by the block after the event has processed
      *
@@ -39,11 +44,6 @@ public class BlockExpEvent extends BlockEvent {
     @Override
     @NotNull
     public HandlerList getHandlers() {
-        return handlers;
-    }
-
-    @NotNull
-    public static HandlerList getHandlerList() {
         return handlers;
     }
 }

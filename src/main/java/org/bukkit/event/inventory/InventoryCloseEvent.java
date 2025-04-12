@@ -1,4 +1,3 @@
-
 package org.bukkit.event.inventory;
 
 import org.bukkit.entity.HumanEntity;
@@ -16,6 +15,11 @@ public class InventoryCloseEvent extends InventoryEvent {
         super(transaction);
     }
 
+    @NotNull
+    public static HandlerList getHandlerList() {
+        return handlers;
+    }
+
     /**
      * Returns the player involved in this event
      *
@@ -29,11 +33,6 @@ public class InventoryCloseEvent extends InventoryEvent {
     @NotNull
     @Override
     public HandlerList getHandlers() {
-        return handlers;
-    }
-
-    @NotNull
-    public static HandlerList getHandlerList() {
         return handlers;
     }
 }

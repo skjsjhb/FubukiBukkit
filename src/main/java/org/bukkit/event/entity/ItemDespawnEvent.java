@@ -15,12 +15,17 @@ import org.jetbrains.annotations.NotNull;
  */
 public class ItemDespawnEvent extends EntityEvent implements Cancellable {
     private static final HandlerList handlers = new HandlerList();
-    private boolean canceled;
     private final Location location;
+    private boolean canceled;
 
     public ItemDespawnEvent(@NotNull final Item despawnee, @NotNull final Location loc) {
         super(despawnee);
         location = loc;
+    }
+
+    @NotNull
+    public static HandlerList getHandlerList() {
+        return handlers;
     }
 
     @Override
@@ -52,11 +57,6 @@ public class ItemDespawnEvent extends EntityEvent implements Cancellable {
     @NotNull
     @Override
     public HandlerList getHandlers() {
-        return handlers;
-    }
-
-    @NotNull
-    public static HandlerList getHandlerList() {
         return handlers;
     }
 }

@@ -169,9 +169,9 @@ public enum Particle implements Keyed, RegistryAware {
     FIREFLY("firefly"),
     ;
 
+    final boolean register;
     private final NamespacedKey key;
     private final Class<?> dataType;
-    final boolean register;
 
     Particle(String key) {
         this(key, Void.class);
@@ -197,6 +197,7 @@ public enum Particle implements Keyed, RegistryAware {
 
     /**
      * Returns the required data type for the particle
+     *
      * @return the required data type
      */
     @NotNull

@@ -10,12 +10,17 @@ import org.jetbrains.annotations.NotNull;
  */
 public class ThunderChangeEvent extends WeatherEvent implements Cancellable {
     private static final HandlerList handlers = new HandlerList();
-    private boolean canceled;
     private final boolean to;
+    private boolean canceled;
 
     public ThunderChangeEvent(@NotNull final World world, final boolean to) {
         super(world);
         this.to = to;
+    }
+
+    @NotNull
+    public static HandlerList getHandlerList() {
+        return handlers;
     }
 
     @Override
@@ -40,11 +45,6 @@ public class ThunderChangeEvent extends WeatherEvent implements Cancellable {
     @NotNull
     @Override
     public HandlerList getHandlers() {
-        return handlers;
-    }
-
-    @NotNull
-    public static HandlerList getHandlerList() {
         return handlers;
     }
 }

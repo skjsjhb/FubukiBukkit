@@ -1,11 +1,12 @@
 package org.bukkit.event.entity;
 
-import java.util.Collections;
-import java.util.List;
 import org.bukkit.entity.Entity;
 import org.bukkit.event.Cancellable;
 import org.bukkit.event.HandlerList;
 import org.jetbrains.annotations.NotNull;
+
+import java.util.Collections;
+import java.util.List;
 
 /**
  * Called when an entity is about to be replaced by another entity.
@@ -13,10 +14,10 @@ import org.jetbrains.annotations.NotNull;
 public class EntityTransformEvent extends EntityEvent implements Cancellable {
 
     private static final HandlerList handlers = new HandlerList();
-    private boolean cancelled;
     private final Entity converted;
     private final List<Entity> convertedList;
     private final TransformReason transformReason;
+    private boolean cancelled;
 
     public EntityTransformEvent(@NotNull Entity original, @NotNull List<Entity> convertedList, @NotNull TransformReason transformReason) {
         super(original);
@@ -25,9 +26,14 @@ public class EntityTransformEvent extends EntityEvent implements Cancellable {
         this.transformReason = transformReason;
     }
 
+    @NotNull
+    public static HandlerList getHandlerList() {
+        return handlers;
+    }
+
     /**
      * Gets the entity that the original entity was transformed to.
-     *
+     * <p>
      * This returns the first entity in the transformed entity list.
      *
      * @return The transformed entity.
@@ -71,11 +77,6 @@ public class EntityTransformEvent extends EntityEvent implements Cancellable {
     @NotNull
     @Override
     public HandlerList getHandlers() {
-        return handlers;
-    }
-
-    @NotNull
-    public static HandlerList getHandlerList() {
         return handlers;
     }
 

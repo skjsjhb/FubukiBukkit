@@ -1,12 +1,13 @@
 package org.bukkit.configuration.file;
 
-import java.util.Arrays;
-import java.util.Collections;
-import java.util.List;
 import org.bukkit.configuration.MemoryConfiguration;
 import org.bukkit.configuration.MemoryConfigurationOptions;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
+
+import java.util.Arrays;
+import java.util.Collections;
+import java.util.List;
 
 /**
  * Various settings for controlling the input and output of a {@link
@@ -62,21 +63,6 @@ public class FileConfigurationOptions extends MemoryConfigurationOptions {
     }
 
     /**
-     * @return The string header.
-     *
-     * @deprecated use getHeader() instead.
-     */
-    @NotNull
-    @Deprecated(since = "1.18.1")
-    public String header() {
-        StringBuilder stringHeader = new StringBuilder();
-        for (String line : header) {
-            stringHeader.append(line == null ? "\n" : line + "\n");
-        }
-        return stringHeader.toString();
-    }
-
-    /**
      * Sets the header that will be applied to the top of the saved output.
      * <p>
      * This header will be commented out and applied directly at the top of
@@ -99,9 +85,22 @@ public class FileConfigurationOptions extends MemoryConfigurationOptions {
     }
 
     /**
+     * @return The string header.
+     * @deprecated use getHeader() instead.
+     */
+    @NotNull
+    @Deprecated(since = "1.18.1")
+    public String header() {
+        StringBuilder stringHeader = new StringBuilder();
+        for (String line : header) {
+            stringHeader.append(line == null ? "\n" : line + "\n");
+        }
+        return stringHeader.toString();
+    }
+
+    /**
      * @param value The string header.
      * @return This object, for chaining.
-     *
      * @deprecated use setHeader() instead
      */
     @NotNull
@@ -180,7 +179,6 @@ public class FileConfigurationOptions extends MemoryConfigurationOptions {
 
     /**
      * @return Whether or not comments are parsed.
-     *
      * @deprecated Call {@link #parseComments()} instead.
      */
     @Deprecated(since = "1.18.1")
@@ -191,7 +189,6 @@ public class FileConfigurationOptions extends MemoryConfigurationOptions {
     /**
      * @param value Should comments be parsed.
      * @return This object, for chaining
-     *
      * @deprecated Call {@link #parseComments(boolean)} instead.
      */
     @NotNull

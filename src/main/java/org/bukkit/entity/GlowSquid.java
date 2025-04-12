@@ -7,7 +7,7 @@ public interface GlowSquid extends Squid {
 
     /**
      * Get the number of dark ticks remaining for this squid.
-     *
+     * <p>
      * Bravo Six will go dark for 100 ticks (5 seconds) if damaged.
      *
      * @return dark ticks remaining
@@ -16,7 +16,7 @@ public interface GlowSquid extends Squid {
 
     /**
      * Sets the number of dark ticks remaining for this squid.
-     *
+     * <p>
      * Bravo Six will go dark for 100 ticks (5 seconds) if damaged.
      *
      * @param darkTicksRemaining dark ticks remaining

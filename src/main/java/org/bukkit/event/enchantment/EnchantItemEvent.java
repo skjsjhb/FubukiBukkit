@@ -1,8 +1,6 @@
 package org.bukkit.event.enchantment;
 
 import com.google.common.base.Preconditions;
-import java.util.HashMap;
-import java.util.Map;
 import org.bukkit.block.Block;
 import org.bukkit.enchantments.Enchantment;
 import org.bukkit.entity.Player;
@@ -13,6 +11,9 @@ import org.bukkit.inventory.InventoryView;
 import org.bukkit.inventory.ItemStack;
 import org.jetbrains.annotations.NotNull;
 
+import java.util.HashMap;
+import java.util.Map;
+
 /**
  * Called when an ItemStack is successfully enchanted (currently at
  * enchantment table)
@@ -21,13 +22,13 @@ public class EnchantItemEvent extends InventoryEvent implements Cancellable {
     private static final HandlerList handlers = new HandlerList();
     private final Block table;
     private final ItemStack item;
-    private int level;
-    private boolean cancelled;
     private final Map<Enchantment, Integer> enchants;
     private final Enchantment enchantmentHint;
     private final int levelHint;
     private final Player enchanter;
     private final int button;
+    private int level;
+    private boolean cancelled;
 
     public EnchantItemEvent(@NotNull final Player enchanter, @NotNull final InventoryView view, @NotNull final Block table, @NotNull final ItemStack item, final int level, @NotNull final Map<Enchantment, Integer> enchants, @NotNull final Enchantment enchantmentHint, final int levelHint, final int i) {
         super(view);
@@ -40,6 +41,11 @@ public class EnchantItemEvent extends InventoryEvent implements Cancellable {
         this.levelHint = levelHint;
         this.cancelled = false;
         this.button = i;
+    }
+
+    @NotNull
+    public static HandlerList getHandlerList() {
+        return handlers;
     }
 
     /**
@@ -149,11 +155,6 @@ public class EnchantItemEvent extends InventoryEvent implements Cancellable {
     @NotNull
     @Override
     public HandlerList getHandlers() {
-        return handlers;
-    }
-
-    @NotNull
-    public static HandlerList getHandlerList() {
         return handlers;
     }
 }

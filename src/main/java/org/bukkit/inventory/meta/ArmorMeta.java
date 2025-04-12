@@ -20,19 +20,19 @@ public interface ArmorMeta extends ItemMeta {
     boolean hasTrim();
 
     /**
-     * Set the {@link ArmorTrim}.
-     *
-     * @param trim the trim to set, or null to remove it
-     */
-    void setTrim(@Nullable ArmorTrim trim);
-
-    /**
      * Get the {@link ArmorTrim}.
      *
      * @return the armor trim, or null if none
      */
     @Nullable
     ArmorTrim getTrim();
+
+    /**
+     * Set the {@link ArmorTrim}.
+     *
+     * @param trim the trim to set, or null to remove it
+     */
+    void setTrim(@Nullable ArmorTrim trim);
 
     @Override
     @NotNull

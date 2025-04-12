@@ -4,9 +4,6 @@ import com.google.common.base.Function;
 import com.google.common.base.Functions;
 import com.google.common.base.Preconditions;
 import com.google.common.collect.ImmutableMap;
-import java.util.EnumMap;
-import java.util.Map;
-import java.util.Objects;
 import org.bukkit.Material;
 import org.bukkit.WorldBorder;
 import org.bukkit.damage.DamageSource;
@@ -16,6 +13,10 @@ import org.bukkit.entity.Player;
 import org.bukkit.event.Cancellable;
 import org.bukkit.event.HandlerList;
 import org.jetbrains.annotations.NotNull;
+
+import java.util.EnumMap;
+import java.util.Map;
+import java.util.Objects;
 
 /**
  * Stores data for damage events
@@ -27,9 +28,9 @@ public class EntityDamageEvent extends EntityEvent implements Cancellable {
     private final Map<DamageModifier, Double> modifiers;
     private final Map<DamageModifier, ? extends Function<? super Double, Double>> modifierFunctions;
     private final Map<DamageModifier, Double> originals;
-    private boolean cancelled;
     private final DamageCause cause;
     private final DamageSource damageSource;
+    private boolean cancelled;
 
     @Deprecated(since = "1.20.4", forRemoval = true)
     public EntityDamageEvent(@NotNull final Entity damagee, @NotNull final DamageCause cause, final double damage) {
@@ -59,6 +60,11 @@ public class EntityDamageEvent extends EntityEvent implements Cancellable {
         this.damageSource = damageSource;
     }
 
+    @NotNull
+    public static HandlerList getHandlerList() {
+        return handlers;
+    }
+
     @Override
     public boolean isCancelled() {
         return cancelled;
@@ -86,12 +92,12 @@ public class EntityDamageEvent extends EntityEvent implements Cancellable {
     /**
      * Sets the damage for the specified modifier.
      *
-     * @param type the damage modifier
+     * @param type   the damage modifier
      * @param damage the scalar value of the damage's modifier
-     * @throws IllegalArgumentException if type is null
+     * @throws IllegalArgumentException      if type is null
      * @throws UnsupportedOperationException if the caller does not support
-     *     the particular DamageModifier, or to rephrase, when {@link
-     *     #isApplicable(DamageModifier)} returns false
+     *                                       the particular DamageModifier, or to rephrase, when {@link
+     *                                       #isApplicable(DamageModifier)} returns false
      * @see #getFinalDamage()
      */
     public void setDamage(@NotNull DamageModifier type, double damage) throws IllegalArgumentException, UnsupportedOperationException {
@@ -143,20 +149,6 @@ public class EntityDamageEvent extends EntityEvent implements Cancellable {
     }
 
     /**
-     * Gets the amount of damage caused by the event after all damage
-     * reduction is applied.
-     *
-     * @return the amount of damage caused by the event
-     */
-    public final double getFinalDamage() {
-        double damage = 0;
-        for (DamageModifier modifier : MODIFIERS) {
-            damage += getDamage(modifier);
-        }
-        return damage;
-    }
-
-    /**
      * Sets the raw amount of damage caused by the event.
      * <p>
      * For compatibility this also recalculates the modifiers and scales
@@ -194,6 +186,20 @@ public class EntityDamageEvent extends EntityEvent implements Cancellable {
     }
 
     /**
+     * Gets the amount of damage caused by the event after all damage
+     * reduction is applied.
+     *
+     * @return the amount of damage caused by the event
+     */
+    public final double getFinalDamage() {
+        double damage = 0;
+        for (DamageModifier modifier : MODIFIERS) {
+            damage += getDamage(modifier);
+        }
+        return damage;
+    }
+
+    /**
      * Gets the cause of the damage.
      * <p>
      * While a DamageCause may indicate a specific Bukkit-assigned cause of damage,
@@ -224,11 +230,6 @@ public class EntityDamageEvent extends EntityEvent implements Cancellable {
     @NotNull
     @Override
     public HandlerList getHandlers() {
-        return handlers;
-    }
-
-    @NotNull
-    public static HandlerList getHandlerList() {
         return handlers;
     }
 

@@ -8,7 +8,7 @@ public interface WanderingTrader extends AbstractVillager {
     /**
      * Gets the despawn delay before this {@link WanderingTrader} is forcibly
      * despawned.
-     *
+     * <p>
      * If this is less than or equal to 0, then the trader will not be
      * despawned.
      *
@@ -20,12 +20,12 @@ public interface WanderingTrader extends AbstractVillager {
     /**
      * Sets the despawn delay before this {@link WanderingTrader} is forcibly
      * despawned.
-     *
+     * <p>
      * If this is less than or equal to 0, then the trader will not be
      * despawned.
      *
      * @param despawnDelay The new despawn delay before this
-     * {@link WanderingTrader} is forcibly despawned
+     *                     {@link WanderingTrader} is forcibly despawned
      */
     public void setDespawnDelay(int despawnDelay);
 }

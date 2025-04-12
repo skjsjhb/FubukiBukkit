@@ -9,29 +9,6 @@ import org.jetbrains.annotations.NotNull;
 public interface Llama extends ChestedHorse {
 
     /**
-     * Represents the base color that the llama has.
-     */
-    public enum Color {
-
-        /**
-         * A cream-colored llama.
-         */
-        CREAMY,
-        /**
-         * A white llama.
-         */
-        WHITE,
-        /**
-         * A brown llama.
-         */
-        BROWN,
-        /**
-         * A gray llama.
-         */
-        GRAY;
-    }
-
-    /**
      * Gets the llama's color.
      *
      * @return a {@link Color} representing the llama's color
@@ -66,4 +43,27 @@ public interface Llama extends ChestedHorse {
     @NotNull
     @Override
     LlamaInventory getInventory();
+
+    /**
+     * Represents the base color that the llama has.
+     */
+    public enum Color {
+
+        /**
+         * A cream-colored llama.
+         */
+        CREAMY,
+        /**
+         * A white llama.
+         */
+        WHITE,
+        /**
+         * A brown llama.
+         */
+        BROWN,
+        /**
+         * A gray llama.
+         */
+        GRAY;
+    }
 }

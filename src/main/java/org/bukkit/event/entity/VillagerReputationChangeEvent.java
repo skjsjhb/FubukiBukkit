@@ -1,7 +1,6 @@
 package org.bukkit.event.entity;
 
 import com.google.common.base.Preconditions;
-import java.util.UUID;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.Villager;
@@ -10,19 +9,21 @@ import org.bukkit.event.HandlerList;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
+import java.util.UUID;
+
 /**
  * Called whenever an entity's reputation with a villager changes.
  */
 public class VillagerReputationChangeEvent extends EntityEvent implements Cancellable {
 
     private static final HandlerList handlers = new HandlerList();
-    private boolean cancelled;
     private final UUID targetUUID;
     private final Villager.ReputationEvent reason;
     private final Villager.ReputationType reputationType;
     private final int oldValue;
-    private int newValue;
     private final int maxValue;
+    private boolean cancelled;
+    private int newValue;
 
     public VillagerReputationChangeEvent(@NotNull Villager villager, @NotNull UUID targetUUID, @NotNull Villager.ReputationEvent reason, @NotNull Villager.ReputationType reputationType, int oldValue, int newValue, int maxValue) {
         super(villager);
@@ -34,11 +35,16 @@ public class VillagerReputationChangeEvent extends EntityEvent implements Cancel
         this.maxValue = maxValue;
     }
 
+    @NotNull
+    public static HandlerList getHandlerList() {
+        return handlers;
+    }
+
     /**
      * Get UUID of the entity for whom the reputation with a villager changes.
      *
      * @return UUID of the entity for whom the reputation with a villager
-     *         changes
+     * changes
      */
     @NotNull
     public UUID getTargetUUID() {
@@ -49,7 +55,7 @@ public class VillagerReputationChangeEvent extends EntityEvent implements Cancel
      * Get the Entity for whom the reputation with a villager changes.
      *
      * @return the Entity for whom the reputation with a villager changes,
-     *         or {@code null} if it isn't found
+     * or {@code null} if it isn't found
      */
     @Nullable
     public Entity getTarget() {
@@ -142,11 +148,6 @@ public class VillagerReputationChangeEvent extends EntityEvent implements Cancel
     @NotNull
     @Override
     public HandlerList getHandlers() {
-        return handlers;
-    }
-
-    @NotNull
-    public static HandlerList getHandlerList() {
         return handlers;
     }
 }

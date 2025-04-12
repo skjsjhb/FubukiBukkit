@@ -35,7 +35,7 @@ public interface SignSide extends Colorable {
      * "Line One".
      *
      * @param index Line number to set the text at, starting from 0
-     * @param line New text to set at the specified index
+     * @param line  New text to set at the specified index
      * @throws IndexOutOfBoundsException If the index is out of the range 0..3
      */
     public void setLine(int index, @NotNull String line) throws IndexOutOfBoundsException;

@@ -1,11 +1,12 @@
 package org.bukkit.metadata;
 
 import com.google.common.base.Preconditions;
-import java.lang.ref.SoftReference;
-import java.util.concurrent.Callable;
 import org.bukkit.plugin.Plugin;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
+
+import java.lang.ref.SoftReference;
+import java.util.concurrent.Callable;
 
 /**
  * The LazyMetadataValue class implements a type of metadata that is not
@@ -19,18 +20,18 @@ import org.jetbrains.annotations.Nullable;
  * when asked.
  */
 public class LazyMetadataValue extends MetadataValueAdapter {
+    private static final Object ACTUALLY_NULL = new Object();
     private Callable<Object> lazyValue;
     private CacheStrategy cacheStrategy;
     private SoftReference<Object> internalValue;
-    private static final Object ACTUALLY_NULL = new Object();
 
     /**
      * Initialized a LazyMetadataValue object with the default
      * CACHE_AFTER_FIRST_EVAL cache strategy.
      *
      * @param owningPlugin the {@link Plugin} that created this metadata
-     *     value.
-     * @param lazyValue the lazy value assigned to this metadata value.
+     *                     value.
+     * @param lazyValue    the lazy value assigned to this metadata value.
      */
     public LazyMetadataValue(@NotNull Plugin owningPlugin, @NotNull Callable<Object> lazyValue) {
         this(owningPlugin, CacheStrategy.CACHE_AFTER_FIRST_EVAL, lazyValue);
@@ -39,11 +40,11 @@ public class LazyMetadataValue extends MetadataValueAdapter {
     /**
      * Initializes a LazyMetadataValue object with a specific cache strategy.
      *
-     * @param owningPlugin the {@link Plugin} that created this metadata
-     *     value.
+     * @param owningPlugin  the {@link Plugin} that created this metadata
+     *                      value.
      * @param cacheStrategy determines the rules for caching this metadata
-     *     value.
-     * @param lazyValue the lazy value assigned to this metadata value.
+     *                      value.
+     * @param lazyValue     the lazy value assigned to this metadata value.
      */
     public LazyMetadataValue(@NotNull Plugin owningPlugin, @NotNull CacheStrategy cacheStrategy, @NotNull Callable<Object> lazyValue) {
         super(owningPlugin);
@@ -79,7 +80,7 @@ public class LazyMetadataValue extends MetadataValueAdapter {
      * Lazily evaluates the value of this metadata item.
      *
      * @throws MetadataEvaluationException if computing the metadata value
-     *     fails.
+     *                                     fails.
      */
     private synchronized void eval() throws MetadataEvaluationException {
         if (cacheStrategy == CacheStrategy.NEVER_CACHE || internalValue.get() == null) {

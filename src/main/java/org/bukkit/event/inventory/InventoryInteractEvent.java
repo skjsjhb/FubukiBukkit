@@ -27,17 +27,6 @@ public abstract class InventoryInteractEvent extends InventoryEvent implements C
     }
 
     /**
-     * Sets the result of this event. This will change whether or not this
-     * event is considered cancelled.
-     *
-     * @param newResult the new {@link org.bukkit.event.Event.Result} for this event
-     * @see #isCancelled()
-     */
-    public void setResult(@NotNull Result newResult) {
-        result = newResult;
-    }
-
-    /**
      * Gets the {@link org.bukkit.event.Event.Result} of this event. The Result describes the
      * behavior that will be applied to the inventory in relation to this
      * event.
@@ -47,6 +36,17 @@ public abstract class InventoryInteractEvent extends InventoryEvent implements C
     @NotNull
     public Result getResult() {
         return result;
+    }
+
+    /**
+     * Sets the result of this event. This will change whether or not this
+     * event is considered cancelled.
+     *
+     * @param newResult the new {@link org.bukkit.event.Event.Result} for this event
+     * @see #isCancelled()
+     */
+    public void setResult(@NotNull Result newResult) {
+        result = newResult;
     }
 
     /**

@@ -1,12 +1,13 @@
 package org.bukkit.metadata;
 
-import static org.junit.jupiter.api.Assertions.*;
 import org.bukkit.plugin.Plugin;
 import org.bukkit.plugin.TestPlugin;
 import org.junit.jupiter.api.Test;
 
+import static org.junit.jupiter.api.Assertions.*;
+
 public class MetadataValueAdapterTest {
-    private TestPlugin plugin = new TestPlugin("x");
+    private final TestPlugin plugin = new TestPlugin("x");
 
     @Test
     public void testAdapterBasics() {
@@ -15,10 +16,10 @@ public class MetadataValueAdapterTest {
         assertEquals(mv.getOwningPlugin(), this.plugin);
 
         // Check value-getting and invalidation.
-        assertEquals(new Integer(1), mv.value());
-        assertEquals(new Integer(2), mv.value());
+        assertEquals(Integer.valueOf(1), mv.value());
+        assertEquals(Integer.valueOf(2), mv.value());
         mv.invalidate();
-        assertEquals(new Integer(1), mv.value());
+        assertEquals(Integer.valueOf(1), mv.value());
     }
 
     @Test
@@ -34,7 +35,9 @@ public class MetadataValueAdapterTest {
         assertEquals("7", mv.asString());
     }
 
-    /** Boolean conversion is non-trivial, we want to test it thoroughly. */
+    /**
+     * Boolean conversion is non-trivial, we want to test it thoroughly.
+     */
     @Test
     public void testBooleanConversion() {
         // null is False.
@@ -59,7 +62,9 @@ public class MetadataValueAdapterTest {
         assertTrue(simpleValue(new Object()).asBoolean());
     }
 
-    /** Test String conversions return an empty string when given null. */
+    /**
+     * Test String conversions return an empty string when given null.
+     */
     @Test
     public void testStringConversionNull() {
         assertEquals("", simpleValue(null).asString());
@@ -77,7 +82,7 @@ public class MetadataValueAdapterTest {
 
     /**
      * A sample non-trivial MetadataValueAdapter implementation.
-     *
+     * <p>
      * The rationale for implementing an incrementing value is to have a value
      * which changes with every call to value(). This is important for testing
      * because we want to make sure all the tested conversions are calling the

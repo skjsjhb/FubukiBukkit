@@ -1,6 +1,5 @@
 package org.bukkit.entity;
 
-import java.util.List;
 import org.bukkit.Color;
 import org.bukkit.Particle;
 import org.bukkit.potion.PotionData;
@@ -10,6 +9,8 @@ import org.bukkit.potion.PotionType;
 import org.bukkit.projectiles.ProjectileSource;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
+
+import java.util.List;
 
 /**
  * Represents an area effect cloud which will imbue a potion effect onto
@@ -139,21 +140,12 @@ public interface AreaEffectCloud extends Entity {
     /**
      * Sets the particle which this cloud will be composed of
      *
-     * @param <T> type of particle data (see {@link Particle#getDataType()}
+     * @param <T>      type of particle data (see {@link Particle#getDataType()}
      * @param particle the new particle type
-     * @param data the data to use for the particle or null,
-     *             the type of this depends on {@link Particle#getDataType()}
+     * @param data     the data to use for the particle or null,
+     *                 the type of this depends on {@link Particle#getDataType()}
      */
     <T> void setParticle(@NotNull Particle particle, @Nullable T data);
-
-    /**
-     * Sets the underlying potion data
-     *
-     * @param data PotionData to set the base potion state to
-     * @deprecated Upgraded / extended potions are now their own {@link PotionType} use {@link #setBasePotionType} instead.
-     */
-    @Deprecated(since = "1.20.6")
-    void setBasePotionData(@Nullable PotionData data);
 
     /**
      * Returns the potion data about the base potion
@@ -166,11 +158,13 @@ public interface AreaEffectCloud extends Entity {
     PotionData getBasePotionData();
 
     /**
-     * Sets the underlying potion type
+     * Sets the underlying potion data
      *
-     * @param type PotionType to set the base potion state to
+     * @param data PotionData to set the base potion state to
+     * @deprecated Upgraded / extended potions are now their own {@link PotionType} use {@link #setBasePotionType} instead.
      */
-    void setBasePotionType(@Nullable PotionType type);
+    @Deprecated(since = "1.20.6")
+    void setBasePotionData(@Nullable PotionData data);
 
     /**
      * Returns the potion type about the base potion
@@ -179,6 +173,13 @@ public interface AreaEffectCloud extends Entity {
      */
     @Nullable
     PotionType getBasePotionType();
+
+    /**
+     * Sets the underlying potion type
+     *
+     * @param type PotionType to set the base potion state to
+     */
+    void setBasePotionType(@Nullable PotionType type);
 
     /**
      * Checks for the presence of custom potion effects.
@@ -202,9 +203,9 @@ public interface AreaEffectCloud extends Entity {
     /**
      * Adds a custom potion effect to this cloud.
      *
-     * @param effect the potion effect to add
+     * @param effect    the potion effect to add
      * @param overwrite true if any existing effect of the same type should be
-     * overwritten
+     *                  overwritten
      * @return true if the effect was added as a result of this call
      */
     boolean addCustomEffect(@NotNull PotionEffect effect, boolean overwrite);

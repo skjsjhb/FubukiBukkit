@@ -12,51 +12,10 @@ import org.jetbrains.annotations.NotNull;
  */
 public class PlayerBedEnterEvent extends PlayerEvent implements Cancellable {
 
-    /**
-     * Represents the default possible outcomes of this event.
-     */
-    public enum BedEnterResult {
-        /**
-         * The player will enter the bed.
-         */
-        OK,
-        /**
-         * The world doesn't allow sleeping or saving the spawn point (eg,
-         * Nether, The End or Custom Worlds). This is based on
-         * {@link World#isBedWorks()} and {@link World#isNatural()}.
-         *
-         * Entering the bed is prevented and if {@link World#isBedWorks()} is
-         * false then the bed explodes.
-         */
-        NOT_POSSIBLE_HERE,
-        /**
-         * Entering the bed is prevented due to it not being night nor
-         * thundering currently.
-         * <p>
-         * If the event is forcefully allowed during daytime, the player will
-         * enter the bed (and set its bed location), but might get immediately
-         * thrown out again.
-         */
-        NOT_POSSIBLE_NOW,
-        /**
-         * Entering the bed is prevented due to the player being too far away.
-         */
-        TOO_FAR_AWAY,
-        /**
-         * Entering the bed is prevented due to there being monsters nearby.
-         */
-        NOT_SAFE,
-        /**
-         * Entering the bed is prevented due to there being some other problem.
-         */
-        OTHER_PROBLEM;
-    }
-
     private static final HandlerList handlers = new HandlerList();
     private final Block bed;
     private final BedEnterResult bedEnterResult;
     private Result useBed = Result.DEFAULT;
-
     public PlayerBedEnterEvent(@NotNull Player who, @NotNull Block bed, @NotNull BedEnterResult bedEnterResult) {
         super(who);
         this.bed = bed;
@@ -66,6 +25,11 @@ public class PlayerBedEnterEvent extends PlayerEvent implements Cancellable {
     @Deprecated(since = "1.13.2")
     public PlayerBedEnterEvent(@NotNull Player who, @NotNull Block bed) {
         this(who, bed, BedEnterResult.OK);
+    }
+
+    @NotNull
+    public static HandlerList getHandlerList() {
+        return handlers;
     }
 
     /**
@@ -158,8 +122,43 @@ public class PlayerBedEnterEvent extends PlayerEvent implements Cancellable {
         return handlers;
     }
 
-    @NotNull
-    public static HandlerList getHandlerList() {
-        return handlers;
+    /**
+     * Represents the default possible outcomes of this event.
+     */
+    public enum BedEnterResult {
+        /**
+         * The player will enter the bed.
+         */
+        OK,
+        /**
+         * The world doesn't allow sleeping or saving the spawn point (eg,
+         * Nether, The End or Custom Worlds). This is based on
+         * {@link World#isBedWorks()} and {@link World#isNatural()}.
+         * <p>
+         * Entering the bed is prevented and if {@link World#isBedWorks()} is
+         * false then the bed explodes.
+         */
+        NOT_POSSIBLE_HERE,
+        /**
+         * Entering the bed is prevented due to it not being night nor
+         * thundering currently.
+         * <p>
+         * If the event is forcefully allowed during daytime, the player will
+         * enter the bed (and set its bed location), but might get immediately
+         * thrown out again.
+         */
+        NOT_POSSIBLE_NOW,
+        /**
+         * Entering the bed is prevented due to the player being too far away.
+         */
+        TOO_FAR_AWAY,
+        /**
+         * Entering the bed is prevented due to there being monsters nearby.
+         */
+        NOT_SAFE,
+        /**
+         * Entering the bed is prevented due to there being some other problem.
+         */
+        OTHER_PROBLEM;
     }
 }

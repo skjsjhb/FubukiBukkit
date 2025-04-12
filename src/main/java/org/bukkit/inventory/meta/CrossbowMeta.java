@@ -1,9 +1,10 @@
 package org.bukkit.inventory.meta;
 
-import java.util.List;
 import org.bukkit.inventory.ItemStack;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
+
+import java.util.List;
 
 public interface CrossbowMeta extends ItemMeta {
 
@@ -24,12 +25,12 @@ public interface CrossbowMeta extends ItemMeta {
 
     /**
      * Sets the projectiles charged on this item.
-     *
+     * <p>
      * Removes all projectiles when given null.
      *
      * @param projectiles the projectiles to set
      * @throws IllegalArgumentException if one of the projectiles is not an
-     * arrow or firework rocket
+     *                                  arrow or firework rocket
      */
     void setChargedProjectiles(@Nullable List<ItemStack> projectiles);
 
@@ -38,7 +39,7 @@ public interface CrossbowMeta extends ItemMeta {
      *
      * @param item projectile
      * @throws IllegalArgumentException if the projectile is not an arrow or
-     * firework rocket
+     *                                  firework rocket
      */
     void addChargedProjectile(@NotNull ItemStack item);
 }

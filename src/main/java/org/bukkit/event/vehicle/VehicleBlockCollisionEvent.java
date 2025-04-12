@@ -17,6 +17,11 @@ public class VehicleBlockCollisionEvent extends VehicleCollisionEvent {
         this.block = block;
     }
 
+    @NotNull
+    public static HandlerList getHandlerList() {
+        return handlers;
+    }
+
     /**
      * Gets the block the vehicle collided with
      *
@@ -30,11 +35,6 @@ public class VehicleBlockCollisionEvent extends VehicleCollisionEvent {
     @NotNull
     @Override
     public HandlerList getHandlers() {
-        return handlers;
-    }
-
-    @NotNull
-    public static HandlerList getHandlerList() {
         return handlers;
     }
 }

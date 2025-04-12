@@ -20,6 +20,11 @@ public class EntityDropItemEvent extends EntityEvent implements Cancellable {
         this.drop = drop;
     }
 
+    @NotNull
+    public static HandlerList getHandlerList() {
+        return handlers;
+    }
+
     /**
      * Gets the Item created by the entity
      *
@@ -43,11 +48,6 @@ public class EntityDropItemEvent extends EntityEvent implements Cancellable {
     @NotNull
     @Override
     public HandlerList getHandlers() {
-        return handlers;
-    }
-
-    @NotNull
-    public static HandlerList getHandlerList() {
         return handlers;
     }
 }

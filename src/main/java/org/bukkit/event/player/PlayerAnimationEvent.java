@@ -21,12 +21,17 @@ public class PlayerAnimationEvent extends PlayerEvent implements Cancellable {
     /**
      * Construct a new PlayerAnimation event
      *
-     * @param player The player instance
+     * @param player              The player instance
      * @param playerAnimationType The animation type
      */
     public PlayerAnimationEvent(@NotNull final Player player, @NotNull final PlayerAnimationType playerAnimationType) {
         super(player);
         animationType = playerAnimationType;
+    }
+
+    @NotNull
+    public static HandlerList getHandlerList() {
+        return handlers;
     }
 
     /**
@@ -52,11 +57,6 @@ public class PlayerAnimationEvent extends PlayerEvent implements Cancellable {
     @NotNull
     @Override
     public HandlerList getHandlers() {
-        return handlers;
-    }
-
-    @NotNull
-    public static HandlerList getHandlerList() {
         return handlers;
     }
 }

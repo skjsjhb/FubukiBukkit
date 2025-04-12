@@ -12,10 +12,9 @@ import org.jetbrains.annotations.NotNull;
  */
 public class PlayerUnleashEntityEvent extends EntityUnleashEvent implements Cancellable {
 
-    private boolean cancelled = false;
-
     private final Player player;
     private final EquipmentSlot hand;
+    private boolean cancelled = false;
 
     public PlayerUnleashEntityEvent(@NotNull Entity entity, @NotNull Player player, @NotNull EquipmentSlot hand) {
         super(entity, UnleashReason.PLAYER_UNLEASH);

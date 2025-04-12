@@ -14,14 +14,19 @@ import org.jetbrains.annotations.NotNull;
 public class EntityChangeBlockEvent extends EntityEvent implements Cancellable {
     private static final HandlerList handlers = new HandlerList();
     private final Block block;
-    private boolean cancel;
     private final BlockData to;
+    private boolean cancel;
 
     public EntityChangeBlockEvent(@NotNull final Entity what, @NotNull final Block block, @NotNull final BlockData to) {
         super(what);
         this.block = block;
         this.cancel = false;
         this.to = to;
+    }
+
+    @NotNull
+    public static HandlerList getHandlerList() {
+        return handlers;
     }
 
     /**
@@ -67,11 +72,6 @@ public class EntityChangeBlockEvent extends EntityEvent implements Cancellable {
     @NotNull
     @Override
     public HandlerList getHandlers() {
-        return handlers;
-    }
-
-    @NotNull
-    public static HandlerList getHandlerList() {
         return handlers;
     }
 }

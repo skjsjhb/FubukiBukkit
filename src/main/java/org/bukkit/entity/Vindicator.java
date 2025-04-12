@@ -7,7 +7,7 @@ public interface Vindicator extends Illager {
 
     /**
      * Returns whether a vindicator is in "Johnny" mode.
-     *
+     * <p>
      * When this mode is active, vindicators will be hostile to all mobs.
      *
      * @return true if johnny

@@ -11,7 +11,7 @@ import org.jetbrains.annotations.Nullable;
 
 /**
  * Represents a generic Mojang game event.
- *
+ * <p>
  * Specific Bukkit events should be used where possible, this event is mainly
  * used internally by Sculk sensors.
  */
@@ -30,6 +30,11 @@ public class GenericGameEvent extends WorldEvent implements Cancellable {
         this.location = location;
         this.entity = entity;
         this.radius = radius;
+    }
+
+    @NotNull
+    public static HandlerList getHandlerList() {
+        return handlers;
     }
 
     /**
@@ -82,23 +87,18 @@ public class GenericGameEvent extends WorldEvent implements Cancellable {
     }
 
     @Override
-    public void setCancelled(boolean cancel) {
-        this.cancelled = cancel;
+    public boolean isCancelled() {
+        return cancelled;
     }
 
     @Override
-    public boolean isCancelled() {
-        return cancelled;
+    public void setCancelled(boolean cancel) {
+        this.cancelled = cancel;
     }
 
     @NotNull
     @Override
     public HandlerList getHandlers() {
-        return handlers;
-    }
-
-    @NotNull
-    public static HandlerList getHandlerList() {
         return handlers;
     }
 }

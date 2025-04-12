@@ -11,6 +11,47 @@ import org.jetbrains.annotations.Nullable;
 public interface EnderDragon extends ComplexLivingEntity, Boss, Mob, Enemy {
 
     /**
+     * Gets the current phase that the dragon is performing.
+     *
+     * @return the current phase
+     */
+    @NotNull
+    Phase getPhase();
+
+    /**
+     * Sets the next phase for the dragon to perform.
+     *
+     * @param phase the next phase
+     */
+    void setPhase(@NotNull Phase phase);
+
+    /**
+     * Get the {@link DragonBattle} associated with this EnderDragon.
+     * <br>
+     * This will return null for the following reasons:
+     * <ul>
+     *     <li>The EnderDragon is not in the End dimension</li>
+     *     <li>The EnderDragon was summoned by command/API</li>
+     * </ul>
+     *
+     * @return the dragon battle
+     * @see World#getEnderDragonBattle()
+     */
+    @Nullable
+    DragonBattle getDragonBattle();
+
+    /**
+     * Get the current time in ticks relative to the start of this dragon's
+     * death animation.
+     * <p>
+     * If this dragon is alive, 0 will be returned. This value will never exceed
+     * 200 (the length of the animation).
+     *
+     * @return this dragon's death animation ticks
+     */
+    int getDeathAnimationTicks();
+
+    /**
      * Represents a phase or action that an Ender Dragon can perform.
      */
     enum Phase {
@@ -66,46 +107,4 @@ public interface EnderDragon extends ComplexLivingEntity, Boss, Mob, Enemy {
          */
         HOVER
     }
-
-    /**
-     * Gets the current phase that the dragon is performing.
-     *
-     * @return the current phase
-     */
-    @NotNull
-    Phase getPhase();
-
-    /**
-     * Sets the next phase for the dragon to perform.
-     *
-     * @param phase the next phase
-     */
-    void setPhase(@NotNull Phase phase);
-
-    /**
-     * Get the {@link DragonBattle} associated with this EnderDragon.
-     * <br>
-     * This will return null for the following reasons:
-     * <ul>
-     *     <li>The EnderDragon is not in the End dimension</li>
-     *     <li>The EnderDragon was summoned by command/API</li>
-     * </ul>
-     *
-     * @return the dragon battle
-     *
-     * @see World#getEnderDragonBattle()
-     */
-    @Nullable
-    DragonBattle getDragonBattle();
-
-    /**
-     * Get the current time in ticks relative to the start of this dragon's
-     * death animation.
-     *
-     * If this dragon is alive, 0 will be returned. This value will never exceed
-     * 200 (the length of the animation).
-     *
-     * @return this dragon's death animation ticks
-     */
-    int getDeathAnimationTicks();
 }

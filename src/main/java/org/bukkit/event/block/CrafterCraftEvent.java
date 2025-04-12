@@ -1,13 +1,14 @@
 package org.bukkit.event.block;
 
-import java.util.ArrayList;
-import java.util.List;
 import org.bukkit.block.Block;
 import org.bukkit.event.Cancellable;
 import org.bukkit.event.HandlerList;
 import org.bukkit.inventory.CraftingRecipe;
 import org.bukkit.inventory.ItemStack;
 import org.jetbrains.annotations.NotNull;
+
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Event called when a Crafter is about to craft an item.
@@ -30,6 +31,11 @@ public class CrafterCraftEvent extends BlockEvent implements Cancellable {
         this.result = result;
         this.recipe = recipe;
         this.remainingItems = remainingItems;
+    }
+
+    @NotNull
+    public static HandlerList getHandlerList() {
+        return handlers;
     }
 
     /**
@@ -84,11 +90,6 @@ public class CrafterCraftEvent extends BlockEvent implements Cancellable {
     @NotNull
     @Override
     public HandlerList getHandlers() {
-        return handlers;
-    }
-
-    @NotNull
-    public static HandlerList getHandlerList() {
         return handlers;
     }
 }

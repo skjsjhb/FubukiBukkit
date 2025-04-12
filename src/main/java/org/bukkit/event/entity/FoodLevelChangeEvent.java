@@ -12,9 +12,9 @@ import org.jetbrains.annotations.Nullable;
  */
 public class FoodLevelChangeEvent extends EntityEvent implements Cancellable {
     private static final HandlerList handlers = new HandlerList();
+    private final ItemStack item;
     private boolean cancel = false;
     private int level;
-    private final ItemStack item;
 
     public FoodLevelChangeEvent(@NotNull final HumanEntity what, final int level) {
         this(what, level, null);
@@ -24,6 +24,11 @@ public class FoodLevelChangeEvent extends EntityEvent implements Cancellable {
         super(what);
         this.level = level;
         this.item = item;
+    }
+
+    @NotNull
+    public static HandlerList getHandlerList() {
+        return handlers;
     }
 
     @NotNull
@@ -59,7 +64,7 @@ public class FoodLevelChangeEvent extends EntityEvent implements Cancellable {
      * should be set to
      *
      * @param level the resultant food level that the entity involved in this
-     *     event should be set to
+     *              event should be set to
      */
     public void setFoodLevel(int level) {
         if (level < 0) level = 0;
@@ -80,11 +85,6 @@ public class FoodLevelChangeEvent extends EntityEvent implements Cancellable {
     @NotNull
     @Override
     public HandlerList getHandlers() {
-        return handlers;
-    }
-
-    @NotNull
-    public static HandlerList getHandlerList() {
         return handlers;
     }
 }

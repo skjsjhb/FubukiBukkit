@@ -41,13 +41,18 @@ import org.jetbrains.annotations.NotNull;
  */
 public class ServerCommandEvent extends ServerEvent implements Cancellable {
     private static final HandlerList handlers = new HandlerList();
-    private String command;
     private final CommandSender sender;
+    private String command;
     private boolean cancel = false;
 
     public ServerCommandEvent(@NotNull final CommandSender sender, @NotNull final String command) {
         this.command = command;
         this.sender = sender;
+    }
+
+    @NotNull
+    public static HandlerList getHandlerList() {
+        return handlers;
     }
 
     /**
@@ -83,11 +88,6 @@ public class ServerCommandEvent extends ServerEvent implements Cancellable {
     @NotNull
     @Override
     public HandlerList getHandlers() {
-        return handlers;
-    }
-
-    @NotNull
-    public static HandlerList getHandlerList() {
         return handlers;
     }
 

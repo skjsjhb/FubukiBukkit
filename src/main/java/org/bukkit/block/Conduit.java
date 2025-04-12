@@ -1,10 +1,11 @@
 package org.bukkit.block;
 
-import java.util.Collection;
 import org.bukkit.entity.LivingEntity;
 import org.bukkit.util.BoundingBox;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
+
+import java.util.Collection;
 
 /**
  * Represents a captured state of a conduit.
@@ -79,7 +80,6 @@ public interface Conduit extends TileState {
      * to look for a new target.
      *
      * @param target the target entity, or null to remove the target
-     *
      * @return true if the target was changed, false if the target was the same
      */
     public boolean setTarget(@Nullable LivingEntity target);

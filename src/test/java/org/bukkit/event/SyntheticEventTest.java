@@ -1,6 +1,5 @@
 package org.bukkit.event;
 
-import static org.junit.jupiter.api.Assertions.*;
 import org.bukkit.Bukkit;
 import org.bukkit.plugin.PluginLoader;
 import org.bukkit.plugin.SimplePluginManager;
@@ -8,6 +7,8 @@ import org.bukkit.plugin.TestPlugin;
 import org.bukkit.plugin.java.JavaPluginLoader;
 import org.bukkit.support.AbstractTestingBase;
 import org.junit.jupiter.api.Test;
+
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class SyntheticEventTest extends AbstractTestingBase {
     @SuppressWarnings("deprecation")

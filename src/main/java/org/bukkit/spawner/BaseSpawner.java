@@ -1,7 +1,5 @@
 package org.bukkit.spawner;
 
-import java.util.Collection;
-import java.util.List;
 import org.bukkit.block.CreatureSpawner;
 import org.bukkit.block.spawner.SpawnRule;
 import org.bukkit.block.spawner.SpawnerEntry;
@@ -10,6 +8,9 @@ import org.bukkit.entity.EntityType;
 import org.bukkit.entity.minecart.SpawnerMinecart;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
+
+import java.util.Collection;
+import java.util.List;
 
 /**
  * Represents a basic entity spawner. <br>
@@ -71,7 +72,7 @@ public interface BaseSpawner {
      * always active (given that there are players online).
      *
      * @param requiredPlayerRange the maximum distance a player can be
-     * in order for this spawner to be active.
+     *                            in order for this spawner to be active.
      */
     public void setRequiredPlayerRange(int requiredPlayerRange);
 
@@ -108,7 +109,7 @@ public interface BaseSpawner {
      * health, and velocity. <br>
      *
      * @return the entity snapshot or null if no entities have been assigned to this
-     *         spawner.
+     * spawner.
      */
     @Nullable
     public EntitySnapshot getSpawnedEntity();
@@ -159,6 +160,19 @@ public interface BaseSpawner {
     public void addPotentialSpawn(@NotNull final SpawnerEntry spawnerEntry);
 
     /**
+     * Gets a list of potential spawns from this spawner or an empty list if no
+     * entities have been assigned to this spawner. <br>
+     * Changes made to the returned list will not be reflected in the spawner unless
+     * applied with {@link #setPotentialSpawns}
+     *
+     * @return a list of potential spawns from this spawner, or an empty list if no
+     * entities have been assigned to this spawner
+     * @see #getSpawnedType()
+     */
+    @NotNull
+    public List<SpawnerEntry> getPotentialSpawns();
+
+    /**
      * Sets the list of {@link SpawnerEntry} this spawner can spawn. <br>
      * This will override any previous entries added with
      * {@link #addPotentialSpawn}
@@ -166,17 +180,4 @@ public interface BaseSpawner {
      * @param entries the list of entries
      */
     public void setPotentialSpawns(@NotNull final Collection<SpawnerEntry> entries);
-
-    /**
-     * Gets a list of potential spawns from this spawner or an empty list if no
-     * entities have been assigned to this spawner. <br>
-     * Changes made to the returned list will not be reflected in the spawner unless
-     * applied with {@link #setPotentialSpawns}
-     *
-     * @return a list of potential spawns from this spawner, or an empty list if no
-     *         entities have been assigned to this spawner
-     * @see #getSpawnedType()
-     */
-    @NotNull
-    public List<SpawnerEntry> getPotentialSpawns();
 }

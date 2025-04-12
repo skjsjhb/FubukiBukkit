@@ -44,14 +44,6 @@ public interface Zombie extends Monster, Ageable {
     public void setVillager(boolean flag);
 
     /**
-     * @param profession profession
-     * @see ZombieVillager#getVillagerProfession()
-     */
-    @Deprecated(since = "1.10.2")
-    @Contract("_ -> fail")
-    public void setVillagerProfession(Villager.Profession profession);
-
-    /**
      * @return profession
      * @see ZombieVillager#getVillagerProfession()
      */
@@ -59,6 +51,14 @@ public interface Zombie extends Monster, Ageable {
     @Nullable
     @Contract("-> null")
     public Villager.Profession getVillagerProfession();
+
+    /**
+     * @param profession profession
+     * @see ZombieVillager#getVillagerProfession()
+     */
+    @Deprecated(since = "1.10.2")
+    @Contract("_ -> fail")
+    public void setVillagerProfession(Villager.Profession profession);
 
     /**
      * Get if this entity is in the process of converting to a Drowned as a
@@ -71,7 +71,7 @@ public interface Zombie extends Monster, Ageable {
     /**
      * Gets the amount of ticks until this entity will be converted to a Drowned
      * as a result of being underwater.
-     *
+     * <p>
      * When this reaches 0, the entity will be converted.
      *
      * @return conversion time
@@ -82,7 +82,7 @@ public interface Zombie extends Monster, Ageable {
     /**
      * Sets the amount of ticks until this entity will be converted to a Drowned
      * as a result of being underwater.
-     *
+     * <p>
      * When this reaches 0, the entity will be converted. A value of less than 0
      * will stop the current conversion process without converting the current
      * entity.
@@ -100,7 +100,7 @@ public interface Zombie extends Monster, Ageable {
 
     /**
      * Sets whether this zombie can break doors
-     *
+     * <p>
      * This will be ignored if the entity is a Drowned. Will also stop the action if
      * the entity is currently breaking a door.
      *

@@ -40,18 +40,6 @@ public interface BeaconView extends InventoryView {
     PotionEffectType getPrimaryEffect();
 
     /**
-     * Gets the secondary effect of the beacon.
-     * <p>
-     * If the beacon level is high enough where the primary effect can be
-     * upgraded to level two, e.g. Speed 2. The secondary effect will return the
-     * same effect as {@link #getPrimaryEffect()}.
-     *
-     * @return The secondary effect enabled on the beacon
-     */
-    @Nullable
-    PotionEffectType getSecondaryEffect();
-
-    /**
      * Sets the primary effect of the beacon, or null to clear
      * <p>
      * The {@link PotionEffectType} provided must be one that is already within
@@ -68,6 +56,18 @@ public interface BeaconView extends InventoryView {
      * @param effect desired primary effect
      */
     void setPrimaryEffect(@Nullable final PotionEffectType effect);
+
+    /**
+     * Gets the secondary effect of the beacon.
+     * <p>
+     * If the beacon level is high enough where the primary effect can be
+     * upgraded to level two, e.g. Speed 2. The secondary effect will return the
+     * same effect as {@link #getPrimaryEffect()}.
+     *
+     * @return The secondary effect enabled on the beacon
+     */
+    @Nullable
+    PotionEffectType getSecondaryEffect();
 
     /**
      * Sets the secondary effect on this beacon, or null to clear. Note that

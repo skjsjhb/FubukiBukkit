@@ -15,10 +15,10 @@ import org.jetbrains.annotations.Nullable;
  */
 public class SignChangeEvent extends BlockEvent implements Cancellable {
     private static final HandlerList handlers = new HandlerList();
-    private boolean cancel = false;
     private final Player player;
     private final String[] lines;
     private final Side side;
+    private boolean cancel = false;
 
     @Deprecated(since = "1.19.4")
     public SignChangeEvent(@NotNull final Block theBlock, @NotNull final Player thePlayer, @NotNull final String[] theLines) {
@@ -30,6 +30,11 @@ public class SignChangeEvent extends BlockEvent implements Cancellable {
         this.player = thePlayer;
         this.lines = theLines;
         this.side = side;
+    }
+
+    @NotNull
+    public static HandlerList getHandlerList() {
+        return handlers;
     }
 
     /**
@@ -57,9 +62,9 @@ public class SignChangeEvent extends BlockEvent implements Cancellable {
      *
      * @param index index of the line to get
      * @return the String containing the line of text associated with the
-     *     provided index
+     * provided index
      * @throws IndexOutOfBoundsException thrown when the provided index is {@literal > 3
-     *     or < 0}
+     *                                   or < 0}
      */
     @Nullable
     public String getLine(int index) throws IndexOutOfBoundsException {
@@ -70,9 +75,9 @@ public class SignChangeEvent extends BlockEvent implements Cancellable {
      * Sets a single line for the sign involved in this event
      *
      * @param index index of the line to set
-     * @param line text to set
+     * @param line  text to set
      * @throws IndexOutOfBoundsException thrown when the provided index is {@literal > 3
-     *     or < 0}
+     *                                   or < 0}
      */
     public void setLine(int index, @Nullable String line) throws IndexOutOfBoundsException {
         lines[index] = line;
@@ -101,11 +106,6 @@ public class SignChangeEvent extends BlockEvent implements Cancellable {
     @NotNull
     @Override
     public HandlerList getHandlers() {
-        return handlers;
-    }
-
-    @NotNull
-    public static HandlerList getHandlerList() {
         return handlers;
     }
 }

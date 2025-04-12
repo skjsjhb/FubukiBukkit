@@ -26,11 +26,11 @@ import org.jetbrains.annotations.NotNull;
  */
 public class InventoryMoveItemEvent extends Event implements Cancellable {
     private static final HandlerList handlers = new HandlerList();
-    private boolean cancelled;
     private final Inventory sourceInventory;
     private final Inventory destinationInventory;
-    private ItemStack itemStack;
     private final boolean didSourceInitiate;
+    private boolean cancelled;
+    private ItemStack itemStack;
 
     public InventoryMoveItemEvent(@NotNull final Inventory sourceInventory, @NotNull final ItemStack itemStack, @NotNull final Inventory destinationInventory, final boolean didSourceInitiate) {
         Preconditions.checkArgument(itemStack != null, "ItemStack cannot be null");
@@ -38,6 +38,11 @@ public class InventoryMoveItemEvent extends Event implements Cancellable {
         this.itemStack = itemStack;
         this.destinationInventory = destinationInventory;
         this.didSourceInitiate = didSourceInitiate;
+    }
+
+    @NotNull
+    public static HandlerList getHandlerList() {
+        return handlers;
     }
 
     /**
@@ -107,11 +112,6 @@ public class InventoryMoveItemEvent extends Event implements Cancellable {
     @NotNull
     @Override
     public HandlerList getHandlers() {
-        return handlers;
-    }
-
-    @NotNull
-    public static HandlerList getHandlerList() {
         return handlers;
     }
 }

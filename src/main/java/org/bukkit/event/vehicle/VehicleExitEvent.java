@@ -11,12 +11,17 @@ import org.jetbrains.annotations.NotNull;
  */
 public class VehicleExitEvent extends VehicleEvent implements Cancellable {
     private static final HandlerList handlers = new HandlerList();
-    private boolean cancelled;
     private final LivingEntity exited;
+    private boolean cancelled;
 
     public VehicleExitEvent(@NotNull final Vehicle vehicle, @NotNull final LivingEntity exited) {
         super(vehicle);
         this.exited = exited;
+    }
+
+    @NotNull
+    public static HandlerList getHandlerList() {
+        return handlers;
     }
 
     /**
@@ -42,11 +47,6 @@ public class VehicleExitEvent extends VehicleEvent implements Cancellable {
     @NotNull
     @Override
     public HandlerList getHandlers() {
-        return handlers;
-    }
-
-    @NotNull
-    public static HandlerList getHandlerList() {
         return handlers;
     }
 }

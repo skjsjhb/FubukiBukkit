@@ -1,11 +1,12 @@
 package org.bukkit;
 
 import com.google.common.collect.Lists;
-import java.util.Collection;
-import java.util.Collections;
 import org.bukkit.registry.RegistryAware;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
+
+import java.util.Collection;
+import java.util.Collections;
 
 /**
  * Represents a generic Mojang game event.
@@ -114,18 +115,6 @@ public abstract class GameEvent implements Keyed, RegistryAware {
     public static final GameEvent RESONATE_15 = getEvent("resonate_15");
 
     /**
-     * {@inheritDoc}
-     *
-     * @see #getKeyOrThrow()
-     * @see #isRegistered()
-     * @deprecated A key might not always be present, use {@link #getKeyOrThrow()} instead.
-     */
-    @NotNull
-    @Override
-    @Deprecated(since = "1.21.4")
-    public abstract NamespacedKey getKey();
-
-    /**
      * Returns a {@link GameEvent} by a {@link NamespacedKey}.
      *
      * @param namespacedKey the key
@@ -154,4 +143,16 @@ public abstract class GameEvent implements Keyed, RegistryAware {
     private static GameEvent getEvent(@NotNull String key) {
         return Registry.GAME_EVENT.getOrThrow(NamespacedKey.minecraft(key));
     }
+
+    /**
+     * {@inheritDoc}
+     *
+     * @see #getKeyOrThrow()
+     * @see #isRegistered()
+     * @deprecated A key might not always be present, use {@link #getKeyOrThrow()} instead.
+     */
+    @NotNull
+    @Override
+    @Deprecated(since = "1.21.4")
+    public abstract NamespacedKey getKey();
 }

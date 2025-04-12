@@ -11,12 +11,17 @@ import org.jetbrains.annotations.NotNull;
 public class EntityDismountEvent extends EntityEvent implements Cancellable {
 
     private static final HandlerList handlers = new HandlerList();
-    private boolean cancelled;
     private final Entity dismounted;
+    private boolean cancelled;
 
     public EntityDismountEvent(@NotNull Entity what, @NotNull Entity dismounted) {
         super(what);
         this.dismounted = dismounted;
+    }
+
+    @NotNull
+    public static HandlerList getHandlerList() {
+        return handlers;
     }
 
     /**
@@ -42,11 +47,6 @@ public class EntityDismountEvent extends EntityEvent implements Cancellable {
     @NotNull
     @Override
     public HandlerList getHandlers() {
-        return handlers;
-    }
-
-    @NotNull
-    public static HandlerList getHandlerList() {
         return handlers;
     }
 }

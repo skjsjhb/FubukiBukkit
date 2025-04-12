@@ -1,9 +1,9 @@
 package org.bukkit.support;
 
 /**
- *  If you are getting: java.lang.ExceptionInInitializerError
- *
- *  extend this class to solve it.
+ * If you are getting: java.lang.ExceptionInInitializerError
+ * <p>
+ * extend this class to solve it.
  */
 public abstract class AbstractTestingBase {
 

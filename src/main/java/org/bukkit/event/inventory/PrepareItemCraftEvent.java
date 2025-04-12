@@ -18,6 +18,11 @@ public class PrepareItemCraftEvent extends InventoryEvent {
         this.repair = isRepair;
     }
 
+    @NotNull
+    public static HandlerList getHandlerList() {
+        return handlers;
+    }
+
     /**
      * Get the recipe that has been formed. If this event was triggered by a
      * tool repair, this will be a temporary shapeless recipe representing the
@@ -52,11 +57,6 @@ public class PrepareItemCraftEvent extends InventoryEvent {
     @NotNull
     @Override
     public HandlerList getHandlers() {
-        return handlers;
-    }
-
-    @NotNull
-    public static HandlerList getHandlerList() {
         return handlers;
     }
 }

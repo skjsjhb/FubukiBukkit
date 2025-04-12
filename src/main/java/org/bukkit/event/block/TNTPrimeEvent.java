@@ -15,16 +15,21 @@ import org.jetbrains.annotations.Nullable;
 public class TNTPrimeEvent extends BlockEvent implements Cancellable {
 
     private static final HandlerList handlers = new HandlerList();
-    private boolean cancelled;
     private final PrimeCause igniteCause;
     private final Entity primingEntity;
     private final Block primingBlock;
+    private boolean cancelled;
 
     public TNTPrimeEvent(@NotNull final Block block, @NotNull final PrimeCause igniteCause, @Nullable final Entity primingEntity, @Nullable final Block primingBlock) {
         super(block);
         this.igniteCause = igniteCause;
         this.primingEntity = primingEntity;
         this.primingBlock = primingBlock;
+    }
+
+    @NotNull
+    public static HandlerList getHandlerList() {
+        return handlers;
     }
 
     @Override
@@ -72,11 +77,6 @@ public class TNTPrimeEvent extends BlockEvent implements Cancellable {
     @NotNull
     @Override
     public HandlerList getHandlers() {
-        return handlers;
-    }
-
-    @NotNull
-    public static HandlerList getHandlerList() {
         return handlers;
     }
 

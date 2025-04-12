@@ -23,6 +23,11 @@ public class PlayerItemDamageEvent extends PlayerEvent implements Cancellable {
         this.damage = damage;
     }
 
+    @NotNull
+    public static HandlerList getHandlerList() {
+        return handlers;
+    }
+
     /**
      * Gets the item being damaged.
      *
@@ -59,11 +64,6 @@ public class PlayerItemDamageEvent extends PlayerEvent implements Cancellable {
     @NotNull
     @Override
     public HandlerList getHandlers() {
-        return handlers;
-    }
-
-    @NotNull
-    public static HandlerList getHandlerList() {
         return handlers;
     }
 }

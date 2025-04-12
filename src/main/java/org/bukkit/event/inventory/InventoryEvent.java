@@ -1,13 +1,13 @@
-
 package org.bukkit.event.inventory;
 
-import java.util.List;
 import org.bukkit.entity.HumanEntity;
 import org.bukkit.event.Event;
 import org.bukkit.event.HandlerList;
 import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.InventoryView;
 import org.jetbrains.annotations.NotNull;
+
+import java.util.List;
 
 /**
  * Represents a player related inventory event
@@ -18,6 +18,11 @@ public class InventoryEvent extends Event {
 
     public InventoryEvent(@NotNull InventoryView transaction) {
         this.transaction = transaction;
+    }
+
+    @NotNull
+    public static HandlerList getHandlerList() {
+        return handlers;
     }
 
     /**
@@ -54,11 +59,6 @@ public class InventoryEvent extends Event {
     @NotNull
     @Override
     public HandlerList getHandlers() {
-        return handlers;
-    }
-
-    @NotNull
-    public static HandlerList getHandlerList() {
         return handlers;
     }
 }

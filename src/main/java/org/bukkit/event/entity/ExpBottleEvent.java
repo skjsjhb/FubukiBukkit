@@ -27,6 +27,11 @@ public class ExpBottleEvent extends ProjectileHitEvent {
     }
 
     @NotNull
+    public static HandlerList getHandlerList() {
+        return handlers;
+    }
+
+    @NotNull
     @Override
     public ThrownExpBottle getEntity() {
         return (ThrownExpBottle) entity;
@@ -47,7 +52,7 @@ public class ExpBottleEvent extends ProjectileHitEvent {
      * This does not change the experience created.
      *
      * @param showEffect true indicates the effect will be shown, false
-     *     indicates no effect will be shown
+     *                   indicates no effect will be shown
      */
     public void setShowEffect(final boolean showEffect) {
         this.showEffect = showEffect;
@@ -78,11 +83,6 @@ public class ExpBottleEvent extends ProjectileHitEvent {
     @NotNull
     @Override
     public HandlerList getHandlers() {
-        return handlers;
-    }
-
-    @NotNull
-    public static HandlerList getHandlerList() {
         return handlers;
     }
 }

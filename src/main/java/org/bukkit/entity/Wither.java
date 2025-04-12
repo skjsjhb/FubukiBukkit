@@ -23,7 +23,7 @@ public interface Wither extends Monster, Boss {
      * This method will set the target of individual heads {@link Head} of the
      * wither.
      *
-     * @param head the individual head
+     * @param head   the individual head
      * @param target the entity that should be targeted
      */
     void setTarget(@NotNull Head head, @Nullable LivingEntity target);
@@ -48,7 +48,7 @@ public interface Wither extends Monster, Boss {
 
     /**
      * Sets the wither's current invulnerability ticks.
-     *
+     * <p>
      * When invulnerability ticks reach 0, the wither will trigger an explosion.
      *
      * @param ticks amount of invulnerability ticks

@@ -8,12 +8,17 @@ import org.jetbrains.annotations.NotNull;
 public class ItemMergeEvent extends EntityEvent implements Cancellable {
 
     private static final HandlerList handlers = new HandlerList();
-    private boolean cancelled;
     private final Item target;
+    private boolean cancelled;
 
     public ItemMergeEvent(@NotNull Item item, @NotNull Item target) {
         super(item);
         this.target = target;
+    }
+
+    @NotNull
+    public static HandlerList getHandlerList() {
+        return handlers;
     }
 
     @Override
@@ -45,11 +50,6 @@ public class ItemMergeEvent extends EntityEvent implements Cancellable {
     @NotNull
     @Override
     public HandlerList getHandlers() {
-        return handlers;
-    }
-
-    @NotNull
-    public static HandlerList getHandlerList() {
         return handlers;
     }
 }

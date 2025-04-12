@@ -19,6 +19,11 @@ public class PrepareGrindstoneEvent extends PrepareInventoryResultEvent {
     }
 
     @NotNull
+    public static HandlerList getHandlerList() {
+        return handlers;
+    }
+
+    @NotNull
     @Override
     public GrindstoneInventory getInventory() {
         return (GrindstoneInventory) super.getInventory();
@@ -27,11 +32,6 @@ public class PrepareGrindstoneEvent extends PrepareInventoryResultEvent {
     @NotNull
     @Override
     public HandlerList getHandlers() {
-        return handlers;
-    }
-
-    @NotNull
-    public static HandlerList getHandlerList() {
         return handlers;
     }
 }

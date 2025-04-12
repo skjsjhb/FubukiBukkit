@@ -19,6 +19,11 @@ public class PrepareInventoryResultEvent extends InventoryEvent {
         this.result = result;
     }
 
+    @NotNull
+    public static HandlerList getHandlerList() {
+        return handlers;
+    }
+
     /**
      * Get result item, may be null.
      *
@@ -41,11 +46,6 @@ public class PrepareInventoryResultEvent extends InventoryEvent {
     @NotNull
     @Override
     public HandlerList getHandlers() {
-        return handlers;
-    }
-
-    @NotNull
-    public static HandlerList getHandlerList() {
         return handlers;
     }
 }

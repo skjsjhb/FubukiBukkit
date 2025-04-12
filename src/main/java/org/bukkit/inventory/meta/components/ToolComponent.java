@@ -1,13 +1,14 @@
 package org.bukkit.inventory.meta.components;
 
-import java.util.Collection;
-import java.util.List;
 import org.bukkit.Material;
 import org.bukkit.Tag;
 import org.bukkit.configuration.serialization.ConfigurationSerializable;
 import org.jetbrains.annotations.ApiStatus;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
+
+import java.util.Collection;
+import java.util.List;
 
 /**
  * Represents a component which can turn any item into a tool.
@@ -84,13 +85,13 @@ public interface ToolComponent extends ConfigurationSerializable {
      * Add a new rule to this tool component, which provides further information
      * about a specific block type.
      *
-     * @param block the block type to which the rule applies
-     * @param speed the mining speed to use when mining the block, or null to
-     * use the default mining speed
+     * @param block           the block type to which the rule applies
+     * @param speed           the mining speed to use when mining the block, or null to
+     *                        use the default mining speed
      * @param correctForDrops whether or not this tool, when mining the block,
-     * is considered the optimal tool for the block and will drop its items when
-     * broken, or null to use the default tool checking behavior defined by
-     * Minecraft
+     *                        is considered the optimal tool for the block and will drop its items when
+     *                        broken, or null to use the default tool checking behavior defined by
+     *                        Minecraft
      * @return the {@link ToolRule} instance that was added to this tool
      */
     @NotNull
@@ -100,13 +101,13 @@ public interface ToolComponent extends ConfigurationSerializable {
      * Add a new rule to this tool component, which provides further information
      * about a collection of block types.
      *
-     * @param blocks the block types to which the rule applies
-     * @param speed the mining speed to use when mining one of the blocks, or
-     * null to use the default mining speed
+     * @param blocks          the block types to which the rule applies
+     * @param speed           the mining speed to use when mining one of the blocks, or
+     *                        null to use the default mining speed
      * @param correctForDrops whether or not this tool, when mining one of the
-     * blocks, is considered the optimal tool for the block and will drop its
-     * items when broken, or null to use the default tool checking behavior
-     * defined by Minecraft
+     *                        blocks, is considered the optimal tool for the block and will drop its
+     *                        items when broken, or null to use the default tool checking behavior
+     *                        defined by Minecraft
      * @return the {@link ToolRule} instance that was added to this tool
      */
     @NotNull
@@ -116,17 +117,17 @@ public interface ToolComponent extends ConfigurationSerializable {
      * Add a new rule to this tool component, which provides further information
      * about a collection of block types represented by a block {@link Tag}.
      *
-     * @param tag the block tag containing block types to which the rule
-     * applies.
-     * @param speed the mining speed to use when mining one of the blocks, or
-     * null to use the default mining speed
+     * @param tag             the block tag containing block types to which the rule
+     *                        applies.
+     * @param speed           the mining speed to use when mining one of the blocks, or
+     *                        null to use the default mining speed
      * @param correctForDrops whether or not this tool, when mining one of the
-     * blocks, is considered the optimal tool for the block and will drop its
-     * items when broken, or null to use the default tool checking behavior
-     * defined by Minecraft
+     *                        blocks, is considered the optimal tool for the block and will drop its
+     *                        items when broken, or null to use the default tool checking behavior
+     *                        defined by Minecraft
      * @return the {@link ToolRule} instance that was added to this tool
      * @throws IllegalArgumentException if the passed {@code tag} is not a block
-     * tag
+     *                                  tag
      */
     @NotNull
     ToolRule addRule(@NotNull Tag<Material> tag, @Nullable Float speed, @Nullable Boolean correctForDrops);
@@ -173,7 +174,7 @@ public interface ToolComponent extends ConfigurationSerializable {
          *
          * @param tag the block tag
          * @throws IllegalArgumentException if the passed {@code tag} is not a
-         * block tag
+         *                                  block tag
          */
         void setBlocks(@NotNull Tag<Material> tag);
 
@@ -211,7 +212,7 @@ public interface ToolComponent extends ConfigurationSerializable {
          * blocks listed by this rule and will drop items.
          *
          * @param correct whether or not this rule is correct for drops, or null
-         * to fallback to vanilla tool checking behavior
+         *                to fallback to vanilla tool checking behavior
          */
         void setCorrectForDrops(@Nullable Boolean correct);
     }

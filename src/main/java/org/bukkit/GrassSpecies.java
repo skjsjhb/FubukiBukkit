@@ -1,8 +1,9 @@
 package org.bukkit;
 
 import com.google.common.collect.Maps;
-import java.util.Map;
 import org.jetbrains.annotations.Nullable;
+
+import java.util.Map;
 
 /**
  * Represents the different types of grass.
@@ -22,11 +23,32 @@ public enum GrassSpecies {
      */
     FERN_LIKE(0x2);
 
-    private final byte data;
     private static final Map<Byte, GrassSpecies> BY_DATA = Maps.newHashMap();
+
+    static {
+        for (GrassSpecies grassSpecies : values()) {
+            BY_DATA.put(grassSpecies.getData(), grassSpecies);
+        }
+    }
+
+    private final byte data;
 
     private GrassSpecies(final int data) {
         this.data = (byte) data;
+    }
+
+    /**
+     * Gets the GrassSpecies with the given data value
+     *
+     * @param data Data value to fetch
+     * @return The {@link GrassSpecies} representing the given value, or null
+     * if it doesn't exist
+     * @deprecated Magic value
+     */
+    @Deprecated(since = "1.6.2")
+    @Nullable
+    public static GrassSpecies getByData(final byte data) {
+        return BY_DATA.get(data);
     }
 
     /**
@@ -38,25 +60,5 @@ public enum GrassSpecies {
     @Deprecated(since = "1.6.2")
     public byte getData() {
         return data;
-    }
-
-    /**
-     * Gets the GrassSpecies with the given data value
-     *
-     * @param data Data value to fetch
-     * @return The {@link GrassSpecies} representing the given value, or null
-     *     if it doesn't exist
-     * @deprecated Magic value
-     */
-    @Deprecated(since = "1.6.2")
-    @Nullable
-    public static GrassSpecies getByData(final byte data) {
-        return BY_DATA.get(data);
-    }
-
-    static {
-        for (GrassSpecies grassSpecies : values()) {
-            BY_DATA.put(grassSpecies.getData(), grassSpecies);
-        }
     }
 }

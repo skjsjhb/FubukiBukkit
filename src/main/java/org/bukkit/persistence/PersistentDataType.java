@@ -39,8 +39,8 @@ import org.jetbrains.annotations.NotNull;
  *             return new UUID(firstLong, secondLong);
  *         }
  *     }
- *}</pre>
- *
+ * }</pre>
+ * <p>
  * Any plugin owned implementation of this interface is required to define one
  * of the existing primitive types found in this interface. Notably
  * {@link #BOOLEAN} is not a primitive type but a convenience type.
@@ -101,7 +101,7 @@ public interface PersistentDataType<P, C> {
     /**
      * A data type provider type that itself cannot be used as a
      * {@link PersistentDataType}.
-     *
+     * <p>
      * {@link ListPersistentDataTypeProvider} exposes shared persistent data
      * types for storing lists of other data types, however.
      * <p>
@@ -145,7 +145,7 @@ public interface PersistentDataType<P, C> {
      * Creates a complex object based of the passed primitive value
      *
      * @param primitive the primitive value
-     * @param context the context this operation is running in
+     * @param context   the context this operation is running in
      * @return the complex object instance
      */
     @NotNull

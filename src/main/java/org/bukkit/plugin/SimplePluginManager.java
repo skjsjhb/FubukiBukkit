@@ -5,26 +5,6 @@ import com.google.common.collect.ImmutableSet;
 import com.google.common.graph.GraphBuilder;
 import com.google.common.graph.Graphs;
 import com.google.common.graph.MutableGraph;
-import java.io.File;
-import java.lang.reflect.Constructor;
-import java.lang.reflect.Method;
-import java.lang.reflect.Modifier;
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.HashMap;
-import java.util.HashSet;
-import java.util.Iterator;
-import java.util.LinkedHashMap;
-import java.util.LinkedHashSet;
-import java.util.LinkedList;
-import java.util.List;
-import java.util.Locale;
-import java.util.Map;
-import java.util.Set;
-import java.util.WeakHashMap;
-import java.util.logging.Level;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
 import org.bukkit.Server;
 import org.bukkit.World;
 import org.bukkit.command.Command;
@@ -41,6 +21,15 @@ import org.bukkit.util.FileUtil;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
+import java.io.File;
+import java.lang.reflect.Constructor;
+import java.lang.reflect.Method;
+import java.lang.reflect.Modifier;
+import java.util.*;
+import java.util.logging.Level;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+
 /**
  * Handles all plugin management from the Server
  */
@@ -49,13 +38,13 @@ public final class SimplePluginManager implements PluginManager {
     private final Map<Pattern, PluginLoader> fileAssociations = new HashMap<Pattern, PluginLoader>();
     private final List<Plugin> plugins = new ArrayList<Plugin>();
     private final Map<String, Plugin> lookupNames = new HashMap<String, Plugin>();
-    private MutableGraph<String> dependencyGraph = GraphBuilder.directed().build();
-    private File updateDirectory;
     private final SimpleCommandMap commandMap;
     private final Map<String, Permission> permissions = new HashMap<String, Permission>();
     private final Map<Boolean, Set<Permission>> defaultPerms = new LinkedHashMap<Boolean, Set<Permission>>();
     private final Map<String, Map<Permissible, Boolean>> permSubs = new HashMap<String, Map<Permissible, Boolean>>();
     private final Map<Boolean, Map<Permissible, Boolean>> defSubs = new HashMap<Boolean, Map<Permissible, Boolean>>();
+    private MutableGraph<String> dependencyGraph = GraphBuilder.directed().build();
+    private File updateDirectory;
     private boolean useTimings = false;
 
     public SimplePluginManager(@NotNull Server instance, @NotNull SimpleCommandMap commandMap) {
@@ -71,7 +60,7 @@ public final class SimplePluginManager implements PluginManager {
      *
      * @param loader Class name of the PluginLoader to register
      * @throws IllegalArgumentException Thrown when the given Class is not a
-     *     valid PluginLoader
+     *                                  valid PluginLoader
      */
     @Override
     public void registerInterface(@NotNull Class<? extends PluginLoader> loader) throws IllegalArgumentException {
@@ -268,7 +257,7 @@ public final class SimplePluginManager implements PluginManager {
                         if (loadedPlugins.contains(dependency)) {
                             dependencyIterator.remove();
 
-                        // We have a dependency not found
+                            // We have a dependency not found
                         } else if (!plugins.containsKey(dependency) && !pluginsProvided.containsKey(dependency)) {
                             missingDependency = false;
                             pluginIterator.remove();
@@ -380,10 +369,10 @@ public final class SimplePluginManager implements PluginManager {
      *
      * @param file File containing the plugin to load
      * @return The Plugin loaded, or null if it was invalid
-     * @throws InvalidPluginException Thrown when the specified file is not a
-     *     valid plugin
+     * @throws InvalidPluginException     Thrown when the specified file is not a
+     *                                    valid plugin
      * @throws UnknownDependencyException If a required dependency could not
-     *     be found
+     *                                    be found
      */
     @Override
     @Nullable
@@ -609,7 +598,7 @@ public final class SimplePluginManager implements PluginManager {
                             plugin.getDescription().getAuthors(),
                             plugin.getDescription().getFullName(),
                             ex.getMessage()
-                            ));
+                    ));
                 }
             } catch (Throwable ex) {
                 server.getLogger().log(Level.SEVERE, "Could not pass event " + event.getEventName() + " to " + registration.getPlugin().getDescription().getFullName(), ex);
@@ -638,13 +627,13 @@ public final class SimplePluginManager implements PluginManager {
      * Registers the given event to the specified listener using a directly
      * passed EventExecutor
      *
-     * @param event Event class to register
-     * @param listener PlayerListener to register
-     * @param priority Priority of this event
-     * @param executor EventExecutor to register
-     * @param plugin Plugin to register
+     * @param event           Event class to register
+     * @param listener        PlayerListener to register
+     * @param priority        Priority of this event
+     * @param executor        EventExecutor to register
+     * @param plugin          Plugin to register
      * @param ignoreCancelled Do not call executor if event was already
-     *     cancelled
+     *                        cancelled
      */
     @Override
     public void registerEvent(@NotNull Class<? extends Event> event, @NotNull Listener listener, @NotNull EventPriority priority, @NotNull EventExecutor executor, @NotNull Plugin plugin, boolean ignoreCancelled) {

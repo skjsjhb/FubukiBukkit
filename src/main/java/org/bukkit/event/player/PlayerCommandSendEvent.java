@@ -1,9 +1,10 @@
 package org.bukkit.event.player;
 
-import java.util.Collection;
 import org.bukkit.entity.Player;
 import org.bukkit.event.HandlerList;
 import org.jetbrains.annotations.NotNull;
+
+import java.util.Collection;
 
 /**
  * This event is called when the list of available server commands is sent to
@@ -24,6 +25,11 @@ public class PlayerCommandSendEvent extends PlayerEvent {
         this.commands = commands;
     }
 
+    @NotNull
+    public static HandlerList getHandlerList() {
+        return handlers;
+    }
+
     /**
      * Returns a mutable collection of all top level commands to be sent.
      * <br>
@@ -40,11 +46,6 @@ public class PlayerCommandSendEvent extends PlayerEvent {
     @NotNull
     @Override
     public HandlerList getHandlers() {
-        return handlers;
-    }
-
-    @NotNull
-    public static HandlerList getHandlerList() {
         return handlers;
     }
 }

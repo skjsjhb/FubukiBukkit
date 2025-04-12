@@ -21,13 +21,6 @@ public interface Jukebox extends TileState, BlockInventoryHolder {
     public Material getPlaying();
 
     /**
-     * Sets the record being played.
-     *
-     * @param record The record Material, or null/AIR to stop playing
-     */
-    public void setPlaying(@Nullable Material record);
-
-    /**
      * Gets whether or not this jukebox has a record.
      * <p>
      * A jukebox can have a record but not {@link #isPlaying() be playing}
@@ -60,6 +53,13 @@ public interface Jukebox extends TileState, BlockInventoryHolder {
      * @return True if there is a record playing
      */
     public boolean isPlaying();
+
+    /**
+     * Sets the record being played.
+     *
+     * @param record The record Material, or null/AIR to stop playing
+     */
+    public void setPlaying(@Nullable Material record);
 
     /**
      * Starts the jukebox playing if there is a record.

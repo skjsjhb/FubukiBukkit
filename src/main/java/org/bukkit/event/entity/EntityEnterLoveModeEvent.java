@@ -16,14 +16,19 @@ import org.jetbrains.annotations.Nullable;
 public class EntityEnterLoveModeEvent extends EntityEvent implements Cancellable {
 
     private static final HandlerList handlers = new HandlerList();
-    private boolean cancel;
     private final HumanEntity humanEntity;
+    private boolean cancel;
     private int ticksInLove;
 
     public EntityEnterLoveModeEvent(@NotNull Animals animalInLove, @Nullable HumanEntity humanEntity, int ticksInLove) {
         super(animalInLove);
         this.humanEntity = humanEntity;
         this.ticksInLove = ticksInLove;
+    }
+
+    @NotNull
+    public static HandlerList getHandlerList() {
+        return handlers;
     }
 
     /**
@@ -61,7 +66,7 @@ public class EntityEnterLoveModeEvent extends EntityEvent implements Cancellable
      * Sets the amount of ticks that the animal will fall in love for.
      *
      * @param ticksInLove The amount of ticks that the animal will fall in love
-     * for
+     *                    for
      */
     public void setTicksInLove(int ticksInLove) {
         this.ticksInLove = ticksInLove;
@@ -80,11 +85,6 @@ public class EntityEnterLoveModeEvent extends EntityEvent implements Cancellable
     @NotNull
     @Override
     public HandlerList getHandlers() {
-        return handlers;
-    }
-
-    @NotNull
-    public static HandlerList getHandlerList() {
         return handlers;
     }
 }

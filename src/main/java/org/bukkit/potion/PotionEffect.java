@@ -2,8 +2,6 @@ package org.bukkit.potion;
 
 import com.google.common.base.Preconditions;
 import com.google.common.collect.ImmutableMap;
-import java.util.Map;
-import java.util.NoSuchElementException;
 import org.bukkit.Bukkit;
 import org.bukkit.Color;
 import org.bukkit.NamespacedKey;
@@ -14,6 +12,9 @@ import org.bukkit.entity.LivingEntity;
 import org.jetbrains.annotations.Contract;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
+
+import java.util.Map;
+import java.util.NoSuchElementException;
 
 /**
  * Represents a potion effect, that can be added to a {@link LivingEntity}. A
@@ -43,13 +44,14 @@ public class PotionEffect implements ConfigurationSerializable {
 
     /**
      * Creates a potion effect.
-     * @param type effect type
-     * @param duration measured in ticks, see {@link
-     *     PotionEffect#getDuration()}
+     *
+     * @param type      effect type
+     * @param duration  measured in ticks, see {@link
+     *                  PotionEffect#getDuration()}
      * @param amplifier the amplifier, see {@link PotionEffect#getAmplifier()}
-     * @param ambient the ambient status, see {@link PotionEffect#isAmbient()}
+     * @param ambient   the ambient status, see {@link PotionEffect#isAmbient()}
      * @param particles the particle status, see {@link PotionEffect#hasParticles()}
-     * @param icon the icon status, see {@link PotionEffect#hasIcon()}
+     * @param icon      the icon status, see {@link PotionEffect#hasIcon()}
      */
     public PotionEffect(@NotNull PotionEffectType type, int duration, int amplifier, boolean ambient, boolean particles, boolean icon) {
         Preconditions.checkArgument(type != null, "effect type cannot be null");
@@ -64,11 +66,11 @@ public class PotionEffect implements ConfigurationSerializable {
     /**
      * Creates a potion effect with no defined color.
      *
-     * @param type effect type
-     * @param duration measured in ticks, see {@link
-     *     PotionEffect#getDuration()}
+     * @param type      effect type
+     * @param duration  measured in ticks, see {@link
+     *                  PotionEffect#getDuration()}
      * @param amplifier the amplifier, see {@link PotionEffect#getAmplifier()}
-     * @param ambient the ambient status, see {@link PotionEffect#isAmbient()}
+     * @param ambient   the ambient status, see {@link PotionEffect#isAmbient()}
      * @param particles the particle status, see {@link PotionEffect#hasParticles()}
      */
     public PotionEffect(@NotNull PotionEffectType type, int duration, int amplifier, boolean ambient, boolean particles) {
@@ -78,11 +80,11 @@ public class PotionEffect implements ConfigurationSerializable {
     /**
      * Creates a potion effect. Assumes that particles are visible
      *
-     * @param type effect type
-     * @param duration measured in ticks, see {@link
-     *     PotionEffect#getDuration()}
+     * @param type      effect type
+     * @param duration  measured in ticks, see {@link
+     *                  PotionEffect#getDuration()}
      * @param amplifier the amplifier, see {@link PotionEffect#getAmplifier()}
-     * @param ambient the ambient status, see {@link PotionEffect#isAmbient()}
+     * @param ambient   the ambient status, see {@link PotionEffect#isAmbient()}
      */
     public PotionEffect(@NotNull PotionEffectType type, int duration, int amplifier, boolean ambient) {
         this(type, duration, amplifier, ambient, true);
@@ -91,8 +93,8 @@ public class PotionEffect implements ConfigurationSerializable {
     /**
      * Creates a potion effect. Assumes ambient is true.
      *
-     * @param type Effect type
-     * @param duration measured in ticks
+     * @param type      Effect type
+     * @param duration  measured in ticks
      * @param amplifier the amplifier for the effect
      * @see PotionEffect#PotionEffect(PotionEffectType, int, int, boolean)
      */
@@ -144,13 +146,13 @@ public class PotionEffect implements ConfigurationSerializable {
     @NotNull
     public Map<String, Object> serialize() {
         return ImmutableMap.<String, Object>builder()
-            .put(TYPE, type.getKey().toString())
-            .put(DURATION, duration)
-            .put(AMPLIFIER, amplifier)
-            .put(AMBIENT, ambient)
-            .put(PARTICLES, particles)
-            .put(ICON, icon)
-            .build();
+                .put(TYPE, type.getKey().toString())
+                .put(DURATION, duration)
+                .put(AMPLIFIER, amplifier)
+                .put(AMBIENT, ambient)
+                .put(PARTICLES, particles)
+                .put(ICON, icon)
+                .build();
     }
 
     /**

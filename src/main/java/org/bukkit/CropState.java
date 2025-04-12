@@ -1,8 +1,9 @@
 package org.bukkit;
 
 import com.google.common.collect.Maps;
-import java.util.Map;
 import org.jetbrains.annotations.Nullable;
+
+import java.util.Map;
 
 /**
  * Represents the different growth states of crops
@@ -42,11 +43,32 @@ public enum CropState {
      */
     RIPE(0x7);
 
-    private final byte data;
     private static final Map<Byte, CropState> BY_DATA = Maps.newHashMap();
+
+    static {
+        for (CropState cropState : values()) {
+            BY_DATA.put(cropState.getData(), cropState);
+        }
+    }
+
+    private final byte data;
 
     private CropState(final int data) {
         this.data = (byte) data;
+    }
+
+    /**
+     * Gets the CropState with the given data value
+     *
+     * @param data Data value to fetch
+     * @return The {@link CropState} representing the given value, or null if
+     * it doesn't exist
+     * @deprecated Magic value
+     */
+    @Deprecated(since = "1.6.2")
+    @Nullable
+    public static CropState getByData(final byte data) {
+        return BY_DATA.get(data);
     }
 
     /**
@@ -58,25 +80,5 @@ public enum CropState {
     @Deprecated(since = "1.6.2")
     public byte getData() {
         return data;
-    }
-
-    /**
-     * Gets the CropState with the given data value
-     *
-     * @param data Data value to fetch
-     * @return The {@link CropState} representing the given value, or null if
-     *     it doesn't exist
-     * @deprecated Magic value
-     */
-    @Deprecated(since = "1.6.2")
-    @Nullable
-    public static CropState getByData(final byte data) {
-        return BY_DATA.get(data);
-    }
-
-    static {
-        for (CropState cropState : values()) {
-            BY_DATA.put(cropState.getData(), cropState);
-        }
     }
 }

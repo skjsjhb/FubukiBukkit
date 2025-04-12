@@ -297,7 +297,7 @@ public interface ArmorStand extends LivingEntity {
      * Locks the equipment slot with the specified
      * {@link LockType locking mechanism}.
      *
-     * @param slot the equipment slot to lock
+     * @param slot     the equipment slot to lock
      * @param lockType the LockType to lock the equipment slot with
      */
     void addEquipmentLock(@NotNull EquipmentSlot slot, @NotNull LockType lockType);
@@ -305,7 +305,7 @@ public interface ArmorStand extends LivingEntity {
     /**
      * Remove a {@link LockType locking mechanism}.
      *
-     * @param slot the equipment slot to change
+     * @param slot     the equipment slot to change
      * @param lockType the LockType to remove
      */
     void removeEquipmentLock(@NotNull EquipmentSlot slot, @NotNull LockType lockType);
@@ -314,7 +314,7 @@ public interface ArmorStand extends LivingEntity {
      * Returns if the ArmorStand has the specified
      * {@link LockType locking mechanism}.
      *
-     * @param slot the EquipmentSlot to test
+     * @param slot     the EquipmentSlot to test
      * @param lockType the LockType to test
      * @return if the ArmorStand has been locked with the parameters specified
      */

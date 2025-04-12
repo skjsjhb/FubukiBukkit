@@ -1,9 +1,10 @@
 package org.bukkit;
 
-import static org.bukkit.support.MatcherAssert.*;
-import static org.hamcrest.CoreMatchers.*;
 import org.bukkit.util.ChatPaginator;
 import org.junit.jupiter.api.Test;
+
+import static org.bukkit.support.MatcherAssert.assertThat;
+import static org.hamcrest.CoreMatchers.is;
 
 public class ChatPaginatorTest {
     @Test
@@ -13,7 +14,7 @@ public class ChatPaginatorTest {
 
         assertThat(lines.length, is(2));
         assertThat(lines[0], is(ChatColor.RED + "123456789 123456789"));
-        assertThat(lines[1], is(ChatColor.RED.toString() + "123456789"));
+        assertThat(lines[1], is(ChatColor.RED + "123456789"));
     }
 
     @Test

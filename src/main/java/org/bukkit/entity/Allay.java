@@ -43,13 +43,13 @@ public interface Allay extends Creature, InventoryHolder {
      * Sets the cooldown before the allay can duplicate again.
      *
      * @param cooldown the cooldown, use a negative number to deny allay to
-     * duplicate again.
+     *                 duplicate again.
      */
     public void setDuplicationCooldown(long cooldown);
 
     /**
      * Reset the cooldown for duplication.
-     *
+     * <p>
      * This will set the cooldown ticks to the same value as is set after an
      * Allay has duplicated.
      */
@@ -67,9 +67,8 @@ public interface Allay extends Creature, InventoryHolder {
      * location.
      *
      * @param location the location of the jukebox
-     *
      * @throws IllegalArgumentException if the block at the location is not a
-     * jukebox
+     *                                  jukebox
      */
     public void startDancing(@NotNull Location location);
 

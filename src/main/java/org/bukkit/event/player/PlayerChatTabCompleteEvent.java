@@ -1,11 +1,12 @@
 package org.bukkit.event.player;
 
 import com.google.common.base.Preconditions;
-import java.util.Collection;
 import org.bukkit.Warning;
 import org.bukkit.entity.Player;
 import org.bukkit.event.HandlerList;
 import org.jetbrains.annotations.NotNull;
+
+import java.util.Collection;
 
 /**
  * Called when a player attempts to tab-complete a chat message.
@@ -32,6 +33,11 @@ public class PlayerChatTabCompleteEvent extends PlayerEvent {
             this.lastToken = message.substring(i + 1);
         }
         this.completions = completions;
+    }
+
+    @NotNull
+    public static HandlerList getHandlerList() {
+        return handlers;
     }
 
     /**
@@ -70,11 +76,6 @@ public class PlayerChatTabCompleteEvent extends PlayerEvent {
     @NotNull
     @Override
     public HandlerList getHandlers() {
-        return handlers;
-    }
-
-    @NotNull
-    public static HandlerList getHandlerList() {
         return handlers;
     }
 }

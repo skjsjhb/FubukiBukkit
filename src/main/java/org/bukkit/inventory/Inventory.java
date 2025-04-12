@@ -1,8 +1,5 @@
 package org.bukkit.inventory;
 
-import java.util.HashMap;
-import java.util.List;
-import java.util.ListIterator;
 import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.entity.HumanEntity;
@@ -10,6 +7,10 @@ import org.bukkit.event.inventory.InventoryType;
 import org.jetbrains.annotations.Contract;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
+
+import java.util.HashMap;
+import java.util.List;
+import java.util.ListIterator;
 
 /**
  * Interface to the various inventories. Behavior relating to {@link
@@ -72,7 +73,7 @@ public interface Inventory extends Iterable<ItemStack> {
      * Stores the ItemStack at the given index of the inventory.
      *
      * @param index The index where to put the ItemStack
-     * @param item The ItemStack to set
+     * @param item  The ItemStack to set
      */
     public void setItem(int index, @Nullable ItemStack item);
 
@@ -138,9 +139,9 @@ public interface Inventory extends Iterable<ItemStack> {
      * contents and replaces it with the ItemStacks given in the array.
      *
      * @param items A complete replacement for the contents; the length must
-     *     be less than or equal to {@link #getSize()}.
+     *              be less than or equal to {@link #getSize()}.
      * @throws IllegalArgumentException If the array has more items than the
-     *     inventory.
+     *                                  inventory.
      */
     public void setContents(@NotNull ItemStack[] items) throws IllegalArgumentException;
 
@@ -163,7 +164,7 @@ public interface Inventory extends Iterable<ItemStack> {
      *
      * @param items The ItemStacks to use as storage contents
      * @throws IllegalArgumentException If the array has more items than the
-     * inventory.
+     *                                  inventory.
      */
     public void setStorageContents(@NotNull ItemStack[] items) throws IllegalArgumentException;
 
@@ -186,7 +187,7 @@ public interface Inventory extends Iterable<ItemStack> {
      *
      * @param item The ItemStack to match against
      * @return false if item is null, true if any exactly matching ItemStacks
-     *     were found
+     * were found
      */
     @Contract("null -> false")
     public boolean contains(@Nullable ItemStack item);
@@ -196,9 +197,9 @@ public interface Inventory extends Iterable<ItemStack> {
      * material, adding to at least the minimum amount specified.
      *
      * @param material The material to check for
-     * @param amount The minimum amount
+     * @param amount   The minimum amount
      * @return true if amount is less than 1, true if enough ItemStacks were
-     *     found to add to the given amount
+     * found to add to the given amount
      * @throws IllegalArgumentException if material is null
      */
     public boolean contains(@NotNull Material material, int amount) throws IllegalArgumentException;
@@ -210,10 +211,10 @@ public interface Inventory extends Iterable<ItemStack> {
      * An ItemStack only counts if both the type and the amount of the stack
      * match.
      *
-     * @param item the ItemStack to match against
+     * @param item   the ItemStack to match against
      * @param amount how many identical stacks to check for
      * @return false if item is null, true if amount less than 1, true if
-     *     amount of exactly matching ItemStacks were found
+     * amount of exactly matching ItemStacks were found
      * @see #containsAtLeast(ItemStack, int)
      */
     @Contract("null, _ -> false")
@@ -223,10 +224,10 @@ public interface Inventory extends Iterable<ItemStack> {
      * Checks if the inventory contains ItemStacks matching the given
      * ItemStack whose amounts sum to at least the minimum amount specified.
      *
-     * @param item the ItemStack to match against
+     * @param item   the ItemStack to match against
      * @param amount the minimum amount
      * @return false if item is null, true if amount less than 1, true if
-     *     enough ItemStacks were found to add to the given amount
+     * enough ItemStacks were found to add to the given amount
      */
     @Contract("null, _ -> false")
     public boolean containsAtLeast(@Nullable ItemStack item, int amount);

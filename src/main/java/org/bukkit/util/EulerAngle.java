@@ -41,24 +41,6 @@ public class EulerAngle {
     }
 
     /**
-     * Returns the angle on the y axis in radians
-     *
-     * @return the angle in radians
-     */
-    public double getY() {
-        return y;
-    }
-
-    /**
-     * Returns the angle on the z axis in radians
-     *
-     * @return the angle in radians
-     */
-    public double getZ() {
-        return z;
-    }
-
-    /**
      * Return a EulerAngle which is the result of changing
      * the x axis to the passed angle
      *
@@ -71,6 +53,15 @@ public class EulerAngle {
     }
 
     /**
+     * Returns the angle on the y axis in radians
+     *
+     * @return the angle in radians
+     */
+    public double getY() {
+        return y;
+    }
+
+    /**
      * Return a EulerAngle which is the result of changing
      * the y axis to the passed angle
      *
@@ -80,6 +71,15 @@ public class EulerAngle {
     @NotNull
     public EulerAngle setY(double y) {
         return new EulerAngle(x, y, z);
+    }
+
+    /**
+     * Returns the angle on the z axis in radians
+     *
+     * @return the angle in radians
+     */
+    public double getZ() {
+        return z;
     }
 
     /**

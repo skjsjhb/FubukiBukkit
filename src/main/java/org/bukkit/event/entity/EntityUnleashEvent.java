@@ -16,6 +16,11 @@ public class EntityUnleashEvent extends EntityEvent {
         this.reason = reason;
     }
 
+    @NotNull
+    public static HandlerList getHandlerList() {
+        return handlers;
+    }
+
     /**
      * Returns the reason for the unleashing.
      *
@@ -29,11 +34,6 @@ public class EntityUnleashEvent extends EntityEvent {
     @NotNull
     @Override
     public HandlerList getHandlers() {
-        return handlers;
-    }
-
-    @NotNull
-    public static HandlerList getHandlerList() {
         return handlers;
     }
 

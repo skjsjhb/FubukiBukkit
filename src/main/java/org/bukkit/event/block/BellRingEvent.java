@@ -24,6 +24,11 @@ public class BellRingEvent extends BlockEvent implements Cancellable {
         this.entity = entity;
     }
 
+    @NotNull
+    public static HandlerList getHandlerList() {
+        return handlers;
+    }
+
     /**
      * Get the direction in which the bell was rung.
      *
@@ -45,23 +50,18 @@ public class BellRingEvent extends BlockEvent implements Cancellable {
     }
 
     @Override
-    public void setCancelled(boolean cancelled) {
-        this.cancelled = cancelled;
+    public boolean isCancelled() {
+        return cancelled;
     }
 
     @Override
-    public boolean isCancelled() {
-        return cancelled;
+    public void setCancelled(boolean cancelled) {
+        this.cancelled = cancelled;
     }
 
     @NotNull
     @Override
     public HandlerList getHandlers() {
-        return handlers;
-    }
-
-    @NotNull
-    public static HandlerList getHandlerList() {
         return handlers;
     }
 }

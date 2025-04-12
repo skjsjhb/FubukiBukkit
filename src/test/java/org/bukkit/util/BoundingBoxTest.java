@@ -1,11 +1,13 @@
 package org.bukkit.util;
 
-import static org.bukkit.support.MatcherAssert.*;
-import static org.hamcrest.Matchers.*;
-import java.util.Map;
 import org.bukkit.Location;
 import org.bukkit.block.BlockFace;
 import org.junit.jupiter.api.Test;
+
+import java.util.Map;
+
+import static org.bukkit.support.MatcherAssert.assertThat;
+import static org.hamcrest.Matchers.*;
 
 public class BoundingBoxTest {
 

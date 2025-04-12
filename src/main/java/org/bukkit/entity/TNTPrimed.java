@@ -9,19 +9,19 @@ import org.jetbrains.annotations.Nullable;
 public interface TNTPrimed extends Explosive {
 
     /**
-     * Set the number of ticks until the TNT blows up after being primed.
-     *
-     * @param fuseTicks The fuse ticks
-     */
-    public void setFuseTicks(int fuseTicks);
-
-    /**
      * Retrieve the number of ticks until the explosion of this TNTPrimed
      * entity
      *
      * @return the number of ticks until this TNTPrimed explodes
      */
     public int getFuseTicks();
+
+    /**
+     * Set the number of ticks until the TNT blows up after being primed.
+     *
+     * @param fuseTicks The fuse ticks
+     */
+    public void setFuseTicks(int fuseTicks);
 
     /**
      * Gets the source of this primed TNT. The source is the entity
@@ -42,7 +42,7 @@ public interface TNTPrimed extends Explosive {
 
     /**
      * Sets the source of this primed TNT.
-     *
+     * <p>
      * The source is the entity responsible for the creation of this primed TNT.
      * <p>
      * Must be instance of {@link org.bukkit.entity.LivingEntity} otherwise will

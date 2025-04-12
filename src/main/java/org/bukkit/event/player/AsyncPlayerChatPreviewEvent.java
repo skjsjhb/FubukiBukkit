@@ -1,10 +1,11 @@
 package org.bukkit.event.player;
 
-import java.util.Set;
 import org.bukkit.Warning;
 import org.bukkit.entity.Player;
 import org.bukkit.event.HandlerList;
 import org.jetbrains.annotations.NotNull;
+
+import java.util.Set;
 
 /**
  * Used to format chat for chat preview. If this event is used, then the result
@@ -24,13 +25,13 @@ public class AsyncPlayerChatPreviewEvent extends AsyncPlayerChatEvent {
     }
 
     @NotNull
-    @Override
-    public HandlerList getHandlers() {
+    public static HandlerList getHandlerList() {
         return handlers;
     }
 
     @NotNull
-    public static HandlerList getHandlerList() {
+    @Override
+    public HandlerList getHandlers() {
         return handlers;
     }
 }

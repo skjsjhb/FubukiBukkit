@@ -14,13 +14,17 @@ import org.jetbrains.annotations.NotNull;
 public class BatToggleSleepEvent extends EntityEvent implements Cancellable {
 
     private static final HandlerList handlers = new HandlerList();
-
-    private boolean cancel = false;
     private final boolean awake;
+    private boolean cancel = false;
 
     public BatToggleSleepEvent(@NotNull Bat what, boolean awake) {
         super(what);
         this.awake = awake;
+    }
+
+    @NotNull
+    public static HandlerList getHandlerList() {
+        return handlers;
     }
 
     /**
@@ -33,23 +37,18 @@ public class BatToggleSleepEvent extends EntityEvent implements Cancellable {
     }
 
     @Override
-    public void setCancelled(boolean cancel) {
-        this.cancel = cancel;
+    public boolean isCancelled() {
+        return cancel;
     }
 
     @Override
-    public boolean isCancelled() {
-        return cancel;
+    public void setCancelled(boolean cancel) {
+        this.cancel = cancel;
     }
 
     @NotNull
     @Override
     public HandlerList getHandlers() {
-        return handlers;
-    }
-
-    @NotNull
-    public static HandlerList getHandlerList() {
         return handlers;
     }
 }

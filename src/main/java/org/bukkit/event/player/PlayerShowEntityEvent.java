@@ -26,6 +26,11 @@ public class PlayerShowEntityEvent extends PlayerEvent {
         this.entity = entity;
     }
 
+    @NotNull
+    public static HandlerList getHandlerList() {
+        return handlers;
+    }
+
     /**
      * Gets the entity which has been shown to the player.
      *
@@ -39,11 +44,6 @@ public class PlayerShowEntityEvent extends PlayerEvent {
     @NotNull
     @Override
     public HandlerList getHandlers() {
-        return handlers;
-    }
-
-    @NotNull
-    public static HandlerList getHandlerList() {
         return handlers;
     }
 }

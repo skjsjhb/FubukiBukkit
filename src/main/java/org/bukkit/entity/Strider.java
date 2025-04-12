@@ -14,7 +14,7 @@ public interface Strider extends Steerable, Vehicle {
 
     /**
      * Set whether or not this strider is shivering.
-     *
+     * <p>
      * Note that the shivering state is updated frequently on the server,
      * therefore this method may not affect the entity for long enough to have a
      * noticeable difference.

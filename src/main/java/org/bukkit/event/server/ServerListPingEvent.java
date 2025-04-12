@@ -1,14 +1,15 @@
 package org.bukkit.event.server;
 
 import com.google.common.base.Preconditions;
-import java.net.InetAddress;
-import java.util.Iterator;
 import org.bukkit.Bukkit;
 import org.bukkit.UndefinedNullability;
 import org.bukkit.entity.Player;
 import org.bukkit.event.HandlerList;
 import org.bukkit.util.CachedServerIcon;
 import org.jetbrains.annotations.NotNull;
+
+import java.net.InetAddress;
+import java.util.Iterator;
 
 /**
  * Called when a server list ping is coming in. Displayed players can be
@@ -22,8 +23,8 @@ public class ServerListPingEvent extends ServerEvent implements Iterable<Player>
     private static final HandlerList handlers = new HandlerList();
     private final String hostname;
     private final InetAddress address;
-    private String motd;
     private final int numPlayers;
+    private String motd;
     private int maxPlayers;
 
     public ServerListPingEvent(@NotNull final String hostname, @NotNull final InetAddress address, @NotNull final String motd, final int numPlayers, final int maxPlayers) {
@@ -41,9 +42,9 @@ public class ServerListPingEvent extends ServerEvent implements Iterable<Player>
      * {@link #iterator()} method, thus provided the {@link #getNumPlayers()}
      * count.
      *
-     * @param hostname The hostname that was used to connect to the server
-     * @param address the address of the pinger
-     * @param motd the message of the day
+     * @param hostname   The hostname that was used to connect to the server
+     * @param address    the address of the pinger
+     * @param motd       the message of the day
      * @param maxPlayers the max number of players
      */
     protected ServerListPingEvent(@NotNull final String hostname, @NotNull final InetAddress address, @NotNull final String motd, final int maxPlayers) {
@@ -53,6 +54,11 @@ public class ServerListPingEvent extends ServerEvent implements Iterable<Player>
         this.address = address;
         this.motd = motd;
         this.maxPlayers = maxPlayers;
+    }
+
+    @NotNull
+    public static HandlerList getHandlerList() {
+        return handlers;
     }
 
     /**
@@ -121,6 +127,15 @@ public class ServerListPingEvent extends ServerEvent implements Iterable<Player>
     }
 
     /**
+     * Set the maximum number of players sent.
+     *
+     * @param maxPlayers the maximum number of player
+     */
+    public void setMaxPlayers(int maxPlayers) {
+        this.maxPlayers = maxPlayers;
+    }
+
+    /**
      * Gets whether the server needs to send a preview of the chat to the
      * client.
      *
@@ -133,23 +148,14 @@ public class ServerListPingEvent extends ServerEvent implements Iterable<Player>
     }
 
     /**
-     * Set the maximum number of players sent.
-     *
-     * @param maxPlayers the maximum number of player
-     */
-    public void setMaxPlayers(int maxPlayers) {
-        this.maxPlayers = maxPlayers;
-    }
-
-    /**
      * Sets the server-icon sent to the client.
      *
      * @param icon the icon to send to the client
-     * @throws IllegalArgumentException if the {@link CachedServerIcon} is not
-     *     created by the caller of this event; null may be accepted for some
-     *     implementations
+     * @throws IllegalArgumentException      if the {@link CachedServerIcon} is not
+     *                                       created by the caller of this event; null may be accepted for some
+     *                                       implementations
      * @throws UnsupportedOperationException if the caller of this event does
-     *     not support setting the server icon
+     *                                       not support setting the server icon
      */
     public void setServerIcon(@UndefinedNullability("implementation dependent") CachedServerIcon icon) throws IllegalArgumentException, UnsupportedOperationException {
         throw new UnsupportedOperationException();
@@ -158,11 +164,6 @@ public class ServerListPingEvent extends ServerEvent implements Iterable<Player>
     @NotNull
     @Override
     public HandlerList getHandlers() {
-        return handlers;
-    }
-
-    @NotNull
-    public static HandlerList getHandlerList() {
         return handlers;
     }
 
@@ -178,7 +179,7 @@ public class ServerListPingEvent extends ServerEvent implements Iterable<Player>
      * {@link Bukkit#getHideOnlinePlayers()} is true.
      *
      * @throws UnsupportedOperationException if the caller of this event does
-     *     not support removing players
+     *                                       not support removing players
      */
     @NotNull
     @Override

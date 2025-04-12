@@ -16,13 +16,13 @@ import org.jetbrains.annotations.Nullable;
  * Called when a player interacts with a Bucket
  */
 public abstract class PlayerBucketEvent extends PlayerEvent implements Cancellable {
-    private ItemStack itemStack;
-    private boolean cancelled = false;
     private final Block block;
     private final Block blockClicked;
     private final BlockFace blockFace;
     private final Material bucket;
     private final EquipmentSlot hand;
+    private ItemStack itemStack;
+    private boolean cancelled = false;
 
     @Deprecated(since = "1.14.4")
     public PlayerBucketEvent(@NotNull final Player who, @NotNull final Block blockClicked, @NotNull final BlockFace blockFace, @NotNull final Material bucket, @NotNull final ItemStack itemInHand) {

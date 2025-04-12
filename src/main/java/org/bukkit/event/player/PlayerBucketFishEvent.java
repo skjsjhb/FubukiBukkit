@@ -34,7 +34,7 @@ public class PlayerBucketFishEvent extends PlayerBucketEntityEvent {
 
     /**
      * Gets the bucket used.
-     *
+     * <p>
      * This refers to the bucket clicked with, ie {@link Material#WATER_BUCKET}.
      *
      * @return The used bucket
@@ -48,7 +48,7 @@ public class PlayerBucketFishEvent extends PlayerBucketEntityEvent {
 
     /**
      * Gets the bucket that the fish will be put into.
-     *
+     * <p>
      * This refers to the bucket with the fish, ie
      * {@link Material#PUFFERFISH_BUCKET}.
      *

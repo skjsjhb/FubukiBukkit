@@ -17,11 +17,11 @@ import org.jetbrains.annotations.Nullable;
 public class EntityPotionEffectEvent extends EntityEvent implements Cancellable {
 
     private static final HandlerList handlers = new HandlerList();
-    private boolean cancel;
     private final PotionEffect oldEffect;
     private final PotionEffect newEffect;
     private final Cause cause;
     private final Action action;
+    private boolean cancel;
     private boolean override;
 
     @Contract("_, null, null, _, _, _ -> fail")
@@ -32,6 +32,11 @@ public class EntityPotionEffectEvent extends EntityEvent implements Cancellable 
         this.cause = cause;
         this.action = action;
         this.override = override;
+    }
+
+    @NotNull
+    public static HandlerList getHandlerList() {
+        return handlers;
     }
 
     /**
@@ -119,11 +124,6 @@ public class EntityPotionEffectEvent extends EntityEvent implements Cancellable 
     @NotNull
     @Override
     public HandlerList getHandlers() {
-        return handlers;
-    }
-
-    @NotNull
-    public static HandlerList getHandlerList() {
         return handlers;
     }
 

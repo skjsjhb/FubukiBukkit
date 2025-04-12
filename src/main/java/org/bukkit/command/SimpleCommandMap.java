@@ -1,27 +1,15 @@
 package org.bukkit.command;
 
 import com.google.common.base.Preconditions;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Collection;
-import java.util.Collections;
-import java.util.HashMap;
-import java.util.Iterator;
-import java.util.List;
-import java.util.Locale;
-import java.util.Map;
 import org.bukkit.Location;
 import org.bukkit.Server;
-import org.bukkit.command.defaults.BukkitCommand;
-import org.bukkit.command.defaults.HelpCommand;
-import org.bukkit.command.defaults.PluginsCommand;
-import org.bukkit.command.defaults.ReloadCommand;
-import org.bukkit.command.defaults.TimingsCommand;
-import org.bukkit.command.defaults.VersionCommand;
+import org.bukkit.command.defaults.*;
 import org.bukkit.entity.Player;
 import org.bukkit.util.StringUtil;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
+
+import java.util.*;
 
 public class SimpleCommandMap implements CommandMap {
     protected final Map<String, Command> knownCommands = new HashMap<String, Command>();
@@ -94,11 +82,11 @@ public class SimpleCommandMap implements CommandMap {
      * Registers a command with the given name is possible. Also uses
      * fallbackPrefix to create a unique name.
      *
-     * @param label the name of the command, without the '/'-prefix.
-     * @param command the command to register
-     * @param isAlias whether the command is an alias
+     * @param label          the name of the command, without the '/'-prefix.
+     * @param command        the command to register
+     * @param isAlias        whether the command is an alias
      * @param fallbackPrefix a prefix which is prepended to the command for a
-     *     unique address
+     *                       unique address
      * @return true if command was registered, false otherwise.
      */
     private synchronized boolean register(@NotNull String label, @NotNull Command command, boolean isAlias, @NotNull String fallbackPrefix) {

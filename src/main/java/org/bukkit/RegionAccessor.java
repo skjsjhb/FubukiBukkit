@@ -1,10 +1,5 @@
 package org.bukkit;
 
-import java.util.Collection;
-import java.util.List;
-import java.util.Random;
-import java.util.function.Consumer;
-import java.util.function.Predicate;
 import org.bukkit.block.Biome;
 import org.bukkit.block.BlockState;
 import org.bukkit.block.data.BlockData;
@@ -13,6 +8,12 @@ import org.bukkit.entity.EntityType;
 import org.bukkit.entity.LivingEntity;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
+
+import java.util.Collection;
+import java.util.List;
+import java.util.Random;
+import java.util.function.Consumer;
+import java.util.function.Predicate;
 
 /**
  * A RegionAccessor gives access to getting, modifying and spawning {@link Biome}, {@link BlockState} and {@link Entity},
@@ -44,16 +45,16 @@ public interface RegionAccessor {
      * Sets the {@link Biome} at the given {@link Location}.
      *
      * @param location the location of the biome
-     * @param biome New Biome type for this block
+     * @param biome    New Biome type for this block
      */
     void setBiome(@NotNull Location location, @NotNull Biome biome);
 
     /**
      * Sets the {@link Biome} for the given block coordinates
      *
-     * @param x X-coordinate of the block
-     * @param y Y-coordinate of the block
-     * @param z Z-coordinate of the block
+     * @param x     X-coordinate of the block
+     * @param y     Y-coordinate of the block
+     * @param z     Z-coordinate of the block
      * @param biome New Biome type for this block
      */
     void setBiome(int x, int y, int z, @NotNull Biome biome);
@@ -121,7 +122,7 @@ public interface RegionAccessor {
     /**
      * Sets the {@link BlockData} at the given {@link Location}.
      *
-     * @param location The location of the block
+     * @param location  The location of the block
      * @param blockData The block data to set the block to
      */
     void setBlockData(@NotNull Location location, @NotNull BlockData blockData);
@@ -129,9 +130,9 @@ public interface RegionAccessor {
     /**
      * Sets the {@link BlockData} at the given coordinates.
      *
-     * @param x X-coordinate of the block
-     * @param y Y-coordinate of the block
-     * @param z Z-coordinate of the block
+     * @param x         X-coordinate of the block
+     * @param y         Y-coordinate of the block
+     * @param z         Z-coordinate of the block
      * @param blockData The block data to set the block to
      */
     void setBlockData(int x, int y, int z, @NotNull BlockData blockData);
@@ -147,9 +148,9 @@ public interface RegionAccessor {
     /**
      * Sets the {@link Material} at the given coordinates.
      *
-     * @param x X-coordinate of the block
-     * @param y Y-coordinate of the block
-     * @param z Z-coordinate of the block
+     * @param x        X-coordinate of the block
+     * @param y        Y-coordinate of the block
+     * @param z        Z-coordinate of the block
      * @param material The type to set the block to
      */
     void setType(int x, int y, int z, @NotNull Material material);
@@ -158,8 +159,8 @@ public interface RegionAccessor {
      * Creates a tree at the given {@link Location}
      *
      * @param location Location to spawn the tree
-     * @param random Random to use to generated the tree
-     * @param type Type of the tree to create
+     * @param random   Random to use to generated the tree
+     * @param type     Type of the tree to create
      * @return true if the tree was created successfully, otherwise false
      */
     boolean generateTree(@NotNull Location location, @NotNull Random random, @NotNull TreeType type);
@@ -176,9 +177,9 @@ public interface RegionAccessor {
      * Modifications done to the {@link BlockState} in the consumer are respected,
      * which means that it is not necessary to call {@link BlockState#update()}
      *
-     * @param location Location to spawn the tree
-     * @param random Random to use to generated the tree
-     * @param type Type of the tree to create
+     * @param location      Location to spawn the tree
+     * @param random        Random to use to generated the tree
+     * @param type          Type of the tree to create
      * @param stateConsumer The consumer which should get called for every block which gets changed
      * @return true if the tree was created successfully, otherwise false
      */
@@ -196,9 +197,9 @@ public interface RegionAccessor {
      * If the predicate returns {@code true} the block gets set in the world.
      * If it returns {@code false} the block won't get set in the world.
      *
-     * @param location Location to spawn the tree
-     * @param random Random to use to generated the tree
-     * @param type Type of the tree to create
+     * @param location       Location to spawn the tree
+     * @param random         Random to use to generated the tree
+     * @param type           Type of the tree to create
      * @param statePredicate The predicate which should get used to test if a block should be set or not.
      * @return true if the tree was created successfully, otherwise false
      */
@@ -208,7 +209,7 @@ public interface RegionAccessor {
      * Creates a entity at the given {@link Location}
      *
      * @param location The location to spawn the entity
-     * @param type The entity to spawn
+     * @param type     The entity to spawn
      * @return Resulting Entity of this method
      */
     @NotNull
@@ -217,8 +218,8 @@ public interface RegionAccessor {
     /**
      * Creates a new entity at the given {@link Location}.
      *
-     * @param loc the location at which the entity will be spawned.
-     * @param type the entity type that determines the entity to spawn.
+     * @param loc           the location at which the entity will be spawned.
+     * @param type          the entity type that determines the entity to spawn.
      * @param randomizeData whether or not the entity's data should be randomised
      *                      before spawning. By default entities are randomised
      *                      before spawning in regards to their equipment, age,
@@ -263,7 +264,7 @@ public interface RegionAccessor {
      * @param <T> an entity subclass
      * @param cls The class representing the type of entity to match
      * @return A List of all Entities currently residing in this world accessor
-     *     that match the given class/interface
+     * that match the given class/interface
      */
     @NotNull
     <T extends Entity> Collection<T> getEntitiesByClass(@NotNull Class<T> cls);
@@ -274,7 +275,7 @@ public interface RegionAccessor {
      *
      * @param classes The classes representing the types of entity to match
      * @return A List of all Entities currently residing in this world accessor
-     *     that match one or more of the given classes/interfaces
+     * that match one or more of the given classes/interfaces
      */
     @NotNull
     Collection<Entity> getEntitiesByClasses(@NotNull Class<?>... classes);
@@ -287,9 +288,9 @@ public interface RegionAccessor {
      * created in, care should be taken that the entity does not outlive the
      * world instance as this will lead to memory leaks.
      *
-     * @param <T> the class of the {@link Entity} to create
+     * @param <T>      the class of the {@link Entity} to create
      * @param location the {@link Location} to create the entity at
-     * @param clazz the class of the {@link Entity} to spawn
+     * @param clazz    the class of the {@link Entity} to spawn
      * @return an instance of the created {@link Entity}
      * @see #addEntity(Entity)
      * @see Entity#createSnapshot()
@@ -301,11 +302,11 @@ public interface RegionAccessor {
      * Spawn an entity of a specific class at the given {@link Location}
      *
      * @param location the {@link Location} to spawn the entity at
-     * @param clazz the class of the {@link Entity} to spawn
-     * @param <T> the class of the {@link Entity} to spawn
+     * @param clazz    the class of the {@link Entity} to spawn
+     * @param <T>      the class of the {@link Entity} to spawn
      * @return an instance of the spawned {@link Entity}
      * @throws IllegalArgumentException if either parameter is null or the
-     *     {@link Entity} requested cannot be spawned
+     *                                  {@link Entity} requested cannot be spawned
      */
     @NotNull
     <T extends Entity> T spawn(@NotNull Location location, @NotNull Class<T> clazz) throws IllegalArgumentException;
@@ -319,12 +320,12 @@ public interface RegionAccessor {
      * until after this function returns.
      *
      * @param location the {@link Location} to spawn the entity at
-     * @param clazz the class of the {@link Entity} to spawn
+     * @param clazz    the class of the {@link Entity} to spawn
      * @param function the function to be run before the entity is spawned.
-     * @param <T> the class of the {@link Entity} to spawn
+     * @param <T>      the class of the {@link Entity} to spawn
      * @return an instance of the spawned {@link Entity}
      * @throws IllegalArgumentException if either parameter is null or the
-     *     {@link Entity} requested cannot be spawned
+     *                                  {@link Entity} requested cannot be spawned
      */
     @NotNull
     <T extends Entity> T spawn(@NotNull Location location, @NotNull Class<T> clazz, @Nullable Consumer<? super T> function) throws IllegalArgumentException;
@@ -390,11 +391,10 @@ public interface RegionAccessor {
      * Gets the highest coordinate corresponding to the {@link HeightMap} at the
      * given coordinates.
      *
-     * @param x X-coordinate of the blocks
-     * @param z Z-coordinate of the blocks
+     * @param x         X-coordinate of the blocks
+     * @param z         Z-coordinate of the blocks
      * @param heightMap the heightMap that is used to determine the highest
-     * point
-     *
+     *                  point
      * @return Y-coordinate of the highest block corresponding to the
      * {@link HeightMap}
      */
@@ -404,9 +404,9 @@ public interface RegionAccessor {
      * Gets the highest coordinate corresponding to the {@link HeightMap} at the
      * given {@link Location}.
      *
-     * @param location Location of the blocks
+     * @param location  Location of the blocks
      * @param heightMap the heightMap that is used to determine the highest
-     * point
+     *                  point
      * @return Y-coordinate of the highest block corresponding to the
      * {@link HeightMap}
      */
@@ -416,7 +416,7 @@ public interface RegionAccessor {
      * Spawns a previously created entity in the world. <br>
      * The provided entity must not have already been spawned in a world.
      *
-     * @param <T> the generic type of the entity that is being added.
+     * @param <T>    the generic type of the entity that is being added.
      * @param entity the entity to add
      * @return the entity now in the world
      */

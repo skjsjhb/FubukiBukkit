@@ -29,7 +29,7 @@ public abstract class MessagePrompt implements Prompt {
      * prompt graph instead.
      *
      * @param context Context information about the conversation.
-     * @param input Ignored.
+     * @param input   Ignored.
      * @return The next prompt in the prompt graph.
      */
     @Override

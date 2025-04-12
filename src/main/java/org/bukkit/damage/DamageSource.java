@@ -14,6 +14,18 @@ import org.jetbrains.annotations.Nullable;
 public interface DamageSource {
 
     /**
+     * Create a new {@link DamageSource.Builder}.
+     *
+     * @param damageType the {@link DamageType} to use
+     * @return a {@link DamageSource.Builder}
+     */
+    @NotNull
+    @SuppressWarnings("deprecation")
+    public static Builder builder(@NotNull DamageType damageType) {
+        return Bukkit.getUnsafe().createDamageSourceBuilder(damageType);
+    }
+
+    /**
      * Get the {@link DamageType}.
      *
      * @return the damage type
@@ -94,18 +106,6 @@ public interface DamageSource {
      * @return {@code True} if scales.
      */
     public boolean scalesWithDifficulty();
-
-    /**
-     * Create a new {@link DamageSource.Builder}.
-     *
-     * @param damageType the {@link DamageType} to use
-     * @return a {@link DamageSource.Builder}
-     */
-    @NotNull
-    @SuppressWarnings("deprecation")
-    public static Builder builder(@NotNull DamageType damageType) {
-        return Bukkit.getUnsafe().createDamageSourceBuilder(damageType);
-    }
 
     /**
      * Utility class to make building a {@link DamageSource} easier. Only a

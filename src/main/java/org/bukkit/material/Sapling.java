@@ -7,7 +7,6 @@ import org.bukkit.TreeSpecies;
  * Represents the different types of Tree block that face a direction.
  *
  * @see Material#LEGACY_SAPLING
- *
  * @deprecated all usage of MaterialData is deprecated and subject to removal.
  * Use {@link org.bukkit.block.data.BlockData}.
  */
@@ -34,7 +33,7 @@ public class Sapling extends Wood {
      * Constructs a sapling of the given tree species and if is it instant
      * growable
      *
-     * @param species the species of the tree block
+     * @param species           the species of the tree block
      * @param isInstantGrowable true if the Sapling should grow when next ticked with bonemeal
      */
     public Sapling(TreeSpecies species, boolean isInstantGrowable) {
@@ -53,7 +52,7 @@ public class Sapling extends Wood {
     /**
      * Constructs a sapling of the given type and tree species.
      *
-     * @param type the type of sapling
+     * @param type    the type of sapling
      * @param species the species of the sapling
      */
     public Sapling(final Material type, TreeSpecies species) {
@@ -64,10 +63,10 @@ public class Sapling extends Wood {
      * Constructs a sapling of the given type and tree species and if is it
      * instant growable
      *
-     * @param type the type of sapling
-     * @param species the species of the sapling
+     * @param type              the type of sapling
+     * @param species           the species of the sapling
      * @param isInstantGrowable true if the Sapling should grow when next ticked
-     * with bonemeal
+     *                          with bonemeal
      */
     public Sapling(final Material type, TreeSpecies species, boolean isInstantGrowable) {
         super(type, species);
@@ -97,7 +96,7 @@ public class Sapling extends Wood {
      * Set whether this sapling will grow when next ticked with bonemeal
      *
      * @param isInstantGrowable true if the Sapling should grow when next ticked
-     * with bonemeal
+     *                          with bonemeal
      */
     public void setIsInstantGrowable(boolean isInstantGrowable) {
         setData(isInstantGrowable ? (byte) ((getData() & 0x7) | 0x8) : (byte) (getData() & 0x7));

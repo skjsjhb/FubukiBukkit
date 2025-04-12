@@ -1,6 +1,5 @@
 package org.bukkit;
 
-import java.util.Collection;
 import org.bukkit.block.Biome;
 import org.bukkit.block.Block;
 import org.bukkit.block.BlockState;
@@ -13,9 +12,11 @@ import org.bukkit.persistence.PersistentDataHolder;
 import org.bukkit.plugin.Plugin;
 import org.jetbrains.annotations.NotNull;
 
+import java.util.Collection;
+
 /**
  * Represents a chunk of blocks.
- *
+ * <p>
  * If the chunk is not yet fully generated and data is requested from the chunk,
  * then the chunk will only be generated as far as it needs to provide the
  * requested data.
@@ -66,12 +67,12 @@ public interface Chunk extends PersistentDataHolder {
     /**
      * Capture thread-safe read-only snapshot of chunk data
      *
-     * @param includeMaxblocky - if true, snapshot includes per-coordinate
-     *     maximum Y values
-     * @param includeBiome - if true, snapshot includes per-coordinate biome
-     *     type
+     * @param includeMaxblocky     - if true, snapshot includes per-coordinate
+     *                             maximum Y values
+     * @param includeBiome         - if true, snapshot includes per-coordinate biome
+     *                             type
      * @param includeBiomeTempRain - if true, snapshot includes per-coordinate
-     *     raw biome temperature and rainfall
+     *                             raw biome temperature and rainfall
      * @return ChunkSnapshot
      */
     @NotNull
@@ -119,7 +120,7 @@ public interface Chunk extends PersistentDataHolder {
      * Loads the chunk.
      *
      * @param generate Whether or not to generate a chunk if it doesn't
-     *     already exist
+     *                 already exist
      * @return true if the chunk has loaded successfully, otherwise false
      */
     boolean load(boolean generate);
@@ -226,7 +227,7 @@ public interface Chunk extends PersistentDataHolder {
 
     /**
      * Gets the amount of time in ticks that this chunk has been inhabited.
-     *
+     * <p>
      * Note that the time is incremented once per tick per player within mob
      * spawning distance of this chunk.
      *

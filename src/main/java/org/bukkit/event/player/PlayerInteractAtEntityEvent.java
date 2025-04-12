@@ -28,6 +28,11 @@ public class PlayerInteractAtEntityEvent extends PlayerInteractEntityEvent {
     }
 
     @NotNull
+    public static HandlerList getHandlerList() {
+        return handlers;
+    }
+
+    @NotNull
     public Vector getClickedPosition() {
         return position.clone();
     }
@@ -35,11 +40,6 @@ public class PlayerInteractAtEntityEvent extends PlayerInteractEntityEvent {
     @NotNull
     @Override
     public HandlerList getHandlers() {
-        return handlers;
-    }
-
-    @NotNull
-    public static HandlerList getHandlerList() {
         return handlers;
     }
 }

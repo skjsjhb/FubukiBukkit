@@ -14,10 +14,10 @@ import org.jetbrains.annotations.Nullable;
  * The current list of inventories that cannot be created via
  * {@link org.bukkit.Bukkit#createInventory} are:<br>
  * <blockquote>
- *     {@link InventoryType#CREATIVE}, {@link InventoryType#CRAFTING} and
- *     {@link InventoryType#MERCHANT}
+ * {@link InventoryType#CREATIVE}, {@link InventoryType#CRAFTING} and
+ * {@link InventoryType#MERCHANT}
  * </blockquote>
- *
+ * <p>
  * See {@link org.bukkit.Bukkit#createInventory} for more information.
  *
  * @see org.bukkit.Bukkit#createInventory(InventoryHolder, InventoryType)

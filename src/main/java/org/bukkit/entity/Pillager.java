@@ -5,4 +5,5 @@ import org.bukkit.inventory.InventoryHolder;
 /**
  * Illager entity.
  */
-public interface Pillager extends Illager, InventoryHolder { }
+public interface Pillager extends Illager, InventoryHolder {
+}

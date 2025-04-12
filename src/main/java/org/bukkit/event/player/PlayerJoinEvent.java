@@ -17,6 +17,11 @@ public class PlayerJoinEvent extends PlayerEvent {
         this.joinMessage = joinMessage;
     }
 
+    @NotNull
+    public static HandlerList getHandlerList() {
+        return handlers;
+    }
+
     /**
      * Gets the join message to send to all online players
      *
@@ -39,11 +44,6 @@ public class PlayerJoinEvent extends PlayerEvent {
     @NotNull
     @Override
     public HandlerList getHandlers() {
-        return handlers;
-    }
-
-    @NotNull
-    public static HandlerList getHandlerList() {
         return handlers;
     }
 }

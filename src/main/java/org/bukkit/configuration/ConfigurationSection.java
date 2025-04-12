@@ -1,8 +1,5 @@
 package org.bukkit.configuration;
 
-import java.util.List;
-import java.util.Map;
-import java.util.Set;
 import org.bukkit.Color;
 import org.bukkit.Location;
 import org.bukkit.OfflinePlayer;
@@ -12,6 +9,10 @@ import org.bukkit.util.Vector;
 import org.jetbrains.annotations.Contract;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
+
+import java.util.List;
+import java.util.Map;
+import java.util.Set;
 
 /**
  * Represents a section of a {@link Configuration}
@@ -28,7 +29,7 @@ public interface ConfigurationSection {
      * direct children, and not their own children.
      *
      * @param deep Whether or not to get a deep list, as opposed to a shallow
-     *     list.
+     *             list.
      * @return Set of keys contained within this ConfigurationSection.
      */
     @NotNull
@@ -45,7 +46,7 @@ public interface ConfigurationSection {
      * values of any direct children, and not their own children.
      *
      * @param deep Whether or not to get a deep list, as opposed to a shallow
-     *     list.
+     *             list.
      * @return Map of keys and values of this section.
      */
     @NotNull
@@ -59,7 +60,7 @@ public interface ConfigurationSection {
      *
      * @param path Path to check for existence.
      * @return True if this section contains the requested path, either via
-     *     default or being set.
+     * default or being set.
      * @throws IllegalArgumentException Thrown when path is null.
      */
     public boolean contains(@NotNull String path);
@@ -74,9 +75,9 @@ public interface ConfigurationSection {
      * If a boolean parameter of false has been specified, true will only be
      * returned if there is a set value for the specified path.
      *
-     * @param path Path to check for existence.
+     * @param path          Path to check for existence.
      * @param ignoreDefault Whether or not to ignore if a default value for the
-     * specified path exists.
+     *                      specified path exists.
      * @return True if this section contains the requested path, or if a default
      * value exist and the boolean parameter for this method is true.
      * @throws IllegalArgumentException Thrown when path is null.
@@ -92,7 +93,7 @@ public interface ConfigurationSection {
      *
      * @param path Path to check for existence.
      * @return True if this section contains the requested path, regardless of
-     *     having a default.
+     * having a default.
      * @throws IllegalArgumentException Thrown when path is null.
      */
     public boolean isSet(@NotNull String path);
@@ -178,7 +179,7 @@ public interface ConfigurationSection {
      * {@link Configuration}.
      *
      * @param path Path of the Object to get.
-     * @param def The default value to return if the path is not found.
+     * @param def  The default value to return if the path is not found.
      * @return Requested Object.
      */
     @Contract("_, !null -> !null")
@@ -196,7 +197,7 @@ public interface ConfigurationSection {
      * you to store {@link Configuration}s or {@link ConfigurationSection}s,
      * please use {@link #createSection(java.lang.String)} for that.
      *
-     * @param path Path of the object to set.
+     * @param path  Path of the object to set.
      * @param value New value to set the path to.
      */
     public void set(@NotNull String path, @Nullable Object value);
@@ -223,13 +224,14 @@ public interface ConfigurationSection {
      * be orphaned.
      *
      * @param path Path to create the section at.
-     * @param map The values to used.
+     * @param map  The values to used.
      * @return Newly created section
      */
     @NotNull
     public ConfigurationSection createSection(@NotNull String path, @NotNull Map<?, ?> map);
 
     // Primitives
+
     /**
      * Gets the requested String by path.
      * <p>
@@ -252,8 +254,8 @@ public interface ConfigurationSection {
      * {@link Configuration}.
      *
      * @param path Path of the String to get.
-     * @param def The default value to return if the path is not found or is
-     *     not a String.
+     * @param def  The default value to return if the path is not found or is
+     *             not a String.
      * @return Requested String.
      */
     @Contract("_, !null -> !null")
@@ -293,8 +295,8 @@ public interface ConfigurationSection {
      * {@link Configuration}.
      *
      * @param path Path of the int to get.
-     * @param def The default value to return if the path is not found or is
-     *     not an int.
+     * @param def  The default value to return if the path is not found or is
+     *             not an int.
      * @return Requested int.
      */
     public int getInt(@NotNull String path, int def);
@@ -333,8 +335,8 @@ public interface ConfigurationSection {
      * {@link Configuration}.
      *
      * @param path Path of the boolean to get.
-     * @param def The default value to return if the path is not found or is
-     *     not a boolean.
+     * @param def  The default value to return if the path is not found or is
+     *             not a boolean.
      * @return Requested boolean.
      */
     public boolean getBoolean(@NotNull String path, boolean def);
@@ -373,8 +375,8 @@ public interface ConfigurationSection {
      * {@link Configuration}.
      *
      * @param path Path of the double to get.
-     * @param def The default value to return if the path is not found or is
-     *     not a double.
+     * @param def  The default value to return if the path is not found or is
+     *             not a double.
      * @return Requested double.
      */
     public double getDouble(@NotNull String path, double def);
@@ -413,8 +415,8 @@ public interface ConfigurationSection {
      * {@link Configuration}.
      *
      * @param path Path of the long to get.
-     * @param def The default value to return if the path is not found or is
-     *     not a long.
+     * @param def  The default value to return if the path is not found or is
+     *             not a long.
      * @return Requested long.
      */
     public long getLong(@NotNull String path, long def);
@@ -433,6 +435,7 @@ public interface ConfigurationSection {
     public boolean isLong(@NotNull String path);
 
     // Java
+
     /**
      * Gets the requested List by path.
      * <p>
@@ -455,8 +458,8 @@ public interface ConfigurationSection {
      * {@link Configuration}.
      *
      * @param path Path of the List to get.
-     * @param def The default value to return if the path is not found or is
-     *     not a List.
+     * @param def  The default value to return if the path is not found or is
+     *             not a List.
      * @return Requested List.
      */
     @Contract("_, !null -> !null")
@@ -637,9 +640,10 @@ public interface ConfigurationSection {
     public List<Map<?, ?>> getMapList(@NotNull String path);
 
     // Bukkit
+
     /**
      * Gets the requested object at the given path.
-     *
+     * <p>
      * If the Object does not exist but a default value has been specified, this
      * will return the default value. If the Object does not exist and no
      * default value was specified, this will return null.
@@ -650,8 +654,8 @@ public interface ConfigurationSection {
      * Objects to Strings. However, #getObject(path, Boolean.class) is
      * equivalent to {@link #getBoolean(String) #getBoolean(path)} for example.
      *
-     * @param <T> the type of the requested object
-     * @param path the path to the object.
+     * @param <T>   the type of the requested object
+     * @param path  the path to the object.
      * @param clazz the type of the requested object
      * @return Requested object
      */
@@ -661,7 +665,7 @@ public interface ConfigurationSection {
     /**
      * Gets the requested object at the given path, returning a default value if
      * not found
-     *
+     * <p>
      * If the Object does not exist then the specified default value will
      * returned regardless of if a default has been identified in the root
      * {@link Configuration}.
@@ -674,11 +678,11 @@ public interface ConfigurationSection {
      * Boolean.class, def) is equivalent to {@link #getBoolean(String, boolean) #getBoolean(path,
      * def)} for example.
      *
-     * @param <T> the type of the requested object
-     * @param path the path to the object.
+     * @param <T>   the type of the requested object
+     * @param path  the path to the object.
      * @param clazz the type of the requested object
-     * @param def the default object to return if the object is not present at
-     * the path
+     * @param def   the default object to return if the object is not present at
+     *              the path
      * @return Requested object
      */
     @Contract("_, _, !null -> !null")
@@ -688,13 +692,13 @@ public interface ConfigurationSection {
     /**
      * Gets the requested {@link ConfigurationSerializable} object at the given
      * path.
-     *
+     * <p>
      * If the Object does not exist but a default value has been specified, this
      * will return the default value. If the Object does not exist and no
      * default value was specified, this will return null.
      *
-     * @param <T> the type of {@link ConfigurationSerializable}
-     * @param path the path to the object.
+     * @param <T>   the type of {@link ConfigurationSerializable}
+     * @param path  the path to the object.
      * @param clazz the type of {@link ConfigurationSerializable}
      * @return Requested {@link ConfigurationSerializable} object
      */
@@ -704,16 +708,16 @@ public interface ConfigurationSection {
     /**
      * Gets the requested {@link ConfigurationSerializable} object at the given
      * path, returning a default value if not found
-     *
+     * <p>
      * If the Object does not exist then the specified default value will
      * returned regardless of if a default has been identified in the root
      * {@link Configuration}.
      *
-     * @param <T> the type of {@link ConfigurationSerializable}
-     * @param path the path to the object.
+     * @param <T>   the type of {@link ConfigurationSerializable}
+     * @param path  the path to the object.
      * @param clazz the type of {@link ConfigurationSerializable}
-     * @param def the default object to return if the object is not present at
-     * the path
+     * @param def   the default object to return if the object is not present at
+     *              the path
      * @return Requested {@link ConfigurationSerializable} object
      */
     @Contract("_, _, !null -> !null")
@@ -742,8 +746,8 @@ public interface ConfigurationSection {
      * {@link Configuration}.
      *
      * @param path Path of the Vector to get.
-     * @param def The default value to return if the path is not found or is
-     *     not a Vector.
+     * @param def  The default value to return if the path is not found or is
+     *             not a Vector.
      * @return Requested Vector.
      */
     @Contract("_, !null -> !null")
@@ -786,8 +790,8 @@ public interface ConfigurationSection {
      * root {@link Configuration}.
      *
      * @param path Path of the OfflinePlayer to get.
-     * @param def The default value to return if the path is not found or is
-     *     not an OfflinePlayer.
+     * @param def  The default value to return if the path is not found or is
+     *             not an OfflinePlayer.
      * @return Requested OfflinePlayer.
      */
     @Contract("_, !null -> !null")
@@ -829,8 +833,8 @@ public interface ConfigurationSection {
      * {@link Configuration}.
      *
      * @param path Path of the ItemStack to get.
-     * @param def The default value to return if the path is not found or is
-     *     not an ItemStack.
+     * @param def  The default value to return if the path is not found or is
+     *             not an ItemStack.
      * @return Requested ItemStack.
      */
     @Contract("_, !null -> !null")
@@ -872,8 +876,8 @@ public interface ConfigurationSection {
      * {@link Configuration}.
      *
      * @param path Path of the Color to get.
-     * @param def The default value to return if the path is not found or is
-     *     not a Color.
+     * @param def  The default value to return if the path is not found or is
+     *             not a Color.
      * @return Requested Color.
      */
     @Contract("_, !null -> !null")
@@ -915,8 +919,8 @@ public interface ConfigurationSection {
      * {@link Configuration}.
      *
      * @param path Path of the Location to get.
-     * @param def The default value to return if the path is not found or is not
-     * a Location.
+     * @param def  The default value to return if the path is not found or is not
+     *             a Location.
      * @return Requested Location.
      */
     @Contract("_, !null -> !null")
@@ -991,7 +995,7 @@ public interface ConfigurationSection {
      * this will create a new section at the path, replacing anything that may
      * have existed there previously.
      *
-     * @param path Path of the value to set.
+     * @param path  Path of the value to set.
      * @param value Value to set the default to.
      * @throws IllegalArgumentException Thrown if path is null.
      */
@@ -1036,9 +1040,9 @@ public interface ConfigurationSection {
      * Some implementations may have limitations on what persists. See their
      * individual javadocs for details.
      *
-     * @param path Path of the comments to set.
+     * @param path     Path of the comments to set.
      * @param comments New comments to set at the path, every entry represents
-     * one line.
+     *                 one line.
      */
     public void setComments(@NotNull String path, @Nullable List<String> comments);
 
@@ -1053,9 +1057,9 @@ public interface ConfigurationSection {
      * Some implementations may have limitations on what persists. See their
      * individual javadocs for details.
      *
-     * @param path Path of the comments to set.
+     * @param path     Path of the comments to set.
      * @param comments New comments to set at the path, every entry represents
-     * one line.
+     *                 one line.
      */
     public void setInlineComments(@NotNull String path, @Nullable List<String> comments);
 }

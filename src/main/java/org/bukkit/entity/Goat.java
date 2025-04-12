@@ -35,7 +35,7 @@ public interface Goat extends Animals {
 
     /**
      * Gets if this is a screaming goat.
-     *
+     * <p>
      * A screaming goat makes screaming sounds and rams more often. They do not
      * offer home loans.
      *
@@ -45,7 +45,7 @@ public interface Goat extends Animals {
 
     /**
      * Sets if this is a screaming goat.
-     *
+     * <p>
      * A screaming goat makes screaming sounds and rams more often. They do not
      * offer home loans.
      *

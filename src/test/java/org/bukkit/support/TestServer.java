@@ -1,23 +1,20 @@
 package org.bukkit.support;
 
-import static org.mockito.Mockito.*;
 import com.google.common.base.Preconditions;
+import org.bukkit.*;
+import org.bukkit.command.SimpleCommandMap;
+import org.bukkit.plugin.PluginManager;
+import org.bukkit.plugin.SimplePluginManager;
+import org.jetbrains.annotations.NotNull;
+
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Locale;
 import java.util.Map;
 import java.util.logging.Logger;
 import java.util.stream.Stream;
-import org.bukkit.Bukkit;
-import org.bukkit.Keyed;
-import org.bukkit.NamespacedKey;
-import org.bukkit.Registry;
-import org.bukkit.Server;
-import org.bukkit.UnsafeValues;
-import org.bukkit.command.SimpleCommandMap;
-import org.bukkit.plugin.PluginManager;
-import org.bukkit.plugin.SimplePluginManager;
-import org.jetbrains.annotations.NotNull;
+
+import static org.mockito.Mockito.*;
 
 public final class TestServer {
 

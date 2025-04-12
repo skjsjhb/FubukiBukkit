@@ -34,14 +34,9 @@ public class EntityPortalEvent extends EntityTeleportEvent {
         this.creationRadius = creationRadius;
     }
 
-    /**
-     * Set the Block radius to search in for available portals.
-     *
-     * @param searchRadius the radius in which to search for a portal from the
-     * location
-     */
-    public void setSearchRadius(int searchRadius) {
-        this.searchRadius = searchRadius;
+    @NotNull
+    public static HandlerList getHandlerList() {
+        return handlers;
     }
 
     /**
@@ -51,6 +46,16 @@ public class EntityPortalEvent extends EntityTeleportEvent {
      */
     public int getSearchRadius() {
         return searchRadius;
+    }
+
+    /**
+     * Set the Block radius to search in for available portals.
+     *
+     * @param searchRadius the radius in which to search for a portal from the
+     *                     location
+     */
+    public void setSearchRadius(int searchRadius) {
+        this.searchRadius = searchRadius;
     }
 
     /**
@@ -68,36 +73,19 @@ public class EntityPortalEvent extends EntityTeleportEvent {
      * not.
      *
      * @param canCreatePortal Sets whether there should be a destination portal
-     * created
+     *                        created
      */
     public void setCanCreatePortal(boolean canCreatePortal) {
         this.canCreatePortal = canCreatePortal;
     }
 
     /**
-     * Sets the maximum radius the world is searched for a free space from the
-     * given location.
-     *
-     * If enough free space is found then the portal will be created there, if
-     * not it will force create with air-space at the target location.
-     *
-     * Does not apply to end portal target platforms which will always appear at
-     * the target location.
-     *
-     * @param creationRadius the radius in which to create a portal from the
-     * location
-     */
-    public void setCreationRadius(int creationRadius) {
-        this.creationRadius = creationRadius;
-    }
-
-    /**
      * Gets the maximum radius the world is searched for a free space from the
      * given location.
-     *
+     * <p>
      * If enough free space is found then the portal will be created there, if
      * not it will force create with air-space at the target location.
-     *
+     * <p>
      * Does not apply to end portal target platforms which will always appear at
      * the target location.
      *
@@ -107,14 +95,26 @@ public class EntityPortalEvent extends EntityTeleportEvent {
         return creationRadius;
     }
 
-    @NotNull
-    @Override
-    public HandlerList getHandlers() {
-        return handlers;
+    /**
+     * Sets the maximum radius the world is searched for a free space from the
+     * given location.
+     * <p>
+     * If enough free space is found then the portal will be created there, if
+     * not it will force create with air-space at the target location.
+     * <p>
+     * Does not apply to end portal target platforms which will always appear at
+     * the target location.
+     *
+     * @param creationRadius the radius in which to create a portal from the
+     *                       location
+     */
+    public void setCreationRadius(int creationRadius) {
+        this.creationRadius = creationRadius;
     }
 
     @NotNull
-    public static HandlerList getHandlerList() {
+    @Override
+    public HandlerList getHandlers() {
         return handlers;
     }
 }

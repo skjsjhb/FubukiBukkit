@@ -30,6 +30,11 @@ public class BlockSpreadEvent extends BlockFormEvent {
         this.source = source;
     }
 
+    @NotNull
+    public static HandlerList getHandlerList() {
+        return handlers;
+    }
+
     /**
      * Gets the source block involved in this event.
      *
@@ -43,11 +48,6 @@ public class BlockSpreadEvent extends BlockFormEvent {
     @NotNull
     @Override
     public HandlerList getHandlers() {
-        return handlers;
-    }
-
-    @NotNull
-    public static HandlerList getHandlerList() {
         return handlers;
     }
 }

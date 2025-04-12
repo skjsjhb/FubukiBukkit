@@ -6,19 +6,19 @@ package org.bukkit.entity;
 public interface Breedable extends Ageable {
 
     /**
+     * Gets the current agelock.
+     *
+     * @return the current agelock
+     */
+    public boolean getAgeLock();
+
+    /**
      * Lock the age of the animal, setting this will prevent the animal from
      * maturing or getting ready for mating.
      *
      * @param lock new lock
      */
     public void setAgeLock(boolean lock);
-
-    /**
-     * Gets the current agelock.
-     *
-     * @return the current agelock
-     */
-    public boolean getAgeLock();
 
     /**
      * Return the ability to breed of the animal.

@@ -1,128 +1,46 @@
 package org.bukkit.block;
 
-import java.util.function.Consumer;
-import org.bukkit.Keyed;
-import org.bukkit.Material;
-import org.bukkit.NamespacedKey;
-import org.bukkit.Registry;
-import org.bukkit.Translatable;
-import org.bukkit.World;
-import org.bukkit.block.data.Ageable;
-import org.bukkit.block.data.AnaloguePowerable;
-import org.bukkit.block.data.Bisected;
-import org.bukkit.block.data.BlockData;
-import org.bukkit.block.data.Brushable;
-import org.bukkit.block.data.Directional;
-import org.bukkit.block.data.Hatchable;
-import org.bukkit.block.data.Levelled;
-import org.bukkit.block.data.Lightable;
-import org.bukkit.block.data.MultipleFacing;
-import org.bukkit.block.data.Orientable;
-import org.bukkit.block.data.Powerable;
-import org.bukkit.block.data.Rail;
-import org.bukkit.block.data.Rotatable;
-import org.bukkit.block.data.Snowable;
-import org.bukkit.block.data.Waterlogged;
-import org.bukkit.block.data.type.AmethystCluster;
-import org.bukkit.block.data.type.Bamboo;
+import org.bukkit.*;
+import org.bukkit.block.data.*;
+import org.bukkit.block.data.type.*;
 import org.bukkit.block.data.type.Barrel;
 import org.bukkit.block.data.type.Bed;
 import org.bukkit.block.data.type.Beehive;
 import org.bukkit.block.data.type.Bell;
-import org.bukkit.block.data.type.BigDripleaf;
 import org.bukkit.block.data.type.BrewingStand;
-import org.bukkit.block.data.type.BubbleColumn;
-import org.bukkit.block.data.type.Cake;
 import org.bukkit.block.data.type.CalibratedSculkSensor;
 import org.bukkit.block.data.type.Campfire;
-import org.bukkit.block.data.type.Candle;
-import org.bukkit.block.data.type.CaveVines;
-import org.bukkit.block.data.type.CaveVinesPlant;
-import org.bukkit.block.data.type.Chain;
 import org.bukkit.block.data.type.Chest;
 import org.bukkit.block.data.type.ChiseledBookshelf;
-import org.bukkit.block.data.type.Cocoa;
 import org.bukkit.block.data.type.CommandBlock;
 import org.bukkit.block.data.type.Comparator;
-import org.bukkit.block.data.type.CopperBulb;
-import org.bukkit.block.data.type.CoralWallFan;
 import org.bukkit.block.data.type.Crafter;
 import org.bukkit.block.data.type.CreakingHeart;
 import org.bukkit.block.data.type.DaylightDetector;
 import org.bukkit.block.data.type.DecoratedPot;
 import org.bukkit.block.data.type.Dispenser;
-import org.bukkit.block.data.type.Door;
-import org.bukkit.block.data.type.Dripleaf;
-import org.bukkit.block.data.type.EndPortalFrame;
 import org.bukkit.block.data.type.EnderChest;
-import org.bukkit.block.data.type.Farmland;
-import org.bukkit.block.data.type.Fence;
-import org.bukkit.block.data.type.Fire;
 import org.bukkit.block.data.type.Furnace;
-import org.bukkit.block.data.type.Gate;
-import org.bukkit.block.data.type.GlassPane;
-import org.bukkit.block.data.type.GlowLichen;
-import org.bukkit.block.data.type.Grindstone;
-import org.bukkit.block.data.type.HangingMoss;
 import org.bukkit.block.data.type.HangingSign;
 import org.bukkit.block.data.type.Hopper;
 import org.bukkit.block.data.type.Jigsaw;
 import org.bukkit.block.data.type.Jukebox;
-import org.bukkit.block.data.type.Ladder;
-import org.bukkit.block.data.type.Lantern;
-import org.bukkit.block.data.type.LeafLitter;
-import org.bukkit.block.data.type.Leaves;
 import org.bukkit.block.data.type.Lectern;
-import org.bukkit.block.data.type.Light;
-import org.bukkit.block.data.type.LightningRod;
-import org.bukkit.block.data.type.MangrovePropagule;
-import org.bukkit.block.data.type.MossyCarpet;
-import org.bukkit.block.data.type.NoteBlock;
-import org.bukkit.block.data.type.Observer;
-import org.bukkit.block.data.type.PinkPetals;
-import org.bukkit.block.data.type.Piston;
-import org.bukkit.block.data.type.PistonHead;
-import org.bukkit.block.data.type.PitcherCrop;
-import org.bukkit.block.data.type.PointedDripstone;
-import org.bukkit.block.data.type.RedstoneRail;
-import org.bukkit.block.data.type.RedstoneWallTorch;
-import org.bukkit.block.data.type.RedstoneWire;
-import org.bukkit.block.data.type.Repeater;
-import org.bukkit.block.data.type.ResinClump;
-import org.bukkit.block.data.type.RespawnAnchor;
-import org.bukkit.block.data.type.Sapling;
-import org.bukkit.block.data.type.Scaffolding;
 import org.bukkit.block.data.type.SculkCatalyst;
 import org.bukkit.block.data.type.SculkSensor;
 import org.bukkit.block.data.type.SculkShrieker;
-import org.bukkit.block.data.type.SculkVein;
-import org.bukkit.block.data.type.SeaPickle;
 import org.bukkit.block.data.type.Sign;
 import org.bukkit.block.data.type.Skull;
-import org.bukkit.block.data.type.Slab;
-import org.bukkit.block.data.type.SmallDripleaf;
-import org.bukkit.block.data.type.Snow;
-import org.bukkit.block.data.type.Stairs;
-import org.bukkit.block.data.type.StructureBlock;
-import org.bukkit.block.data.type.Switch;
-import org.bukkit.block.data.type.TNT;
-import org.bukkit.block.data.type.TechnicalPiston;
 import org.bukkit.block.data.type.TestBlock;
-import org.bukkit.block.data.type.TrapDoor;
 import org.bukkit.block.data.type.TrialSpawner;
-import org.bukkit.block.data.type.Tripwire;
-import org.bukkit.block.data.type.TripwireHook;
-import org.bukkit.block.data.type.TurtleEgg;
 import org.bukkit.block.data.type.Vault;
-import org.bukkit.block.data.type.Wall;
-import org.bukkit.block.data.type.WallHangingSign;
-import org.bukkit.block.data.type.WallSign;
-import org.bukkit.block.data.type.WallSkull;
 import org.bukkit.inventory.ItemType;
 import org.bukkit.registry.RegistryAware;
 import org.jetbrains.annotations.ApiStatus;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
+
+import java.util.function.Consumer;
 
 /**
  * While this API is in a public interface, it is not intended for use by
@@ -133,57 +51,6 @@ import org.jetbrains.annotations.Nullable;
  */
 @ApiStatus.Internal
 public interface BlockType extends Keyed, Translatable, RegistryAware {
-
-    /**
-     * Typed represents a subtype of {@link BlockType}s that have a known block
-     * data type at compile time.
-     *
-     * @param <B> the generic type of the block data that represents the block
-     * type.
-     */
-    interface Typed<B extends BlockData> extends BlockType {
-
-        /**
-         * Gets the BlockData class of this BlockType
-         *
-         * @return the BlockData class of this BlockType
-         */
-        @NotNull
-        @Override
-        Class<B> getBlockDataClass();
-
-        /**
-         * Creates a new {@link BlockData} instance for this block type, with
-         * all properties initialized to unspecified defaults.
-         *
-         * @param consumer consumer to run on new instance before returning
-         * @return new data instance
-         */
-        @NotNull
-        B createBlockData(@Nullable Consumer<? super B> consumer);
-
-        /**
-         * Creates a new {@link BlockData} instance for this block type, with all
-         * properties initialized to unspecified defaults.
-         *
-         * @return new data instance
-         */
-        @NotNull
-        @Override
-        B createBlockData();
-
-        /**
-         * Creates a new {@link BlockData} instance for this block type, with all
-         * properties initialized to unspecified defaults, except for those provided
-         * in data.
-         *
-         * @param data data string
-         * @return new data instance
-         * @throws IllegalArgumentException if the specified data is not valid
-         */
-        @NotNull
-        B createBlockData(@Nullable String data);
-    }
 
     //<editor-fold desc="BlockTypes" defaultstate="collapsed">
     BlockType.Typed<BlockData> AIR = getBlockType("air");
@@ -3438,13 +3305,13 @@ public interface BlockType extends Keyed, Translatable, RegistryAware {
     BlockType.Typed<BlockData> POTTED_OPEN_EYEBLOSSOM = getBlockType("potted_open_eyeblossom");
     BlockType.Typed<BlockData> POTTED_CLOSED_EYEBLOSSOM = getBlockType("potted_closed_eyeblossom");
     BlockType.Typed<BlockData> FIREFLY_BUSH = getBlockType("firefly_bush");
-    //</editor-fold>
 
     @NotNull
     private static <B extends BlockType> B getBlockType(@NotNull String key) {
         // Cast instead of using BlockType#typed, since block type can be a mock during testing and would return null
         return (B) Registry.BLOCK.getOrThrow(NamespacedKey.minecraft(key));
     }
+    //</editor-fold>
 
     /**
      * Yields this block type as a typed version of itself with a plain {@link BlockData} representing it.
@@ -3458,7 +3325,7 @@ public interface BlockType extends Keyed, Translatable, RegistryAware {
      * Yields this block type as a typed version of itself with a specific {@link BlockData} representing it.
      *
      * @param blockDataType the class type of the {@link BlockData} to type this {@link BlockType} with.
-     * @param <B>          the generic type of the block data to type this block type with.
+     * @param <B>           the generic type of the block data to type this block type with.
      * @return the typed block type.
      */
     @NotNull
@@ -3644,4 +3511,55 @@ public interface BlockType extends Keyed, Translatable, RegistryAware {
     @Nullable
     @Deprecated(since = "1.20.6")
     Material asMaterial();
+
+    /**
+     * Typed represents a subtype of {@link BlockType}s that have a known block
+     * data type at compile time.
+     *
+     * @param <B> the generic type of the block data that represents the block
+     *            type.
+     */
+    interface Typed<B extends BlockData> extends BlockType {
+
+        /**
+         * Gets the BlockData class of this BlockType
+         *
+         * @return the BlockData class of this BlockType
+         */
+        @NotNull
+        @Override
+        Class<B> getBlockDataClass();
+
+        /**
+         * Creates a new {@link BlockData} instance for this block type, with
+         * all properties initialized to unspecified defaults.
+         *
+         * @param consumer consumer to run on new instance before returning
+         * @return new data instance
+         */
+        @NotNull
+        B createBlockData(@Nullable Consumer<? super B> consumer);
+
+        /**
+         * Creates a new {@link BlockData} instance for this block type, with all
+         * properties initialized to unspecified defaults.
+         *
+         * @return new data instance
+         */
+        @NotNull
+        @Override
+        B createBlockData();
+
+        /**
+         * Creates a new {@link BlockData} instance for this block type, with all
+         * properties initialized to unspecified defaults, except for those provided
+         * in data.
+         *
+         * @param data data string
+         * @return new data instance
+         * @throws IllegalArgumentException if the specified data is not valid
+         */
+        @NotNull
+        B createBlockData(@Nullable String data);
+    }
 }

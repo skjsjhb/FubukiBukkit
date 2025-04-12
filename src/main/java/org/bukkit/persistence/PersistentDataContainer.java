@@ -1,9 +1,10 @@
 package org.bukkit.persistence;
 
-import java.util.Set;
 import org.bukkit.NamespacedKey;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
+
+import java.util.Set;
 
 /**
  * This interface represents a map like object, capable of storing custom tags
@@ -19,18 +20,17 @@ public interface PersistentDataContainer {
      * value the {@link PersistentDataHolder} may have stored under the provided
      * key.
      *
-     * @param key the key this value will be stored under
-     * @param type the type this tag uses
+     * @param key   the key this value will be stored under
+     * @param type  the type this tag uses
      * @param value the value to store in the tag
-     * @param <P> the generic java type of the tag value
-     * @param <C> the generic type of the object to store
-     *
+     * @param <P>   the generic java type of the tag value
+     * @param <C>   the generic type of the object to store
      * @throws IllegalArgumentException if the key is null
      * @throws IllegalArgumentException if the type is null
      * @throws IllegalArgumentException if the value is null. Removing a tag should
-     * be done using {@link #remove(NamespacedKey)}
+     *                                  be done using {@link #remove(NamespacedKey)}
      * @throws IllegalArgumentException if no suitable adapter was found for
-     * the {@link PersistentDataType#getPrimitiveType()}
+     *                                  the {@link PersistentDataType#getPrimitiveType()}
      */
     <P, C> void set(@NotNull NamespacedKey key, @NotNull PersistentDataType<P, C> type, @NotNull C value);
 
@@ -52,16 +52,14 @@ public interface PersistentDataContainer {
      * tags, like the display name, will not work as the values are stored
      * using your namespace.
      *
-     * @param key the key the value is stored under
+     * @param key  the key the value is stored under
      * @param type the type the primative stored value has to match
-     * @param <P> the generic type of the stored primitive
-     * @param <C> the generic type of the eventually created complex object
-     *
+     * @param <P>  the generic type of the stored primitive
+     * @param <C>  the generic type of the eventually created complex object
      * @return if a value with the provided key and type exists
-     *
      * @throws IllegalArgumentException if the key to look up is null
      * @throws IllegalArgumentException if the type to cast the found object to is
-     * null
+     *                                  null
      */
     <P, C> boolean has(@NotNull NamespacedKey key, @NotNull PersistentDataType<P, C> type);
 
@@ -77,9 +75,7 @@ public interface PersistentDataContainer {
      * namespace.
      *
      * @param key the key the value is stored under
-     *
      * @return if a value with the provided key exists
-     *
      * @throws IllegalArgumentException if the key to look up is null
      */
     boolean has(@NotNull NamespacedKey key);
@@ -88,22 +84,20 @@ public interface PersistentDataContainer {
      * Returns the metadata value that is stored on the
      * {@link PersistentDataHolder} instance.
      *
-     * @param key the key to look up in the custom tag map
+     * @param key  the key to look up in the custom tag map
      * @param type the type the value must have and will be casted to
-     * @param <P> the generic type of the stored primitive
-     * @param <C> the generic type of the eventually created complex object
-     *
+     * @param <P>  the generic type of the stored primitive
+     * @param <C>  the generic type of the eventually created complex object
      * @return the value or {@code null} if no value was mapped under the given
      * value
-     *
      * @throws IllegalArgumentException if the key to look up is null
      * @throws IllegalArgumentException if the type to cast the found object to is
-     * null
+     *                                  null
      * @throws IllegalArgumentException if a value exists under the given key,
-     * but cannot be accessed using the given type
+     *                                  but cannot be accessed using the given type
      * @throws IllegalArgumentException if no suitable adapter was found for
-     * the {@link
-     * PersistentDataType#getPrimitiveType()}
+     *                                  the {@link
+     *                                  PersistentDataType#getPrimitiveType()}
      */
     @Nullable
     <P, C> C get(@NotNull NamespacedKey key, @NotNull PersistentDataType<P, C> type);
@@ -113,23 +107,21 @@ public interface PersistentDataContainer {
      * {@link PersistentDataHolder} instance. If the value does not exist in the
      * container, the default value provided is returned.
      *
-     * @param key the key to look up in the custom tag map
-     * @param type the type the value must have and will be casted to
+     * @param key          the key to look up in the custom tag map
+     * @param type         the type the value must have and will be casted to
      * @param defaultValue the default value to return if no value was found for
-     * the provided key
-     * @param <P> the generic type of the stored primitive
-     * @param <C> the generic type of the eventually created complex object
-     *
+     *                     the provided key
+     * @param <P>          the generic type of the stored primitive
+     * @param <C>          the generic type of the eventually created complex object
      * @return the value or the default value if no value was mapped under the
      * given key
-     *
      * @throws IllegalArgumentException if the key to look up is null
      * @throws IllegalArgumentException if the type to cast the found object to is
-     * null
+     *                                  null
      * @throws IllegalArgumentException if a value exists under the given key,
-     * but cannot be accessed using the given type
+     *                                  but cannot be accessed using the given type
      * @throws IllegalArgumentException if no suitable adapter was found for
-     * the {@link PersistentDataType#getPrimitiveType()}
+     *                                  the {@link PersistentDataType#getPrimitiveType()}
      */
     @NotNull
     <P, C> C getOrDefault(@NotNull NamespacedKey key, @NotNull PersistentDataType<P, C> type, @NotNull C defaultValue);
@@ -137,7 +129,7 @@ public interface PersistentDataContainer {
     /**
      * Get the set of keys present on this {@link PersistentDataContainer}
      * instance.
-     *
+     * <p>
      * Any changes made to the returned set will not be reflected on the
      * instance.
      *
@@ -150,7 +142,6 @@ public interface PersistentDataContainer {
      * Removes a custom key from the {@link PersistentDataHolder} instance.
      *
      * @param key the key to remove
-     *
      * @throws IllegalArgumentException if the provided key is null
      */
     void remove(@NotNull NamespacedKey key);
@@ -172,7 +163,6 @@ public interface PersistentDataContainer {
      *
      * @param other   the container to copy to
      * @param replace whether to replace any matching values in the target container
-     *
      * @throws IllegalArgumentException if the other container is null
      */
     void copyTo(@NotNull PersistentDataContainer other, boolean replace);

@@ -30,7 +30,7 @@ public interface Firework extends Projectile {
      * they are looking.
      *
      * @param entity the entity to which the firework should be attached, or
-     * null to remove the attached entity
+     *               null to remove the attached entity
      * @return true if the entity could be attached, false if the firework was
      * already detonated
      */
@@ -96,7 +96,7 @@ public interface Firework extends Projectile {
 
     /**
      * Gets if the firework was shot at an angle (i.e. from a crossbow).
-     *
+     * <p>
      * A firework which was not shot at an angle will fly straight upwards.
      *
      * @return shot at angle status
@@ -105,7 +105,7 @@ public interface Firework extends Projectile {
 
     /**
      * Sets if the firework was shot at an angle (i.e. from a crossbow).
-     *
+     * <p>
      * A firework which was not shot at an angle will fly straight upwards.
      *
      * @param shotAtAngle the new shotAtAngle

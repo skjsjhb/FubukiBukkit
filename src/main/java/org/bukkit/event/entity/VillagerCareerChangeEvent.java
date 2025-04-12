@@ -9,14 +9,19 @@ import org.jetbrains.annotations.NotNull;
 public class VillagerCareerChangeEvent extends EntityEvent implements Cancellable {
 
     private static final HandlerList handlers = new HandlerList();
+    private final ChangeReason reason;
     private boolean cancelled;
     private Profession profession;
-    private final ChangeReason reason;
 
     public VillagerCareerChangeEvent(@NotNull Villager what, @NotNull Profession profession, @NotNull ChangeReason reason) {
         super(what);
         this.profession = profession;
         this.reason = reason;
+    }
+
+    @NotNull
+    public static HandlerList getHandlerList() {
+        return handlers;
     }
 
     @NotNull
@@ -67,11 +72,6 @@ public class VillagerCareerChangeEvent extends EntityEvent implements Cancellabl
     @NotNull
     @Override
     public HandlerList getHandlers() {
-        return handlers;
-    }
-
-    @NotNull
-    public static HandlerList getHandlerList() {
         return handlers;
     }
 

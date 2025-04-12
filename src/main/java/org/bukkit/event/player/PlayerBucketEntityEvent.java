@@ -15,11 +15,11 @@ import org.jetbrains.annotations.NotNull;
 public class PlayerBucketEntityEvent extends PlayerEvent implements Cancellable {
 
     private static final HandlerList handlers = new HandlerList();
-    private boolean cancelled;
     private final Entity entity;
     private final ItemStack originalBucket;
     private final ItemStack entityBucket;
     private final EquipmentSlot hand;
+    private boolean cancelled;
 
     public PlayerBucketEntityEvent(@NotNull Player player, @NotNull Entity entity, @NotNull ItemStack originalBucket, @NotNull ItemStack entityBucket, @NotNull EquipmentSlot hand) {
         super(player);
@@ -27,6 +27,11 @@ public class PlayerBucketEntityEvent extends PlayerEvent implements Cancellable 
         this.originalBucket = originalBucket;
         this.entityBucket = entityBucket;
         this.hand = hand;
+    }
+
+    @NotNull
+    public static HandlerList getHandlerList() {
+        return handlers;
     }
 
     /**
@@ -41,7 +46,7 @@ public class PlayerBucketEntityEvent extends PlayerEvent implements Cancellable 
 
     /**
      * Gets the bucket used to capture the {@link Entity}.
-     *
+     * <p>
      * This refers to the bucket clicked with, eg {@link Material#WATER_BUCKET}.
      *
      * @return The used bucket
@@ -53,7 +58,7 @@ public class PlayerBucketEntityEvent extends PlayerEvent implements Cancellable 
 
     /**
      * Gets the bucket that the {@link Entity} will be put into.
-     *
+     * <p>
      * This refers to the bucket with the entity, eg
      * {@link Material#PUFFERFISH_BUCKET}.
      *
@@ -87,11 +92,6 @@ public class PlayerBucketEntityEvent extends PlayerEvent implements Cancellable 
     @NotNull
     @Override
     public HandlerList getHandlers() {
-        return handlers;
-    }
-
-    @NotNull
-    public static HandlerList getHandlerList() {
         return handlers;
     }
 }

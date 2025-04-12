@@ -21,6 +21,11 @@ public class EntityPoseChangeEvent extends EntityEvent {
         this.pose = pose;
     }
 
+    @NotNull
+    public static HandlerList getHandlerList() {
+        return handlers;
+    }
+
     /**
      * Gets the entity's new pose.
      *
@@ -34,11 +39,6 @@ public class EntityPoseChangeEvent extends EntityEvent {
     @NotNull
     @Override
     public HandlerList getHandlers() {
-        return handlers;
-    }
-
-    @NotNull
-    public static HandlerList getHandlerList() {
         return handlers;
     }
 }

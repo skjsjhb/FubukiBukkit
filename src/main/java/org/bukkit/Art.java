@@ -2,12 +2,13 @@ package org.bukkit;
 
 import com.google.common.base.Preconditions;
 import com.google.common.collect.Lists;
-import java.util.Locale;
 import org.bukkit.packs.DataPack;
 import org.bukkit.registry.RegistryAware;
 import org.bukkit.util.OldEnum;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
+
+import java.util.Locale;
 
 /**
  * Represents the art on a painting.
@@ -76,41 +77,6 @@ public interface Art extends OldEnum<Art>, Keyed, RegistryAware {
     }
 
     /**
-     * Gets the width of the painting, in blocks
-     *
-     * @return The width of the painting, in blocks
-     */
-    int getBlockWidth();
-
-    /**
-     * Gets the height of the painting, in blocks
-     *
-     * @return The height of the painting, in blocks
-     */
-    int getBlockHeight();
-
-    /**
-     * {@inheritDoc}
-     *
-     * @see #getKeyOrThrow()
-     * @see #isRegistered()
-     * @deprecated A key might not always be present, use {@link #getKeyOrThrow()} instead.
-     */
-    @NotNull
-    @Override
-    @Deprecated(since = "1.21.4")
-    NamespacedKey getKey();
-
-    /**
-     * Get the ID of this painting.
-     *
-     * @return The ID of this painting
-     * @deprecated Magic value
-     */
-    @Deprecated(since = "1.6.2")
-    int getId();
-
-    /**
      * Get a painting by its numeric ID
      *
      * @param id The ID
@@ -168,4 +134,39 @@ public interface Art extends OldEnum<Art>, Keyed, RegistryAware {
     static Art[] values() {
         return Lists.newArrayList(Registry.ART).toArray(new Art[0]);
     }
+
+    /**
+     * Gets the width of the painting, in blocks
+     *
+     * @return The width of the painting, in blocks
+     */
+    int getBlockWidth();
+
+    /**
+     * Gets the height of the painting, in blocks
+     *
+     * @return The height of the painting, in blocks
+     */
+    int getBlockHeight();
+
+    /**
+     * {@inheritDoc}
+     *
+     * @see #getKeyOrThrow()
+     * @see #isRegistered()
+     * @deprecated A key might not always be present, use {@link #getKeyOrThrow()} instead.
+     */
+    @NotNull
+    @Override
+    @Deprecated(since = "1.21.4")
+    NamespacedKey getKey();
+
+    /**
+     * Get the ID of this painting.
+     *
+     * @return The ID of this painting
+     * @deprecated Magic value
+     */
+    @Deprecated(since = "1.6.2")
+    int getId();
 }

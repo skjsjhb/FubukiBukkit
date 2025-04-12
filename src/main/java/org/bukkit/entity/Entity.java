@@ -1,14 +1,6 @@
 package org.bukkit.entity;
 
-import java.util.List;
-import java.util.Set;
-import java.util.UUID;
-import org.bukkit.EntityEffect;
-import org.bukkit.Location;
-import org.bukkit.Nameable;
-import org.bukkit.Server;
-import org.bukkit.Sound;
-import org.bukkit.World;
+import org.bukkit.*;
 import org.bukkit.block.BlockFace;
 import org.bukkit.block.PistonMoveReaction;
 import org.bukkit.command.CommandSender;
@@ -23,6 +15,10 @@ import org.jetbrains.annotations.ApiStatus;
 import org.jetbrains.annotations.Contract;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
+
+import java.util.List;
+import java.util.Set;
+import java.util.UUID;
 
 /**
  * Represents a base entity in the world
@@ -54,19 +50,19 @@ public interface Entity extends Metadatable, CommandSender, Nameable, Persistent
     public Location getLocation(@Nullable Location loc);
 
     /**
-     * Sets this entity's velocity in meters per tick
-     *
-     * @param velocity New velocity to travel with
-     */
-    public void setVelocity(@NotNull Vector velocity);
-
-    /**
      * Gets this entity's current velocity
      *
      * @return Current traveling velocity of this entity
      */
     @NotNull
     public Vector getVelocity();
+
+    /**
+     * Sets this entity's velocity in meters per tick
+     *
+     * @param velocity New velocity to travel with
+     */
+    public void setVelocity(@NotNull Vector velocity);
 
     /**
      * Gets the entity's height
@@ -123,7 +119,7 @@ public interface Entity extends Metadatable, CommandSender, Nameable, Persistent
      * <p>
      * Note that if the entity is affected by AI, it may override this rotation.
      *
-     * @param yaw the yaw
+     * @param yaw   the yaw
      * @param pitch the pitch
      * @throws UnsupportedOperationException if used for players
      */
@@ -143,7 +139,7 @@ public interface Entity extends Metadatable, CommandSender, Nameable, Persistent
      * vehicle, it will be dismounted prior to teleportation.
      *
      * @param location New location to teleport this entity to
-     * @param cause The cause of this teleportation
+     * @param cause    The cause of this teleportation
      * @return <code>true</code> if the teleport was successful
      */
     public boolean teleport(@NotNull Location location, @NotNull TeleportCause cause);
@@ -162,7 +158,7 @@ public interface Entity extends Metadatable, CommandSender, Nameable, Persistent
      * vehicle, it will be dismounted prior to teleportation.
      *
      * @param destination Entity to teleport this entity to
-     * @param cause The cause of this teleportation
+     * @param cause       The cause of this teleportation
      * @return <code>true</code> if the teleport was successful
      */
     public boolean teleport(@NotNull Entity destination, @NotNull TeleportCause cause);
@@ -195,13 +191,6 @@ public interface Entity extends Metadatable, CommandSender, Nameable, Persistent
     public int getFireTicks();
 
     /**
-     * Returns the entity's maximum fire ticks.
-     *
-     * @return int maxFireTicks
-     */
-    public int getMaxFireTicks();
-
-    /**
      * Sets the entity's current fire ticks (ticks before the entity stops
      * being on fire).
      *
@@ -210,11 +199,11 @@ public interface Entity extends Metadatable, CommandSender, Nameable, Persistent
     public void setFireTicks(int ticks);
 
     /**
-     * Sets if the entity has visual fire (it will always appear to be on fire).
+     * Returns the entity's maximum fire ticks.
      *
-     * @param fire whether visual fire is enabled
+     * @return int maxFireTicks
      */
-    void setVisualFire(boolean fire);
+    public int getMaxFireTicks();
 
     /**
      * Gets if the entity has visual fire (it will always appear to be on fire).
@@ -222,6 +211,13 @@ public interface Entity extends Metadatable, CommandSender, Nameable, Persistent
      * @return whether visual fire is enabled
      */
     boolean isVisualFire();
+
+    /**
+     * Sets if the entity has visual fire (it will always appear to be on fire).
+     *
+     * @param fire whether visual fire is enabled
+     */
+    void setVisualFire(boolean fire);
 
     /**
      * Returns the entity's current freeze ticks (amount of ticks the entity has
@@ -232,20 +228,20 @@ public interface Entity extends Metadatable, CommandSender, Nameable, Persistent
     int getFreezeTicks();
 
     /**
-     * Returns the entity's maximum freeze ticks (amount of ticks before it will
-     * be fully frozen)
-     *
-     * @return int max freeze ticks
-     */
-    int getMaxFreezeTicks();
-
-    /**
      * Sets the entity's current freeze ticks (amount of ticks the entity has
      * been in powdered snow).
      *
      * @param ticks Current ticks
      */
     void setFreezeTicks(int ticks);
+
+    /**
+     * Returns the entity's maximum freeze ticks (amount of ticks before it will
+     * be fully frozen)
+     *
+     * @return int max freeze ticks
+     */
+    int getMaxFreezeTicks();
 
     /**
      * Gets if the entity is fully frozen (it has been in powdered snow for max
@@ -392,6 +388,16 @@ public interface Entity extends Metadatable, CommandSender, Nameable, Persistent
     public void setFallDistance(float distance);
 
     /**
+     * Retrieve the last {@link EntityDamageEvent} inflicted on this entity.
+     * This event may have been cancelled.
+     *
+     * @return the last known {@link EntityDamageEvent} or null if hitherto
+     * unharmed
+     */
+    @Nullable
+    public EntityDamageEvent getLastDamageCause();
+
+    /**
      * Record the last {@link EntityDamageEvent} inflicted on this entity
      *
      * @param event a {@link EntityDamageEvent}
@@ -399,16 +405,6 @@ public interface Entity extends Metadatable, CommandSender, Nameable, Persistent
      */
     @Deprecated(since = "1.20.4", forRemoval = true)
     public void setLastDamageCause(@Nullable EntityDamageEvent event);
-
-    /**
-     * Retrieve the last {@link EntityDamageEvent} inflicted on this entity.
-     * This event may have been cancelled.
-     *
-     * @return the last known {@link EntityDamageEvent} or null if hitherto
-     *     unharmed
-     */
-    @Nullable
-    public EntityDamageEvent getLastDamageCause();
 
     /**
      * Returns a unique and persistent id for this entity
@@ -508,6 +504,16 @@ public interface Entity extends Metadatable, CommandSender, Nameable, Persistent
     public Entity getVehicle();
 
     /**
+     * Gets whether or not the mob's custom name is displayed client side.
+     * <p>
+     * This value has no effect on players, they will always display their
+     * name.
+     *
+     * @return if the custom name is displayed
+     */
+    public boolean isCustomNameVisible();
+
+    /**
      * Sets whether or not to display the mob's custom name client side. The
      * name will be displayed above the mob similarly to a player.
      * <p>
@@ -519,29 +525,8 @@ public interface Entity extends Metadatable, CommandSender, Nameable, Persistent
     public void setCustomNameVisible(boolean flag);
 
     /**
-     * Gets whether or not the mob's custom name is displayed client side.
-     * <p>
-     * This value has no effect on players, they will always display their
-     * name.
-     *
-     * @return if the custom name is displayed
-     */
-    public boolean isCustomNameVisible();
-
-    /**
-     * Sets whether or not this entity is visible by default.
-     *
-     * If this entity is not visible by default, then
-     * {@link Player#showEntity(org.bukkit.plugin.Plugin, org.bukkit.entity.Entity)}
-     * will need to be called before the entity is visible to a given player.
-     *
-     * @param visible default visibility status
-     */
-    public void setVisibleByDefault(boolean visible);
-
-    /**
      * Gets whether or not this entity is visible by default.
-     *
+     * <p>
      * If this entity is not visible by default, then
      * {@link Player#showEntity(org.bukkit.plugin.Plugin, org.bukkit.entity.Entity)}
      * will need to be called before the entity is visible to a given player.
@@ -549,6 +534,17 @@ public interface Entity extends Metadatable, CommandSender, Nameable, Persistent
      * @return default visibility status
      */
     public boolean isVisibleByDefault();
+
+    /**
+     * Sets whether or not this entity is visible by default.
+     * <p>
+     * If this entity is not visible by default, then
+     * {@link Player#showEntity(org.bukkit.plugin.Plugin, org.bukkit.entity.Entity)}
+     * will need to be called before the entity is visible to a given player.
+     *
+     * @param visible default visibility status
+     */
+    public void setVisibleByDefault(boolean visible);
 
     /**
      * Get all players that are currently tracking this entity.
@@ -564,16 +560,6 @@ public interface Entity extends Metadatable, CommandSender, Nameable, Persistent
     Set<Player> getTrackedBy();
 
     /**
-     * Sets whether the entity has a team colored (default: white) glow.
-     *
-     * <b>nb: this refers to the 'Glowing' entity property, not whether a
-     * glowing potion effect is applied</b>
-     *
-     * @param flag if the entity is glowing
-     */
-    void setGlowing(boolean flag);
-
-    /**
      * Gets whether the entity is glowing or not.
      *
      * <b>nb: this refers to the 'Glowing' entity property, not whether a
@@ -584,6 +570,23 @@ public interface Entity extends Metadatable, CommandSender, Nameable, Persistent
     boolean isGlowing();
 
     /**
+     * Sets whether the entity has a team colored (default: white) glow.
+     *
+     * <b>nb: this refers to the 'Glowing' entity property, not whether a
+     * glowing potion effect is applied</b>
+     *
+     * @param flag if the entity is glowing
+     */
+    void setGlowing(boolean flag);
+
+    /**
+     * Gets whether the entity is invulnerable or not.
+     *
+     * @return whether the entity is
+     */
+    public boolean isInvulnerable();
+
+    /**
      * Sets whether the entity is invulnerable or not.
      * <p>
      * When an entity is invulnerable it can only be damaged by players in
@@ -592,13 +595,6 @@ public interface Entity extends Metadatable, CommandSender, Nameable, Persistent
      * @param flag if the entity is invulnerable
      */
     public void setInvulnerable(boolean flag);
-
-    /**
-     * Gets whether the entity is invulnerable or not.
-     *
-     * @return whether the entity is
-     */
-    public boolean isInvulnerable();
 
     /**
      * Gets whether the entity is silent or not.
@@ -760,6 +756,7 @@ public interface Entity extends Metadatable, CommandSender, Nameable, Persistent
     /**
      * Creates a copy of this entity and all its data. Spawns the copy at the given location. <br>
      * <b>Note:</b> Players cannot be copied.
+     *
      * @param to the location to copy to
      * @return a copy of this entity.
      */

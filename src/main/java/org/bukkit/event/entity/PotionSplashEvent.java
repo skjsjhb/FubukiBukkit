@@ -1,9 +1,6 @@
 package org.bukkit.event.entity;
 
 import com.google.common.base.Preconditions;
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.Map;
 import org.bukkit.block.Block;
 import org.bukkit.block.BlockFace;
 import org.bukkit.entity.Entity;
@@ -14,13 +11,17 @@ import org.bukkit.event.HandlerList;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Map;
+
 /**
  * Called when a splash potion hits an area
  */
 public class PotionSplashEvent extends ProjectileHitEvent implements Cancellable {
     private static final HandlerList handlers = new HandlerList();
-    private boolean cancelled;
     private final Map<LivingEntity, Double> affectedEntities;
+    private boolean cancelled;
 
     @Deprecated(since = "1.20.2")
     public PotionSplashEvent(@NotNull final ThrownPotion potion, @NotNull final Map<LivingEntity, Double> affectedEntities) {
@@ -30,6 +31,11 @@ public class PotionSplashEvent extends ProjectileHitEvent implements Cancellable
     public PotionSplashEvent(@NotNull final ThrownPotion potion, @Nullable Entity hitEntity, @Nullable Block hitBlock, @Nullable BlockFace hitFace, @NotNull final Map<LivingEntity, Double> affectedEntities) {
         super(potion, hitEntity, hitBlock, hitFace);
         this.affectedEntities = affectedEntities;
+    }
+
+    @NotNull
+    public static HandlerList getHandlerList() {
+        return handlers;
     }
 
     @NotNull
@@ -64,7 +70,7 @@ public class PotionSplashEvent extends ProjectileHitEvent implements Cancellable
      *
      * @param entity Which entity to get intensity for
      * @return intensity relative to maximum effect; 0.0: not affected; 1.0:
-     *     fully hit by potion effects
+     * fully hit by potion effects
      */
     public double getIntensity(@NotNull LivingEntity entity) {
         Double intensity = affectedEntities.get(entity);
@@ -74,7 +80,7 @@ public class PotionSplashEvent extends ProjectileHitEvent implements Cancellable
     /**
      * Overwrites the intensity for a given entity
      *
-     * @param entity For which entity to define a new intensity
+     * @param entity    For which entity to define a new intensity
      * @param intensity relative to maximum effect
      */
     public void setIntensity(@NotNull LivingEntity entity, double intensity) {
@@ -99,11 +105,6 @@ public class PotionSplashEvent extends ProjectileHitEvent implements Cancellable
     @NotNull
     @Override
     public HandlerList getHandlers() {
-        return handlers;
-    }
-
-    @NotNull
-    public static HandlerList getHandlerList() {
         return handlers;
     }
 }
