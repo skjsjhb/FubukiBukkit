@@ -41,7 +41,9 @@ public abstract class JavaPlugin extends PluginBase {
     private boolean naggable = true;
     private FileConfiguration newConfig = null;
     private File configFile = null;
-    private PluginLogger logger = null;
+
+    // Fubuki
+    private Logger logger = null;
 
     public JavaPlugin() {
         final ClassLoader classLoader = this.getClass().getClassLoader();
@@ -422,6 +424,15 @@ public abstract class JavaPlugin extends PluginBase {
     @Override
     public Logger getLogger() {
         return logger;
+    }
+
+    /**
+     * (Fubuki) Alters the logger for this plugin.
+     * <p>
+     * For internal use only.
+     */
+    public void setLogger(@NotNull Logger logger) {
+        this.logger = logger;
     }
 
     @NotNull
