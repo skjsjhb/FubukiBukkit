@@ -21,11 +21,10 @@ dependencies {
     implementation("com.google.code.gson:gson:2.11.0")
     implementation("org.joml:joml:1.10.8")
     implementation("org.yaml:snakeyaml:2.2")
-
-    compileOnly("org.apache.maven:maven-resolver-provider:3.9.6")
-    compileOnly("org.apache.maven.resolver:maven-resolver-connector-basic:1.9.18")
-    compileOnly("org.apache.maven.resolver:maven-resolver-transport-http:1.9.18")
-    compileOnly("org.jetbrains:annotations-java5:24.1.0")
+    implementation("org.apache.maven:maven-resolver-provider:3.9.6")
+    implementation("org.apache.maven.resolver:maven-resolver-connector-basic:1.9.18")
+    implementation("org.apache.maven.resolver:maven-resolver-transport-http:1.9.18")
+    implementation("org.jetbrains:annotations-java5:24.1.0")
 
     testImplementation("org.junit.jupiter:junit-jupiter:5.10.2")
     testImplementation("org.hamcrest:hamcrest:2.2")
