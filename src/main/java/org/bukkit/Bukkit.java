@@ -68,14 +68,17 @@ public final class Bukkit {
     /**
      * Attempts to set the {@link Server} singleton.
      * <p>
-     * This cannot be done if the Server is already set.
+     * <s>This cannot be done if the Server is already set.</s>
+     * <p>
+     * (Fubuki) The restriction above has been removed to prepare for supporting re-initialization in the future.
      *
      * @param server Server instance
      */
     public static void setServer(@NotNull Server server) {
-        if (Bukkit.server != null) {
-            throw new UnsupportedOperationException("Cannot redefine singleton Server");
-        }
+        // Fubuki
+        // if (Bukkit.server != null) {
+        //    throw new UnsupportedOperationException("Cannot redefine singleton Server");
+        // }
 
         Bukkit.server = server;
         server.getLogger().info("This server is running " + getName() + " version " + getVersion() + " (Implementing API version " + getBukkitVersion() + ")");
