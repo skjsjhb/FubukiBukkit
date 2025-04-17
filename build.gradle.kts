@@ -43,8 +43,11 @@ tasks.withType<JavaCompile> {
 tasks.jar {
     from(
         configurations.runtimeClasspath.get().map {
-            zipTree(it).filterNot { it.path.startsWith("org/slf4j") }
+            zipTree(it)
         }
     )
+
+    exclude("org/slf4j/**/*")
+
     duplicatesStrategy = DuplicatesStrategy.EXCLUDE
 }
