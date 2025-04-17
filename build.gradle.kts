@@ -8,8 +8,6 @@ description = "Forked Bukkit API for Fubuki."
 
 java {
     sourceCompatibility = JavaVersion.VERSION_17
-    withSourcesJar()
-    withJavadocJar()
 }
 
 repositories {
@@ -40,4 +38,9 @@ tasks.test {
 tasks.withType<JavaCompile> {
     options.compilerArgs.add("-Xlint:-deprecation")
     options.compilerArgs.add("-Xlint:-removal")
+}
+
+tasks.jar {
+    from(configurations.runtimeClasspath.get().map { zipTree(it) })
+    duplicatesStrategy = DuplicatesStrategy.EXCLUDE
 }
