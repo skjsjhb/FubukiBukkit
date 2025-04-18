@@ -210,7 +210,7 @@ public class SimpleCommandMap implements CommandMap {
             return null;
         }
 
-        String[] args = cmdLine.substring(spaceIndex + 1, cmdLine.length()).split(" ", -1);
+        String[] args = cmdLine.substring(spaceIndex + 1).split(" ", -1);
 
         try {
             return target.tabComplete(sender, commandName, args, location);
@@ -266,5 +266,9 @@ public class SimpleCommandMap implements CommandMap {
                 knownCommands.remove(alias.toLowerCase(Locale.ROOT));
             }
         }
+    }
+
+    public Map<String, Command> getKnownCommands() {
+        return knownCommands;
     }
 }
